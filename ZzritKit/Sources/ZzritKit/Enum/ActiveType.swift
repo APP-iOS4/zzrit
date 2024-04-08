@@ -8,6 +8,6 @@
 import Foundation
 
 public enum ActiveType: Codable {
-    case active
-    case deactive
+    case activation
+    case deactivation
 }
