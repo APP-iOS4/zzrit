@@ -11,6 +11,7 @@
 		1F3859BC2BC3D2A800C753BD /* RecentSearchCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3859B92BC3D2A800C753BD /* RecentSearchCellView.swift */; };
 		1F3859BD2BC3D2A800C753BD /* SearchingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3859BA2BC3D2A800C753BD /* SearchingView.swift */; };
 		3007E8AF2BC40E6E00B9F7B3 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3007E8AE2BC40E6E00B9F7B3 /* MainView.swift */; };
+		3007E8B22BC4143700B9F7B3 /* SubTitleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3007E8B12BC4143700B9F7B3 /* SubTitleModifier.swift */; };
 		305136FE2BC3C3E400BA41EE /* RoomCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305136FD2BC3C3E400BA41EE /* RoomCategoryView.swift */; };
 		305137012BC3D0AA00BA41EE /* RoomCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305137002BC3D0AA00BA41EE /* RoomCardView.swift */; };
 		309F8ABA2BC3A8570045C6D8 /* GeneralButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */; };
@@ -35,6 +36,7 @@
 		1F3859B92BC3D2A800C753BD /* RecentSearchCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentSearchCellView.swift; sourceTree = "<group>"; };
 		1F3859BA2BC3D2A800C753BD /* SearchingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingView.swift; sourceTree = "<group>"; };
 		3007E8AE2BC40E6E00B9F7B3 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		3007E8B12BC4143700B9F7B3 /* SubTitleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTitleModifier.swift; sourceTree = "<group>"; };
 		305136FD2BC3C3E400BA41EE /* RoomCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCategoryView.swift; sourceTree = "<group>"; };
 		305137002BC3D0AA00BA41EE /* RoomCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCardView.swift; sourceTree = "<group>"; };
 		309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralButton.swift; sourceTree = "<group>"; };
@@ -83,6 +85,14 @@
 			path = SearchingViews;
 			sourceTree = "<group>";
 		};
+		3007E8B02BC4138D00B9F7B3 /* MainModifier */ = {
+			isa = PBXGroup;
+			children = (
+				3007E8B12BC4143700B9F7B3 /* SubTitleModifier.swift */,
+			);
+			path = MainModifier;
+			sourceTree = "<group>";
+		};
 		305136FF2BC3C9C000BA41EE /* ArchieveFile */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +115,7 @@
 		30C1BAC62BC3ECD100827BD1 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				3007E8B02BC4138D00B9F7B3 /* MainModifier */,
 				3007E8AE2BC40E6E00B9F7B3 /* MainView.swift */,
 				30C1BAC92BC3F50A00827BD1 /* MainExistView.swift */,
 				30C1BAC72BC3ED2400827BD1 /* RoomCellView.swift */,
@@ -248,6 +259,7 @@
 			files = (
 				309F8ABA2BC3A8570045C6D8 /* GeneralButton.swift in Sources */,
 				3007E8AF2BC40E6E00B9F7B3 /* MainView.swift in Sources */,
+				3007E8B22BC4143700B9F7B3 /* SubTitleModifier.swift in Sources */,
 				30C1BACA2BC3F50A00827BD1 /* MainExistView.swift in Sources */,
 				1F3859B82BC3D29500C753BD /* Configs.swift in Sources */,
 				FCAF4A1C2BC40CBA00603C2D /* SignUpAgreeButton.swift in Sources */,

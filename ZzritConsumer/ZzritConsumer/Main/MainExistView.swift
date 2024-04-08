@@ -12,9 +12,7 @@ struct MainExistView: View {
         LazyVStack(alignment: .leading) {
             // 모임 리스트 타이틀
             Text("최근 생성된 모임")
-                .padding(.horizontal, 20)
-                .font(.title3)
-                .fontWeight(.bold)
+                .modifier(SubTitleModifier())
             
             ForEach(1...9, id: \.self) { _ in
                 RoomCellView()
