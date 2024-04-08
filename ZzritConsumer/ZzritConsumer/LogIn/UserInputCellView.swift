@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LoginInputView: View {
+struct UserInputCellView: View {
     @Binding var text: String
     @FocusState private var focused: Bool
     
@@ -21,6 +21,10 @@ struct LoginInputView: View {
         } else {
             return 1.0
         }
+    }
+    
+    var symbolColor: Color {
+        return focused ? Color.staticGray3 : Color.staticGray4
     }
     
     var backgroundShadowOpacity: Double {
@@ -37,13 +41,13 @@ struct LoginInputView: View {
                 Image(systemName: "\(symbol)")
                     .font(.title3)
                     .fontWeight(.medium)
-                    .foregroundStyle(Color.staticGray3)
+                    .foregroundStyle(symbolColor)
                 
                 ZStack {
                     Text("\(title)")
                         .font(.subheadline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.staticGray3)
+                        .foregroundStyle(symbolColor)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .allowsHitTesting(false)
                         .offset(y: 0)
@@ -83,5 +87,5 @@ struct LoginInputView: View {
 }
 
 #Preview {
-    LoginInputView(text: .constant(""), title: "아이디", symbol: "gearshape")
+    UserInputCellView(text: .constant(""), title: "아이디", symbol: "gearshape")
 }
