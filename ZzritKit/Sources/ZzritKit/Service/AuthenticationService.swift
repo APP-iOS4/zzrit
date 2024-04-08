@@ -10,8 +10,8 @@ import Foundation
 import FirebaseAuth
 
 @available(iOS 16.0.0, *)
-final class AuthenticationService: ObservableObject {
-    static let shared = AuthenticationService()
+public final class AuthenticationService: ObservableObject {
+    public static let shared = AuthenticationService()
     
     var firebaseConstants = FirebaseConstants()
     
@@ -28,7 +28,7 @@ final class AuthenticationService: ObservableObject {
     }
     
     /// 로그인
-    func loginUser(email: String, password: String) async throws {
+    public func loginUser(email: String, password: String) async throws {
         do {
             try await Auth.auth().signIn(withEmail: email, password: password)
         } catch {
@@ -37,7 +37,7 @@ final class AuthenticationService: ObservableObject {
     }
     
     /// 로그아웃
-    func logout() throws {
+    public func logout() throws {
         do {
             try Auth.auth().signOut()
         } catch {
@@ -46,7 +46,7 @@ final class AuthenticationService: ObservableObject {
     }
     
     /// 비밀번호 재설정
-    func resetPassword(email: String) async throws {
+    public func resetPassword(email: String) async throws {
         do {
             try await Auth.auth().sendPasswordReset(withEmail: email)
         } catch {
@@ -55,10 +55,10 @@ final class AuthenticationService: ObservableObject {
     }
     
     /// 회원가입
-    func register(email: String, password: String) async throws {
+    public func register(email: String, password: String) async throws -> AuthDataResult {
         do {
             // Firebase Authentication에 계정 등록
-            let _ = try await Auth.auth().createUser(withEmail: email, password: password)
+            return try await Auth.auth().createUser(withEmail: email, password: password)
         } catch {
             throw error
         }

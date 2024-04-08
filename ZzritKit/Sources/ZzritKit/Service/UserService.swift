@@ -12,6 +12,8 @@ public final class UserService {
     private let firebaseConst = FirebaseConstants()
     private let authService = AuthenticationService.shared
     
+    public init() { }
+    
     var currentUser: UserModel? {
         if let uid = authService.currentUID {
             Task {
