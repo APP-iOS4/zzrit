@@ -13,6 +13,7 @@
 		3B09C1FF2BC3836200EA9D54 /* ComplaintManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C1FE2BC3836200EA9D54 /* ComplaintManagementView.swift */; };
 		3B09C2022BC3838D00EA9D54 /* AnnouncementManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2012BC3838D00EA9D54 /* AnnouncementManagementView.swift */; };
 		3B09C2052BC383D300EA9D54 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2042BC383D300EA9D54 /* SettingsView.swift */; };
+		9BEB2FBD2BC3A6D3009C398F /* UserInfoModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */; };
 		DF54D2392BC36C6600D72491 /* ZzritAdministratorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D2382BC36C6600D72491 /* ZzritAdministratorApp.swift */; };
 		DF54D23B2BC36C6600D72491 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D23A2BC36C6600D72491 /* ContentView.swift */; };
 		DF54D23D2BC36C6800D72491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D23C2BC36C6800D72491 /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		3B09C1FE2BC3836200EA9D54 /* ComplaintManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintManagementView.swift; sourceTree = "<group>"; };
 		3B09C2012BC3838D00EA9D54 /* AnnouncementManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementManagementView.swift; sourceTree = "<group>"; };
 		3B09C2042BC383D300EA9D54 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModalView.swift; sourceTree = "<group>"; };
 		DF54D2352BC36C6600D72491 /* ZzritAdministrator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritAdministrator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF54D2382BC36C6600D72491 /* ZzritAdministratorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzritAdministratorApp.swift; sourceTree = "<group>"; };
 		DF54D23A2BC36C6600D72491 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				3B09C1F52BC37E9100EA9D54 /* UserManageTableView.swift */,
+				9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */,
 			);
 			path = UserManageTableView;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BEB2FBD2BC3A6D3009C398F /* UserInfoModalView.swift in Sources */,
 				DF54D23B2BC36C6600D72491 /* ContentView.swift in Sources */,
 				3B09C2052BC383D300EA9D54 /* SettingsView.swift in Sources */,
 				3B09C1F62BC37E9100EA9D54 /* UserManageTableView.swift in Sources */,

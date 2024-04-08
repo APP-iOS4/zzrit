@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		305136FE2BC3C3E400BA41EE /* RoomCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305136FD2BC3C3E400BA41EE /* RoomCategoryView.swift */; };
 		309F8ABA2BC3A8570045C6D8 /* GeneralButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */; };
+		309F8ABC2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F8ABB2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift */; };
 		DF54D21F2BC36C4500D72491 /* ZzritConsumerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */; };
 		DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D2202BC36C4500D72491 /* ContentView.swift */; };
 		DF54D2232BC36C4800D72491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D2222BC36C4800D72491 /* Assets.xcassets */; };
@@ -18,7 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		305136FD2BC3C3E400BA41EE /* RoomCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCategoryView.swift; sourceTree = "<group>"; };
 		309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralButton.swift; sourceTree = "<group>"; };
+		309F8ABB2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchieveSelectionButtonView.swift; sourceTree = "<group>"; };
 		DF54D21B2BC36C4500D72491 /* ZzritConsumer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritConsumer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzritConsumerApp.swift; sourceTree = "<group>"; };
 		DF54D2202BC36C4500D72491 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -40,10 +44,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		305136FF2BC3C9C000BA41EE /* ArchieveFile */ = {
+			isa = PBXGroup;
+			children = (
+				309F8ABB2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift */,
+			);
+			path = ArchieveFile;
+			sourceTree = "<group>";
+		};
 		309F8AB82BC3A7D50045C6D8 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				305136FF2BC3C9C000BA41EE /* ArchieveFile */,
 				309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */,
+				305136FD2BC3C3E400BA41EE /* RoomCategoryView.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -176,10 +190,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				309F8ABA2BC3A8570045C6D8 /* GeneralButton.swift in Sources */,
+				309F8ABC2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift in Sources */,
 				DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */,
 				FCCCEEB62BC3B56600DABCA6 /* LoginInputView.swift in Sources */,
 				FCCCEEB52BC3B56600DABCA6 /* LogInView.swift in Sources */,
 				DF54D21F2BC36C4500D72491 /* ZzritConsumerApp.swift in Sources */,
+				305136FE2BC3C3E400BA41EE /* RoomCategoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
