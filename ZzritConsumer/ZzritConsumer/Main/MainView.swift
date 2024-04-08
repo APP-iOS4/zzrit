@@ -38,7 +38,12 @@ struct MainView: View {
             // 오른쪽 알림 창
             ToolbarItem(placement: .topBarTrailing) {
                 HStack {
-                    Image(systemName: "bell")
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "bell")
+                            .foregroundStyle(.black)
+                    }
                 }
             }
         }

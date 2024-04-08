@@ -16,7 +16,12 @@ struct MainExistView: View {
             
             ForEach(1...9, id: \.self) { _ in
                 // 모임 리스트 셀 불러오기
-                RoomCellView()
+                NavigationLink {
+                    // 상세페이지 뷰 연결
+                    Text("상세페이지 뷰")
+                } label: {
+                    RoomCellView()
+                }
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 10)
