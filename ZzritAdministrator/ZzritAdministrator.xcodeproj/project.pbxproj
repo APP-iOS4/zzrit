@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B09C1F62BC37E9100EA9D54 /* UserManageTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C1F52BC37E9100EA9D54 /* UserManageTableView.swift */; };
+		3B09C1F82BC37EA100EA9D54 /* PlaygroundManageMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C1F72BC37EA100EA9D54 /* PlaygroundManageMainView.swift */; };
+		3B09C1FA2BC37EB800EA9D54 /* QnaManageMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C1F92BC37EB800EA9D54 /* QnaManageMainView.swift */; };
+		3B09C1FF2BC3836200EA9D54 /* ComplaintManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C1FE2BC3836200EA9D54 /* ComplaintManagementView.swift */; };
+		3B09C2022BC3838D00EA9D54 /* AnnouncementManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2012BC3838D00EA9D54 /* AnnouncementManagementView.swift */; };
+		3B09C2052BC383D300EA9D54 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2042BC383D300EA9D54 /* SettingsView.swift */; };
 		DF54D2392BC36C6600D72491 /* ZzritAdministratorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D2382BC36C6600D72491 /* ZzritAdministratorApp.swift */; };
 		DF54D23B2BC36C6600D72491 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D23A2BC36C6600D72491 /* ContentView.swift */; };
 		DF54D23D2BC36C6800D72491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D23C2BC36C6800D72491 /* Assets.xcassets */; };
@@ -15,6 +21,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B09C1F52BC37E9100EA9D54 /* UserManageTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManageTableView.swift; sourceTree = "<group>"; };
+		3B09C1F72BC37EA100EA9D54 /* PlaygroundManageMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundManageMainView.swift; sourceTree = "<group>"; };
+		3B09C1F92BC37EB800EA9D54 /* QnaManageMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QnaManageMainView.swift; sourceTree = "<group>"; };
+		3B09C1FE2BC3836200EA9D54 /* ComplaintManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintManagementView.swift; sourceTree = "<group>"; };
+		3B09C2012BC3838D00EA9D54 /* AnnouncementManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementManagementView.swift; sourceTree = "<group>"; };
+		3B09C2042BC383D300EA9D54 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		DF54D2352BC36C6600D72491 /* ZzritAdministrator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritAdministrator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF54D2382BC36C6600D72491 /* ZzritAdministratorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzritAdministratorApp.swift; sourceTree = "<group>"; };
 		DF54D23A2BC36C6600D72491 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -35,6 +47,76 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B09C1F32BC37DDF00EA9D54 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				DF54D2382BC36C6600D72491 /* ZzritAdministratorApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		3B09C1F42BC37DF200EA9D54 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DF54D23A2BC36C6600D72491 /* ContentView.swift */,
+				3B09C1FB2BC380FE00EA9D54 /* UserManageTableView */,
+				3B09C1FC2BC3811600EA9D54 /* PlaygroundManageMainView */,
+				3B09C1FD2BC3813B00EA9D54 /* QnaManageMainView */,
+				3B09C2002BC3836A00EA9D54 /* ComplaintManagementView */,
+				3B09C2032BC383A200EA9D54 /* AnnouncementManagementView */,
+				3B09C2062BC383D600EA9D54 /* SettingsView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3B09C1FB2BC380FE00EA9D54 /* UserManageTableView */ = {
+			isa = PBXGroup;
+			children = (
+				3B09C1F52BC37E9100EA9D54 /* UserManageTableView.swift */,
+			);
+			path = UserManageTableView;
+			sourceTree = "<group>";
+		};
+		3B09C1FC2BC3811600EA9D54 /* PlaygroundManageMainView */ = {
+			isa = PBXGroup;
+			children = (
+				3B09C1F72BC37EA100EA9D54 /* PlaygroundManageMainView.swift */,
+			);
+			path = PlaygroundManageMainView;
+			sourceTree = "<group>";
+		};
+		3B09C1FD2BC3813B00EA9D54 /* QnaManageMainView */ = {
+			isa = PBXGroup;
+			children = (
+				3B09C1F92BC37EB800EA9D54 /* QnaManageMainView.swift */,
+			);
+			path = QnaManageMainView;
+			sourceTree = "<group>";
+		};
+		3B09C2002BC3836A00EA9D54 /* ComplaintManagementView */ = {
+			isa = PBXGroup;
+			children = (
+				3B09C1FE2BC3836200EA9D54 /* ComplaintManagementView.swift */,
+			);
+			path = ComplaintManagementView;
+			sourceTree = "<group>";
+		};
+		3B09C2032BC383A200EA9D54 /* AnnouncementManagementView */ = {
+			isa = PBXGroup;
+			children = (
+				3B09C2012BC3838D00EA9D54 /* AnnouncementManagementView.swift */,
+			);
+			path = AnnouncementManagementView;
+			sourceTree = "<group>";
+		};
+		3B09C2062BC383D600EA9D54 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				3B09C2042BC383D300EA9D54 /* SettingsView.swift */,
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
 		DF54D22C2BC36C6600D72491 = {
 			isa = PBXGroup;
 			children = (
@@ -55,8 +137,8 @@
 		DF54D2372BC36C6600D72491 /* ZzritAdministrator */ = {
 			isa = PBXGroup;
 			children = (
-				DF54D2382BC36C6600D72491 /* ZzritAdministratorApp.swift */,
-				DF54D23A2BC36C6600D72491 /* ContentView.swift */,
+				3B09C1F32BC37DDF00EA9D54 /* App */,
+				3B09C1F42BC37DF200EA9D54 /* Views */,
 				DF54D23C2BC36C6800D72491 /* Assets.xcassets */,
 				DF54D23E2BC36C6800D72491 /* ZzritAdministrator.entitlements */,
 				DF54D23F2BC36C6800D72491 /* Preview Content */,
@@ -153,7 +235,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF54D23B2BC36C6600D72491 /* ContentView.swift in Sources */,
+				3B09C2052BC383D300EA9D54 /* SettingsView.swift in Sources */,
+				3B09C1F62BC37E9100EA9D54 /* UserManageTableView.swift in Sources */,
 				DF54D2392BC36C6600D72491 /* ZzritAdministratorApp.swift in Sources */,
+				3B09C1FF2BC3836200EA9D54 /* ComplaintManagementView.swift in Sources */,
+				3B09C1FA2BC37EB800EA9D54 /* QnaManageMainView.swift in Sources */,
+				3B09C1F82BC37EA100EA9D54 /* PlaygroundManageMainView.swift in Sources */,
+				3B09C2022BC3838D00EA9D54 /* AnnouncementManagementView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
