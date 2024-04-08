@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1FA3224C2BC3B8FE003810AC /* RecentSearchCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA3224B2BC3B8FE003810AC /* RecentSearchCellView.swift */; };
+		1FA3224F2BC3C0D2003810AC /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA3224E2BC3C0D2003810AC /* Configs.swift */; };
+		1FEFC8892BC3B65D0044C983 /* SearchingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEFC8882BC3B65D0044C983 /* SearchingView.swift */; };
 		309F8ABA2BC3A8570045C6D8 /* GeneralButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */; };
 		DF54D21F2BC36C4500D72491 /* ZzritConsumerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */; };
 		DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D2202BC36C4500D72491 /* ContentView.swift */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1FA3224B2BC3B8FE003810AC /* RecentSearchCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchCellView.swift; sourceTree = "<group>"; };
+		1FA3224E2BC3C0D2003810AC /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
+		1FEFC8882BC3B65D0044C983 /* SearchingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingView.swift; sourceTree = "<group>"; };
 		309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralButton.swift; sourceTree = "<group>"; };
 		DF54D21B2BC36C4500D72491 /* ZzritConsumer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritConsumer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzritConsumerApp.swift; sourceTree = "<group>"; };
@@ -36,6 +42,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1FA3224D2BC3C09D003810AC /* ConsumerConfigs */ = {
+			isa = PBXGroup;
+			children = (
+				1FA3224E2BC3C0D2003810AC /* Configs.swift */,
+			);
+			path = ConsumerConfigs;
+			sourceTree = "<group>";
+		};
+		1FEFC8872BC3B5F30044C983 /* SearchingViews */ = {
+			isa = PBXGroup;
+			children = (
+				1FEFC8882BC3B65D0044C983 /* SearchingView.swift */,
+				1FA3224B2BC3B8FE003810AC /* RecentSearchCellView.swift */,
+			);
+			path = SearchingViews;
+			sourceTree = "<group>";
+		};
 		309F8AB82BC3A7D50045C6D8 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
@@ -65,7 +88,9 @@
 			isa = PBXGroup;
 			children = (
 				DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */,
+				1FA3224D2BC3C09D003810AC /* ConsumerConfigs */,
 				DF54D2202BC36C4500D72491 /* ContentView.swift */,
+				1FEFC8872BC3B5F30044C983 /* SearchingViews */,
 				309F8AB82BC3A7D50045C6D8 /* Commons */,
 				DF54D2222BC36C4800D72491 /* Assets.xcassets */,
 				DF54D2242BC36C4800D72491 /* Preview Content */,
@@ -162,8 +187,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				309F8ABA2BC3A8570045C6D8 /* GeneralButton.swift in Sources */,
+				1FEFC8892BC3B65D0044C983 /* SearchingView.swift in Sources */,
 				DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */,
+				1FA3224C2BC3B8FE003810AC /* RecentSearchCellView.swift in Sources */,
 				DF54D21F2BC36C4500D72491 /* ZzritConsumerApp.swift in Sources */,
+				1FA3224F2BC3C0D2003810AC /* Configs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
