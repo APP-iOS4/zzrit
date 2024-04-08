@@ -19,6 +19,16 @@ public struct UserModel: Codable, Identifiable {
     public var birthYear: Int
     public var staticGuage: Double
     
+    public init(id: String? = nil, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGuage: Double) {
+        self.id = id
+        self.userID = userID
+        self.userName = userName
+        self.userImage = userImage
+        self.gender = gender
+        self.birthYear = birthYear
+        self.staticGuage = staticGuage
+    }
+    
     // FIXME: 프로필 이미지 비어있을 경우 보일 이미지 URL 추가 (25 line)
     
     public var profileImage: URL {

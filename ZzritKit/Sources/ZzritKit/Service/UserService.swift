@@ -14,16 +14,20 @@ public final class UserService {
     
     public init() { }
     
-    var currentUser: UserModel? {
+    public func LoginedUserInfo() async throws -> UserModel? {
         if let uid = authService.currentUID {
-            Task {
-                return try await getUserInfo(uid: uid)
-            }
+            return try await getUserInfo(uid: uid)
+        } else {
+            return nil
         }
-        return nil
     }
     
     public func getUserInfo(uid: String) async throws -> UserModel? {
         return try await firebaseConst.userCollection.document(uid).getDocument(as: UserModel.self)
+        
+    }
+    
+    public func setUserInfo(uid: String, info: UserModel) throws {
+        try firebaseConst.userCollection.document(uid).setData(from: info, merge: true)
     }
 }
