@@ -15,9 +15,8 @@ struct MainView: View {
                     // 마감 임박 타이틀
                     Text("인원 마감 임박")
                         .modifier(SubTitleModifier())
+                        .padding(.top, 20)
                 }
-                .padding(.top, 20)
-                
                 // 모임 카트 뷰 리스트 불러오기
                 RoomCardListView()
                 
