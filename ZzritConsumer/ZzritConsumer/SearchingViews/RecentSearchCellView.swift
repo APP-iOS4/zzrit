@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
+
 import ZzritKit
 
+/// 최근 검색어 셀 뷰
+/// - Parameters:
+///     - context: 최근 검색어 내용
 struct RecentSearchCellView: View {
+    /// 최근 검색어 내용
     var context: String
     
     var body: some View {
-            
         HStack(spacing: 10.0) {
             /// 실제 검색 기록 텍스트
             Text(context)
@@ -28,6 +32,7 @@ struct RecentSearchCellView: View {
             }
         }
         .padding()
+        /// 피그마에서는 trailing에 좀 더 공백이 있는데, 안 이쁜거 같아서 주석처리 해놓음.
         // .padding(.trailing, 15.0)
         .background {
             RoundedRectangle(cornerRadius: Configs.cornerRadius)
