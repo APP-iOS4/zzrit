@@ -151,13 +151,22 @@ struct SignUpView: View {
             if signUpPw1 == signUpPw2 {
                 equlText = true
                 if selectAgree {
-                    isSignUpButtonActive = true
+                    if checkEmail(signUpId) {
+                        isSignUpButtonActive = true
+                    } else {
+                        isSignUpButtonActive = false
+                    }
+                } else {
+                    isSignUpButtonActive = false
                 }
+            } else {
+                isSignUpButtonActive = false
             }
         } else {
             isSignUpButtonActive = false
         }
     }
+    
     func checkEmail( _ str: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         return  NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: str)
