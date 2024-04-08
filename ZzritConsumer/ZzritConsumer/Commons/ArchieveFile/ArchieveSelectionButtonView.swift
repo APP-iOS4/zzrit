@@ -9,7 +9,7 @@ import SwiftUI
 
 import ZzritKit
 
-struct SelectionButtonView: View {
+struct ArchieveSelectionButtonView: View {
     // 선택 여부
     var isSelected: Bool
     // 버튼 텍스트 변수
@@ -47,7 +47,7 @@ struct SelectionButtonView: View {
 }
 
 #Preview {
-    SelectionButtonView("남자") {
+    ArchieveSelectionButtonView("남자") {
         print("남자")
     }
 }
