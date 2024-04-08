@@ -12,10 +12,16 @@ struct MainView: View {
         NavigationStack {
             VStack {
                 ScrollView {
+                    ScrollView(.horizontal) {
+                        
+                    }
+                    
+                    // 최근 생성된 모임 리스트 불러오기
                     MainExistView()
                 }
             }
             .toolbar {
+                // 왼쪽 앱 메인 로고
                 ToolbarItem(placement: .topBarLeading) {
                     HStack(spacing: 0) {
                         Text("ZZ!RIT")
@@ -24,6 +30,7 @@ struct MainView: View {
                     .fontWeight(.black)
                 }
                 
+                // 오른쪽 알림 창
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack {
                         Image(systemName: "bell")

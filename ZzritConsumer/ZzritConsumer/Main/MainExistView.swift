@@ -15,6 +15,7 @@ struct MainExistView: View {
                 .modifier(SubTitleModifier())
             
             ForEach(1...9, id: \.self) { _ in
+                // 모임 리스트 셀 불러오기
                 RoomCellView()
             }
             .padding(.horizontal, 20)
