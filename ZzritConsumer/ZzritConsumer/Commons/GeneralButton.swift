@@ -1,8 +1,8 @@
 //
 //  GeneralButton.swift
-//  NewStatic
+//  Zzrit
 //
-//  Created by Sanghyeon Park on 3/19/24.
+//  Created by 하윤호 on 3/19/24.
 //
 
 import SwiftUI
