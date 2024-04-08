@@ -37,6 +37,11 @@ public struct RoomModel: Identifiable, Codable {
     public var leaderID: String
     /// 모임 최대 인원
     public var limitPeople: Int
+    /// 성별 제한
+    public var genderLimitation: GenderType?
+    /// 점수 제한
+    public var scoreLimitation: Int?
+    
     
     /// 모임 종료 시간
     public func limitTime(time: Int = 24) -> Date {
