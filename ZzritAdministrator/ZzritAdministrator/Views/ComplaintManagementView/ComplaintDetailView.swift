@@ -26,7 +26,7 @@ struct ComplaintDetailView: View {
                         Button {
                             isShowingModalView.toggle()
                         } label: {
-                            Text("목록보기")
+                            StaticTextView(title: "목록 보기", width: 120, isActive: .constant(true))
                         }
                         
                         Spacer()
@@ -36,12 +36,9 @@ struct ComplaintDetailView: View {
                                 isQnaAlert.toggle()
                             }
                         } label: {
-                            Text("답변 등록")
+                            StaticTextView(title: "답변 등록", width: 120, isActive: .constant(true))
                         }
                     }
-                    .tint(.pointColor)
-                    .buttonBorderShape(.roundedRectangle)
-                    .buttonStyle(.borderedProminent)
                 }
                 if isShowingGroupInfo{
                     VStack {
@@ -127,14 +124,9 @@ struct QnaManageUserInfoView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.staticGray3, lineWidth: 1.0)
             }
-            Text("72W")
-                .foregroundStyle(.background)
-                .font(.title.weight(.bold))
-                .padding(10)
-                .background {
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundStyle(Color.pointColor)
-                }
+            StaticTextView(title: "72W", width: 100, isActive: .constant(true))
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
         }
     }
 }
