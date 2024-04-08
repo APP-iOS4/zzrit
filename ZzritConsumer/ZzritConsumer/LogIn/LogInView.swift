@@ -21,7 +21,7 @@ struct LogInView: View {
         NavigationStack {
             VStack {
                 // TODO: 로고 이미지 삽입
-                Image("StaticLogo")
+                Image("ZziritLogoImage")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 200)
