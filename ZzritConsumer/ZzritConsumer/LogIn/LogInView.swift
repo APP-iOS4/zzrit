@@ -16,10 +16,12 @@ struct LogInView: View {
     @State var failLogin = false
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack {
+            // TODO: 로고 이미지 삽입
             Image("StaticLogo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
+                .frame(height: 200)
             Text("만나는 순간의 짜릿함")
                 .font(.title3)
                 .fontWeight(.bold)
@@ -28,11 +30,14 @@ struct LogInView: View {
                 .font(.largeTitle)
                 .fontWeight(.heavy)
                 .foregroundStyle(Color.pointColor)
+            
             if failLogin {
                 Text("로그인 정보를 다시 확인해 주세요.")
             } else {
                 Text("")
             }
+            
+            // MARK: 로그인 입력란
             if #available(iOS 17.0, *) {
                 LoginInputView(text: $id, title: "이메일", symbol: "envelope")
                     .onChange(of: id, {
@@ -43,7 +48,6 @@ struct LogInView: View {
                         activeLoginButton()
                     })
             } else {
-                // Fallback on earlier versions
                 LoginInputView(text: $id, title: "이메일", symbol: "envelope")
                     .onChange(of: id, perform: { value in
                         activeLoginButton()
@@ -53,6 +57,7 @@ struct LogInView: View {
                         activeLoginButton()
                     })
             }
+            Spacer()
             HStack {
                 Button(action: {
                     
@@ -68,18 +73,25 @@ struct LogInView: View {
                 })
                 .foregroundColor(Color.pointColor)
             }
+            
             GeneralButton(isDisabled: !isLoginButtonActive, "로그인") {
-                print("asdfasdfasdfasdfasdf")
+                
             }
+
+            Spacer()
+            
         }
+        .padding(20)
     }
+    
     func activeLoginButton() {
         if !id.isEmpty && !pw.isEmpty {
-            isLoginButtonActive.toggle()
+            isLoginButtonActive = true
         } else {
             isLoginButtonActive = false
         }
     }
+    
 }
 
 #Preview {
