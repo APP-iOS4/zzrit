@@ -68,15 +68,12 @@ struct LogInView: View {
                 .font(.subheadline)
                 .foregroundColor(Color.pointColor)
                 GeneralButton(isDisabled: !isLoginButtonActive, "로그인") {
-                    // MARK: 실패시 failLogIn = true
+                    // TODO: 실패시 failLogIn = true 성공시 MainView
                 }
                 if failLogIn {
-                    Text("로그인 정보를 다시 확인해 주세요.")
-                        .font(.subheadline)
-                        .foregroundColor(Color.pointColor)
+                    ErrorTextView(title: "로그인 정보를 다시 확인해 주세요.")
                 } else {
-                    Text("")
-                        .font(.subheadline)
+                    SpaceErrorTextView()
                 }
                 Spacer()
                 // MARK: fake용 버튼
