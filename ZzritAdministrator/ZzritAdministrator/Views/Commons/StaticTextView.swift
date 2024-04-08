@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ZzritKit
 
 struct StaticTextView: View {
     
@@ -23,15 +24,12 @@ struct StaticTextView: View {
     var backGroundColor: Color {
         switch selectType {
         case .login:
-            // TODO: 공통 컬러로 교쳬
-            return isActive ? Color.pink : Color.gray
+            return isActive ? Color.pointColor : Color.staticGray4
         case .filter:
-            // TODO: 공통 컬러로 교쳬
-            return isActive ? Color.pink : Color.gray
+            return isActive ? Color.pointColor : Color.staticGray4
          
         case .text:
-            // TODO: 공통 컬러로 교쳬
-            return Color.pink
+            return Color.pointColor
         }
     }
     
@@ -57,5 +55,5 @@ struct StaticTextView: View {
 }
 
 #Preview {
-    StaticTextView(title: "로그인", selectType: .login, isActive: .constant(true))
+    StaticTextView(title: "로그인", selectType: .login, isActive: .constant(false))
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ZzritKit
 
 struct SearchField: View {
     var placeHolder: String = "모임 이름을 입력하세요"
@@ -23,8 +24,7 @@ struct SearchField: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundStyle(.white)
                     .padding()
-                    // TODO: 색상 변경해야 함
-                    .background(Color.gray)
+                    .background(Color.pointColor)
                     .clipShape(UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(bottomTrailing: 10, topTrailing: 10)))
             }
         }
