@@ -14,6 +14,9 @@
 		3B09C2022BC3838D00EA9D54 /* AnnouncementManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2012BC3838D00EA9D54 /* AnnouncementManagementView.swift */; };
 		3B09C2052BC383D300EA9D54 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2042BC383D300EA9D54 /* SettingsView.swift */; };
 		9BEB2FBD2BC3A6D3009C398F /* UserInfoModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */; };
+		3B09C2082BC38A8500EA9D54 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2072BC38A8500EA9D54 /* SearchField.swift */; };
+		3B7350C52BC3A474008C02AE /* StaticTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7350C42BC3A474008C02AE /* StaticTextView.swift */; };
+		3B7350C72BC3A4BC008C02AE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7350C62BC3A4BC008C02AE /* Constants.swift */; };
 		DF54D2392BC36C6600D72491 /* ZzritAdministratorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D2382BC36C6600D72491 /* ZzritAdministratorApp.swift */; };
 		DF54D23B2BC36C6600D72491 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D23A2BC36C6600D72491 /* ContentView.swift */; };
 		DF54D23D2BC36C6800D72491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D23C2BC36C6800D72491 /* Assets.xcassets */; };
@@ -29,6 +32,9 @@
 		3B09C2012BC3838D00EA9D54 /* AnnouncementManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementManagementView.swift; sourceTree = "<group>"; };
 		3B09C2042BC383D300EA9D54 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModalView.swift; sourceTree = "<group>"; };
+		3B09C2072BC38A8500EA9D54 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
+		3B7350C42BC3A474008C02AE /* StaticTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticTextView.swift; sourceTree = "<group>"; };
+		3B7350C62BC3A4BC008C02AE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DF54D2352BC36C6600D72491 /* ZzritAdministrator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritAdministrator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF54D2382BC36C6600D72491 /* ZzritAdministratorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzritAdministratorApp.swift; sourceTree = "<group>"; };
 		DF54D23A2BC36C6600D72491 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -67,6 +73,7 @@
 				3B09C2002BC3836A00EA9D54 /* ComplaintManagementView */,
 				3B09C2032BC383A200EA9D54 /* AnnouncementManagementView */,
 				3B09C2062BC383D600EA9D54 /* SettingsView */,
+				3B7350C32BC3A200008C02AE /* Commons */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -118,6 +125,16 @@
 				3B09C2042BC383D300EA9D54 /* SettingsView.swift */,
 			);
 			path = SettingsView;
+			sourceTree = "<group>";
+		};
+		3B7350C32BC3A200008C02AE /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				3B09C2072BC38A8500EA9D54 /* SearchField.swift */,
+				3B7350C42BC3A474008C02AE /* StaticTextView.swift */,
+				3B7350C62BC3A4BC008C02AE /* Constants.swift */,
+			);
+			path = Commons;
 			sourceTree = "<group>";
 		};
 		DF54D22C2BC36C6600D72491 = {
@@ -238,6 +255,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BEB2FBD2BC3A6D3009C398F /* UserInfoModalView.swift in Sources */,
+				3B09C2082BC38A8500EA9D54 /* SearchField.swift in Sources */,
+				3B7350C72BC3A4BC008C02AE /* Constants.swift in Sources */,
+				3B7350C52BC3A474008C02AE /* StaticTextView.swift in Sources */,
 				DF54D23B2BC36C6600D72491 /* ContentView.swift in Sources */,
 				3B09C2052BC383D300EA9D54 /* SettingsView.swift in Sources */,
 				3B09C1F62BC37E9100EA9D54 /* UserManageTableView.swift in Sources */,
