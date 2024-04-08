@@ -10,12 +10,6 @@ import SwiftUI
 struct RoomCardView: View {
     var titleToHStackPadding: CGFloat
     
-    // MARK: - init
-    
-    init(titleToHStackPadding: CGFloat) {
-        self.titleToHStackPadding = titleToHStackPadding
-    }
-    
     // MARK: - body
     
     var body: some View {
