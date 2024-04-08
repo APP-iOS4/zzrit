@@ -17,7 +17,9 @@ struct PlaygroundManageMainView: View {
     @State private var dummyData = DummyRoom.dummyRooms
     @State private var isActive: Bool = true
     @State private var selectedRoom: DummyRoom? = nil
+    @State private var dummyUsers = DummyUsers.dummyData
     
+    // TODO: 데이터 연결 후 뷰 분리 예정입니다.
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             HStack {
@@ -68,13 +70,11 @@ struct PlaygroundManageMainView: View {
                             }
                         }
                     }
-                    // .padding(.horizontal, 30)
                 }
                 .listStyle(.inset)
                 .overlay {
                     RoundedRectangle(cornerRadius: Constants.commonRadius)
-                    // TODO: 색상 공통으로 쓰기
-                        .stroke(Color.gray, lineWidth: 1.0)
+                        .stroke(Color.staticGray3, lineWidth: 1.0)
                 }
                 .onTapGesture(count: 2, perform: {
                     withAnimation{
@@ -100,68 +100,37 @@ struct PlaygroundManageMainView: View {
                         .padding(.horizontal, 10)
                         
                         List {
-
+                            LabeledContent("방장 ID", value: "\(selectedRoom.leaderID)")
                             
                             Section {
                                 Text("\(selectedRoom.content)")
                             } header: {
                                 Text("모임 소개")
                             }
-                            
-                            Section {
-                                Text(selectedRoom.isOnline ? "위치 정보" : "플랫폼 정보")
-                            } header: {
-                                Text(selectedRoom.isOnline ? "위치" : "플랫폼")
+
+                            /// 온라인 -> LabeledContent, 오프라인 -> Section
+                            if selectedRoom.isOnline {
+                                LabeledContent("플랫폼", value: "플랫폼 정보")
+                            } else {
+                                Section {
+                                    Text("위치정보")
+                                } header: {
+                                    Text("위치")
+                                }
                             }
                             
                             LabeledContent("카테고리", value: selectedRoom.category)
+                            LabeledContent("모임날짜", value: "\(selectedRoom.date)")
                             LabeledContent("종료시간", value: "종료시간")
                             LabeledContent("인원제한", value: "\(selectedRoom.limitPeople)")
-                            LabeledContent("방장 ID", value: "\(selectedRoom.leaderID)")
-                            LabeledContent("시간", value: "\(selectedRoom.date)")
-                            
-//                            Section {
-//                                Text("\(selectedRoom.id)")
-//                            } header: {
-//                                Text("ID")
-//                            }
-//                            Section {
-//                                Text("\(selectedRoom.date)")
-//                            } header: {
-//                                Text("시간")
-//                            }
-//                            Section {
-//                                Text("\(selectedRoom.leaderID)")
-//                            } header: {
-//                                Text("방장")
-//                            }
-//                            
-//                            Section {
-//                                Text("\(selectedRoom.limitPeople)")
-//                            } header: {
-//                                Text("인원 제한")
-//                            }
-//                            
-//                            Section {
-//                                Text("종료 시간")
-//                            } header: {
-//                                Text("종료 시간")
-//                            }
-//                            
-//                            Section {
-//                                Text("\(selectedRoom.category)")
-//                            } header: {
-//                                Text("카테고리")
-//                            }
                         }
-                        .padding(.bottom, 30)
                         .listStyle(.inset)
                         .listRowSeparator(.hidden)
                         .overlay(
                             RoundedRectangle(cornerRadius: Constants.commonRadius)
-                                .stroke(Color.gray, lineWidth: 1.0)
-                                .padding(.bottom, 20)
+                                .stroke(Color.staticGray3, lineWidth: 1.0)
                         )
+                        .padding(.bottom, 20)
                         
                         HStack {
                             Text("참여자 정보")
@@ -170,8 +139,23 @@ struct PlaygroundManageMainView: View {
                         .padding(.leading, 10)
                         .padding(.bottom, 10)
                         
-                        RoundedRectangle(cornerRadius: Constants.commonRadius)
-                            .stroke(Color.gray, lineWidth: 1.0)
+                        List {
+                            ForEach(dummyUsers) { user in
+                                Button {
+                                    
+                                } label: {
+                                    VStack {
+                                        LabeledContent("닉네임", value: user.name)
+                                        LabeledContent("이메일", value: user.email)
+                                    }
+                                }
+                            }
+                        }
+                        .listStyle(.inset)
+                        .overlay (
+                            RoundedRectangle(cornerRadius: Constants.commonRadius)
+                                .stroke(Color.staticGray3, lineWidth: 1.0)
+                        )
                     }
                     .frame(width: 300)
                 }
@@ -229,5 +213,24 @@ struct DummyRoom: Identifiable, Equatable {
         DummyRoom(title: "온라인 더미 모임", category: "운동", leaderID: "leaderID.string", content: "모임 설명입니다. 설명입니다. 설설서럿ㄹ 명명명몀ㅇ", isOnline: true, time: "12시 20분", limitPeople: 12),
         
         DummyRoom(title: "온라인 더미 모임", category: "운동", leaderID: "leaderID.string", content: "모임 설명입니다. 설명입니다. 설설서럿ㄹ 명명명몀ㅇ", isOnline: true, time: "12시 20분", limitPeople: 12, date: "1월 1일", isRemoved: true)
+    ]
+}
+
+struct DummyUsers: Identifiable {
+    public var id = UUID().uuidString
+    public var name: String
+    public var email : String
+    
+    static let dummyData: [DummyUsers] = [
+        DummyUsers(name: "분노의 호두", email: "sepfoksepf@ffsefs"),
+        DummyUsers(name: "분노의 포도", email: "sepfoksepf@ffsefs"),
+        DummyUsers(name: "분노의 자몽", email: "sepfoksepf@ffsefs"),
+        DummyUsers(name: "분노의 오렌지", email: "sepfoksepf@ffsefs"),
+        DummyUsers(name: "분노의 망고", email: "sepfoksepf@ffsefs"),
+        DummyUsers(name: "분노의 청포도", email: "sepfoksepf@ffsefs"),
+        DummyUsers(name: "분노의 복숭아", email: "sepfoksepf@ffsefs"),
+        DummyUsers(name: "분노의 배", email: "sepfoksepf@ffsefs"),
+        DummyUsers(name: "분노의 자두", email: "sepfoksepf@ffsefs"),
+        DummyUsers(name: "분노의 수박", email: "sepfoksepf@ffsefs"),
     ]
 }
