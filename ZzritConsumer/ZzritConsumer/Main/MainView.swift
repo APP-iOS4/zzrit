@@ -10,35 +10,39 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         NavigationStack {
-            VStack {
-                ScrollView {
-                    ScrollView(.horizontal) {
-                        
-                    }
-                    
-                    // 최근 생성된 모임 리스트 불러오기
-                    MainExistView()
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVStack(alignment: .leading) {
+                    // 마감 임박 타이틀
+                    Text("인원 마감 임박")
+                        .modifier(SubTitleModifier())
                 }
-            }
-            .toolbar {
-                // 왼쪽 앱 메인 로고
-                ToolbarItem(placement: .topBarLeading) {
-                    HStack(spacing: 0) {
-                        Text("ZZ!RIT")
-                    }
-                    .font(.title2)
-                    .fontWeight(.black)
-                }
+                .padding(.top, 20)
                 
-                // 오른쪽 알림 창
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack {
-                        Image(systemName: "bell")
-                    }
+                // 모임 카트 뷰 리스트 불러오기
+                RoomCardListView()
+                
+                // 최근 생성된 모임 리스트 불러오기
+                MainExistView()
+            }
+        }
+        .toolbar {
+            // 왼쪽 앱 메인 로고
+            ToolbarItem(placement: .topBarLeading) {
+                HStack(spacing: 0) {
+                    Text("ZZ!RIT")
+                }
+                .font(.title2)
+                .fontWeight(.black)
+            }
+            
+            // 오른쪽 알림 창
+            ToolbarItem(placement: .topBarTrailing) {
+                HStack {
+                    Image(systemName: "bell")
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
