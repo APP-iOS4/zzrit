@@ -11,7 +11,7 @@ import FirebaseFirestore
 import FirebaseStorage
 
 @available(iOS 16.0.0, *)
-class FirebaseConstants {
+final class FirebaseConstants {
     /// 컬렉션 이름 정의
     enum CollectionName: String {
         case user = "Users"
