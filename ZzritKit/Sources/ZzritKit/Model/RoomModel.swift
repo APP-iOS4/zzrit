@@ -16,7 +16,7 @@ public struct RoomModel: Identifiable, Codable {
     /// 모임 제목
     public var title: String
     /// 모임 카테고리
-    public var category: String
+    public var category: CategoryType
     /// 모임 일시(하나로 일자와 모임 시간 같이 사용)
     public var dateTime: Date
     /// 모임 위도
@@ -30,9 +30,9 @@ public struct RoomModel: Identifiable, Codable {
     /// 모임의 온라인 여부 체크용
     public var isOnline: Bool
     /// 모임이 온라인일 경우 사용하는 플랫폼
-    public var platform: Platform?
-    /// 모임의 종료 여부
-    public var status: isActive
+    public var platform: PlatformType?
+    /// 모임의 종료 여부(가능하다면 연산프로퍼티로 수정)
+    public var status: ActiveType
     /// 모임장 id
     public var leaderID: String
     /// 모임 최대 인원
