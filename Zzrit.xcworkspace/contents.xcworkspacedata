@@ -10,4 +10,7 @@
    <FileRef
       location = "group:ZzritConsumer/ZzritConsumer.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:ZzritModelTest/ZzritModelTest.xcodeproj">
+   </FileRef>
 </Workspace>
