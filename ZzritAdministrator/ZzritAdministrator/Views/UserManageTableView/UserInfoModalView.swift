@@ -24,17 +24,12 @@ struct UserInfoModalView: View {
                 }
                 .padding(20)
                 .overlay {
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: Constants.commonRadius)
                         .stroke(Color.staticGray3, lineWidth: 1.0)
                 }
-                Text("\(user.staticIndex)W")
-                    .foregroundStyle(.background)
-                    .font(.title.weight(.bold))
-                    .padding(10)
-                    .background {
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundStyle(Color.pointColor)
-                    }
+                StaticTextView(title: "\(user.staticIndex)W", width: 100, isActive: .constant(true))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
             }
             HStack {
                 Text("제재 이력")
@@ -48,20 +43,19 @@ struct UserInfoModalView: View {
             }
             BanList()
                 .overlay {
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: Constants.commonRadius)
                         .stroke(Color.staticGray3, lineWidth: 1.0)
                 }
             Spacer(minLength: 100)
-            HStack {
+            HStack(spacing: 20) {
                 Button {
                     isUserModal.toggle()
                 }label: {
-                    Text("취소")
-                        .font(.title2)
-                        .padding(10)
+                    StaticTextView(title: "취소", isActive: .constant(false))
                 }
-                .buttonBorderShape(.roundedRectangle)
-                .buttonStyle(.borderedProminent)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .frame(width: 100)
                 
                 banReasonField(user: user)
             }
@@ -142,7 +136,9 @@ struct banReasonField: View {
                 .padding(10.0)
                 .padding(.leading)
             Button {
-                banAlert.toggle()
+                if !banMemo.isEmpty{
+                    banAlert.toggle()
+                }
             } label: {
                 Text("제재등록")
                     .foregroundStyle(.white)
@@ -152,7 +148,7 @@ struct banReasonField: View {
             }
         }
         .background {
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: Constants.commonRadius)
                 .foregroundStyle(.white)
                 .shadow(radius: 10)
         }
@@ -235,5 +231,5 @@ enum BannedType: String, CaseIterable, Codable {
 }
 
 #Preview {
-    UserInfoModalView(isUserModal: .constant(true), user: .init(userID: "example", staticIndex: 100, birthYear: 1945, gender: .male))
+    UserInfoModalView(isUserModal: .constant(true), user: .init(userID: "example", staticIndex: 100, birthYear: 1900, gender: .male))
 }
