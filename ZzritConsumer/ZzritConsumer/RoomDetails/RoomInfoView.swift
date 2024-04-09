@@ -22,7 +22,8 @@ struct RoomInfoView: View {
                 
                 Spacer()
             }
-            .padding(.vertical, 5)
+            .padding(.leading, 13)
+            .padding(.top, 13)
             
             // 시간
             HStack {
@@ -34,7 +35,8 @@ struct RoomInfoView: View {
                 Text("4월 11일 목요일 16:30 ~ 18:30")
                     .foregroundStyle(Color.staticGray1)
             }
-            .padding(.vertical, 5)
+            .padding(.leading, 13)
+            .padding(.top, 5)
             
             // 현재 참여 인원
             HStack {
@@ -46,9 +48,10 @@ struct RoomInfoView: View {
                 Text("4 / 8")
                     .foregroundStyle(Color.staticGray1)
             }
-            .padding(.vertical, 5)
+            .padding(.leading, 13)
+            .padding(.top, 5)
         }
-        .padding(10)
+        .padding(.bottom, 13)
         .frame(maxWidth: .infinity)
         .overlay {
             RoundedRectangle(cornerRadius: Configs.cornerRadius)
