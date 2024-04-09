@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ParticipantListCellView: View {
+    var nickName: String
+    
     var body: some View {
         HStack {
             // 사용자의 프로필
@@ -22,7 +24,7 @@ struct ParticipantListCellView: View {
             
             VStack(alignment: .leading) {
                 // 사용자의 닉네임
-                Text("박현상")
+                Text("\(nickName)")
                     .fontWeight(.bold)
                 
                 // 사용자의 정전기 지수
@@ -38,5 +40,5 @@ struct ParticipantListCellView: View {
 }
 
 #Preview {
-    ParticipantListCellView()
+    ParticipantListCellView(nickName: "박현상")
 }
