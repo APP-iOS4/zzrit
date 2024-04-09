@@ -254,17 +254,6 @@ private var SomeoneBanList: [SomeoneBan] = [
     SomeoneBan(banDate: "2023-09-21", banPeriod: 3, banReason: "욕설 사용으로 인한 정지", banManagerMemo: "채팅 내용 중 욕설 사용 확인")
 ]
 
-// MARK: 이 부분은 임시
-// TODO: ZzritKit으로 옮길 예정
-enum BannedType: String, CaseIterable, Codable {
-    case abuse = "폭언/욕설 사용"
-    case wrongRoom = "부적절한 모임 개설"
-    case religin = "종교 권유"
-    case gambling = "불법 도박 홍보"
-    case obscenity = "음란성 모임 개설"
-    case administrator = "기타 사유"
-}
-
 #Preview {
     UserInfoModalView(isUserModal: .constant(true), user: .init(userID: "example@example.com", userName: "EXAMPLE DATA", userImage: "xmark", gender: .male, birthYear: 1900, staticGuage: 0))
 }
