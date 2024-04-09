@@ -13,6 +13,9 @@ struct ContentView: View {
             NavigationLink("로그인") {
                 LoginView()
             }
+            NavigationLink("이미지 업로드") {
+                ImageUploadView()
+            }
         }
     }
 }

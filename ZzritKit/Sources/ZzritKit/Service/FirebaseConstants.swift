@@ -8,18 +8,13 @@
 import Foundation
 
 import FirebaseFirestore
-import FirebaseStorage
 
 @available(iOS 16.0.0, *)
 final class FirebaseConstants {
     /// 컬렉션 이름 정의
     enum CollectionName: String {
         case user = "Users"
-    }
-    
-    /// Storage 이름 정의
-    enum StorageName: String {
-        case profile = "ProfileImages"
+        case room = "Rooms"
     }
     
     private let db = Firestore.firestore()
@@ -28,24 +23,12 @@ final class FirebaseConstants {
     
     // lazy var <#CollectionVariable#>: CollectionReference = db.collection(collection(<#Firebase.CollectionName#>))
     lazy var userCollection: CollectionReference = db.collection(collection(.user))
-    lazy var storageReference = Storage.storage().reference()
+    lazy var roomCollection: CollectionReference = db.collection(collection(.room))
 
+    
     // MARK: Private Methods
     
     private func collection(_ collectionName: FirebaseConstants.CollectionName) -> String {
         return collectionName.rawValue
-    }
-    
-    // MARK: Public Methods
-    
-    func profileImageUpload(uid: String, image: Data) async throws -> String {
-        do {
-            let profileReference = storageReference.child(StorageName.profile.rawValue).child(uid)
-            let _ = try await profileReference.putDataAsync(image)
-            let downloadURL = try await profileReference.downloadURL().absoluteString
-            return downloadURL
-        } catch {
-            throw error
-        }
     }
 }
