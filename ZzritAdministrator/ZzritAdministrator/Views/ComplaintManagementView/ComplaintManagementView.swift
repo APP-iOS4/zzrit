@@ -16,6 +16,7 @@ struct ComplaintManagementView: View {
     @State private var contactSearchText: String = ""
     @State var pickedContact: ContactModel?
     @State private var isShowingModalView = false
+    let dateService = DateService.shared
     
     var body: some View {
         VStack {
@@ -45,7 +46,7 @@ struct ComplaintManagementView: View {
                     isShowingModalView.toggle()
                     print("modal .toggle     pickUserId = list.id")
                 } label: {
-                    ContactListCell(contactTitle: list.title, contactCategory: list.category, contactDate: list.requestedDated)
+                    ContactListCell(contactTitle: list.title, contactCategory: list.category, contactDateString: dateService.dateString(date: list.requestedDated))
                 }
             }
             .listStyle(.inset)
@@ -78,13 +79,8 @@ struct ContactReasonPickerView: View {
 struct ContactListCell: View {
     var contactTitle: String
     var contactCategory: ContactCategory
-    var contactDate: Date
-    var contactDateString: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let dateString: String = formatter.string(from: contactDate)
-        return dateString
-    }
+    var contactDateString: String
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("\(contactTitle)")
