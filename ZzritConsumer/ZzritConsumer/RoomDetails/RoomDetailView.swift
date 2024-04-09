@@ -38,6 +38,10 @@ struct RoomDetailView: View {
                 // 위치, 시간, 참여 인원에 대한 정보를 나타내는 뷰
                 // TODO: 모임 모델 하나를 이 곳에 전달을 해주어야 함
                 RoomInfoView()
+                
+                // 참여자의 정보를 나타내는 뷰
+                // TODO: 모임에 참석하는 유저 정보를 전달해주어야 함
+                
             }
             .padding(20)
         }
