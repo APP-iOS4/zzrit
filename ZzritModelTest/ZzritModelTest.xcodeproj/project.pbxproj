@@ -16,6 +16,8 @@
 		DFC75FDB2BC3D2AC0005DDD9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFC75FDA2BC3D2AC0005DDD9 /* GoogleService-Info.plist */; };
 		DFC75FF72BC5345C0005DDD9 /* ImageUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FF62BC5345C0005DDD9 /* ImageUploadView.swift */; };
 		DFC75FF92BC535F60005DDD9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */; };
+		DFC760002BC589AE0005DDD9 /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FFF2BC589AE0005DDD9 /* NoticeView.swift */; };
+		DFC760022BC589ED0005DDD9 /* WriteNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC760012BC589ED0005DDD9 /* WriteNoticeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		DFC75FDA2BC3D2AC0005DDD9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DFC75FF62BC5345C0005DDD9 /* ImageUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadView.swift; sourceTree = "<group>"; };
 		DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		DFC75FFF2BC589AE0005DDD9 /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
+		DFC760012BC589ED0005DDD9 /* WriteNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteNoticeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,7 @@
 		DFC75FD42BC3CCB30005DDD9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DFC75FFE2BC589A20005DDD9 /* Notice */,
 				DFC75FD52BC3CCC90005DDD9 /* LoginView.swift */,
 				DFC75FF62BC5345C0005DDD9 /* ImageUploadView.swift */,
 				DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */,
@@ -95,6 +100,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DFC75FFE2BC589A20005DDD9 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				DFC75FFF2BC589AE0005DDD9 /* NoticeView.swift */,
+				DFC760012BC589ED0005DDD9 /* WriteNoticeView.swift */,
+			);
+			path = Notice;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +187,8 @@
 			files = (
 				DFC75FD62BC3CCCA0005DDD9 /* LoginView.swift in Sources */,
 				DFC75FC92BC3CC850005DDD9 /* ContentView.swift in Sources */,
+				DFC760022BC589ED0005DDD9 /* WriteNoticeView.swift in Sources */,
+				DFC760002BC589AE0005DDD9 /* NoticeView.swift in Sources */,
 				DFC75FF92BC535F60005DDD9 /* ImagePicker.swift in Sources */,
 				DFC75FC72BC3CC850005DDD9 /* ZzritModelTestApp.swift in Sources */,
 				DFC75FF72BC5345C0005DDD9 /* ImageUploadView.swift in Sources */,
