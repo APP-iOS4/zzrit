@@ -16,35 +16,54 @@ struct UserManageTableView: View {
     @State var isFilterActive: Bool = true
     @State var isUserModal: Bool = false
     @State var genderSelection: GenderType? = nil
+    @State var isSortedByStatic: Bool = false
+    @State var isSortedByYear: Bool = false
+    @State private var searchText: String = ""
     
     @State private var userData: [TempUser] = users
     
     var body: some View {
         VStack {
+            HStack(spacing: 20.0) {
+                SearchField(placeHolder: "유저 이메일을 입력하세요.", text: searchText, action: {
+                    print("검색")
+                })
+                Button {
+                    print("필터 버튼 눌림")
+                    isFilterActive.toggle()
+                    isSortedByStatic = false
+                    isSortedByYear = false
+                    genderSelection = nil
+                    userData = users
+                } label: {
+                    StaticTextView(title: "필터", selectType: .filter, width: 140.0, isActive: $isFilterActive)
+                }
+            }
+            .padding(20.0)
+            .fixedSize(horizontal: false, vertical: true)
+            
             if isFilterActive {
                 HStack {
-                    
-                    
                     Button {
                         userData = userData.sorted{ $0.staticIndex > $1.staticIndex }
+                        isSortedByStatic = true
+                        isSortedByYear = false
                     } label: {
-                        Text("정전기 지수")
-                            .font(.title2)
-                            .padding(10)
+                        StaticTextView(title: "정전기 지수", selectType: .filter, width: 140, isActive: $isSortedByStatic)
                     }
-                    .buttonBorderShape(.roundedRectangle)
-                    .buttonStyle(.borderedProminent)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
                     
                     
                     Button {
                         userData = userData.sorted{ $0.birthYear < $1.birthYear }
+                        isSortedByStatic = false
+                        isSortedByYear = true
                     } label: {
-                        Text("출생 연도")
-                            .font(.title2)
-                            .padding(10)
+                        StaticTextView(title: "출생 연도", selectType: .filter, width: 140, isActive: $isSortedByYear)
                     }
-                    .buttonBorderShape(.roundedRectangle)
-                    .buttonStyle(.borderedProminent)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
                     
                     Spacer()
                     
@@ -55,27 +74,26 @@ struct UserManageTableView: View {
                     Button {
                         genderSelection = nil
                     } label: {
-                        Text("전체")
-                            .padding(.horizontal, 5)
+                        StaticTextView(title: "전체", selectType: .filter, width: 80, isActive: .constant(genderSelection == nil))
                     }
-                    .buttonBorderShape(.roundedRectangle)
-                    .buttonStyle(.borderedProminent)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
                     
-                    Picker("성별", selection: $genderSelection) {
-                        ForEach(genderList, id: \.self) { gender in
-                            Text(gender.rawValue)
-                                .tag(Optional(gender))
-                        }
+                    Button {
+                        genderSelection = .male
+                    } label: {
+                        StaticTextView(title: "남성", selectType: .filter, width: 80, isActive: .constant(genderSelection == .male))
                     }
-                    .frame(maxWidth: 300, maxHeight: 50)
-                    .pickerStyle(.segmented)
-                    .onChange(of: genderSelection) { _ in
-                        guard let genderSelection else {
-                            userData = users
-                            return
-                        }
-                        userData = users.filter{ $0.gender == genderSelection }
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    
+                    Button {
+                        genderSelection = .female
+                    } label: {
+                        StaticTextView(title: "여성", selectType: .filter, width: 80, isActive: .constant(genderSelection == .female))
                     }
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
                 }
                 .padding()
             }
@@ -139,7 +157,13 @@ struct UserManageTableView: View {
                         }
                     }
                 }
-                
+                .onChange(of: genderSelection) { _ in
+                    guard let genderSelection else {
+                        userData = users
+                        return
+                    }
+                    userData = users.filter{ $0.gender == genderSelection }
+                }
             }
             .listStyle(.plain)
             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
