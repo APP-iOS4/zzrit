@@ -14,7 +14,7 @@ struct AppSlogan: View {
             .font(.title3)
             .fontWeight(.bold)
             .foregroundStyle(Color.staticGray1)
-        Text("ZZ!LIT")
+        Text("ZZ!RIT")
             .font(.largeTitle)
             .fontWeight(.heavy)
             .foregroundStyle(Color.pointColor)
