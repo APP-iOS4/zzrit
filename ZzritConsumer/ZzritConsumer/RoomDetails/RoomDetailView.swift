@@ -62,8 +62,7 @@ struct RoomDetailView: View {
                 }
                 .padding(20)
                 .navigationDestination(isPresented: $isParticipant) {
-                    // TODO: 여기 안내문 뷰 나오는 대로 연결해 주어야 함
-                    Text("안내문 뷰")
+                    ParticipantNoticeView()
                 }
             }
         }
