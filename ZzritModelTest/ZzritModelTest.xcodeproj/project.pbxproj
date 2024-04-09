@@ -16,6 +16,7 @@
 		DFC75FDB2BC3D2AC0005DDD9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFC75FDA2BC3D2AC0005DDD9 /* GoogleService-Info.plist */; };
 		DFC75FF72BC5345C0005DDD9 /* ImageUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FF62BC5345C0005DDD9 /* ImageUploadView.swift */; };
 		DFC75FF92BC535F60005DDD9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */; };
+		DFC75FFB2BC57C310005DDD9 /* IncrementStaticGuageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FFA2BC57C310005DDD9 /* IncrementStaticGuageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		DFC75FDA2BC3D2AC0005DDD9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DFC75FF62BC5345C0005DDD9 /* ImageUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadView.swift; sourceTree = "<group>"; };
 		DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		DFC75FFA2BC57C310005DDD9 /* IncrementStaticGuageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementStaticGuageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				DFC75FD52BC3CCC90005DDD9 /* LoginView.swift */,
 				DFC75FF62BC5345C0005DDD9 /* ImageUploadView.swift */,
 				DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */,
+				DFC75FFA2BC57C310005DDD9 /* IncrementStaticGuageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFC75FFB2BC57C310005DDD9 /* IncrementStaticGuageView.swift in Sources */,
 				DFC75FD62BC3CCCA0005DDD9 /* LoginView.swift in Sources */,
 				DFC75FC92BC3CC850005DDD9 /* ContentView.swift in Sources */,
 				DFC75FF92BC535F60005DDD9 /* ImagePicker.swift in Sources */,
