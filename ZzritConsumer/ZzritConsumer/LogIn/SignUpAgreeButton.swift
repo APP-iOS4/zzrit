@@ -26,7 +26,6 @@ struct SignUpAgreeButton: View {
         }
         .foregroundStyle(Color.staticGray2)
     }
-    
 }
 
 #Preview {

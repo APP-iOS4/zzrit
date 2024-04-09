@@ -13,6 +13,7 @@ struct SignUpView: View {
     @State var signUpPw1: String = ""
     @State var signUpPw2: String = ""
     @State var agreeSheet = false
+    @State var showProfile = false
     @State var selectAgree = false
     @State var equlText = false
     @State var isSignUpButtonActive: Bool = false
@@ -33,11 +34,9 @@ struct SignUpView: View {
                     
                     // MARK: 이메일 형식 체크 오류 메시지
                     if checkEmail(signUpId){
-                        Text("")
+                        SpaceErrorTextView()
                     } else {
-                        Text("이메일 형식이 올바르지 않습니다.")
-                            .font(.subheadline)
-                            .foregroundStyle(Color.red)
+                        ErrorTextView(title: "이메일 형식이 올바르지 않습니다.")
                     }
                     UserInputCellView(text: $signUpPw1, title: "비밀번호", symbol: "lock", isPassword: true)
                         .onChange(of: signUpPw1, {
@@ -51,17 +50,12 @@ struct SignUpView: View {
                     // MARK: 비밀번호 일치 여부 확인 메시지
                     if !equlText {
                         if signUpPw1.isEmpty || signUpPw2.isEmpty {
-                            Text("비밀번호 입력란은 모두 채워주세요.")
-                                .font(.subheadline)
-                                .foregroundStyle(Color.red)
+                            ErrorTextView(title: "비밀번호 입력란은 모두 채워주세요.")
                         } else {
-                            Text("비밀번호가 일치하지 않습니다.")
-                                .font(.subheadline)
-                                .foregroundStyle(Color.red)
+                            ErrorTextView(title: "비밀번호가 일치하지 않습니다.")
                         }
                     }else {
-                        Text("")
-                            .font(.subheadline)
+                        SpaceErrorTextView()
                     }
                 } else {
                     UserInputCellView(text: $signUpId, title: "이메일", symbol: "envelope")
@@ -69,11 +63,9 @@ struct SignUpView: View {
                             activeSignUpButton()
                         })
                     if checkEmail(signUpId){
-                        Text("")
+                        SpaceErrorTextView()
                     } else {
-                        Text("이메일 형식이 올바르지 않습니다.")
-                            .font(.subheadline)
-                            .foregroundStyle(Color.red)
+                        ErrorTextView(title: "이메일 형식이 올바르지 않습니다.")
                     }
                     UserInputCellView(text: $signUpPw1, title: "비밀번호", symbol: "lock", isPassword: true)
                         .onChange(of: signUpPw1, perform: { value in
@@ -85,17 +77,12 @@ struct SignUpView: View {
                         })
                     if !equlText {
                         if signUpPw1.isEmpty || signUpPw2.isEmpty {
-                            Text("비밀번호 입력란을 모두 채워주세요.")
-                                .font(.subheadline)
-                                .foregroundStyle(Color.red)
+                            ErrorTextView(title: "비밀번호 입력란을 모두 채워주세요.")
                         } else {
-                            Text("비밀번호가 일치하지 않습니다.")
-                                .font(.subheadline)
-                                .foregroundStyle(Color.red)
+                            ErrorTextView(title: "비밀번호가 일치하지 않습니다.")
                         }
-                    }else {
-                        Text("")
-                            .font(.subheadline)
+                    } else {
+                        SpaceErrorTextView()
                     }
                 }
             }
@@ -115,18 +102,24 @@ struct SignUpView: View {
             // MARK: 회원가입 버튼
             if #available(iOS 17.0, *) {
                 GeneralButton(isDisabled: !isSignUpButtonActive, "회원가입" ) {
-                    
+                    showProfile.toggle()
                 }
-                .onChange(of: selectAgree) { 
+                .onChange(of: selectAgree) {
                     activeSignUpButton()
+                }
+                .navigationDestination(isPresented: $showProfile) {
+                    SetProfileView()
                 }
             } else {
                 GeneralButton(isDisabled: !isSignUpButtonActive, "회원가입" ) {
-                    
+                    showProfile.toggle()
                 }
                 .onChange(of: selectAgree, perform: { value in
                     activeSignUpButton()
                 })
+                .navigationDestination(isPresented: $showProfile) {
+                    SetProfileView()
+                }
             }
             
             Spacer()
@@ -151,13 +144,22 @@ struct SignUpView: View {
             if signUpPw1 == signUpPw2 {
                 equlText = true
                 if selectAgree {
-                    isSignUpButtonActive = true
+                    if checkEmail(signUpId) {
+                        isSignUpButtonActive = true
+                    } else {
+                        isSignUpButtonActive = false
+                    }
+                } else {
+                    isSignUpButtonActive = false
                 }
+            } else {
+                isSignUpButtonActive = false
             }
         } else {
             isSignUpButtonActive = false
         }
     }
+    
     func checkEmail( _ str: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         return  NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: str)
