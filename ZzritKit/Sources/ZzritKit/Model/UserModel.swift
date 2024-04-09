@@ -10,6 +10,7 @@ import Foundation
 import FirebaseFirestore
 
 /// 유저 모델
+@available(iOS 16.0.0, *)
 public struct UserModel: Codable, Identifiable {
     /// 유저의 FirebaseAuth의 uid
     @DocumentID public var id: String? = UUID().uuidString
@@ -25,6 +26,8 @@ public struct UserModel: Codable, Identifiable {
     public var birthYear: Int
     /// 유저의 정전기 지수
     public var staticGuage: Double
+    /// 회원 탈퇴 일자
+    public var secessionDate: Date?
     
     public init(id: String? = UUID().uuidString, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGuage: Double) {
         self.id = id

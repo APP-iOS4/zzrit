@@ -11,30 +11,27 @@ struct PlaygroundSectionHeader: View {
     var body: some View {
         HStack {
             Text("모임 관리")
-                .frame(minWidth: 100, alignment: .leading)
-                .multilineTextAlignment(.leading)
+                .frame(minWidth: 100, alignment: .center)
+                .multilineTextAlignment(.center)
             
             Spacer()
             
             Divider()
             
-            Text("인원 총/인원")
-                .minimumScaleFactor(0.5)
-                .frame(width: 90, alignment: .leading)
+            Text("인원")
+                .frame(width: 80, alignment: .center)
                 .multilineTextAlignment(.leading)
             
             Divider()
             
             Text(verbatim: "날짜")
-                .minimumScaleFactor(0.5)
-                .frame(width: 90, alignment: .leading)
+                .frame(width: 90, alignment: .center)
                 .multilineTextAlignment(.leading)
             
             Divider()
             
             Text("활성화")
-                .minimumScaleFactor(0.5)
-                .frame(width: 90, alignment: .leading)
+                .frame(width: 90, alignment: .center)
                 .multilineTextAlignment(.leading)
         }
         .fontWeight(.bold)
