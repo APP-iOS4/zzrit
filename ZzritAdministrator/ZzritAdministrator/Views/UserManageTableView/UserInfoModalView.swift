@@ -16,7 +16,7 @@ struct UserInfoModalView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 10) {
                     InfoLabelView(title: "이메일", contents: "\(user.userID)")
                     
                     HStack(spacing: 30){
@@ -175,7 +175,7 @@ struct banReasonField: View {
                     banAlert.toggle()
                 }
             } label: {
-                Text("제재등록")
+                Text("제재 등록")
                     .foregroundStyle(.white)
                     .padding()
                     .background(Color.pointColor)
