@@ -18,7 +18,7 @@ struct MainExistView: View {
                 // 모임 리스트 셀 불러오기
                 NavigationLink {
                     // 상세페이지 뷰 연결
-                    Text("상세페이지 뷰")
+                    RoomDetailView()
                 } label: {
                     RoomCellView()
                 }
