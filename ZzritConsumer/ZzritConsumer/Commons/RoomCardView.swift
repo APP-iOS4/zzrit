@@ -63,6 +63,7 @@ struct RoomCardView: View {
             }
         )
         .clipShape(.rect(cornerRadius: 10))
+        .frame(minWidth: 350,maxWidth: .infinity)
     }
 }
 
