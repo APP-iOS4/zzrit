@@ -12,7 +12,7 @@ import FirebaseFirestore
 /// 모임 모델
 public struct RoomModel: Identifiable, Codable {
     /// 모임 ID
-    @DocumentID public var id: String?
+    @DocumentID public var id: String? = UUID().uuidString
     /// 모임 제목
     public var title: String
     /// 모임 카테고리
@@ -37,6 +37,22 @@ public struct RoomModel: Identifiable, Codable {
     public var leaderID: String
     /// 모임 최대 인원
     public var limitPeople: Int
+    
+    public init(id: String? = UUID().uuidString, title: String, category: String, dateTime: Date, placeLatitude: Double? = nil, placeLongitude: Double? = nil, content: String, coverImage: URL, isOnline: Bool, platform: Platform? = nil, status: isActive, leaderID: String, limitPeople: Int) {
+        self.id = id
+        self.title = title
+        self.category = category
+        self.dateTime = dateTime
+        self.placeLatitude = placeLatitude
+        self.placeLongitude = placeLongitude
+        self.content = content
+        self.coverImage = coverImage
+        self.isOnline = isOnline
+        self.platform = platform
+        self.status = status
+        self.leaderID = leaderID
+        self.limitPeople = limitPeople
+    }
     
     /// 모임 종료 시간
     public func limitTime(time: Int = 24) -> Date {

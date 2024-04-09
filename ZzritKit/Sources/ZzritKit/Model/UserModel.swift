@@ -12,7 +12,7 @@ import FirebaseFirestore
 /// 유저 모델
 public struct UserModel: Codable, Identifiable {
     /// 유저의 FirebaseAuth의 uid
-    @DocumentID public var id: String?
+    @DocumentID public var id: String? = UUID().uuidString
     /// 유저 이메일주소
     public var userID: String
     /// 유저 닉네임
@@ -26,7 +26,7 @@ public struct UserModel: Codable, Identifiable {
     /// 유저의 정전기 지수
     public var staticGuage: Double
     
-    public init(id: String? = nil, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGuage: Double) {
+    public init(id: String? = UUID().uuidString, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGuage: Double) {
         self.id = id
         self.userID = userID
         self.userName = userName

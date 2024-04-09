@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 /// 문의사항 모델
 public struct ContactModel: Codable, Identifiable {
-    @DocumentID public var id: String?
+    @DocumentID public var id: String? = UUID().uuidString
     /// 문의사항 타입
     public var category: ContactCategory
     /// 문의사항 제목
@@ -29,7 +29,7 @@ public struct ContactModel: Codable, Identifiable {
     /// 최근 답변이 등록된 날짜
     public var latestAnswerDate: Date?
     
-    public init(id: String? = nil, category: ContactCategory, title: String, content: String, requestedDated: Date, requestedUser: String, targetRoom: String? = nil, targetUser: [String]? = nil, latestAnswerDate: Date? = nil) {
+    public init(id: String? = UUID().uuidString, category: ContactCategory, title: String, content: String, requestedDated: Date, requestedUser: String, targetRoom: String? = nil, targetUser: [String]? = nil, latestAnswerDate: Date? = nil) {
         self.id = id
         self.category = category
         self.title = title
