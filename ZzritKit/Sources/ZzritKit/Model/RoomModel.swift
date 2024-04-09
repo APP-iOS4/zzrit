@@ -16,7 +16,7 @@ public struct RoomModel: Identifiable, Codable {
     /// 모임 제목
     public var title: String
     /// 모임 카테고리
-    public var category: String
+    public var category: CategoryType
     /// 모임 일시(하나로 일자와 모임 시간 같이 사용)
     public var dateTime: Date
     /// 모임 위도
@@ -37,6 +37,10 @@ public struct RoomModel: Identifiable, Codable {
     public var leaderID: String
     /// 모임 최대 인원
     public var limitPeople: Int
+    /// 성별 제한
+    public var genderLimitation: GenderType?
+    /// 점수 제한
+    public var scoreLimitation: Int?
     
     public init(id: String? = UUID().uuidString, title: String, category: String, dateTime: Date, placeLatitude: Double? = nil, placeLongitude: Double? = nil, content: String, coverImage: URL, isOnline: Bool, platform: Platform? = nil, status: isActive, leaderID: String, limitPeople: Int) {
         self.id = id

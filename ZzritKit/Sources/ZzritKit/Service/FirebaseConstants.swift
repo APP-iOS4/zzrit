@@ -33,4 +33,22 @@ final class FirebaseConstants {
     private func collection(_ collectionName: FirebaseConstants.CollectionName) -> String {
         return collectionName.rawValue
     }
+    
+    // MARK: Public Methods
+    
+    func imageUpload(dirs: [String], image: Data) async throws -> String {
+        do {
+            var rf = storageReference
+            
+            for dir in dirs {
+                rf = rf.child(dir)
+            }
+            
+            let _ = try await rf.putDataAsync(image)
+            let downloadURL = try await rf.downloadURL().absoluteString
+            return downloadURL
+        } catch {
+            throw error
+        }
+    }
 }
