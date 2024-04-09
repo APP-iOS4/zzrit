@@ -20,4 +20,12 @@ public struct ChattingModel: Codable, Identifiable {
     public var message: String
     /// 채팅 메시지 타입
     public var type: ChattingType // 이거 enum으로 써야 하는지?
+    
+    public init(id: String? = UUID().uuidString, userID: String, date: Date, message: String, type: ChattingType) {
+        self.id = id
+        self.userID = userID
+        self.date = date
+        self.message = message
+        self.type = type
+    }
 }

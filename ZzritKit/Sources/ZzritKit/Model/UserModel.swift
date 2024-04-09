@@ -26,7 +26,7 @@ public struct UserModel: Codable, Identifiable {
     /// 유저의 정전기 지수
     public var staticGuage: Double
     
-    public init(id: String? = nil, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGuage: Double) {
+    public init(id: String? = UUID().uuidString, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGuage: Double) {
         self.id = id
         self.userID = userID
         self.userName = userName

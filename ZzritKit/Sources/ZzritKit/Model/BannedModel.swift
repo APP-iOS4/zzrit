@@ -18,4 +18,11 @@ public struct BannedModel: Codable, Identifiable {
     public var period: Date
     /// 이용 정지 타입
     public var type: BannedType
+    
+    public init(id: String? = UUID().uuidString, date: Date, period: Date, type: BannedType) {
+        self.id = id
+        self.date = date
+        self.period = period
+        self.type = type
+    }
 }

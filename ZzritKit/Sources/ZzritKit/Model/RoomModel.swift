@@ -38,6 +38,22 @@ public struct RoomModel: Identifiable, Codable {
     /// 모임 최대 인원
     public var limitPeople: Int
     
+    public init(id: String? = UUID().uuidString, title: String, category: String, dateTime: Date, placeLatitude: Double? = nil, placeLongitude: Double? = nil, content: String, coverImage: URL, isOnline: Bool, platform: Platform? = nil, status: isActive, leaderID: String, limitPeople: Int) {
+        self.id = id
+        self.title = title
+        self.category = category
+        self.dateTime = dateTime
+        self.placeLatitude = placeLatitude
+        self.placeLongitude = placeLongitude
+        self.content = content
+        self.coverImage = coverImage
+        self.isOnline = isOnline
+        self.platform = platform
+        self.status = status
+        self.leaderID = leaderID
+        self.limitPeople = limitPeople
+    }
+    
     /// 모임 종료 시간
     public func limitTime(time: Int = 24) -> Date {
         // 모임의 일시는 반드시 존재하기때문에 24시간을 더한 값도 반드시 존재함.

@@ -19,7 +19,7 @@ public struct ContactReplyModel: Codable, Identifiable {
     /// 문의사항 답변 등록 관리자 uid
     public var answeredAdmin: String
     
-    public init(id: String? = nil, date: Date, content: String, answeredAdmin: String) {
+    public init(id: String? = UUID().uuidString, date: Date, content: String, answeredAdmin: String) {
         self.id = id
         self.date = date
         self.content = content
