@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct ComplaintManagementView: View {
     @State private var qnaCategory: TempQnaType = .allCase
     @State private var qnaSearchText: String = ""
