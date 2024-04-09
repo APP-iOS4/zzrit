@@ -106,23 +106,25 @@ struct SignUpView: View {
             // MARK: 회원가입 버튼
             if #available(iOS 17.0, *) {
                 GeneralButton(isDisabled: !isSignUpButtonActive, "회원가입" ) {
+                    register()
                     showProfile.toggle()
                 }
                 .onChange(of: selectAgree) {
                     activeSignUpButton()
                 }
                 .navigationDestination(isPresented: $showProfile) {
-                    SetProfileView()
+                    SetProfileView(emailField: signUpId, registeredUID: registeredUID)
                 }
             } else {
                 GeneralButton(isDisabled: !isSignUpButtonActive, "회원가입" ) {
+                    register()
                     showProfile.toggle()
                 }
                 .onChange(of: selectAgree, perform: { value in
                     activeSignUpButton()
                 })
                 .navigationDestination(isPresented: $showProfile) {
-                    SetProfileView()
+                    SetProfileView(emailField: signUpId, registeredUID: registeredUID)
                 }
             }
             
