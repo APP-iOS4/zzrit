@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+//공지사항 개수 - 임시
 let noticeCount = 10
+
 struct NoticeListView: View {
     
     // count는 받아오는 공지사항의 개수
@@ -28,6 +30,7 @@ struct NoticeListView: View {
                         // content: 공지 내용
                         NoticeContentView(content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.")
                     } else {
+                        // 미선택시 선으로만 보임
                         Divider()
                     }
                 }

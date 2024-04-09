@@ -12,6 +12,7 @@ struct StaticGuageProgressView: View {
     var body: some View {
         GeometryReader { geometry in
             let viewWidth = geometry.size.width / 100
+            // 정전기 지수 풍선
             VStack {
                 ZStack(alignment: .top) {
                     if staticGuage > 92 {
@@ -39,6 +40,7 @@ struct StaticGuageProgressView: View {
                             .clipShape(.rect(cornerRadius: Configs.cornerRadius))
                 }
                 .position(CGPoint(x: viewWidth * limitMaxMin(staticGuage), y: 22.0))
+                // 정전기 지수 상태바
                 ZStack(alignment: .leading) {
                     Rectangle()
                         .foregroundStyle(Color.staticGray4)

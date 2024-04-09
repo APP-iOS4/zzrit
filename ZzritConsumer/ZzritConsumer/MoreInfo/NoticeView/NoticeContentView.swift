@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NoticeContentView: View {
     var content: String
+    // 공지사항 본문
     var body: some View {
         ZStack {
             Text(content)

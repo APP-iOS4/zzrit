@@ -14,8 +14,8 @@ struct MoreInfoListView: View {
         NavigationStack{
             VStack {
                 FakeDivider()
+                // Section 1
                 VStack(alignment: .leading, spacing: 40) {
-                    
                     // 공지사항
                     Button {
                         isNoticeShow.toggle()
@@ -25,7 +25,6 @@ struct MoreInfoListView: View {
                     .navigationDestination(isPresented: $isNoticeShow){
                         NoticeListView()
                     }
-                    
                     // 버전 정보
                     HStack {
                         Text("버전 정보")
@@ -33,7 +32,6 @@ struct MoreInfoListView: View {
                         Text("최신 버전")
                             .foregroundStyle(Color.staticGray4)
                     }
-                    
                     // 자주 묻는 질문
                     Button {
                         
@@ -41,7 +39,6 @@ struct MoreInfoListView: View {
                         HorizontalLabel(string: "자주 묻는 질문")
                         
                     }
-                    
                     // 문의하기
                     Button {
                         
@@ -50,17 +47,15 @@ struct MoreInfoListView: View {
                     }
                 }
                 .padding(Configs.paddingValue)
-                
                 FakeDivider()
+                // Section 2
                 VStack(alignment: .leading, spacing: 40) {
-                    
                     // 이용약관
                     Button {
                         
                     } label: {
                         HorizontalLabel(string: "이용약관")
                     }
-                    
                     // 개인정보처리방침
                     Button {
                         
@@ -69,10 +64,9 @@ struct MoreInfoListView: View {
                     }
                 }
                 .padding(Configs.paddingValue)
-                
                 FakeDivider()
+                // Section 3
                 VStack(alignment: .leading, spacing: 40) {
-                    
                     // 로그아웃
                     Button {
                         
@@ -82,7 +76,6 @@ struct MoreInfoListView: View {
                     }
                 }
                 .padding(Configs.paddingValue)
-                
                 FakeDivider()
             }
             .foregroundStyle(Color.staticGray1)
@@ -90,6 +83,7 @@ struct MoreInfoListView: View {
     }
 }
 
+// 회색 굵은 선
 struct FakeDivider: View {
     var body: some View {
         Rectangle()
@@ -98,6 +92,7 @@ struct FakeDivider: View {
     }
 }
 
+// List의 Cell 라벨
 struct HorizontalLabel: View {
     var string: String
     var body: some View {

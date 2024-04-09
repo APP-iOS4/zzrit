@@ -10,7 +10,7 @@ import SwiftUI
 struct NoticeTitleView: View {
     var title: String
     var date: String
-    
+    // 공지사항 Cell 라벨
     var body: some View {
         VStack {
             HStack {

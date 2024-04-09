@@ -13,7 +13,7 @@ struct MyStaticGuageView: View {
             Text("나의 정전기 지수")
                 .font(.title2)
             
-            // TODO: (staticGuage: 46) 사용자의 정전기지수 넣어주기
+            // TODO: (staticGuage: 66) 사용자의 정전기지수 넣어주기
             
             StaticGuageProgressView(staticGuage: 66)
             VStack(alignment: .center) {

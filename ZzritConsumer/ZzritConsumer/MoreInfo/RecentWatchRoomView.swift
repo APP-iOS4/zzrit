@@ -12,11 +12,13 @@ let tempCount = 5
 struct RecentWatchRoomView: View {
     @State var selectedIndex = 0
     
+    // 최근 본 모임 전체 뷰
     var body: some View {
         VStack(alignment: .leading) {
             Text("최근 본 모임")
                 .font(.title3)
                 .fontWeight(.bold)
+            // 최근 본 모임 슬라이드
             VStack {
                 TabView(selection: $selectedIndex) {
                     ForEach(0..<tempCount, id: \.self) { _ in
