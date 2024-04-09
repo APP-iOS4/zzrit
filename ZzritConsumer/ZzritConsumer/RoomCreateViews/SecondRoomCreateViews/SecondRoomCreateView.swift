@@ -13,7 +13,7 @@ struct SecondRoomCreateView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: Configs.paddingValue) {
+            VStack {
                 // 두 번째 페이지 Indicator
                 RoomCreateIndicator(page: .second)
                     .padding()
@@ -21,15 +21,28 @@ struct SecondRoomCreateView: View {
                 // 이름을 입력 받는 뷰
                 VStack {
                     RoomCreateSubTitle("이름")
-                        .padding(.horizontal)
                     RoomCreateTextField(placeholder: "내용을 입력해주세요.")
-                        .padding(.horizontal)
                 }
+                .padding()
                 
                 // 커버사진 입력 받는 뷰
-                RoomCreateSubTitle("커버사진",clarification: "모임과 관련된 사진일수록 좋습니다." , type: .coverPhoto)
-                    .padding(.horizontal)
+                VStack {
+                    RoomCreateSubTitle("커버사진",clarification: "모임과 관련된 사진일수록 좋습니다." , type: .coverPhoto)
+                    RoomCreateAddPictureView()
+                        .frame(height: 180.0)
+                }
+                .padding()
                 
+                VStack {
+                    RoomCreateSubTitle("모임 소개")
+                    RoomCreateTextField(placeholder: "모임에 대해 소개해주세요.", type: .roomIntroduce)
+                }
+                .padding()
+                
+                GeneralButton(isDisabled: !isOnNextButton, "다음",tapAction: {
+                    
+                })
+                .padding()
             }
             .navigationTitle("모임개설")
             .navigationBarTitleDisplayMode(.inline)

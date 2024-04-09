@@ -172,6 +172,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F0603482BC58D63003808F4 /* FirstRoomCreateViews */ = {
+			isa = PBXGroup;
+			children = (
+				1FF17E542BC509C500B505FA /* FirstRoomCreateView.swift */,
+				1F0603402BC53503003808F4 /* CategoryCellView.swift */,
+			);
+			path = FirstRoomCreateViews;
+			sourceTree = "<group>";
+		};
+		1F0603492BC58D8D003808F4 /* SecondRoomCreateViews */ = {
+			isa = PBXGroup;
+			children = (
+				1F0603422BC53AC9003808F4 /* SecondRoomCreateView.swift */,
+				1F0603462BC576D5003808F4 /* RoomCreateAddPictureView.swift */,
+			);
+			path = SecondRoomCreateViews;
+			sourceTree = "<group>";
+		};
 		1F3859B72BC3D29500C753BD /* ConsumerConfigs */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,11 +243,8 @@
 			isa = PBXGroup;
 			children = (
 				1FF17E532BC5097D00B505FA /* CommonViews */,
-				1FF17E542BC509C500B505FA /* FirstRoomCreateView.swift */,
-				1F0603422BC53AC9003808F4 /* SecondRoomCreateView.swift */,
-				1F0603442BC53F36003808F4 /* RoomCreateTextField.swift */,
-				1F0603402BC53503003808F4 /* CategoryCellView.swift */,
-				1F0603462BC576D5003808F4 /* RoomCreateAddPictureView.swift */,
+				1F0603482BC58D63003808F4 /* FirstRoomCreateViews */,
+				1F0603492BC58D8D003808F4 /* SecondRoomCreateViews */,
 			);
 			path = RoomCreateViews;
 			sourceTree = "<group>";
@@ -239,6 +254,7 @@
 			children = (
 				1FF17E512BC5079700B505FA /* RoomCreateIndicator.swift */,
 				1FF17E5A2BC512A000B505FA /* RoomCreateSubTitle.swift */,
+				1F0603442BC53F36003808F4 /* RoomCreateTextField.swift */,
 			);
 			path = CommonViews;
 			sourceTree = "<group>";
