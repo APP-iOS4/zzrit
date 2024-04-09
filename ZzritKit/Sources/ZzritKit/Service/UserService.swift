@@ -99,6 +99,19 @@ public final class UserService {
     
     // MARK: - Private Methods
     
+    /// 접송된 회원정보 삭제
+    func deleteLoginedUserInfo() async throws {
+        if try await !loginedCheck() {
+            
+            // TODO: 에러타입 throw 하도록 수정
+            
+            return
+        }
+        
+        let loginedUID = try await loginedUserInfo()!.id!
+        try await firebaseConst.userCollection.document(loginedUID).delete()
+    }
+    
     /// 로그인 상태 검증
     private func loginedCheck() async throws -> Bool {
         guard let loginedUserInfo = try await loginedUserInfo() else {
