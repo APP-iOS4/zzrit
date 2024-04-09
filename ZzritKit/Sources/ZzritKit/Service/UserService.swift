@@ -7,6 +7,8 @@
 
 import Foundation
 
+import FirebaseFirestore
+
 @available(iOS 16.0.0, *)
 public final class UserService {
     private let firebaseConst = FirebaseConstants()
@@ -43,7 +45,7 @@ public final class UserService {
     /// 회원탈퇴
     public func secession() async throws {
         
-        // TODO: 에러타입 throw 하도록 수정 (46 ~ 47 line)
+        // TODO: 에러타입 throw 하도록 수정 (51, 60 line)
         
         if try await !loginedCheck() {
             return
@@ -51,10 +53,45 @@ public final class UserService {
         
         do {
             var tempLoginedUserInfo = try await loginedUserInfo()!
+            
+            // 회원탈퇴가 이미 진행중일 경우 에러 throw
+            if let _ = tempLoginedUserInfo.secessionDate {
+                print("이미 회원탈퇴가 처리중임")
+                return
+            }
+            
             let loginedUID = tempLoginedUserInfo.id!
             print("UID: \(loginedUID)")
             tempLoginedUserInfo.secessionDate = Date()
-            try firebaseConst.userCollection.document(loginedUID).setData(from: tempLoginedUserInfo, merge: true)
+//            try firebaseConst.userCollection.document(loginedUID).setData(from: tempLoginedUserInfo, merge: true)
+            try await firebaseConst.userCollection.document(loginedUID).updateData(["secessionDate": Date()])
+        } catch {
+            throw error
+        }
+    }
+    
+    /// 회원탈퇴 철회
+    public func secessionCancel() async throws {
+        
+        // TODO: 에러타입 throw 하도록 수정 (79, 88 line)
+        
+        if try await !loginedCheck() {
+            return
+        }
+        
+        do {
+            var tempLoginedUserInfo = try await loginedUserInfo()!
+            
+            // 회원탈퇴가 진행중이지 않을때 에러 throw
+            guard let _ = tempLoginedUserInfo.secessionDate else {
+                print("회원탈퇴가 진행중이지 않음")
+                return
+            }
+            
+            let loginedUID = tempLoginedUserInfo.id!
+            print("UID: \(loginedUID)")
+            tempLoginedUserInfo.secessionDate = nil
+            try await firebaseConst.userCollection.document(loginedUID).updateData(["secessionDate": FieldValue.delete()])
         } catch {
             throw error
         }

@@ -30,17 +30,25 @@ struct LoginView: View {
             }
 
             Spacer()
+            
             Button("로그아웃") {
                 logout()
             }
         }
         
+        Button("현재 로그인 정보") {
+            currentLoginedUser()
+        }
+        
         HStack {
-            Button("현재 로그인 정보") {
-                currentLoginedUser()
-            }
             Button("현재 로그인 계정 탈퇴") {
                 secession()
+            }
+            
+            Spacer()
+            
+            Button("현재 로그인 계정 탈퇴 철회") {
+                secessionCancel()
             }
         }
     }
@@ -106,6 +114,16 @@ struct LoginView: View {
         Task {
             do {
                 try await userService.secession()
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    
+    private func secessionCancel() {
+        Task {
+            do {
+                try await userService.secessionCancel()
             } catch {
                 print("에러: \(error)")
             }
