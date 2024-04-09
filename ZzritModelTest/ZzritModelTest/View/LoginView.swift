@@ -39,6 +39,9 @@ struct LoginView: View {
             Button("현재 로그인 정보") {
                 currentLoginedUser()
             }
+            Button("현재 로그인 계정 탈퇴") {
+                secession()
+            }
         }
     }
     
@@ -93,6 +96,16 @@ struct LoginView: View {
                 } else {
                     print("유저 정보가 DB에 없음")
                 }
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    
+    private func secession() {
+        Task {
+            do {
+                try await userService.secession()
             } catch {
                 print("에러: \(error)")
             }

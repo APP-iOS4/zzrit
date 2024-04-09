@@ -14,6 +14,8 @@ public final class UserService {
     
     public init() { }
     
+    // MARK: Public Methods
+    
     /// 현재 로그인 되어있는 사용자의 정보를 가져옵니다.
     /// - Returns: Optional(UserModel)
     public func loginedUserInfo() async throws -> UserModel? {
@@ -36,5 +38,42 @@ public final class UserService {
     /// - Parameter info(UserModel): 사용자의 정보가 담겨있는 모델
     public func setUserInfo(uid: String, info: UserModel) throws {
         try firebaseConst.userCollection.document(uid).setData(from: info, merge: true)
+    }
+    
+    /// 회원탈퇴
+    public func secession() async throws {
+        
+        // TODO: 에러타입 throw 하도록 수정 (46 ~ 47 line)
+        
+        if try await !loginedCheck() {
+            return
+        }
+        
+        do {
+            var tempLoginedUserInfo = try await loginedUserInfo()!
+            let loginedUID = tempLoginedUserInfo.id!
+            print("UID: \(loginedUID)")
+            tempLoginedUserInfo.secessionDate = Date()
+            try firebaseConst.userCollection.document(loginedUID).setData(from: tempLoginedUserInfo, merge: true)
+        } catch {
+            throw error
+        }
+    }
+    
+    // MARK: - Private Methods
+    
+    /// 로그인 상태 검증
+    private func loginedCheck() async throws -> Bool {
+        guard let loginedUserInfo = try await loginedUserInfo() else {
+            print("로그인 정보가 없음.")
+            return false
+        }
+        
+        guard let _ = loginedUserInfo.id else {
+            print("UID 바인딩 실패")
+            return false
+        }
+        
+        return true
     }
 }

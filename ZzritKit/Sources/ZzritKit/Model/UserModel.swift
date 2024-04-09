@@ -25,6 +25,8 @@ public struct UserModel: Codable, Identifiable {
     public var birthYear: Int
     /// 유저의 정전기 지수
     public var staticGuage: Double
+    /// 회원 탈퇴 일자
+    public var secessionDate: Date?
     
     public init(id: String? = UUID().uuidString, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGuage: Double) {
         self.id = id
