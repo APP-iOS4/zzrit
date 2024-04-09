@@ -17,13 +17,18 @@ struct MoreInfoView: View {
         NavigationStack {
             ScrollView {
                 Section{
+                    
                     // TODO: 유저 정보 입력
+                    
                     ProfileEditView(email: "shdlfke@naver.com", loginInfo: "네이버 로그인")
                         .padding()
+                    // 정전기 지수
                     MyStaticGuageView()
                         .padding()
+                    // 최근 본 모임
                     RecentWatchRoomView()
                         .padding()
+                    // 그외 더보기 List
                     MoreInfoListView()
                 }
             }

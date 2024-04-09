@@ -44,6 +44,9 @@
 		FC2DDC132BC5231200A51E64 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC122BC5231200A51E64 /* ProfileEditView.swift */; };
 		FC2DDC152BC528F900A51E64 /* RecentWatchRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC142BC528F900A51E64 /* RecentWatchRoomView.swift */; };
 		FC2DDC172BC52FBA00A51E64 /* MoreInfoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC162BC52FBA00A51E64 /* MoreInfoListView.swift */; };
+		FC2DDC192BC539B700A51E64 /* NoticeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC182BC539B700A51E64 /* NoticeListView.swift */; };
+		FC2DDC1B2BC5767E00A51E64 /* NoticeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC1A2BC5767E00A51E64 /* NoticeTitleView.swift */; };
+		FC2DDC1D2BC577D400A51E64 /* NoticeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC1C2BC577D400A51E64 /* NoticeContentView.swift */; };
 		FC628F2E2BC42F1A007F5E5C /* SetProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC628F2D2BC42F1A007F5E5C /* SetProfileView.swift */; };
 		FC628F302BC4328A007F5E5C /* ErrorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC628F2F2BC4328A007F5E5C /* ErrorTextView.swift */; };
 		FC628F322BC440DF007F5E5C /* SetProfilePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC628F312BC440DF007F5E5C /* SetProfilePhotoView.swift */; };
@@ -95,6 +98,9 @@
 		FC2DDC122BC5231200A51E64 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		FC2DDC142BC528F900A51E64 /* RecentWatchRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWatchRoomView.swift; sourceTree = "<group>"; };
 		FC2DDC162BC52FBA00A51E64 /* MoreInfoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoListView.swift; sourceTree = "<group>"; };
+		FC2DDC182BC539B700A51E64 /* NoticeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListView.swift; sourceTree = "<group>"; };
+		FC2DDC1A2BC5767E00A51E64 /* NoticeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTitleView.swift; sourceTree = "<group>"; };
+		FC2DDC1C2BC577D400A51E64 /* NoticeContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeContentView.swift; sourceTree = "<group>"; };
 		FC628F2D2BC42F1A007F5E5C /* SetProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileView.swift; sourceTree = "<group>"; };
 		FC628F2F2BC4328A007F5E5C /* ErrorTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextView.swift; sourceTree = "<group>"; };
 		FC628F312BC440DF007F5E5C /* SetProfilePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfilePhotoView.swift; sourceTree = "<group>"; };
@@ -283,13 +289,32 @@
 			isa = PBXGroup;
 			children = (
 				FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */,
-				FC2DDC0E2BC508B700A51E64 /* MyStaticGuageView.swift */,
-				FC2DDC102BC50B6900A51E64 /* StaticGuageProgressView.swift */,
 				FC2DDC122BC5231200A51E64 /* ProfileEditView.swift */,
+				FC2DDC1F2BC586EB00A51E64 /* StaticGuageView */,
 				FC2DDC142BC528F900A51E64 /* RecentWatchRoomView.swift */,
 				FC2DDC162BC52FBA00A51E64 /* MoreInfoListView.swift */,
+				FC2DDC1E2BC586A100A51E64 /* NoticeView */,
 			);
 			path = MoreInfo;
+			sourceTree = "<group>";
+		};
+		FC2DDC1E2BC586A100A51E64 /* NoticeView */ = {
+			isa = PBXGroup;
+			children = (
+				FC2DDC182BC539B700A51E64 /* NoticeListView.swift */,
+				FC2DDC1A2BC5767E00A51E64 /* NoticeTitleView.swift */,
+				FC2DDC1C2BC577D400A51E64 /* NoticeContentView.swift */,
+			);
+			path = NoticeView;
+			sourceTree = "<group>";
+		};
+		FC2DDC1F2BC586EB00A51E64 /* StaticGuageView */ = {
+			isa = PBXGroup;
+			children = (
+				FC2DDC0E2BC508B700A51E64 /* MyStaticGuageView.swift */,
+				FC2DDC102BC50B6900A51E64 /* StaticGuageProgressView.swift */,
+			);
+			path = StaticGuageView;
 			sourceTree = "<group>";
 		};
 		FCCCEEB22BC3B55400DABCA6 /* LogIn */ = {
@@ -395,6 +420,7 @@
 				FCAF4A1C2BC40CBA00603C2D /* SignUpAgreeButton.swift in Sources */,
 				FC2DDC0F2BC508B700A51E64 /* MyStaticGuageView.swift in Sources */,
 				1F3859BC2BC3D2A800C753BD /* RecentSearchCellView.swift in Sources */,
+				FC2DDC1B2BC5767E00A51E64 /* NoticeTitleView.swift in Sources */,
 				FC2DDC0D2BC5070A00A51E64 /* MoreInfoView.swift in Sources */,
 				FC2DDC152BC528F900A51E64 /* RecentWatchRoomView.swift in Sources */,
 				1F5038E02BC4E69E00381EE5 /* RecentSearchNavigationView.swift in Sources */,
@@ -408,6 +434,7 @@
 				DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */,
 				FCAF4A1A2BC40C8400603C2D /* AppSlogan.swift in Sources */,
 				1F5038DE2BC4E69E00381EE5 /* SearcTestView.swift in Sources */,
+				FC2DDC1D2BC577D400A51E64 /* NoticeContentView.swift in Sources */,
 				FC2DDC172BC52FBA00A51E64 /* MoreInfoListView.swift in Sources */,
 				30BE7EA32BC516EB00A5A178 /* ParticipantNoticeView.swift in Sources */,
 				303EDA752BC503EF0023FC09 /* RoomInfoView.swift in Sources */,
@@ -427,6 +454,7 @@
 				1F3859BD2BC3D2A800C753BD /* SearchingView.swift in Sources */,
 				305137012BC3D0AA00BA41EE /* RoomCardView.swift in Sources */,
 				FC628F322BC440DF007F5E5C /* SetProfilePhotoView.swift in Sources */,
+				FC2DDC192BC539B700A51E64 /* NoticeListView.swift in Sources */,
 				30C1BAC82BC3ED2400827BD1 /* RoomCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
