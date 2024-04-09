@@ -6,22 +6,23 @@
 //
 
 import SwiftUI
+import ZzritKit
 
 struct ComplaintDetailView: View {
-    @Binding var qnaId: UUID?
+    @Binding var contact: ContactModel?
     @Binding var isShowingModalView: Bool
-    @State private var qnaAnswerText: String = ""
-    @State private var isQnaAlert = false
+    @State private var contactAnswerText: String = ""
+    @State private var isContactAlert = false
     @State private var isShowingGroupInfo = false
     @State private var selectInfoOrContent: InfoOrContent = .groupInfo
     
     var body: some View {
         VStack {
-            QnaManageUserInfoView()
+            ContactManageUserInfoView(contact: $contact)
             HStack {
                 VStack {
-                    QnaManagerContentView(isShowingGroupInfo: $isShowingGroupInfo, qnaId: $qnaId)
-                    QnaManagerAnswerView(qnaAnswerText: $qnaAnswerText)
+                    ContactManagerContentView(isShowingGroupInfo: $isShowingGroupInfo, contact: $contact)
+                    ContactManagerAnswerView(contactAnswerText: $contactAnswerText)
                     HStack {
                         Button {
                             isShowingModalView.toggle()
@@ -32,8 +33,8 @@ struct ComplaintDetailView: View {
                         Spacer()
                         
                         Button {
-                            if !qnaAnswerText.isEmpty {
-                                isQnaAlert.toggle()
+                            if !contactAnswerText.isEmpty {
+                                isContactAlert.toggle()
                             }
                         } label: {
                             StaticTextView(title: "답변 등록", width: 120, isActive: .constant(true))
@@ -85,13 +86,13 @@ struct ComplaintDetailView: View {
             }
         }
         .padding()
-        .alert("답변을 등록하시겠습니까?", isPresented: $isQnaAlert) {
+        .alert("답변을 등록하시겠습니까?", isPresented: $isContactAlert) {
             Button("취소하기", role: .cancel){
-                isQnaAlert.toggle()
+                isContactAlert.toggle()
             }
-            Button("등록하기", role: .destructive){
+            Button("등록하기"){
                 print("등록하기")
-                isQnaAlert.toggle()
+                isContactAlert.toggle()
             }
         }
         //         message: {
@@ -104,11 +105,13 @@ struct ComplaintDetailView: View {
     }
 }
 
-struct QnaManageUserInfoView: View {
+struct ContactManageUserInfoView: View {
+    @Binding var contact: ContactModel?
+    
     var body: some View {
         HStack {
             HStack(spacing: 30) {
-                InfoLabelView(title: "이메일", contents: "hapanef@naver.com")
+                InfoLabelView(title: "이메일", contents: "\(contact?.requestedUser ?? "")")
                 InfoLabelView(title: "출생년도", contents: "1992")
                 InfoLabelView(title: "성별", contents: "남자")
                 Spacer()
@@ -131,9 +134,30 @@ struct QnaManageUserInfoView: View {
     }
 }
 
-struct QnaManagerContentView: View {
+struct ContactManagerContentView: View {
     @Binding var isShowingGroupInfo: Bool
-    @Binding var qnaId: UUID?
+    @Binding var contact: ContactModel?
+    let dateService = DateService.shared
+    
+    var targetUserString: String? {
+        var users: String = ""
+        
+        guard let contact else {
+            return nil
+        }
+        
+        if let targetUser = contact.targetUser {
+            for idx in targetUser.indices {
+                users += "\(targetUser[idx])"
+                
+                if idx < targetUser.count - 1 {
+                    users += ", "
+                }
+            }
+        }
+        
+        return users
+    }
     
     var body: some View {
         VStack {
@@ -149,20 +173,34 @@ struct QnaManagerContentView: View {
             }
             VStack(alignment: .leading, spacing: 30) {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("\(tempQnaList.filter{ $0.id == qnaId }[0].qnaCategory.rawValue)")
+                    Text("\(contact?.category.rawValue ?? "")")
                         .foregroundStyle(Color.pointColor)
                         .fontWeight(.bold)
                     HStack {
-                        Text("\(tempQnaList.filter{ $0.id == qnaId }[0].qnaName)")
+                        Text("\(contact?.title ?? "")")
                             .font(.title2)
                             .fontWeight(.bold)
                         Spacer()
-                        Text("\(tempQnaList.filter{ $0.id == qnaId }[0].qnaDate)")
+                        Text("\(dateService.dateString(date: contact?.requestedDated ?? Date()))")
                             .foregroundStyle(Color.staticGray3)
                     }
                     Divider()
+                    
+                    if contact?.targetRoom != nil && contact?.category == .room {
+                        HStack {
+                            Text("대상 모임: ")
+                                .fontWeight(.bold)
+                            Text("\(contact?.targetRoom ?? "")")
+                        }
+                    } else if contact?.targetUser != nil && contact?.category == .mamber {
+                        HStack {
+                            Text("대상 유저: ")
+                                .fontWeight(.bold)
+                            Text("\(targetUserString ?? "")")
+                        }
+                    }
                 }
-                Text("\(tempQnaList.filter{ $0.id == qnaId }[0].qnaContent)")
+                Text("\(contact?.content ?? "")")
                 Spacer(minLength: 10)
             }
             .padding(30)
@@ -174,8 +212,8 @@ struct QnaManagerContentView: View {
     }
 }
 
-struct QnaManagerAnswerView: View {
-    @Binding var qnaAnswerText: String
+struct ContactManagerAnswerView: View {
+    @Binding var contactAnswerText: String
     var body: some View {
         VStack() {
             HStack {
@@ -183,7 +221,7 @@ struct QnaManagerAnswerView: View {
                 Spacer()
             }
             .padding(.top)
-            TextField("문의에 대한 답변을 입력해 주세요.", text: $qnaAnswerText)
+            TextField("문의에 대한 답변을 입력해 주세요.", text: $contactAnswerText)
                 .padding(20)
                 .frame(height: 150, alignment: .topLeading)
                 .overlay {
