@@ -32,8 +32,7 @@ struct PlaygroundManageMainView: View {
             HStack(spacing: 20) {
                 ScrollView {
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
-                        Section(header: PlaygroundSectionHeader())
-                        {
+                        Section(header: PlaygroundSectionHeader()) {
                             ForEach(dummyModeledRooms) { room in
                                 Button {
                                     selectedRoom = room
@@ -63,23 +62,17 @@ struct PlaygroundManageMainView: View {
                                             .multilineTextAlignment(.leading)
                                     }
                                     .font(.title3)
-                                    // .foregroundStyle(room == selectedRoom ? Color.pointColor : Color(uiColor: .label))
+                                    .foregroundStyle(room.id == selectedRoom?.id ? Color.pointColor : Color.black)
                                     .padding(10)
                                 }
                             }
                         }
                     }
                 }
-                .listStyle(.inset)
                 .overlay {
                     RoundedRectangle(cornerRadius: Constants.commonRadius)
                         .stroke(Color.staticGray3, lineWidth: 1.0)
                 }
-                .onTapGesture(count: 2, perform: {
-                    withAnimation{
-                        selectedRoom = nil
-                    }
-                })
                 
                 if let selectedRoom {
                     VStack(spacing: 0) {
@@ -166,6 +159,8 @@ struct PlaygroundManageMainView: View {
                     .frame(width: 260)
                 }
             }
+            
+            Spacer()
         }
         .padding(20)
         .alert(isPresented: $showActiveAlert, content: {
