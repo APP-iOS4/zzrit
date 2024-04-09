@@ -32,16 +32,9 @@ enum CategoryPickerEnum: String, CaseIterable, Hashable {
     case category5
     case category6
     
-    static var array: [String] = [
-        CategoryPickerEnum.all.rawValue,
-        CategoryPickerEnum.trip.rawValue,
-        CategoryPickerEnum.category1.rawValue,
-        CategoryPickerEnum.category2.rawValue,
-        CategoryPickerEnum.category3.rawValue,
-        CategoryPickerEnum.category4.rawValue,
-        CategoryPickerEnum.category5.rawValue,
-        CategoryPickerEnum.category6.rawValue,
-    ]
+    static var allRaws: [String] {
+        return CategoryPickerEnum.allCases.map {$0.rawValue}
+    }
 }
 
 struct SearchingFilterView: View {
