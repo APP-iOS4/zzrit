@@ -15,6 +15,7 @@ struct NoticeListView: View {
     
     @State private var notices: [NoticeModel] = []
     @State private var selectedNoticeUID: String = ""
+    @State private var initialFetch: Bool = true
     
     var body: some View {
         List(notices) { notice in
@@ -44,13 +45,18 @@ struct NoticeListView: View {
         }
         .onAppear {
             loadNotices()
+            initialFetch = false
+        }
+        
+        Button("공지사항 더 불러오기") {
+            loadNotices()
         }
     }
     
     private func loadNotices() {
         Task {
             do {
-                notices = try await noticeService.fetchNotice()
+                notices += try await noticeService.fetchNotice(isInitialFetch: initialFetch)
             } catch {
                 print("에러: \(error)")
             }
