@@ -29,6 +29,7 @@
 		FC628F302BC4328A007F5E5C /* ErrorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC628F2F2BC4328A007F5E5C /* ErrorTextView.swift */; };
 		FC628F322BC440DF007F5E5C /* SetProfilePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC628F312BC440DF007F5E5C /* SetProfilePhotoView.swift */; };
 		FC628F342BC4D115007F5E5C /* BirthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC628F332BC4D114007F5E5C /* BirthYearPickerView.swift */; };
+		FCADAA342BC4EB7700364272 /* CompleteSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCADAA332BC4EB7700364272 /* CompleteSignUpView.swift */; };
 		FCAF4A1A2BC40C8400603C2D /* AppSlogan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAF4A192BC40C8400603C2D /* AppSlogan.swift */; };
 		FCAF4A1C2BC40CBA00603C2D /* SignUpAgreeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAF4A1B2BC40CBA00603C2D /* SignUpAgreeButton.swift */; };
 		FCBCB31A2BC3D2A90048B86F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBCB3192BC3D2A90048B86F /* SignUpView.swift */; };
@@ -60,6 +61,7 @@
 		FC628F2F2BC4328A007F5E5C /* ErrorTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextView.swift; sourceTree = "<group>"; };
 		FC628F312BC440DF007F5E5C /* SetProfilePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfilePhotoView.swift; sourceTree = "<group>"; };
 		FC628F332BC4D114007F5E5C /* BirthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthYearPickerView.swift; sourceTree = "<group>"; };
+		FCADAA332BC4EB7700364272 /* CompleteSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpView.swift; sourceTree = "<group>"; };
 		FCAF4A192BC40C8400603C2D /* AppSlogan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSlogan.swift; sourceTree = "<group>"; };
 		FCAF4A1B2BC40CBA00603C2D /* SignUpAgreeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAgreeButton.swift; sourceTree = "<group>"; };
 		FCBCB3192BC3D2A90048B86F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				FC628F2F2BC4328A007F5E5C /* ErrorTextView.swift */,
 				FC628F312BC440DF007F5E5C /* SetProfilePhotoView.swift */,
 				FC628F332BC4D114007F5E5C /* BirthYearPickerView.swift */,
+				FCADAA332BC4EB7700364272 /* CompleteSignUpView.swift */,
 			);
 			path = LogIn;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */,
 				FCAF4A1A2BC40C8400603C2D /* AppSlogan.swift in Sources */,
 				FCCCEEB62BC3B56600DABCA6 /* UserInputCellView.swift in Sources */,
+				FCADAA342BC4EB7700364272 /* CompleteSignUpView.swift in Sources */,
 				FCBCB31E2BC3DC090048B86F /* ServiceAgreeSheet.swift in Sources */,
 				FCBCB31A2BC3D2A90048B86F /* SignUpView.swift in Sources */,
 				FC628F342BC4D115007F5E5C /* BirthYearPickerView.swift in Sources */,

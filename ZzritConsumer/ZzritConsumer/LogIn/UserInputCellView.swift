@@ -39,9 +39,9 @@ struct UserInputCellView: View {
         ZStack {
             HStack(spacing: 20) {
                 Image(systemName: "\(symbol)")
-                    .font(.title3)
                     .fontWeight(.medium)
                     .foregroundStyle(symbolColor)
+                    .frame(width: 20)
                 
                 ZStack {
                     Text("\(title)")
