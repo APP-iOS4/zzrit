@@ -12,6 +12,8 @@ let noticeCount = 10
 
 struct NoticeListView: View {
     
+    // TODO: 맨 아래로 스크롤 했을시 다음 공지사항 불러올수 있도록 페이징 처리
+    
     // count는 받아오는 공지사항의 개수
     // 공지 개수가 많아 진다면 [버튼ID: Bool]() 형식의 딕셔너리로 처리하는게 어떤지 ..
     @State private var showText = [Bool](repeating: false, count: noticeCount)
