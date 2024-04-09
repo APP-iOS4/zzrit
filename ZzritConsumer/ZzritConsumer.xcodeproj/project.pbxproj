@@ -10,6 +10,14 @@
 		1F3859B82BC3D29500C753BD /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3859B62BC3D29500C753BD /* Configs.swift */; };
 		1F3859BC2BC3D2A800C753BD /* RecentSearchCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3859B92BC3D2A800C753BD /* RecentSearchCellView.swift */; };
 		1F3859BD2BC3D2A800C753BD /* SearchingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3859BA2BC3D2A800C753BD /* SearchingView.swift */; };
+		1F5038D92BC4E67B00381EE5 /* SearchViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5038D82BC4E67B00381EE5 /* SearchViewVM.swift */; };
+		1F5038DE2BC4E69E00381EE5 /* SearcTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5038DA2BC4E69E00381EE5 /* SearcTestView.swift */; };
+		1F5038DF2BC4E69E00381EE5 /* SearchFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5038DB2BC4E69E00381EE5 /* SearchFieldView.swift */; };
+		1F5038E02BC4E69E00381EE5 /* RecentSearchNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5038DC2BC4E69E00381EE5 /* RecentSearchNavigationView.swift */; };
+		1F5038E12BC4E69E00381EE5 /* SearchingFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5038DD2BC4E69E00381EE5 /* SearchingFilterView.swift */; };
+		1F5038E42BC4E6AF00381EE5 /* ArchieveRecentSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5038E22BC4E6AF00381EE5 /* ArchieveRecentSearchCell.swift */; };
+		1F5038E82BC4EB0E00381EE5 /* ProcedureSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5038E72BC4EB0E00381EE5 /* ProcedureSelectButton.swift */; };
+		1F5038EA2BC4EC3600381EE5 /* SearchFilterPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5038E92BC4EC3600381EE5 /* SearchFilterPicker.swift */; };
 		3007E8AF2BC40E6E00B9F7B3 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3007E8AE2BC40E6E00B9F7B3 /* MainView.swift */; };
 		3007E8B22BC4143700B9F7B3 /* SubTitleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3007E8B12BC4143700B9F7B3 /* SubTitleModifier.swift */; };
 		3007E8B42BC4255900B9F7B3 /* RoomCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3007E8B32BC4255900B9F7B3 /* RoomCardListView.swift */; };
@@ -42,6 +50,14 @@
 		1F3859B62BC3D29500C753BD /* Configs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
 		1F3859B92BC3D2A800C753BD /* RecentSearchCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentSearchCellView.swift; sourceTree = "<group>"; };
 		1F3859BA2BC3D2A800C753BD /* SearchingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingView.swift; sourceTree = "<group>"; };
+		1F5038D82BC4E67B00381EE5 /* SearchViewVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewVM.swift; sourceTree = "<group>"; };
+		1F5038DA2BC4E69E00381EE5 /* SearcTestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearcTestView.swift; sourceTree = "<group>"; };
+		1F5038DB2BC4E69E00381EE5 /* SearchFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFieldView.swift; sourceTree = "<group>"; };
+		1F5038DC2BC4E69E00381EE5 /* RecentSearchNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentSearchNavigationView.swift; sourceTree = "<group>"; };
+		1F5038DD2BC4E69E00381EE5 /* SearchingFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingFilterView.swift; sourceTree = "<group>"; };
+		1F5038E22BC4E6AF00381EE5 /* ArchieveRecentSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchieveRecentSearchCell.swift; sourceTree = "<group>"; };
+		1F5038E72BC4EB0E00381EE5 /* ProcedureSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcedureSelectButton.swift; sourceTree = "<group>"; };
+		1F5038E92BC4EC3600381EE5 /* SearchFilterPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterPicker.swift; sourceTree = "<group>"; };
 		3007E8AE2BC40E6E00B9F7B3 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		3007E8B12BC4143700B9F7B3 /* SubTitleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTitleModifier.swift; sourceTree = "<group>"; };
 		3007E8B32BC4255900B9F7B3 /* RoomCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCardListView.swift; sourceTree = "<group>"; };
@@ -93,10 +109,42 @@
 		1F3859BB2BC3D2A800C753BD /* SearchingViews */ = {
 			isa = PBXGroup;
 			children = (
-				1F3859B92BC3D2A800C753BD /* RecentSearchCellView.swift */,
+				1F5038E32BC4E6AF00381EE5 /* ArchieveFiles */,
+				1F5038D82BC4E67B00381EE5 /* SearchViewVM.swift */,
 				1F3859BA2BC3D2A800C753BD /* SearchingView.swift */,
+				1F5038DB2BC4E69E00381EE5 /* SearchFieldView.swift */,
+				1F5038DA2BC4E69E00381EE5 /* SearcTestView.swift */,
+				1F3859B92BC3D2A800C753BD /* RecentSearchCellView.swift */,
+				1F5038E62BC4EABF00381EE5 /* SearchFilterComponents */,
+				1F5038E52BC4EA2900381EE5 /* RecentSearchComponents */,
 			);
 			path = SearchingViews;
+			sourceTree = "<group>";
+		};
+		1F5038E32BC4E6AF00381EE5 /* ArchieveFiles */ = {
+			isa = PBXGroup;
+			children = (
+				1F5038E22BC4E6AF00381EE5 /* ArchieveRecentSearchCell.swift */,
+			);
+			path = ArchieveFiles;
+			sourceTree = "<group>";
+		};
+		1F5038E52BC4EA2900381EE5 /* RecentSearchComponents */ = {
+			isa = PBXGroup;
+			children = (
+				1F5038DC2BC4E69E00381EE5 /* RecentSearchNavigationView.swift */,
+			);
+			path = RecentSearchComponents;
+			sourceTree = "<group>";
+		};
+		1F5038E62BC4EABF00381EE5 /* SearchFilterComponents */ = {
+			isa = PBXGroup;
+			children = (
+				1F5038DD2BC4E69E00381EE5 /* SearchingFilterView.swift */,
+				1F5038E72BC4EB0E00381EE5 /* ProcedureSelectButton.swift */,
+				1F5038E92BC4EC3600381EE5 /* SearchFilterPicker.swift */,
+			);
+			path = SearchFilterComponents;
 			sourceTree = "<group>";
 		};
 		3007E8B02BC4138D00B9F7B3 /* MainModifier */ = {
@@ -287,23 +335,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				309F8ABA2BC3A8570045C6D8 /* GeneralButton.swift in Sources */,
+				1F5038D92BC4E67B00381EE5 /* SearchViewVM.swift in Sources */,
 				3007E8AF2BC40E6E00B9F7B3 /* MainView.swift in Sources */,
+				1F5038E82BC4EB0E00381EE5 /* ProcedureSelectButton.swift in Sources */,
 				FC628F302BC4328A007F5E5C /* ErrorTextView.swift in Sources */,
 				3007E8B22BC4143700B9F7B3 /* SubTitleModifier.swift in Sources */,
+				1F5038E12BC4E69E00381EE5 /* SearchingFilterView.swift in Sources */,
 				30C1BACA2BC3F50A00827BD1 /* MainExistView.swift in Sources */,
 				1F3859B82BC3D29500C753BD /* Configs.swift in Sources */,
 				FCAF4A1C2BC40CBA00603C2D /* SignUpAgreeButton.swift in Sources */,
 				1F3859BC2BC3D2A800C753BD /* RecentSearchCellView.swift in Sources */,
+				1F5038E02BC4E69E00381EE5 /* RecentSearchNavigationView.swift in Sources */,
 				FC628F2E2BC42F1A007F5E5C /* SetProfileView.swift in Sources */,
 				3007E8B82BC43D8900B9F7B3 /* ArchieveRoomCardListView.swift in Sources */,
 				3007E8B42BC4255900B9F7B3 /* RoomCardListView.swift in Sources */,
 				309F8ABC2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift in Sources */,
 				DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */,
 				FCAF4A1A2BC40C8400603C2D /* AppSlogan.swift in Sources */,
+				1F5038DE2BC4E69E00381EE5 /* SearcTestView.swift in Sources */,
 				FCCCEEB62BC3B56600DABCA6 /* UserInputCellView.swift in Sources */,
 				FCADAA342BC4EB7700364272 /* CompleteSignUpView.swift in Sources */,
+				1F5038E42BC4E6AF00381EE5 /* ArchieveRecentSearchCell.swift in Sources */,
 				FCBCB31E2BC3DC090048B86F /* ServiceAgreeSheet.swift in Sources */,
 				FCBCB31A2BC3D2A90048B86F /* SignUpView.swift in Sources */,
+				1F5038DF2BC4E69E00381EE5 /* SearchFieldView.swift in Sources */,
+				1F5038EA2BC4EC3600381EE5 /* SearchFilterPicker.swift in Sources */,
 				FC628F342BC4D115007F5E5C /* BirthYearPickerView.swift in Sources */,
 				FCCCEEB52BC3B56600DABCA6 /* LogInView.swift in Sources */,
 				DF54D21F2BC36C4500D72491 /* ZzritConsumerApp.swift in Sources */,
