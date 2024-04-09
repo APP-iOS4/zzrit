@@ -27,13 +27,34 @@ public final class AuthenticationService: ObservableObject {
         }
     }
     
+    // MARK: Public Methods
+    
     /// 이메일과 비밀번호로 로그인 합니다.
     /// - Parameter email(String): 이메일주소
     /// - Parameter password(String): 비밀번호
     /// - Warning: 로그인 성공을 제외한 모든 경우에는 에러를 throw합니다. 사용하는 부분에서 에러핸들링이 필요합니다.
+    /// - 로그인 과정에서 회원탈퇴 여부에 따른 계정 삭제 로직을 실행합니다.
     public func loginUser(email: String, password: String) async throws {
         do {
             try await Auth.auth().signIn(withEmail: email, password: password)
+            
+            // 회원탈퇴 검증
+            var userService: UserService? = UserService()
+            if
+                let userInfo = try await userService?.loginedUserInfo(),
+                let withdrawalDate = userInfo.secessionDate?.addDay(at: 7)
+            {
+                if withdrawalDate < Date() {
+                    print("회원탈퇴를 신청하였고, 회원탈퇴 철회 기간이 만료되어 계정을 삭제합니다")
+                    try await userService?.deleteLoginedUserInfo()
+                    await deleteAccount()
+                    try logout()
+                    userService = nil
+                } else {
+                    print("회원탈퇴를 신청하였고, 회원탈퇴 철회 기간이 만료되지 않았습니다.")
+                    // TODO: 에러타입 throw 하도록 수정 필요
+                }
+            }
         } catch {
             throw error
         }
@@ -70,6 +91,19 @@ public final class AuthenticationService: ObservableObject {
             return try await Auth.auth().createUser(withEmail: email, password: password)
         } catch {
             throw error
+        }
+    }
+    
+    // MARK: - Private Methods
+    
+    /// FirebaseAuth 계정삭제
+    private func deleteAccount() async {
+        let user = Auth.auth().currentUser
+        
+        do {
+            try await user?.delete()
+        } catch {
+            print("에러: \(error)")
         }
     }
 }

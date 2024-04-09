@@ -60,14 +60,6 @@ struct LoginView: View {
             do {
                 try await authService.loginUser(email: emailField, password: passwordField)
                 print("로그인 성공")
-                
-                if let userInfo = try await userService.loginedUserInfo() {
-                    if await userInfo.isSecession() {
-                        print("회원탈퇴 처리중")
-                    } else {
-                        print("회원탈퇴 이력 없음")
-                    }
-                }
             } catch {
                 print("에러: \(error)")
             }
@@ -80,6 +72,7 @@ struct LoginView: View {
                 let register = try await authService.register(email: emailField, password: passwordField)
                 print("회원가입 성공, 생성된 계정 uid: \(register.user.uid)")
                 registeredUID = register.user.uid
+                setUserInfo()
             } catch {
                 print("에러: \(error)")
             }
