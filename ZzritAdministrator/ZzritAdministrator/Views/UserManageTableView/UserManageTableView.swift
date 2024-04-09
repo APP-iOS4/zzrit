@@ -12,7 +12,7 @@ import ZzritKit
 struct UserManageTableView: View {
     let genderList: [GenderType] = [.male, .female]
     
-    @State var selection: TempUser? = nil
+    @State var selection: UserModel? = nil
     @State var isFilterActive: Bool = true
     @State var isUserModal: Bool = false
     @State var genderSelection: GenderType? = nil
@@ -20,7 +20,7 @@ struct UserManageTableView: View {
     @State var isSortedByYear: Bool = false
     @State private var searchText: String = ""
     
-    @State private var userData: [TempUser] = users
+    @State private var userData: [UserModel] = tempUsers
     
     var body: some View {
         VStack {
@@ -34,7 +34,7 @@ struct UserManageTableView: View {
                     isSortedByStatic = false
                     isSortedByYear = false
                     genderSelection = nil
-                    userData = users
+                    userData = tempUsers
                 } label: {
                     StaticTextView(title: "필터", selectType: .filter, width: 140.0, isActive: $isFilterActive)
                 }
@@ -45,7 +45,7 @@ struct UserManageTableView: View {
             if isFilterActive {
                 HStack {
                     Button {
-                        userData = userData.sorted{ $0.staticIndex > $1.staticIndex }
+                        userData = userData.sorted{ $0.staticGuage > $1.staticGuage }
                         isSortedByStatic = true
                         isSortedByYear = false
                     } label: {
@@ -119,19 +119,20 @@ struct UserManageTableView: View {
                     Section(header: ScrollHeader())
                     {
                         ForEach(userData) { user in
+                            
                             Button {
                                 selection = user
                             } label: {
                                 HStack {
-                                    Text(user.userID)
+                                    Text("\(user.userID)")
                                         .minimumScaleFactor(0.5)
-                                        .frame(minWidth: 350, alignment: .leading)
+                                        .frame(minWidth: 200, alignment: .leading)
                                         .multilineTextAlignment(.leading)
                                     Spacer()
                                     
                                     Divider()
                                     
-                                    Text("\(user.staticIndex)W")
+                                    Text("\(String(format: "%.1f", user.staticGuage))W")
                                         .minimumScaleFactor(0.5)
                                         .frame(width: 100, alignment: .leading)
                                         .multilineTextAlignment(.leading)
@@ -151,18 +152,19 @@ struct UserManageTableView: View {
                                         .multilineTextAlignment(.leading)
                                 }
                                 .font(.title3)
-                                .foregroundStyle(user == selection ? Color.pointColor : Color(uiColor: .label))
+                                .foregroundStyle(user.id == selection?.id ? Color.pointColor : Color.staticGray1)
                                 .padding(10)
                             }
+                            
                         }
                     }
                 }
                 .onChange(of: genderSelection) { _ in
                     guard let genderSelection else {
-                        userData = users
+                        userData = tempUsers
                         return
                     }
-                    userData = users.filter{ $0.gender == genderSelection }
+                    userData = tempUsers.filter{ $0.gender == genderSelection }
                 }
             }
             .listStyle(.plain)
@@ -177,7 +179,7 @@ struct UserManageTableView: View {
             HStack {
                 Spacer()
                 
-                MyButton(named: "유저 제재하기", features: {
+                MyButton(named: "선택한 유저 제재/관리", features: {
                     if selection != nil {
                         // print("\(selection ?? UUID())")
                         isUserModal.toggle()
@@ -188,7 +190,7 @@ struct UserManageTableView: View {
         }
         .tint(.pointColor)
         .fullScreenCover(isPresented: $isUserModal, content: {
-            UserInfoModalView(isUserModal: $isUserModal, user: selection ?? .init(userID: "NO DATA", staticIndex: 0, birthYear: 0, gender: .male))
+            UserInfoModalView(isUserModal: $isUserModal, user: selection ?? .init(userID: "example@example.com", userName: "NO DATA", userImage: "xmark", gender: .male, birthYear: 1900, staticGuage: 0))
         })
         .padding()
     }
@@ -225,7 +227,7 @@ struct ScrollHeader: View {
         HStack {
             Text("유저 이메일")
                 .minimumScaleFactor(0.5)
-                .frame(minWidth: 350, alignment: .leading)
+                .frame(minWidth: 200, alignment: .leading)
                 .multilineTextAlignment(.leading)
             
             Spacer()
@@ -260,48 +262,58 @@ struct ScrollHeader: View {
     }
 }
 
+/*
+ struct TempUser: Identifiable, Equatable {
+ var id: UUID = UUID()
+ 
+ let userID: String
+ let staticIndex: Int
+ let birthYear: Int
+ let gender: GenderType
+ }
+ 
+ private var users: [TempUser] = [
+ TempUser(userID: "user1@gmail.com", staticIndex: 23, birthYear: 1827, gender: .male),
+ TempUser(userID: "user2@gmail.com", staticIndex: 53, birthYear: 1879, gender: .female),
+ TempUser(userID: "user3@gmail.com", staticIndex: 31, birthYear: 1867, gender: .male),
+ TempUser(userID: "user4@gmail.com", staticIndex: 23, birthYear: 1995, gender: .female),
+ TempUser(userID: "user5@gmail.com", staticIndex: 87, birthYear: 2001, gender: .male),
+ TempUser(userID: "user6@gmail.com", staticIndex: 86, birthYear: 1998, gender: .male),
+ TempUser(userID: "user7@gmail.com", staticIndex: 54, birthYear: 1999, gender: .female),
+ TempUser(userID: "user8@gmail.com", staticIndex: 23, birthYear: 1827, gender: .male),
+ TempUser(userID: "user9@gmail.com", staticIndex: 53, birthYear: 1879, gender: .female),
+ TempUser(userID: "user10@gmail.com", staticIndex: 31, birthYear: 1867, gender: .male),
+ TempUser(userID: "user11@gmail.com", staticIndex: 23, birthYear: 1995, gender: .female),
+ TempUser(userID: "user12@gmail.com", staticIndex: 87, birthYear: 2002, gender: .male),
+ TempUser(userID: "user13@gmail.com", staticIndex: 86, birthYear: 1996, gender: .male),
+ TempUser(userID: "user14@gmail.com", staticIndex: 54, birthYear: 1997, gender: .female),
+ TempUser(userID: "user15@gmail.com", staticIndex: 23, birthYear: 1827, gender: .male),
+ TempUser(userID: "user200@gmail.com", staticIndex: 53, birthYear: 1879, gender: .female),
+ TempUser(userID: "user3000@gmail.com", staticIndex: 31, birthYear: 1867, gender: .male),
+ TempUser(userID: "user40000@gmail.com", staticIndex: 100, birthYear: 1995, gender: .female),
+ TempUser(userID: "user567890@gmail.com", staticIndex: 87, birthYear: 2003, gender: .male),
+ TempUser(userID: "user654321@gmail.com", staticIndex: 86, birthYear: 1994, gender: .male),
+ TempUser(userID: "user79797979@gmail.com", staticIndex: 54, birthYear: 1993, gender: .female),
+ ]
+ */
 
-struct TempUser: Identifiable, Equatable {
-    var id: UUID = UUID()
-    
-    let userID: String
-    let staticIndex: Int
-    let birthYear: Int
-    let gender: GenderType
-}
-
-private var users: [TempUser] = [
-    TempUser(userID: "user1@gmail.com", staticIndex: 23, birthYear: 1827, gender: .male),
-    TempUser(userID: "user2@gmail.com", staticIndex: 53, birthYear: 1879, gender: .female),
-    TempUser(userID: "user3@gmail.com", staticIndex: 31, birthYear: 1867, gender: .male),
-    TempUser(userID: "user4@gmail.com", staticIndex: 23, birthYear: 1995, gender: .female),
-    TempUser(userID: "user5@gmail.com", staticIndex: 87, birthYear: 2001, gender: .male),
-    TempUser(userID: "user6@gmail.com", staticIndex: 86, birthYear: 1998, gender: .male),
-    TempUser(userID: "user7@gmail.com", staticIndex: 54, birthYear: 1999, gender: .female),
-    TempUser(userID: "user8@gmail.com", staticIndex: 23, birthYear: 1827, gender: .male),
-    TempUser(userID: "user9@gmail.com", staticIndex: 53, birthYear: 1879, gender: .female),
-    TempUser(userID: "user10@gmail.com", staticIndex: 31, birthYear: 1867, gender: .male),
-    TempUser(userID: "user11@gmail.com", staticIndex: 23, birthYear: 1995, gender: .female),
-    TempUser(userID: "user12@gmail.com", staticIndex: 87, birthYear: 2002, gender: .male),
-    TempUser(userID: "user13@gmail.com", staticIndex: 86, birthYear: 1996, gender: .male),
-    TempUser(userID: "user14@gmail.com", staticIndex: 54, birthYear: 1997, gender: .female),
-    TempUser(userID: "user15@gmail.com", staticIndex: 23, birthYear: 1827, gender: .male),
-    TempUser(userID: "user200@gmail.com", staticIndex: 53, birthYear: 1879, gender: .female),
-    TempUser(userID: "user3000@gmail.com", staticIndex: 31, birthYear: 1867, gender: .male),
-    TempUser(userID: "user40000@gmail.com", staticIndex: 100, birthYear: 1995, gender: .female),
-    TempUser(userID: "user567890@gmail.com", staticIndex: 87, birthYear: 2003, gender: .male),
-    TempUser(userID: "user654321@gmail.com", staticIndex: 86, birthYear: 1994, gender: .male),
-    TempUser(userID: "user79797979@gmail.com", staticIndex: 54, birthYear: 1993, gender: .female),
+private var tempUsers: [UserModel] = [
+    .init(id: UUID().uuidString, userID: "user1@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2005, staticGuage: 99),
+    .init(id: UUID().uuidString, userID: "user2@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2010, staticGuage: 88),
+    .init(id: UUID().uuidString, userID: "user3@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1991, staticGuage: 66),
+    .init(id: UUID().uuidString, userID: "user4@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1992, staticGuage: 77),
+    .init(id: UUID().uuidString, userID: "user5@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1986, staticGuage: 75),
+    .init(id: UUID().uuidString, userID: "user6@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 55),
+    .init(id: UUID().uuidString, userID: "user7@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2004, staticGuage: 90),
+    .init(id: UUID().uuidString, userID: "user8@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2009, staticGuage: 85),
+    .init(id: UUID().uuidString,userID: "user9@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1990, staticGuage: 70),
+    .init(id: UUID().uuidString, userID: "user10@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1991, staticGuage: 80),
+    .init(id: UUID().uuidString, userID: "user11@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1985, staticGuage: 77),
+    .init(id: UUID().uuidString, userID: "user12@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1970, staticGuage: 65),
+    .init(id: UUID().uuidString, userID: "supercalifragilisticexpialidocious@example.com", userName: "Supercalifragilisticexpialidocious", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 30),
+    .init(id: UUID().uuidString, userID: "taumata­whakatangihanga­koauau­o­tamatea­turi­pukaka­piki­maunga­horo­nuku­pokai­whenua­ki­tana­tahu@example.com", userName: "다람쥐 헌 쳇바퀴에 타고파", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 40),
+    .init(id: UUID().uuidString, userID: "krungthepmahanakhonamonrattanakosinmahintharayutthayamahadilokphopnoppharatratchathaniburiromudomratchaniwetmahasathanamonphimanawatansathitsakkathattiyawitsanukamprasit@example.com", userName: "끄룽 텝 마하나콘 아몬 라따나꼬신 마힌타라 유타야 마하딜록 폽 노파랏 랏차타니 부리롬 우돔랏차니웻 마하사탄 아몬 피만 아와딴 사팃 사카타띠야 윗사누깜 쁘라싯", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 35),
 ]
-
-
-// MARK: 이 부분은 임시
-// TODO: ZzritKit으로 옮길 예정
-enum GenderType: String, Codable {
-    case male = "남성"
-    case female = "여성"
-}
-
 
 #Preview {
     UserManageTableView()

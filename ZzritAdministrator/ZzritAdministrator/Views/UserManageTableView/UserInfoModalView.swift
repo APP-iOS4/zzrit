@@ -7,27 +7,34 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct UserInfoModalView: View {
     @Binding var isUserModal: Bool
-    var user: TempUser
+    var user: UserModel
     
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                HStack(spacing: 30) {
+                VStack(alignment: .leading) {
                     InfoLabelView(title: "이메일", contents: "\(user.userID)")
-                    InfoLabelView(title: "출생년도", contents: "\(user.birthYear)")
-                    InfoLabelView(title: "성별", contents: "\(user.gender.rawValue)")
-                    Spacer()
-                    Text("관리자지정")
-                        .foregroundStyle(Color.staticGray3)
+                    
+                    HStack(spacing: 30){
+                        InfoLabelView(title: "출생년도", contents: "\(user.birthYear)")
+                        InfoLabelView(title: "성별", contents: "\(user.gender.rawValue)")
+                        
+                        Spacer()
+                        
+                        Text("관리자지정")
+                            .foregroundStyle(Color.staticGray3)
+                    }
                 }
                 .padding(20)
                 .overlay {
                     RoundedRectangle(cornerRadius: Constants.commonRadius)
                         .stroke(Color.staticGray3, lineWidth: 1.0)
                 }
-                StaticTextView(title: "\(user.staticIndex)W", width: 100, isActive: .constant(true))
+                StaticTextView(title: "\(user.staticGuage)W", width: 100, isActive: .constant(true))
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
             }
@@ -121,12 +128,13 @@ struct BanListCell: View {
 }
 
 struct banReasonField: View {
-    var user: TempUser
+    var user: UserModel
     @State private var banReason: BannedType = .abuse
     @State private var banPeriod = 3
     @State private var banMemo = ""
     @State private var banAlert = false
     @State var isButtonActive: Bool = false
+    @State private var indexAfterPenalty: Double = 0
     
     var body: some View {
         HStack {
@@ -137,6 +145,33 @@ struct banReasonField: View {
                 .padding(.leading)
             Button {
                 if !banMemo.isEmpty{
+                    let penalty: Double = switch banPeriod {
+                    case 3:
+                        1
+                    case 5:
+                        2
+                    case 7:
+                        3
+                    case 14:
+                        5
+                    case 30:
+                        10
+                    case 180:
+                        20
+                    case 365:
+                        30
+                    case 3649635:
+                        100
+                    default:
+                        0
+                    }
+                    
+                    indexAfterPenalty = if user.staticGuage - penalty < 0 {
+                        0
+                    } else {
+                        user.staticGuage - penalty
+                    }
+                    
                     banAlert.toggle()
                 }
             } label: {
@@ -162,7 +197,7 @@ struct banReasonField: View {
                 banAlert.toggle()
             }
         } message: {
-            Text("\"\(String(describing: user.userID))\"를 \(banReason.rawValue)(으)로 \(banPeriod)일 제재\n사유 : \(banMemo)")
+            Text("\"\(String(describing: user.userID))\"를 \(banReason.rawValue)(으)로 \(banPeriod)일 제재\n제재 후 정전기 지수: \(indexAfterPenalty)W \n사유 : \(banMemo)")
         }
         
     }
@@ -188,14 +223,14 @@ struct banPeriodPickerView: View {
     @Binding var banPeriod: Int
     var body: some View {
         Picker("\(banPeriod)일", selection: $banPeriod){
-            Text("3일").tag(3)
-            Text("5일").tag(5)
-            Text("7일").tag(7)
-            Text("14일").tag(14)
-            Text("30일").tag(30)
-            Text("180일").tag(180)
-            Text("1년").tag(365)
-            Text("영구").tag(3649635)
+            Text("3일 (-1W)").tag(3)
+            Text("5일 (-2W)").tag(5)
+            Text("7일 (-3W)").tag(7)
+            Text("14일 (-5W)").tag(14)
+            Text("30일 (-10W)").tag(30)
+            Text("180일 (-20W)").tag(180)
+            Text("1년 (-30W)").tag(365)
+            Text("영구 (-100W)").tag(3649635)
         }
         .pickerStyle(.menu)
         .foregroundStyle(Color.accentColor)
@@ -231,5 +266,5 @@ enum BannedType: String, CaseIterable, Codable {
 }
 
 #Preview {
-    UserInfoModalView(isUserModal: .constant(true), user: .init(userID: "example", staticIndex: 100, birthYear: 1900, gender: .male))
+    UserInfoModalView(isUserModal: .constant(true), user: .init(userID: "example@example.com", userName: "EXAMPLE DATA", userImage: "xmark", gender: .male, birthYear: 1900, staticGuage: 0))
 }
