@@ -33,6 +33,12 @@
 		DF54D2232BC36C4800D72491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D2222BC36C4800D72491 /* Assets.xcassets */; };
 		DF54D2262BC36C4800D72491 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D2252BC36C4800D72491 /* Preview Assets.xcassets */; };
 		DFC75F822BC36CC50005DDD9 /* ZzritKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFC75F812BC36CC50005DDD9 /* ZzritKit */; };
+		FC2DDC0D2BC5070A00A51E64 /* MoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */; };
+		FC2DDC0F2BC508B700A51E64 /* MyStaticGuageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC0E2BC508B700A51E64 /* MyStaticGuageView.swift */; };
+		FC2DDC112BC50B6900A51E64 /* StaticGuageProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC102BC50B6900A51E64 /* StaticGuageProgressView.swift */; };
+		FC2DDC132BC5231200A51E64 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC122BC5231200A51E64 /* ProfileEditView.swift */; };
+		FC2DDC152BC528F900A51E64 /* RecentWatchRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC142BC528F900A51E64 /* RecentWatchRoomView.swift */; };
+		FC2DDC172BC52FBA00A51E64 /* MoreInfoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC162BC52FBA00A51E64 /* MoreInfoListView.swift */; };
 		FC628F2E2BC42F1A007F5E5C /* SetProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC628F2D2BC42F1A007F5E5C /* SetProfileView.swift */; };
 		FC628F302BC4328A007F5E5C /* ErrorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC628F2F2BC4328A007F5E5C /* ErrorTextView.swift */; };
 		FC628F322BC440DF007F5E5C /* SetProfilePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC628F312BC440DF007F5E5C /* SetProfilePhotoView.swift */; };
@@ -73,6 +79,12 @@
 		DF54D2202BC36C4500D72491 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DF54D2222BC36C4800D72491 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF54D2252BC36C4800D72491 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoView.swift; sourceTree = "<group>"; };
+		FC2DDC0E2BC508B700A51E64 /* MyStaticGuageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStaticGuageView.swift; sourceTree = "<group>"; };
+		FC2DDC102BC50B6900A51E64 /* StaticGuageProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticGuageProgressView.swift; sourceTree = "<group>"; };
+		FC2DDC122BC5231200A51E64 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
+		FC2DDC142BC528F900A51E64 /* RecentWatchRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWatchRoomView.swift; sourceTree = "<group>"; };
+		FC2DDC162BC52FBA00A51E64 /* MoreInfoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoListView.swift; sourceTree = "<group>"; };
 		FC628F2D2BC42F1A007F5E5C /* SetProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileView.swift; sourceTree = "<group>"; };
 		FC628F2F2BC4328A007F5E5C /* ErrorTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextView.swift; sourceTree = "<group>"; };
 		FC628F312BC440DF007F5E5C /* SetProfilePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfilePhotoView.swift; sourceTree = "<group>"; };
@@ -215,6 +227,7 @@
 		DF54D21D2BC36C4500D72491 /* ZzritConsumer */ = {
 			isa = PBXGroup;
 			children = (
+				FC2DDC0B2BC506E500A51E64 /* MoreInfo */,
 				30C1BAC62BC3ECD100827BD1 /* Main */,
 				FCCCEEB22BC3B55400DABCA6 /* LogIn */,
 				DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */,
@@ -241,6 +254,19 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FC2DDC0B2BC506E500A51E64 /* MoreInfo */ = {
+			isa = PBXGroup;
+			children = (
+				FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */,
+				FC2DDC0E2BC508B700A51E64 /* MyStaticGuageView.swift */,
+				FC2DDC102BC50B6900A51E64 /* StaticGuageProgressView.swift */,
+				FC2DDC122BC5231200A51E64 /* ProfileEditView.swift */,
+				FC2DDC142BC528F900A51E64 /* RecentWatchRoomView.swift */,
+				FC2DDC162BC52FBA00A51E64 /* MoreInfoListView.swift */,
+			);
+			path = MoreInfo;
 			sourceTree = "<group>";
 		};
 		FCCCEEB22BC3B55400DABCA6 /* LogIn */ = {
@@ -344,8 +370,12 @@
 				30C1BACA2BC3F50A00827BD1 /* MainExistView.swift in Sources */,
 				1F3859B82BC3D29500C753BD /* Configs.swift in Sources */,
 				FCAF4A1C2BC40CBA00603C2D /* SignUpAgreeButton.swift in Sources */,
+				FC2DDC0F2BC508B700A51E64 /* MyStaticGuageView.swift in Sources */,
 				1F3859BC2BC3D2A800C753BD /* RecentSearchCellView.swift in Sources */,
+				FC2DDC0D2BC5070A00A51E64 /* MoreInfoView.swift in Sources */,
+				FC2DDC152BC528F900A51E64 /* RecentWatchRoomView.swift in Sources */,
 				1F5038E02BC4E69E00381EE5 /* RecentSearchNavigationView.swift in Sources */,
+				FC2DDC132BC5231200A51E64 /* ProfileEditView.swift in Sources */,
 				FC628F2E2BC42F1A007F5E5C /* SetProfileView.swift in Sources */,
 				3007E8B82BC43D8900B9F7B3 /* ArchieveRoomCardListView.swift in Sources */,
 				3007E8B42BC4255900B9F7B3 /* RoomCardListView.swift in Sources */,
@@ -353,11 +383,13 @@
 				DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */,
 				FCAF4A1A2BC40C8400603C2D /* AppSlogan.swift in Sources */,
 				1F5038DE2BC4E69E00381EE5 /* SearcTestView.swift in Sources */,
+				FC2DDC172BC52FBA00A51E64 /* MoreInfoListView.swift in Sources */,
 				FCCCEEB62BC3B56600DABCA6 /* UserInputCellView.swift in Sources */,
 				FCADAA342BC4EB7700364272 /* CompleteSignUpView.swift in Sources */,
 				1F5038E42BC4E6AF00381EE5 /* ArchieveRecentSearchCell.swift in Sources */,
 				FCBCB31E2BC3DC090048B86F /* ServiceAgreeSheet.swift in Sources */,
 				FCBCB31A2BC3D2A90048B86F /* SignUpView.swift in Sources */,
+				FC2DDC112BC50B6900A51E64 /* StaticGuageProgressView.swift in Sources */,
 				1F5038DF2BC4E69E00381EE5 /* SearchFieldView.swift in Sources */,
 				1F5038EA2BC4EC3600381EE5 /* SearchFilterPicker.swift in Sources */,
 				FC628F342BC4D115007F5E5C /* BirthYearPickerView.swift in Sources */,
