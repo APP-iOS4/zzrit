@@ -97,23 +97,7 @@ struct UserManageTableView: View {
                 }
                 .padding()
             }
-            // MARK: -
-            //            Table(userData, selection: $selection) {
-            //                TableColumn("이메일", value: \.userID)
-            //                TableColumn("정전기 지수") { user in
-            //                    Text("\(user.staticIndex)")
-            //                }
-            //                .width(max: 200.0)
-            //                TableColumn("출생연도") { user in
-            //                    Text(verbatim: "\(user.birthYear)")
-            //                }
-            //                .width(max: 200.0)
-            //                TableColumn("성별", value:\.gender.rawValue)
-            //                    .width(max: 140.0)
-            //            }
-            //            .border(.black)
-            //            .padding(20.0)
-            
+
             ScrollView {
                 LazyVStack(pinnedViews: [.sectionHeaders]) {
                     Section(header: ScrollHeader())
@@ -269,41 +253,6 @@ struct ScrollHeader: View {
         }
     }
 }
-
-/*
- struct TempUser: Identifiable, Equatable {
- var id: UUID = UUID()
- 
- let userID: String
- let staticIndex: Int
- let birthYear: Int
- let gender: GenderType
- }
- 
- private var users: [TempUser] = [
- TempUser(userID: "user1@gmail.com", staticIndex: 23, birthYear: 1827, gender: .male),
- TempUser(userID: "user2@gmail.com", staticIndex: 53, birthYear: 1879, gender: .female),
- TempUser(userID: "user3@gmail.com", staticIndex: 31, birthYear: 1867, gender: .male),
- TempUser(userID: "user4@gmail.com", staticIndex: 23, birthYear: 1995, gender: .female),
- TempUser(userID: "user5@gmail.com", staticIndex: 87, birthYear: 2001, gender: .male),
- TempUser(userID: "user6@gmail.com", staticIndex: 86, birthYear: 1998, gender: .male),
- TempUser(userID: "user7@gmail.com", staticIndex: 54, birthYear: 1999, gender: .female),
- TempUser(userID: "user8@gmail.com", staticIndex: 23, birthYear: 1827, gender: .male),
- TempUser(userID: "user9@gmail.com", staticIndex: 53, birthYear: 1879, gender: .female),
- TempUser(userID: "user10@gmail.com", staticIndex: 31, birthYear: 1867, gender: .male),
- TempUser(userID: "user11@gmail.com", staticIndex: 23, birthYear: 1995, gender: .female),
- TempUser(userID: "user12@gmail.com", staticIndex: 87, birthYear: 2002, gender: .male),
- TempUser(userID: "user13@gmail.com", staticIndex: 86, birthYear: 1996, gender: .male),
- TempUser(userID: "user14@gmail.com", staticIndex: 54, birthYear: 1997, gender: .female),
- TempUser(userID: "user15@gmail.com", staticIndex: 23, birthYear: 1827, gender: .male),
- TempUser(userID: "user200@gmail.com", staticIndex: 53, birthYear: 1879, gender: .female),
- TempUser(userID: "user3000@gmail.com", staticIndex: 31, birthYear: 1867, gender: .male),
- TempUser(userID: "user40000@gmail.com", staticIndex: 100, birthYear: 1995, gender: .female),
- TempUser(userID: "user567890@gmail.com", staticIndex: 87, birthYear: 2003, gender: .male),
- TempUser(userID: "user654321@gmail.com", staticIndex: 86, birthYear: 1994, gender: .male),
- TempUser(userID: "user79797979@gmail.com", staticIndex: 54, birthYear: 1993, gender: .female),
- ]
- */
 
 private var tempUsers: [UserModel] = [
     .init(id: UUID().uuidString, userID: "user1@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2005, staticGuage: 99),
