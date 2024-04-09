@@ -10,6 +10,7 @@ import Foundation
 import FirebaseFirestore
 
 /// 유저 모델
+@available(iOS 16.0.0, *)
 public struct UserModel: Codable, Identifiable {
     /// 유저의 FirebaseAuth의 uid
     @DocumentID public var id: String? = UUID().uuidString
@@ -49,5 +50,32 @@ public struct UserModel: Codable, Identifiable {
     
     public var bannedHistory: [BannedModel]? {
         return nil
+    }
+    
+    /// 회원탈퇴 처리중인지 반환
+    /// - Returns: (Bool): true일 경우 회원탈퇴 처리중
+    public func isSecession() async -> Bool {
+        do {
+            guard let _ = AuthenticationService.shared.currentUID else { return true }
+            
+            var userService: UserService? = UserService()
+            if let loginedUserInfo = try await userService?.loginedUserInfo() {
+                if let _ = loginedUserInfo.secessionDate {
+                    userService = nil
+                    return true
+                } else {
+                    userService = nil
+                    return false
+                }
+            } else {
+                
+                // TODO: return -> throw 변경
+                
+                return false
+            }
+        } catch {
+            print("에러: \(error)")
+            return false
+        }
     }
 }
