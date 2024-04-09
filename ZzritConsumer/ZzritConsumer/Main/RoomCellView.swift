@@ -16,6 +16,7 @@ struct RoomCellView: View {
             HStack {
                 // 모임 타이틀
                 Text("같이 모여서 가볍게 치맥하실 분...")
+                    .lineLimit(1)
                     .foregroundStyle(.black)
                     .font(.title3)
                     .fontWeight(.bold)

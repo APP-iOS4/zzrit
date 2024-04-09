@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct RoomCardListView: View {
+    // 현재 선택된 카드 인덱스
     @State private var selectedIndex: Int = 0
-    
+    // 임시 배열카운트 개수
     let testCount: Int = 4
     
+    // MARK: - body
+    
     var body: some View {
-        // 카트 탭 뷰
+        // 카드 탭 뷰
         LazyVStack {
             TabView(selection: $selectedIndex) {
                 ForEach (0...testCount, id: \.self) { _ in
@@ -40,7 +43,7 @@ struct RoomCardListView: View {
             ForEach(0...testCount, id: \.self) { index in
                 Circle()
                     .frame(width: 8, height: 8)
-                    .foregroundStyle(index == selectedIndex ? .black : .gray)
+                    .foregroundStyle(index == selectedIndex ? .black : Color.staticGray3)
                     .padding(.horizontal, 3)
             }
         }
