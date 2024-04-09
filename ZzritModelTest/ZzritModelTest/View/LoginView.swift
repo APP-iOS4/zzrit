@@ -30,14 +30,25 @@ struct LoginView: View {
             }
 
             Spacer()
+            
             Button("로그아웃") {
                 logout()
             }
         }
         
+        Button("현재 로그인 정보") {
+            currentLoginedUser()
+        }
+        
         HStack {
-            Button("현재 로그인 정보") {
-                currentLoginedUser()
+            Button("현재 로그인 계정 탈퇴") {
+                secession()
+            }
+            
+            Spacer()
+            
+            Button("현재 로그인 계정 탈퇴 철회") {
+                secessionCancel()
             }
         }
     }
@@ -49,6 +60,14 @@ struct LoginView: View {
             do {
                 try await authService.loginUser(email: emailField, password: passwordField)
                 print("로그인 성공")
+                
+                if let userInfo = try await userService.loginedUserInfo() {
+                    if await userInfo.isSecession() {
+                        print("회원탈퇴 처리중")
+                    } else {
+                        print("회원탈퇴 이력 없음")
+                    }
+                }
             } catch {
                 print("에러: \(error)")
             }
@@ -93,6 +112,26 @@ struct LoginView: View {
                 } else {
                     print("유저 정보가 DB에 없음")
                 }
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    
+    private func secession() {
+        Task {
+            do {
+                try await userService.secession()
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    
+    private func secessionCancel() {
+        Task {
+            do {
+                try await userService.secessionCancel()
             } catch {
                 print("에러: \(error)")
             }
