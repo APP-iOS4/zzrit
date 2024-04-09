@@ -18,6 +18,7 @@
 		DFC75FF92BC535F60005DDD9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */; };
 		DFC760002BC589AE0005DDD9 /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FFF2BC589AE0005DDD9 /* NoticeView.swift */; };
 		DFC760022BC589ED0005DDD9 /* WriteNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC760012BC589ED0005DDD9 /* WriteNoticeView.swift */; };
+		DFC760062BC58D610005DDD9 /* NoticeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC760052BC58D610005DDD9 /* NoticeListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		DFC75FFF2BC589AE0005DDD9 /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
 		DFC760012BC589ED0005DDD9 /* WriteNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteNoticeView.swift; sourceTree = "<group>"; };
+		DFC760052BC58D610005DDD9 /* NoticeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			children = (
 				DFC75FFF2BC589AE0005DDD9 /* NoticeView.swift */,
 				DFC760012BC589ED0005DDD9 /* WriteNoticeView.swift */,
+				DFC760052BC58D610005DDD9 /* NoticeListView.swift */,
 			);
 			path = Notice;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFC760062BC58D610005DDD9 /* NoticeListView.swift in Sources */,
 				DFC75FD62BC3CCCA0005DDD9 /* LoginView.swift in Sources */,
 				DFC75FC92BC3CC850005DDD9 /* ContentView.swift in Sources */,
 				DFC760022BC589ED0005DDD9 /* WriteNoticeView.swift in Sources */,

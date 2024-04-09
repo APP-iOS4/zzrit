@@ -28,6 +28,15 @@ public final class NoticeService {
         } catch {
             throw error
         }
-        
+    }
+    
+    /// 공지사항을 불러옵니다.
+    public func fetchNotice() async throws -> [NoticeModel] {
+        do {
+            let snapshot = try await firebaseConst.noticeCollection.getDocuments()
+            return try snapshot.documents.map { try $0.data(as: NoticeModel.self) }
+        } catch {
+            throw error
+        }
     }
 }
