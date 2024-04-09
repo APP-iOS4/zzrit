@@ -160,11 +160,19 @@ struct UserManageTableView: View {
                     }
                 }
                 .onChange(of: genderSelection) { _ in
+                    selection = nil
+                    
                     guard let genderSelection else {
                         userData = tempUsers
                         return
                     }
                     userData = tempUsers.filter{ $0.gender == genderSelection }
+                    
+                    if isSortedByStatic {
+                        userData = userData.sorted{ $0.staticGuage > $1.staticGuage }
+                    } else if isSortedByYear {
+                        userData = userData.sorted{ $0.birthYear < $1.birthYear }
+                    }
                 }
             }
             .listStyle(.plain)
