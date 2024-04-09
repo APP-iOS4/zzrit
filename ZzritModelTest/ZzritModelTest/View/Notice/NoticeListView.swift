@@ -18,38 +18,39 @@ struct NoticeListView: View {
     @State private var initialFetch: Bool = true
     
     var body: some View {
-        List(notices) { notice in
-            VStack {
-                HStack {
-                    VStack {
-                        Text(notice.title)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        Text(dateService.formattedString(date: notice.date))
-                            .frame(maxWidth: .infinity, alignment: .trailing)
+        VStack {
+            List(notices) { notice in
+                VStack {
+                    HStack {
+                        VStack {
+                            Text(notice.title)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            Text(dateService.formattedString(date: notice.date))
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                        Spacer()
+                        Image(systemName: selectedNoticeUID == notice.id! ? "chevron.up" : "chevron.down")
                     }
-                    Spacer()
-                    Image(systemName: selectedNoticeUID == notice.id! ? "chevron.up" : "chevron.down")
+                    if selectedNoticeUID == notice.id! {
+                        Text(notice.content)
+                    }
                 }
-                if selectedNoticeUID == notice.id! {
-                    Text(notice.content)
-                }
-            }
-            .onTapGesture {
-                if selectedNoticeUID == notice.id! {
-                    selectedNoticeUID = ""
-                } else {
-                    selectedNoticeUID = notice.id!
+                .onTapGesture {
+                    if selectedNoticeUID == notice.id! {
+                        selectedNoticeUID = ""
+                    } else {
+                        selectedNoticeUID = notice.id!
+                    }
                 }
             }
-        }
-        .onAppear {
-            loadNotices()
-            initialFetch = false
-        }
-        
-        Button("공지사항 더 불러오기") {
-            loadNotices()
+            .onAppear {
+                loadNotices()
+                initialFetch = false
+            }
+            Button("공지사항 더 불러오기") {
+                loadNotices()
+            }
         }
     }
     

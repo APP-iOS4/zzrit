@@ -10,9 +10,14 @@ import SwiftUI
 struct NoticeView: View {
     var body: some View {
         TabView {
-            NoticeView()
+            WriteNoticeView()
                 .tabItem {
                     Label("등록", systemImage: "pencil")
+                }
+            
+            NoticeListView()
+                .tabItem {
+                    Label("목록", systemImage: "pencil")
                 }
         }
     }

@@ -16,10 +16,15 @@ struct ContentView: View {
             NavigationLink("이미지 업로드") {
                 ImageUploadView()
             }
+            NavigationLink("공지사항") {
+                NoticeView()
+            }
         }
     }
 }
 
 #Preview {
-    ContentView()
+    NavigationStack {
+        ContentView()
+    }
 }
