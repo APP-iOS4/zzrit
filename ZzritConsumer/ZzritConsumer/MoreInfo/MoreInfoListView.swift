@@ -83,26 +83,6 @@ struct MoreInfoListView: View {
     }
 }
 
-// 회색 굵은 선
-struct FakeDivider: View {
-    var body: some View {
-        Rectangle()
-            .frame(height: 10)
-            .foregroundStyle(Color.staticGray5)
-    }
-}
-
-// List의 Cell 라벨
-struct HorizontalLabel: View {
-    var string: String
-    var body: some View {
-            HStack {
-                Text(string)
-                Spacer()
-            }
-    }
-}
-
 #Preview {
     MoreInfoListView()
 }
