@@ -12,7 +12,7 @@ import FirebaseFirestore
 /// 유저 모델
 public struct UserModel: Codable, Identifiable {
     /// 유저의 FirebaseAuth의 uid
-    @DocumentID public var id: String?
+    @DocumentID public var id: String? = UUID().uuidString
     /// 유저 이메일주소
     public var userID: String
     /// 유저 닉네임

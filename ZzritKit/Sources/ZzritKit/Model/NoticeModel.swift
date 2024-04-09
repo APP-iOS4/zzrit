@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 /// 공지사항 모델
 public struct NoticeModel: Codable, Identifiable {
-    @DocumentID public var id: String?
+    @DocumentID public var id: String? = UUID().uuidString
     /// 공지사항 제목
     public var title: String
     /// 공지사항 내용

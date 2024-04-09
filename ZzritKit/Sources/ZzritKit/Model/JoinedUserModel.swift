@@ -12,5 +12,5 @@ import FirebaseFirestore
 /// JoinedUser 모델
 public struct JoinedUserModel: Codable {
     /// 현재 모임에 참여한 유저ID
-    public var userID: String
+    public var userID: String = UUID().uuidString
 }
