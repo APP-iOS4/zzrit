@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct SignUpView: View {
+    private let authService = AuthenticationService.shared
     
     @State var signUpId: String = ""
     @State var signUpPw1: String = ""
@@ -17,6 +20,7 @@ struct SignUpView: View {
     @State var selectAgree = false
     @State var equlText = false
     @State var isSignUpButtonActive: Bool = false
+    @State private var registeredUID: String = ""
 
     @Environment (\.dismiss) private var dismiss
     
@@ -160,9 +164,26 @@ struct SignUpView: View {
         }
     }
     
-    func checkEmail( _ str: String) -> Bool {
+    private func checkEmail( _ str: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         return  NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: str)
+    }
+    
+    private func checkPassword( _ str: String) -> Bool {
+        let pwRegex = "[A-Za-z0-9!_@$%^&+=]{8,20}"
+        return NSPredicate(format: "SELF MATCHES %@", pwRegex).evaluate(with: str)
+    }
+    
+    private func register() {
+        Task {
+            do {
+                let register = try await authService.register(email: signUpId, password: signUpPw1)
+                print("회원가입 성공, 생성된 계정 uid: \(register.user.uid)")
+                registeredUID = register.user.uid
+            } catch {
+                print("에러: \(error)")
+            }
+        }
     }
 }
 
