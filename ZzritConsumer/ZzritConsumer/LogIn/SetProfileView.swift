@@ -17,8 +17,10 @@ struct SetProfileView: View {
     @State var isWoman = false
     
     @State var birthYear =  Calendar.current.component(.year, from: Date()) - 19
+    @State var birthYearPickerShow = false
     
     @State var finishProfile = false
+    @State var completeSignUp = false
     
     var body: some View {
         NavigationStack {
@@ -63,34 +65,47 @@ struct SetProfileView: View {
             }
             .padding()
             
-            VStack {
-                HStack {
-                    Label("출생년도", systemImage: "birthday.cake")
-                        .foregroundStyle(Color.staticGray4)
-                    Spacer()
-                }
-                .padding()
-                BirthYearPickerView(selectedYear: $birthYear)
+            HStack {
+                Label("출생년도", systemImage: "birthday.cake")
+                    .foregroundStyle(Color.staticGray4)
+                Spacer()
+                Button(action: {
+                    birthYearPickerShow.toggle()
+                }, label: {
+                    Text("\(String(birthYear)) 년생")
+                        .foregroundStyle(Color.pointColor)
+                })
+                .sheet(isPresented: $birthYearPickerShow, content: {
+                    BirthYearPickerView(selectedYear: $birthYear)
+                })
             }
+            .padding()
             Spacer()
             
             // TODO: 성별은 isMan과 isWoman중 true인 것으로 보내기. (enum 반환 함수 만들기)
             if #available(iOS 17.0, *) {
                 GeneralButton(isDisabled: !finishProfile, "다음") {
-                    
+                    completeSignUp.toggle()
                 }
+                .navigationDestination(isPresented: $completeSignUp, destination: {
+                    CompleteSignUpView()
+                })
                 .onChange(of: finishProfile) {
                     
                 }
             } else {
                 GeneralButton(isDisabled: !finishProfile, "다음") {
-                    
+                    completeSignUp.toggle()
                 }
+                .navigationDestination(isPresented: $completeSignUp, destination: {
+                    CompleteSignUpView()
+                })
                 .onChange(of: finishProfile, perform: { value in
                    
                 })
             }
         }
+        .padding(20)
         .toolbarRole(.editor)
     }
     
