@@ -20,7 +20,6 @@ struct LogInView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                // TODO: 로고 이미지 삽입
                 Image("ZziritLogoImage")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -116,8 +115,13 @@ struct LogInView: View {
                 }
             }
             .padding(20)
+            .onAppear(perform: {
+                id = ""
+                pw = ""
+            })
         }
     }
+    
     func activeLoginButton() {
         if !id.isEmpty && !pw.isEmpty {
             isLoginButtonActive = true
