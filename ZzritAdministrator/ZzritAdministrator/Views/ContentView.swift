@@ -13,9 +13,8 @@ struct ContentView: View {
         
         case playgroundMangement = "모임 관리"
         case userManagement = "유저 관리"
-        case complaintManagement = "신고 관리"
+        case complaintManagement = "문의 관리"
         case announcementManagement = "공지사항 관리"
-        case QAManagement = "Q&A 관리"
         case settings = "설정"
     }
     
@@ -44,8 +43,6 @@ struct ContentView: View {
                     Text("\(category.rawValue)")
                 })
             }
-            // TODO: 숨길건지 논의하기
-//            .toolbar(.hidden, for: .navigationBar)
             .listStyle(.inset)
         } detail: {
 
@@ -63,16 +60,12 @@ struct ContentView: View {
         case .playgroundMangement:
             // 레퍼런스 있음
             PlaygroundManageMainView()
-        // 신고 관리
+        // 문의 관리
         case .complaintManagement:
             ComplaintManagementView()
         // 공지사항 관리
         case .announcementManagement:
             AnnouncementManagementView()
-        // QnA 관리
-        case .QAManagement:
-            // 레퍼런스 있음
-            QnaManageMainView()
         // 설정 뷰
         case .settings:
             SettingsView()
