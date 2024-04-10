@@ -26,6 +26,9 @@
 		303EDA762BC503EF0023FC09 /* RoomDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303EDA742BC503EF0023FC09 /* RoomDetailView.swift */; };
 		305136FE2BC3C3E400BA41EE /* RoomCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305136FD2BC3C3E400BA41EE /* RoomCategoryView.swift */; };
 		305137012BC3D0AA00BA41EE /* RoomCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305137002BC3D0AA00BA41EE /* RoomCardView.swift */; };
+		309688012BC6492E007064A3 /* ChatActiveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309688002BC6492E007064A3 /* ChatActiveListView.swift */; };
+		309688032BC64E44007064A3 /* ChatDeactiveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309688022BC64E44007064A3 /* ChatDeactiveListView.swift */; };
+		309688052BC64FC2007064A3 /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309688042BC64FC2007064A3 /* ChatListView.swift */; };
 		309F8ABA2BC3A8570045C6D8 /* GeneralButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */; };
 		309F8ABC2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F8ABB2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift */; };
 		30BE7E9F2BC5055600A5A178 /* ParticipantListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BE7E9E2BC5055600A5A178 /* ParticipantListCellView.swift */; };
@@ -91,6 +94,9 @@
 		303EDA742BC503EF0023FC09 /* RoomDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomDetailView.swift; sourceTree = "<group>"; };
 		305136FD2BC3C3E400BA41EE /* RoomCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCategoryView.swift; sourceTree = "<group>"; };
 		305137002BC3D0AA00BA41EE /* RoomCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCardView.swift; sourceTree = "<group>"; };
+		309688002BC6492E007064A3 /* ChatActiveListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatActiveListView.swift; sourceTree = "<group>"; };
+		309688022BC64E44007064A3 /* ChatDeactiveListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDeactiveListView.swift; sourceTree = "<group>"; };
+		309688042BC64FC2007064A3 /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
 		309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralButton.swift; sourceTree = "<group>"; };
 		309F8ABB2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchieveSelectionButtonView.swift; sourceTree = "<group>"; };
 		30BE7E9E2BC5055600A5A178 /* ParticipantListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantListCellView.swift; sourceTree = "<group>"; };
@@ -271,6 +277,9 @@
 			isa = PBXGroup;
 			children = (
 				30BE7ECD2BC5977400A5A178 /* ChatListCellView.swift */,
+				309688042BC64FC2007064A3 /* ChatListView.swift */,
+				309688002BC6492E007064A3 /* ChatActiveListView.swift */,
+				309688022BC64E44007064A3 /* ChatDeactiveListView.swift */,
 			);
 			path = ChatLists;
 			sourceTree = "<group>";
@@ -495,7 +504,9 @@
 				1F5038E02BC4E69E00381EE5 /* RecentSearchNavigationView.swift in Sources */,
 				FC2DDC132BC5231200A51E64 /* ProfileEditView.swift in Sources */,
 				FC628F2E2BC42F1A007F5E5C /* SetProfileView.swift in Sources */,
+				309688032BC64E44007064A3 /* ChatDeactiveListView.swift in Sources */,
 				3007E8B82BC43D8900B9F7B3 /* ArchieveRoomCardListView.swift in Sources */,
+				309688012BC6492E007064A3 /* ChatActiveListView.swift in Sources */,
 				303EDA762BC503EF0023FC09 /* RoomDetailView.swift in Sources */,
 				30BE7E9F2BC5055600A5A178 /* ParticipantListCellView.swift in Sources */,
 				30BE7EBF2BC57C7E00A5A178 /* QuestionListView.swift in Sources */,
@@ -509,6 +520,7 @@
 				FC2DDC1D2BC577D400A51E64 /* NoticeContentView.swift in Sources */,
 				FC2DDC172BC52FBA00A51E64 /* MoreInfoListView.swift in Sources */,
 				30BE7EA32BC516EB00A5A178 /* ParticipantNoticeView.swift in Sources */,
+				309688052BC64FC2007064A3 /* ChatListView.swift in Sources */,
 				303EDA752BC503EF0023FC09 /* RoomInfoView.swift in Sources */,
 				FCCCEEB62BC3B56600DABCA6 /* UserInputCellView.swift in Sources */,
 				FCADAA342BC4EB7700364272 /* CompleteSignUpView.swift in Sources */,
