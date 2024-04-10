@@ -73,4 +73,17 @@ public final class NoticeService {
             throw error
         }
     }
+    
+    /// 공지사항을 삭제합니다.
+    /// - Parameter noticeID(String): 삭제할 공지사항의 id
+    public func deleteNotice(noticeID: String) async throws {
+        
+        // TODO: 관리자 검증 코드 추가 필요
+        
+        do {
+            try await firebaseConst.noticeCollection.document(noticeID).delete()
+        } catch {
+            throw error
+        }
+    }
 }

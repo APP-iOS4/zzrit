@@ -43,6 +43,9 @@ struct NoticeListView: View {
                         selectedNoticeUID = notice.id!
                     }
                 }
+                Button("공지사항 삭제") {
+                    deleteNotice(noticeID: notice.id!)
+                }
             }
             .onAppear {
                 loadNotices()
@@ -58,6 +61,17 @@ struct NoticeListView: View {
         Task {
             do {
                 notices += try await noticeService.fetchNotice(isInitialFetch: initialFetch)
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    
+    private func deleteNotice(noticeID: String) {
+        Task {
+            do {
+                try await noticeService.deleteNotice(noticeID: noticeID)
+                notices.remove(at: notices.firstIndex(where: {$0.id == noticeID})!)
             } catch {
                 print("에러: \(error)")
             }
