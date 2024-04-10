@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ActiveType: Codable {
+public enum ActiveType: String, Codable {
     case activation
     case deactivation
 }
