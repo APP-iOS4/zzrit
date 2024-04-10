@@ -32,6 +32,7 @@ struct MoreInfoView: View {
                     MoreInfoListView()
                 }
             }
+            .padding(.vertical, 1)
         }
         .toolbar {
             // 왼쪽 앱 메인 로고
