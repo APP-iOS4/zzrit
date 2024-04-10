@@ -24,30 +24,30 @@ struct ChatListView: View {
                 }
                 
             }
-        }
-        .toolbar {
-            // 왼쪽 어디 탭인지 알려주는 제목
-            ToolbarItem(placement: .topBarLeading) {
-                HStack(spacing: 0) {
-                    Text("채팅")
+            .toolbar {
+                // 왼쪽 어디 탭인지 알려주는 제목
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack(spacing: 0) {
+                        Text("채팅")
+                    }
+                    .font(.title3)
+                    .fontWeight(.black)
                 }
-                .font(.title3)
-                .fontWeight(.black)
-            }
-            
-            // 오른쪽 채팅 목록을 검색하는 버튼
-            ToolbarItem(placement: .topBarTrailing) {
-                HStack(spacing: 0) {
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundStyle(.black)
+                
+                // 오른쪽 채팅 목록을 검색하는 버튼
+                ToolbarItem(placement: .topBarTrailing) {
+                    HStack(spacing: 0) {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundStyle(.black)
+                        }
                     }
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

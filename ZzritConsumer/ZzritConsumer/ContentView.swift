@@ -25,7 +25,6 @@ struct ContentView: View {
                 .tabItem { Label("더보기", image: "moreInfo") }
         }
         .tint(Color.pointColor)
-        
     }
 }
 
