@@ -10,7 +10,7 @@ import SwiftUI
 import ZzritKit
 
 struct RoomCreateView: View {
-    private var rs: RoomService = RoomService.shared
+    let rs = RoomService.shared
     @State var title: String = ""
     @State var category: CategoryType = .art
     private var categories: [CategoryType] = CategoryType.allCases.map { $0 }
@@ -24,6 +24,7 @@ struct RoomCreateView: View {
     private var platforms: [PlatformType] = PlatformType.allCases.map { $0 }
     @State private var leaderID: String = ""
     @State private var isActive: Bool = true
+    @State private var activationType: ActiveType = .activation
     @State private var limitPeople: String = ""
     @State private var gender: Bool = false
     @State private var genderLimitation: GenderType = .female
@@ -44,9 +45,6 @@ struct RoomCreateView: View {
                         }
                     }
                     .pickerStyle(.wheel)
-                }
-                HStack {
-                    
                 }
                 HStack {
                     Text("위도")
@@ -86,6 +84,13 @@ struct RoomCreateView: View {
                 HStack {
                     Text("status")
                     Toggle("방이 살아있는지", isOn: $isActive)
+                        .onTapGesture {
+                            if isActive {
+                                activationType = .activation
+                            } else {
+                                activationType = .deactivation
+                            }
+                        }
                 }
                 HStack {
                     Text("limitPeople")
@@ -112,7 +117,14 @@ struct RoomCreateView: View {
             }
             
             Button {
-                
+                let aa = RoomModel(title: title, category: category, dateTime: Date(), content: content, coverImage: imageURLString, isOnline: isOnline, status: activationType, leaderID: leaderID, limitPeople: Int(limitPeople)!)
+                Task {
+                    do {
+                        try await rs.createRoom(aa)
+                    } catch {
+                        print(error)
+                    }
+                }
             } label: {
                 Text("데이터전송!")
             }
