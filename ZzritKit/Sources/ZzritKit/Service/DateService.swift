@@ -80,7 +80,7 @@ public final class DateService {
     /// - Parameter date: 변환할 Date 타입 날짜
     /// - Parameter format: 표시할 String 타입의 포맷(기본값: yyyy-M-d HH:mm)
     /// - Returns: 변환 된 String 타입의 날짜
-    public func formattedString(date: Date = Date(), format: String = "yyyy-M-d HH:mm") -> String {
+    public func formattedString(date: Date = Date(), format: String = "yyyy년 M월 d일 HH:mm") -> String {
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: date)
     }

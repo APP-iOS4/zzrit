@@ -18,11 +18,14 @@ public struct NoticeModel: Codable, Identifiable {
     public var content: String
     /// 공지사항 등록 날짜
     public var date: Date
+    /// 공지사항 등록 관리자 uid
+    public var writerUID: String
     
-    public init(id: String? = UUID().uuidString, title: String, content: String, date: Date) {
+    public init(id: String? = UUID().uuidString, title: String, content: String, date: Date, writerUID: String) {
         self.id = id
         self.title = title
         self.content = content
         self.date = date
+        self.writerUID = writerUID
     }
 }

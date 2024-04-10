@@ -15,6 +15,7 @@ final class FirebaseConstants {
     enum CollectionName: String {
         case user = "Users"
         case room = "Rooms"
+        case notice = "Notices"
     }
     
     private let db = Firestore.firestore()
@@ -24,6 +25,7 @@ final class FirebaseConstants {
     // lazy var <#CollectionVariable#>: CollectionReference = db.collection(collection(<#Firebase.CollectionName#>))
     lazy var userCollection: CollectionReference = db.collection(collection(.user))
     lazy var roomCollection: CollectionReference = db.collection(collection(.room))
+    lazy var noticeCollection: CollectionReference = db.collection(collection(.notice))
 
     
     // MARK: Private Methods
