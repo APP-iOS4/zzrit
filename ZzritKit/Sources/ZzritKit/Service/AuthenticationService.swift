@@ -54,7 +54,7 @@ public final class AuthenticationService: ObservableObject {
                     userService = nil
                 } else {
                     print("회원탈퇴를 신청하였고, 회원탈퇴 철회 기간이 만료되지 않았습니다.")
-                    // TODO: 에러타입 throw 하도록 수정 필요
+                    throw AuthError.secessioning
                 }
             }
         } catch {
