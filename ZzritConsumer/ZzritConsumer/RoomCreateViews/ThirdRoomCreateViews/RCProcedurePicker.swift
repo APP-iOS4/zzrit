@@ -11,7 +11,7 @@ import ZzritKit
 
 struct RCProcedurePicker: View {
     @Binding var isOnline: Bool?
-    @Binding var platformSelection: Platform?
+    @Binding var platformSelection: PlatformType?
     let onPressButton: () -> Void
     
     var body: some View {
@@ -56,7 +56,7 @@ struct RCProcedurePicker: View {
             
             // 온라인 플랫폼 선택 버튼 그리드
             LazyVGrid(columns: columns) {
-                ForEach(Platform.allCases, id: \.self) { platform in
+                ForEach(PlatformType.allCases, id: \.self) { platform in
                     SelectionButtonView(
                         title: platform.rawValue,
                         data: platform,
