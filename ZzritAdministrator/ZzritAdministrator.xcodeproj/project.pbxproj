@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B05B18E2BC671C100BF9548 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B05B18D2BC671C100BF9548 /* LoginView.swift */; };
+		3B05B1902BC6721B00BF9548 /* LoginInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B05B18F2BC6721B00BF9548 /* LoginInputView.swift */; };
 		3B09C1F62BC37E9100EA9D54 /* UserManageTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C1F52BC37E9100EA9D54 /* UserManageTableView.swift */; };
 		3B09C1F82BC37EA100EA9D54 /* PlaygroundManageMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C1F72BC37EA100EA9D54 /* PlaygroundManageMainView.swift */; };
 		3B09C1FF2BC3836200EA9D54 /* ComplaintManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C1FE2BC3836200EA9D54 /* ComplaintManagementView.swift */; };
@@ -31,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B05B18D2BC671C100BF9548 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		3B05B18F2BC6721B00BF9548 /* LoginInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInputView.swift; sourceTree = "<group>"; };
 		3B09C1F52BC37E9100EA9D54 /* UserManageTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManageTableView.swift; sourceTree = "<group>"; };
 		3B09C1F72BC37EA100EA9D54 /* PlaygroundManageMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundManageMainView.swift; sourceTree = "<group>"; };
 		3B09C1FE2BC3836200EA9D54 /* ComplaintManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintManagementView.swift; sourceTree = "<group>"; };
@@ -67,6 +71,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B05B18C2BC671A400BF9548 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				3B05B18D2BC671C100BF9548 /* LoginView.swift */,
+				3B05B18F2BC6721B00BF9548 /* LoginInputView.swift */,
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
 		3B09C1F32BC37DDF00EA9D54 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				DF54D23A2BC36C6600D72491 /* ContentView.swift */,
+				3B05B18C2BC671A400BF9548 /* LoginView */,
 				3B09C1FB2BC380FE00EA9D54 /* UserManageTableView */,
 				3B09C1FC2BC3811600EA9D54 /* PlaygroundManageMainView */,
 				3B09C2002BC3836A00EA9D54 /* ComplaintManagementView */,
@@ -271,6 +285,7 @@
 				3B7350C72BC3A4BC008C02AE /* Constants.swift in Sources */,
 				3B7350C52BC3A474008C02AE /* StaticTextView.swift in Sources */,
 				DF54D23B2BC36C6600D72491 /* ContentView.swift in Sources */,
+				3B05B1902BC6721B00BF9548 /* LoginInputView.swift in Sources */,
 				9B4DFFFF2BC58B46008C5FC7 /* ContactManageUserInfoView.swift in Sources */,
 				3B09C2052BC383D300EA9D54 /* SettingsView.swift in Sources */,
 				3B09C1F62BC37E9100EA9D54 /* UserManageTableView.swift in Sources */,
@@ -280,6 +295,7 @@
 				9B4D00012BC58BC1008C5FC7 /* ContactManagerAnswerView.swift in Sources */,
 				9B4DFFFD2BC58AB2008C5FC7 /* ContactManagerContentView.swift in Sources */,
 				3B09C1F82BC37EA100EA9D54 /* PlaygroundManageMainView.swift in Sources */,
+				3B05B18E2BC671C100BF9548 /* LoginView.swift in Sources */,
 				3B09C2022BC3838D00EA9D54 /* AnnouncementManagementView.swift in Sources */,
 				3B8ECC602BC3CCEA0084C389 /* PlaygroundSectionHeader.swift in Sources */,
 			);
