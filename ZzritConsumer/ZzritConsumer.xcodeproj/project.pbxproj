@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		092876D02BC6C56500AFCA1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 092876CF2BC6C56500AFCA1D /* GoogleService-Info.plist */; };
 		1F0603412BC53503003808F4 /* CategoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0603402BC53503003808F4 /* CategoryCellView.swift */; };
 		1F0603432BC53AC9003808F4 /* SecondRoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0603422BC53AC9003808F4 /* SecondRoomCreateView.swift */; };
 		1F0603452BC53F36003808F4 /* RCTitleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0603442BC53F36003808F4 /* RCTitleTextField.swift */; };
@@ -59,7 +60,6 @@
 		30BE7EC42BC57C7E00A5A178 /* QuestionListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BE7EBE2BC57C7E00A5A178 /* QuestionListCellView.swift */; };
 		30BE7EC82BC57CCA00A5A178 /* ContactInputCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BE7EC62BC57CCA00A5A178 /* ContactInputCompleteView.swift */; };
 		30BE7EC92BC57CCA00A5A178 /* ContactInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BE7EC72BC57CCA00A5A178 /* ContactInputView.swift */; };
-		30BE7ECB2BC58D8500A5A178 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30BE7ECA2BC58D8500A5A178 /* GoogleService-Info.plist */; };
 		30BE7ECE2BC5977400A5A178 /* ChatListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BE7ECD2BC5977400A5A178 /* ChatListCellView.swift */; };
 		30C1BAC82BC3ED2400827BD1 /* RoomCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C1BAC72BC3ED2400827BD1 /* RoomCellView.swift */; };
 		30C1BACA2BC3F50A00827BD1 /* MainExistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C1BAC92BC3F50A00827BD1 /* MainExistView.swift */; };
@@ -93,6 +93,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		092876CF2BC6C56500AFCA1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1F0603402BC53503003808F4 /* CategoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellView.swift; sourceTree = "<group>"; };
 		1F0603422BC53AC9003808F4 /* SecondRoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondRoomCreateView.swift; sourceTree = "<group>"; };
 		1F0603442BC53F36003808F4 /* RCTitleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCTitleTextField.swift; sourceTree = "<group>"; };
@@ -145,7 +146,6 @@
 		30BE7EBE2BC57C7E00A5A178 /* QuestionListCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionListCellView.swift; sourceTree = "<group>"; };
 		30BE7EC62BC57CCA00A5A178 /* ContactInputCompleteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactInputCompleteView.swift; sourceTree = "<group>"; };
 		30BE7EC72BC57CCA00A5A178 /* ContactInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactInputView.swift; sourceTree = "<group>"; };
-		30BE7ECA2BC58D8500A5A178 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		30BE7ECD2BC5977400A5A178 /* ChatListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCellView.swift; sourceTree = "<group>"; };
 		30C1BAC72BC3ED2400827BD1 /* RoomCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCellView.swift; sourceTree = "<group>"; };
 		30C1BAC92BC3F50A00827BD1 /* MainExistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainExistView.swift; sourceTree = "<group>"; };
@@ -399,6 +399,7 @@
 		DF54D2122BC36C4500D72491 = {
 			isa = PBXGroup;
 			children = (
+				092876CF2BC6C56500AFCA1D /* GoogleService-Info.plist */,
 				DF54D21D2BC36C4500D72491 /* ZzritConsumer */,
 				DF54D21C2BC36C4500D72491 /* Products */,
 				DFC75F802BC36CC50005DDD9 /* Frameworks */,
@@ -418,7 +419,6 @@
 			children = (
 				3056254B2BC6B74400814FBF /* Extensions */,
 				FC2DDC0B2BC506E500A51E64 /* MoreInfo */,
-				30BE7ECA2BC58D8500A5A178 /* GoogleService-Info.plist */,
 				30C1BAC62BC3ECD100827BD1 /* Main */,
 				FCCCEEB22BC3B55400DABCA6 /* LogIn */,
 				DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */,
@@ -574,7 +574,7 @@
 			files = (
 				DF54D2262BC36C4800D72491 /* Preview Assets.xcassets in Resources */,
 				DF54D2232BC36C4800D72491 /* Assets.xcassets in Resources */,
-				30BE7ECB2BC58D8500A5A178 /* GoogleService-Info.plist in Resources */,
+				092876D02BC6C56500AFCA1D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -806,8 +806,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -816,9 +816,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = techit.finalproject.ZzritConsumer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -837,8 +841,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -847,9 +851,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = techit.finalproject.ZzritConsumer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
