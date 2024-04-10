@@ -10,20 +10,19 @@ import ZzritKit
 
 struct ContentView: View {
     var body: some View {
+        // TODO: icon 선택시 fill로 
         TabView {
             MainView()
-                .tabItem { Label("모임", systemImage: "house.fill") }
+                .tabItem { Label("모임", image: "home") }
             
             SearchingView()
-                .tabItem { Label("탐색", systemImage: "magnifyingglass") }
+                .tabItem { Label("탐색", image: "search") }
             
-            // TODO: 채팅 연결
-            
-//            ChattingView()
-//                .tabItem { Label("채팅", systemImage: "ellipsis.bubble") }
+            ChatListView()
+                .tabItem { Label("채팅", image: "chat") }
             
             MoreInfoView()
-                .tabItem { Label("더보기", systemImage: "ellipsis.circle") }
+                .tabItem { Label("더보기", image: "moreInfo") }
         }
         .tint(Color.pointColor)
         
