@@ -32,6 +32,12 @@ public final class UserService {
     /// - Parameter uid(String): FirebaseAuth 로그인정보의 uid
     /// - Returns: Optional(UserModel)
     public func getUserInfo(uid: String) async throws -> UserModel? {
+        // 유저 정보가 존재하지 않을 경우, 에러 throw
+        let document = try await firebaseConst.userCollection.document(uid).getDocument()
+        if !document.exists {
+            throw AuthError.noUserInfo
+        }
+        
         return try await firebaseConst.userCollection.document(uid).getDocument(as: UserModel.self)
     }
     
@@ -44,20 +50,15 @@ public final class UserService {
     
     /// 회원탈퇴
     public func secession() async throws {
-        
-        // TODO: 에러타입 throw 하도록 수정 (51, 60 line)
-        
-        if try await !loginedCheck() {
-            return
-        }
+
+        try await loginedCheck()
         
         do {
             var tempLoginedUserInfo = try await loginedUserInfo()!
             
             // 회원탈퇴가 이미 진행중일 경우 에러 throw
             if let _ = tempLoginedUserInfo.secessionDate {
-                print("이미 회원탈퇴가 처리중임")
-                return
+                throw AuthError.secessioning
             }
             
             let loginedUID = tempLoginedUserInfo.id!
@@ -72,12 +73,8 @@ public final class UserService {
     
     /// 회원탈퇴 철회
     public func secessionCancel() async throws {
-        
-        // TODO: 에러타입 throw 하도록 수정 (79, 88 line)
-        
-        if try await !loginedCheck() {
-            return
-        }
+
+        try await loginedCheck()
         
         do {
             var tempLoginedUserInfo = try await loginedUserInfo()!
@@ -101,29 +98,20 @@ public final class UserService {
     
     /// 접송된 회원정보 삭제
     func deleteLoginedUserInfo() async throws {
-        if try await !loginedCheck() {
-            
-            // TODO: 에러타입 throw 하도록 수정
-            
-            return
-        }
+        try await loginedCheck()
         
         let loginedUID = try await loginedUserInfo()!.id!
         try await firebaseConst.userCollection.document(loginedUID).delete()
     }
     
     /// 로그인 상태 검증
-    private func loginedCheck() async throws -> Bool {
-        guard let loginedUserInfo = try await loginedUserInfo() else {
-            print("로그인 정보가 없음.")
-            return false
+    private func loginedCheck() async throws {
+        guard let _ = authService.currentUID else {
+            throw AuthError.notLogin
         }
         
-        guard let _ = loginedUserInfo.id else {
-            print("UID 바인딩 실패")
-            return false
+        guard let _ = try await loginedUserInfo() else {
+            throw AuthError.noUserInfo
         }
-        
-        return true
     }
 }
