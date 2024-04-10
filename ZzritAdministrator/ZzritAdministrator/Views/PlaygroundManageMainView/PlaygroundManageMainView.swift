@@ -21,19 +21,17 @@ struct PlaygroundManageMainView: View {
     // 모임 활성화,비활성화 시 보여줄 얼럿
     @State private var showActiveAlert = false
     
-    // TODO: 데이터 연결 후 뷰 분리 예정입니다.
+    // TODO: 뷰 뷴리는 로그인 뷰부터 짜고(급해서) 진행하겠습니다
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
-            HStack {
-                SearchField(action: {
-                    print("검색")
-                })
-            }
+            SearchField(action: {
+                print("검색")
+            })
+            
             HStack(spacing: 20) {
                 ScrollView {
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
-                        Section(header: PlaygroundSectionHeader())
-                        {
+                        Section(header: PlaygroundSectionHeader()) {
                             ForEach(dummyModeledRooms) { room in
                                 Button {
                                     selectedRoom = room
@@ -63,23 +61,17 @@ struct PlaygroundManageMainView: View {
                                             .multilineTextAlignment(.leading)
                                     }
                                     .font(.title3)
-                                    // .foregroundStyle(room == selectedRoom ? Color.pointColor : Color(uiColor: .label))
+                                    .foregroundStyle(room.id == selectedRoom?.id ? Color.pointColor : Color.black)
                                     .padding(10)
                                 }
                             }
                         }
                     }
                 }
-                .listStyle(.inset)
                 .overlay {
                     RoundedRectangle(cornerRadius: Constants.commonRadius)
                         .stroke(Color.staticGray3, lineWidth: 1.0)
                 }
-                .onTapGesture(count: 2, perform: {
-                    withAnimation{
-                        selectedRoom = nil
-                    }
-                })
                 
                 if let selectedRoom {
                     VStack(spacing: 0) {
@@ -166,6 +158,8 @@ struct PlaygroundManageMainView: View {
                     .frame(width: 260)
                 }
             }
+            
+            Spacer()
         }
         .padding(20)
         .alert(isPresented: $showActiveAlert, content: {

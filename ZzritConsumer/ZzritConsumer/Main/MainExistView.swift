@@ -26,7 +26,7 @@ struct MainExistView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 10)
         }
-        .padding(.bottom, 15)
+        .padding(.bottom, 80)
     }
 }
 
