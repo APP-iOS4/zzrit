@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ClearSelectionButtonView<Data>: View where Data: Equatable {
+struct SelectionButtonView<Data>: View where Data: Equatable {
     // 버튼 텍스트 변수
     let title: String
     // 버튼이 눌렸을 때 변경되도록 하는 데이터
@@ -56,5 +56,5 @@ struct ClearSelectionButtonView<Data>: View where Data: Equatable {
 }
 
 #Preview {
-    ClearSelectionButtonView(title: "hello", data: "hello", selection: .constant("Hello"))
+    SelectionButtonView(title: "hello", data: "hello", selection: .constant("Hello"))
 }

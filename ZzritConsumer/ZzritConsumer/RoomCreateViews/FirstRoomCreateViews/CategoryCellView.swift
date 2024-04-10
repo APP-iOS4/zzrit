@@ -9,12 +9,12 @@ import SwiftUI
 
 struct CategoryCellView: View {
     // 버튼이 눌렸을 때 변경되도록 하는 데이터
-    let data: CategoryPickerEnum
+    let data: FilterCategory
     // 선택에 따라 바인딩되는 텍스트 변수
-    @Binding var selection: CategoryPickerEnum?
+    @Binding var selection: FilterCategory?
     
-    // 추가적으로 버튼이 눌렸을 때 호출할 수 있는 함수
-    var onPressButton: () -> Void = {}
+    // 버튼이 눌렸을 때 호출되는 클로저
+    var onPressButton: () -> Void
     
     // 선택 여부
     var isSelected: Bool {
@@ -56,5 +56,7 @@ struct CategoryCellView: View {
 }
 
 #Preview {
-    CategoryCellView(data: .all, selection: .constant(.all))
+    CategoryCellView(data: .all, selection: .constant(.all)) {
+        
+    }
 }
