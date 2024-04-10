@@ -32,6 +32,12 @@ public final class UserService {
     /// - Parameter uid(String): FirebaseAuth 로그인정보의 uid
     /// - Returns: Optional(UserModel)
     public func getUserInfo(uid: String) async throws -> UserModel? {
+        // 유저 정보가 존재하지 않을 경우, 에러 throw
+        let document = try await firebaseConst.userCollection.document(uid).getDocument()
+        if !document.exists {
+            throw AuthError.noUserInfo
+        }
+        
         return try await firebaseConst.userCollection.document(uid).getDocument(as: UserModel.self)
     }
     

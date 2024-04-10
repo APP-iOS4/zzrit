@@ -19,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF25D9082BC63FD9004B4B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DFC75FC32BC3CC840005DDD9 /* ZzritModelTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritModelTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFC75FC62BC3CC850005DDD9 /* ZzritModelTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzritModelTestApp.swift; sourceTree = "<group>"; };
 		DFC75FC82BC3CC850005DDD9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,6 +63,7 @@
 		DFC75FC52BC3CC850005DDD9 /* ZzritModelTest */ = {
 			isa = PBXGroup;
 			children = (
+				DF25D9082BC63FD9004B4B96 /* Info.plist */,
 				DFC75FD42BC3CCB30005DDD9 /* View */,
 				DFC75FC62BC3CC850005DDD9 /* ZzritModelTestApp.swift */,
 				DFC75FC82BC3CC850005DDD9 /* ContentView.swift */,
@@ -312,6 +314,7 @@
 				DEVELOPMENT_TEAM = 6R3M7VGRP2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZzritModelTest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -341,6 +344,7 @@
 				DEVELOPMENT_TEAM = 6R3M7VGRP2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZzritModelTest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

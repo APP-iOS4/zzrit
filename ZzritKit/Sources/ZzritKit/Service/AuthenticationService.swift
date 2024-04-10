@@ -8,6 +8,8 @@
 import Foundation
 
 import FirebaseAuth
+import FirebaseCore
+import GoogleSignIn
 
 @available(iOS 16.0.0, *)
 public final class AuthenticationService: ObservableObject {
@@ -55,6 +57,41 @@ public final class AuthenticationService: ObservableObject {
                     // TODO: 에러타입 throw 하도록 수정 필요
                 }
             }
+        } catch {
+            throw error
+        }
+    }
+    
+    /// 구글 아이디로 로그인합니다.
+    /// - Warning: 구글 아이디로 로그인 이후에 회원정보가 DB에 없을 경우(가입직후), AuthError를 반환합니다.
+    @MainActor public func loginWithGoogle() async throws {
+        do {
+            guard let clientID = FirebaseApp.app()?.options.clientID else {
+                throw AuthError.noClientID
+            }
+            
+            let config = GIDConfiguration(clientID: clientID)
+            GIDSignIn.sharedInstance.configuration = config
+            
+            let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            guard let rootVC = scene?.windows.first?.rootViewController else {
+                throw AuthError.noRootVC
+            }
+            
+            let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootVC)
+            let user = result.user
+            
+            guard let idToken = user.idToken?.tokenString else {
+                throw AuthError.occurred
+            }
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: user.accessToken.tokenString)
+            
+            try await Auth.auth().signIn(with: credential)
+            
+            var userService: UserService? = UserService()
+            let _ = try await userService?.loginedUserInfo()
+            userService = nil
         } catch {
             throw error
         }
