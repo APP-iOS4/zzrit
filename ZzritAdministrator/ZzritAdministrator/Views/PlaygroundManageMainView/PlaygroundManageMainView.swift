@@ -24,11 +24,10 @@ struct PlaygroundManageMainView: View {
     // TODO: 데이터 연결 후 뷰 분리 예정입니다.
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
-            HStack {
-                SearchField(action: {
-                    print("검색")
-                })
-            }
+            SearchField(action: {
+                print("검색")
+            })
+            
             HStack(spacing: 20) {
                 ScrollView {
                     LazyVStack(pinnedViews: [.sectionHeaders]) {

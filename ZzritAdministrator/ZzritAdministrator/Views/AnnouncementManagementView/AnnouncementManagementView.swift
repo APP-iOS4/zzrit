@@ -9,6 +9,9 @@ import SwiftUI
 import ZzritKit
 
 struct AnnouncementManagementView: View {
+    @State private var showAnnounceModal: Bool = false
+    @State private var selectedAnnouncement: NoticeModel? = nil
+    @State private var showtAlert: Bool = false
     
     // 데이트 포매터
     private var dateService = DateService.shared
@@ -28,7 +31,8 @@ struct AnnouncementManagementView: View {
                     .frame(width: 100, height: 50)
                     .overlay(
                         Button {
-                            
+                            selectedAnnouncement = nil
+                            showAnnounceModal.toggle()
                         } label: {
                             Text("등록")
                                 .font(.title2)
@@ -45,7 +49,7 @@ struct AnnouncementManagementView: View {
                             ForEach(dummyAnnounce) { announce in
                                 
                                 Button {
-                                    
+                                    selectedAnnouncement = announce
                                 } label: {
                                     HStack {
                                         Text(announce.title)
@@ -56,7 +60,7 @@ struct AnnouncementManagementView: View {
                                         Text(dateService.formattedString(date: announce.date, format: "yyyy MM/dd HH:mm"))
                                             .frame(width: 150, alignment: .center)
                                     }
-                                    .foregroundStyle(Color.black)
+                                    .foregroundStyle(selectedAnnouncement?.id == announce.id ? Color.pointColor : Color.black)
                                 }
                                 .padding(10)
                             }
@@ -68,9 +72,18 @@ struct AnnouncementManagementView: View {
                         .stroke(Color.staticGray3, lineWidth: 1.0)
                 }
             }
-            Spacer()
+            
+            MyButton(named: "선택한 공지 수정", features: {
+                if selectedAnnouncement != nil {
+                    showAnnounceModal.toggle()
+                }
+            }, width: 350.0)
+            .frame(maxWidth: .infinity, alignment: .bottomTrailing)
         }
         .padding(20)
+        .fullScreenCover(isPresented: $showAnnounceModal, content: {
+            AnnounceModalView(announcemnet: selectedAnnouncement)
+        })
     }
 }
 
