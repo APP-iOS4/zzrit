@@ -26,7 +26,7 @@ struct NoticeListView: View {
                         showText[toggle].toggle()
                     } label: {
                         // title: 공지 제목     date: 공지 날짜
-                        NoticeTitleView(title: "내일은 마싯는 커피를 먹을 예정인 운영자", date: "2024.04.10")
+                        NoticeTitleView(title: "내일은 마싯는 커피를 먹을 예정인 운영자", date: "2024.04.10", isOpen: showText[toggle])
                     }
                     if showText[toggle] {
                         // content: 공지 내용
@@ -38,6 +38,7 @@ struct NoticeListView: View {
                 }
             }
             .listStyle(.plain)
+            .padding(.vertical, 1)
         }
         .navigationTitle("공지사항")
         .navigationBarTitleDisplayMode(.inline)

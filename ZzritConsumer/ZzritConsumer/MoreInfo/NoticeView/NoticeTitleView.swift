@@ -10,6 +10,7 @@ import SwiftUI
 struct NoticeTitleView: View {
     var title: String
     var date: String
+    var isOpen: Bool
     // 공지사항 Cell 라벨
     var body: some View {
         VStack {
@@ -22,6 +23,11 @@ struct NoticeTitleView: View {
                         .foregroundStyle(Color.staticGray3)
                 }
                 Spacer()
+                if !isOpen {
+                    Image(systemName: "chevron.down")
+                } else {
+                    Image(systemName: "chevron.up")
+                }
             }
             .padding(Configs.paddingValue)
         }
@@ -29,5 +35,5 @@ struct NoticeTitleView: View {
 }
 
 #Preview {
-    NoticeTitleView(title: "스태틱 새로운 공지사항 안내입니다.", date: "2024.01.31")
+    NoticeTitleView(title: "스태틱 새로운 공지사항 안내입니다.", date: "2024.01.31", isOpen: true)
 }

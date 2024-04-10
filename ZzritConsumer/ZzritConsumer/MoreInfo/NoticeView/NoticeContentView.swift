@@ -13,10 +13,10 @@ struct NoticeContentView: View {
     var body: some View {
         ZStack {
             Text(content)
-                .foregroundStyle(Color.staticGray2)
+                .foregroundStyle(Color.staticGray1)
                 .padding(Configs.paddingValue)
         }
-        .background(Color.staticGray5)
+        .background(Color.staticGray6)
     }
 }
 
