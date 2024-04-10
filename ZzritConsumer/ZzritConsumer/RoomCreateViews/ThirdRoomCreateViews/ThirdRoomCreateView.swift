@@ -11,7 +11,7 @@ import ZzritKit
 
 struct ThirdRoomCreateView: View {
     @State var isOnline: Bool?
-    @State var platformSelection: Platform?
+    @State var platformSelection: PlatformType?
     @State var dateNumber: Int?
     // 버튼 활성화 여부를 결정할 변수
     @State var isButtonEnabled: Bool = false

@@ -48,45 +48,45 @@ struct MoreInfoView: View {
                 }
             }
             .padding(.vertical, 1)
-        }
-        .toolbar {
-            // 왼쪽 앱 메인 로고
-            ToolbarItem(placement: .topBarLeading) {
-                HStack(spacing: 0) {
-                    Text("더보기")
+            .toolbar {
+                // 왼쪽 앱 메인 로고
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack(spacing: 0) {
+                        Text("더보기")
+                    }
+                    .font(.title2)
                 }
-                .font(.title2)
-            }
-            
-            // 오른쪽 위 아이콘
-            ToolbarItem(placement: .topBarTrailing) {
-                HStack {
-                    //알림 버튼
-                    Button {
-                        isTopLeadingAction.toggle()
-                    } label: {
-                        Image(systemName: "bell")
-                            .foregroundStyle(.black)
-                    }
-                    // 알람 뷰로 이동하는 navigationDestination
-                    .navigationDestination(isPresented: $isTopLeadingAction) {
-                        Text("알람 뷰")
-                    }
-                    //설정 버튼
-                    Button {
-                        isTopTrailingAction.toggle()
-                    } label: {
-                        Image(systemName: "gearshape")
-                            .foregroundStyle(.black)
-                    }
-                    // 설정 뷰로 이동하는 navigationDestination
-                    .navigationDestination(isPresented: $isTopTrailingAction) {
-                        Text("설정 뷰")
+                
+                // 오른쪽 위 아이콘
+                ToolbarItem(placement: .topBarTrailing) {
+                    HStack {
+                        //알림 버튼
+                        Button {
+                            isTopLeadingAction.toggle()
+                        } label: {
+                            Image(systemName: "bell")
+                                .foregroundStyle(.black)
+                        }
+                        // 알람 뷰로 이동하는 navigationDestination
+                        .navigationDestination(isPresented: $isTopLeadingAction) {
+                            Text("알람 뷰")
+                        }
+                        //설정 버튼
+                        Button {
+                            isTopTrailingAction.toggle()
+                        } label: {
+                            Image(systemName: "gearshape")
+                                .foregroundStyle(.black)
+                        }
+                        // 설정 뷰로 이동하는 navigationDestination
+                        .navigationDestination(isPresented: $isTopTrailingAction) {
+                            Text("설정 뷰")
+                        }
                     }
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
