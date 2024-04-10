@@ -114,9 +114,27 @@ public final class RoomService {
         }
     }
     
-    // TODO: 모임에 참여한 User 리스트 뽑아주기
+    /// 모임을 탈퇴합니다.
+    ///  - Parameter roomID(String): 가입할 모임 ID
+    public func leaveRoom(roomID: String) async throws {
+        // 로그인 여부 및 회원정보 등록 여부에 따른 에러 throw
+        var userService: UserService? = UserService()
+        try await userService?.loginedCheck()
+        userService = nil
+        
+        // 이미 위에서 uid 검증을 끝냈으므로, 강제 언래핑
+        let uid = AuthenticationService.shared.currentUID!
+
+        if try await isJoined(roomID: roomID, userUID: uid) {
+            try await fbConstants.joinedCollection(roomID).document(uid).delete()
+        } else {
+            // 방에 가입이 되어있지 않을 경우 에러 throw
+            throw FirebaseErrorType.notJoinedRoom
+        }
+    }
     
-    // TODO: 유저가 모임에 참여해 있는지 확인
+    
+    // TODO: 모임에 참여한 User 리스트 뽑아주기
     
     /// 모임 참여 여부를 확인합니다.
     /// - Parameter roomID(String): 확인 할 모임 ID
@@ -126,5 +144,4 @@ public final class RoomService {
         let document = try await fbConstants.joinedCollection(roomID).document(uid).getDocument()
         return document.exists
     }
-    
 }

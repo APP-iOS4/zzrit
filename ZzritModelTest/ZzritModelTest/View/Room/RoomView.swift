@@ -23,6 +23,9 @@ struct RoomView: View {
                 Button("모임 참여") {
                     joinRoom(roomID: room.id!)
                 }
+                Button("모임 탈퇴") {
+                    leaveRoom(roomID: room.id!)
+                }
             }
             .onAppear {
                 fetchRooms()
@@ -60,6 +63,18 @@ struct RoomView: View {
         Task {
             do {
                 try await roomService.joinRoom(roomID)
+                print("모임참여 완료")
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    
+    private func leaveRoom(roomID: String) {
+        Task {
+            do {
+                try await roomService.leaveRoom(roomID: roomID)
+                print("모임탈퇴 완료")
             } catch {
                 print("에러: \(error)")
             }
