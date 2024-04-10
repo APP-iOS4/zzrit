@@ -34,6 +34,7 @@ struct MainView: View {
                     // TODO: 모델 연동 시 최근 생성된 모임 모델 배열을 넘겨줘야 한다.
                     MainExistView()
                 }
+                .padding(.vertical, 1)
                 
                 // 방 생성 플로팅 버튼
                 Button {

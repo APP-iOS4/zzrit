@@ -18,6 +18,7 @@ struct RecentWatchRoomView: View {
             Text("최근 본 모임")
                 .font(.title3)
                 .fontWeight(.bold)
+                .offset(y: 30)
             // 최근 본 모임 슬라이드
             VStack {
                 TabView(selection: $selectedIndex) {

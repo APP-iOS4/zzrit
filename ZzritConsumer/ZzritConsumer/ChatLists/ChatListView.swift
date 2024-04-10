@@ -13,15 +13,17 @@ struct ChatListView: View {
     //MARK: - body
     
     var body: some View {
-        VStack {
-            ChatCategoryView(selection: $selection)
-            // FIXME: 현재 뷰가 Active뷰, Deactive뷰 따로 있지만 모델 연동 시, 하나의 뷰로 이용할 것, 지금은 더미로 뷰를 두 개 생성
-            if selection == "참여 중인 모임" {
-                ChatActiveListView()
-            } else {
-                ChatDeactiveListView()
+        NavigationStack {
+            VStack {
+                ChatCategoryView(selection: $selection)
+                // FIXME: 현재 뷰가 Active뷰, Deactive뷰 따로 있지만 모델 연동 시, 하나의 뷰로 이용할 것, 지금은 더미로 뷰를 두 개 생성
+                if selection == "참여 중인 모임" {
+                    ChatActiveListView()
+                } else {
+                    ChatDeactiveListView()
+                }
+                
             }
-            
         }
         .toolbar {
             // 왼쪽 어디 탭인지 알려주는 제목
