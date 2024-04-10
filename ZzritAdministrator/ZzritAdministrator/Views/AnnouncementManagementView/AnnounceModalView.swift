@@ -72,10 +72,13 @@ struct AnnounceModalView: View {
             
             if let announcemnet {
                 HStack {
-                    Text("DocID: \(announcemnet.id ?? "")")
-                        .foregroundStyle(Color.staticGray3)
+                    Text("작성자: \(announcemnet.writerUID)")
+                    
                     Spacer()
+                    
+                    Text("\(announcemnet.id ?? "")")
                 }
+                .foregroundStyle(Color.staticGray3)
                 
                 HStack {
                     RoundedRectangle(cornerRadius: Constants.commonRadius)
