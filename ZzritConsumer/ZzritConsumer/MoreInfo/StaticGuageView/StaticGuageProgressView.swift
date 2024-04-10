@@ -15,12 +15,12 @@ struct StaticGuageProgressView: View {
             // 정전기 지수 풍선
             VStack {
                 ZStack(alignment: .top) {
-                    if staticGuage > 92 {
+                    if staticGuage > 94 {
                         Image(systemName: "bubble.right.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .foregroundStyle(Color.pointColor)
-                    } else if staticGuage < 7 {
+                    } else if staticGuage < 4 {
                         Image(systemName: "bubble.left.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -57,10 +57,10 @@ struct StaticGuageProgressView: View {
     
     func limitMaxMin( _ num: Double) -> Double {
         var result = 0.0
-        if num > 92 {
-            result = 91
-        } else if num < 8 {
-            result = 8
+        if num > 94 {
+            result = 93
+        } else if num < 4 {
+            result = 5
         } else {
             return num
         }
@@ -69,5 +69,5 @@ struct StaticGuageProgressView: View {
 }
 
 #Preview {
-    StaticGuageProgressView(staticGuage: 77)
+    StaticGuageProgressView(staticGuage: 96)
 }
