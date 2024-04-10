@@ -34,7 +34,7 @@ struct UserInfoModalView: View {
                     RoundedRectangle(cornerRadius: Constants.commonRadius)
                         .stroke(Color.staticGray3, lineWidth: 1.0)
                 }
-                StaticTextView(title: "\(user.staticGuage)W", width: 100, isActive: .constant(true))
+                StaticTextView(title: "\(String(format: "%.1f", user.staticGuage))W", width: 100, isActive: .constant(true))
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
             }
@@ -64,7 +64,7 @@ struct UserInfoModalView: View {
                 .minimumScaleFactor(0.5)
                 .frame(width: 100)
                 
-                banReasonField(user: user)
+                banReasonField(user: user, isUserModal: $isUserModal)
             }
         }
         .tint(.pointColor)
@@ -135,6 +135,7 @@ struct banReasonField: View {
     @State private var banAlert = false
     @State var isButtonActive: Bool = false
     @State private var indexAfterPenalty: Double = 0
+    @Binding var isUserModal: Bool
     
     var body: some View {
         HStack {
@@ -195,9 +196,10 @@ struct banReasonField: View {
             Button("제재하기", role: .destructive){
                 print("제재하기")
                 banAlert.toggle()
+                isUserModal.toggle()
             }
         } message: {
-            Text("\"\(String(describing: user.userID))\"를 \(banReason.rawValue)(으)로 \(banPeriod)일 제재\n제재 후 정전기 지수: \(indexAfterPenalty)W \n사유 : \(banMemo)")
+            Text("\"\(String(describing: user.userID))\"를 \(banReason.rawValue)(으)로 \(banPeriod)일 제재\n제재 후 정전기 지수: \(String(format: "%.1f", indexAfterPenalty))W \n사유 : \(banMemo)")
         }
         
     }
