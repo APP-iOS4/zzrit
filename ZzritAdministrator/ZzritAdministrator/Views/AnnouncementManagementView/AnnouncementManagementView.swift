@@ -19,6 +19,7 @@ struct AnnouncementManagementView: View {
     // TODO: 더미 데이터(삭제 예정)
     @State private var dummyAnnounce = DummyAnnouncement.data
     
+    // TODO: 뷰 뷴리는 로그인 뷰부터 짜고(급해서) 진행하겠습니다
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             HStack(spacing: 20) {
@@ -47,7 +48,6 @@ struct AnnouncementManagementView: View {
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
                         Section(header: AnnouncementHeader()) {
                             ForEach(dummyAnnounce) { announce in
-                                
                                 Button {
                                     selectedAnnouncement = announce
                                 } label: {

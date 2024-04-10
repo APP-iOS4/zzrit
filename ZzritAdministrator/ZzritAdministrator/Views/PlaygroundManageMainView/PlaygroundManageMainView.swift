@@ -21,7 +21,7 @@ struct PlaygroundManageMainView: View {
     // 모임 활성화,비활성화 시 보여줄 얼럿
     @State private var showActiveAlert = false
     
-    // TODO: 데이터 연결 후 뷰 분리 예정입니다.
+    // TODO: 뷰 뷴리는 로그인 뷰부터 짜고(급해서) 진행하겠습니다
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             SearchField(action: {
