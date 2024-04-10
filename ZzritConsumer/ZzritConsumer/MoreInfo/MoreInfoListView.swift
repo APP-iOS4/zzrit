@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MoreInfoListView: View {
     @State var isNoticeShow = false
+    var isLogined: Bool
     
     var body: some View {
         NavigationStack{
@@ -64,19 +65,20 @@ struct MoreInfoListView: View {
                     }
                 }
                 .padding(Configs.paddingValue)
-                FakeDivider()
-                // Section 3
-                VStack(alignment: .leading, spacing: 40) {
-                    // 로그아웃
-                    Button {
-                        
-                    } label: {
-                        HorizontalLabel(string: "로그아웃")
-                            .foregroundStyle(.red)
+                if isLogined {
+                    FakeDivider()
+                    // Section 3
+                    VStack(alignment: .leading, spacing: 40) {
+                        // 로그아웃
+                        Button {
+                            
+                        } label: {
+                            HorizontalLabel(string: "로그아웃")
+                                .foregroundStyle(.red)
+                        }
                     }
+                    .padding(Configs.paddingValue)
                 }
-                .padding(Configs.paddingValue)
-                FakeDivider()
             }
             .foregroundStyle(Color.staticGray1)
         }
@@ -84,5 +86,5 @@ struct MoreInfoListView: View {
 }
 
 #Preview {
-    MoreInfoListView()
+    MoreInfoListView( isLogined: true)
 }
