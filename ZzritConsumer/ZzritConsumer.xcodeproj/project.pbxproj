@@ -29,6 +29,7 @@
 		309688012BC6492E007064A3 /* ChatActiveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309688002BC6492E007064A3 /* ChatActiveListView.swift */; };
 		309688032BC64E44007064A3 /* ChatDeactiveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309688022BC64E44007064A3 /* ChatDeactiveListView.swift */; };
 		309688052BC64FC2007064A3 /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309688042BC64FC2007064A3 /* ChatListView.swift */; };
+		309688072BC65A5B007064A3 /* ChatCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309688062BC65A5B007064A3 /* ChatCategoryView.swift */; };
 		309F8ABA2BC3A8570045C6D8 /* GeneralButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */; };
 		309F8ABC2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F8ABB2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift */; };
 		30BE7E9F2BC5055600A5A178 /* ParticipantListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BE7E9E2BC5055600A5A178 /* ParticipantListCellView.swift */; };
@@ -97,6 +98,7 @@
 		309688002BC6492E007064A3 /* ChatActiveListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatActiveListView.swift; sourceTree = "<group>"; };
 		309688022BC64E44007064A3 /* ChatDeactiveListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDeactiveListView.swift; sourceTree = "<group>"; };
 		309688042BC64FC2007064A3 /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
+		309688062BC65A5B007064A3 /* ChatCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCategoryView.swift; sourceTree = "<group>"; };
 		309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralButton.swift; sourceTree = "<group>"; };
 		309F8ABB2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchieveSelectionButtonView.swift; sourceTree = "<group>"; };
 		30BE7E9E2BC5055600A5A178 /* ParticipantListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantListCellView.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 			children = (
 				30BE7ECD2BC5977400A5A178 /* ChatListCellView.swift */,
 				309688042BC64FC2007064A3 /* ChatListView.swift */,
+				309688062BC65A5B007064A3 /* ChatCategoryView.swift */,
 				309688002BC6492E007064A3 /* ChatActiveListView.swift */,
 				309688022BC64E44007064A3 /* ChatDeactiveListView.swift */,
 			);
@@ -526,6 +529,7 @@
 				FCADAA342BC4EB7700364272 /* CompleteSignUpView.swift in Sources */,
 				1F5038E42BC4E6AF00381EE5 /* ArchieveRecentSearchCell.swift in Sources */,
 				30BE7EC92BC57CCA00A5A178 /* ContactInputView.swift in Sources */,
+				309688072BC65A5B007064A3 /* ChatCategoryView.swift in Sources */,
 				FCBCB31E2BC3DC090048B86F /* ServiceAgreeSheet.swift in Sources */,
 				FCBCB31A2BC3D2A90048B86F /* SignUpView.swift in Sources */,
 				FC2DDC112BC50B6900A51E64 /* StaticGuageProgressView.swift in Sources */,

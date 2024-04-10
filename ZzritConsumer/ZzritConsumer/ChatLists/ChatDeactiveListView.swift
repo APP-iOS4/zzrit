@@ -11,7 +11,7 @@ struct ChatDeactiveListView: View {
     //MARK: - body
     
     var body: some View {
-        List (0...3, id: \.self) { _ in
+        List (0...2, id: \.self) { _ in
             ZStack {
                 // 리스트로 보여줄 셀을 ZStack으로 감싼다.
                 ChatListCellView()
