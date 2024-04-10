@@ -20,5 +20,4 @@ public enum CategoryType: String, CaseIterable ,Codable {
     case beauty = "뷰티 • 패션"
     case camera = "사진 • 영상"
     case etc = "기타"
-
 }
