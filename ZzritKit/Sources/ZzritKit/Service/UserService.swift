@@ -94,6 +94,20 @@ public final class UserService {
         }
     }
     
+    /// 모임 후 찌릿 멤버를 선정하여 정전기 지수를 높입니다.
+    /// - Parameter userUIDs([String]): 정전기 지수를 높일 회원의 uid 배열
+    public func applyEvaluation(userUIDs: [String]) async throws {
+        try await loginedCheck()
+        
+        do {
+            for uid in userUIDs {
+                try await firebaseConst.userCollection.document(uid).updateData(["staticGuage": FieldValue.increment(1.0)])
+            }
+        } catch {
+            throw error
+        }
+    }
+    
     // MARK: - Private Methods
     
     /// 접송된 회원정보 삭제

@@ -12,7 +12,7 @@ import ZzritKit
 struct LoginView: View {
     private let authService = AuthenticationService.shared
     private let userService = UserService()
-    @State private var emailField: String = "test@test.com"
+    @State private var emailField: String = "test1@test.com"
     @State private var passwordField: String = "testpassword"
     @State private var registeredUID: String = ""
     

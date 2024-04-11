@@ -18,6 +18,7 @@
 		DFC75FD92BC3D0B90005DDD9 /* ZzritKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFC75FD82BC3D0B90005DDD9 /* ZzritKit */; };
 		DFC75FF72BC5345C0005DDD9 /* ImageUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FF62BC5345C0005DDD9 /* ImageUploadView.swift */; };
 		DFC75FF92BC535F60005DDD9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */; };
+		DFC75FFB2BC57C310005DDD9 /* IncrementStaticGuageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FFA2BC57C310005DDD9 /* IncrementStaticGuageView.swift */; };
 		DFC760002BC589AE0005DDD9 /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FFF2BC589AE0005DDD9 /* NoticeView.swift */; };
 		DFC760022BC589ED0005DDD9 /* WriteNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC760012BC589ED0005DDD9 /* WriteNoticeView.swift */; };
 		DFC760062BC58D610005DDD9 /* NoticeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC760052BC58D610005DDD9 /* NoticeListView.swift */; };
@@ -38,6 +39,8 @@
 		DFC75FD52BC3CCC90005DDD9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		DFC75FF62BC5345C0005DDD9 /* ImageUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadView.swift; sourceTree = "<group>"; };
 		DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		DFC75FFA2BC57C310005DDD9 /* IncrementStaticGuageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementStaticGuageView.swift; sourceTree = "<group>"; };
+
 		DFC75FFF2BC589AE0005DDD9 /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
 		DFC760012BC589ED0005DDD9 /* WriteNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteNoticeView.swift; sourceTree = "<group>"; };
 		DFC760052BC58D610005DDD9 /* NoticeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListView.swift; sourceTree = "<group>"; };
@@ -110,6 +113,7 @@
 				DFC75FD52BC3CCC90005DDD9 /* LoginView.swift */,
 				DFC75FF62BC5345C0005DDD9 /* ImageUploadView.swift */,
 				DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */,
+				DFC75FFA2BC57C310005DDD9 /* IncrementStaticGuageView.swift */,
 				0979935A2BC52774004EC087 /* RoomCreateView.swift */,
 			);
 			path = View;
@@ -206,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFC75FFB2BC57C310005DDD9 /* IncrementStaticGuageView.swift in Sources */,
 				DFC760062BC58D610005DDD9 /* NoticeListView.swift in Sources */,
 				DFC75FD62BC3CCCA0005DDD9 /* LoginView.swift in Sources */,
 				DFC75FC92BC3CC850005DDD9 /* ContentView.swift in Sources */,

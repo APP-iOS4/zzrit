@@ -57,7 +57,7 @@ struct AnnouncementManagementView: View {
                                         Spacer()
                                         Divider()
                                         
-                                        Text(dateService.formattedString(date: announce.date, format: "yyyy MM/dd HH:mm"))
+                                        Text(dateService.formattedString(date: announce.date, format: "yyyy/MM/dd HH:mm"))
                                             .frame(width: 150, alignment: .center)
                                     }
                                     .foregroundStyle(selectedAnnouncement?.id == announce.id ? Color.pointColor : Color.black)

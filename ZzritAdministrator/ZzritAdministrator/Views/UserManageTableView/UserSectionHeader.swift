@@ -1,37 +1,40 @@
 //
-//  PlaygroundSectionHeader.swift
+//  UserSectionHeader.swift
 //  ZzritAdministrator
 //
-//  Created by Healthy on 4/8/24.
+//  Created by 이우석 on 4/11/24.
 //
 
 import SwiftUI
 
-struct PlaygroundSectionHeader: View {
+struct UserSectionHeader: View {
     var body: some View {
         HStack {
-            Text("모임 관리")
-                .frame(minWidth: 100, alignment: .leading)
+            Text("유저 이메일")
+                .minimumScaleFactor(0.5)
+                .frame(minWidth: 200, alignment: .leading)
                 .multilineTextAlignment(.leading)
             
             Spacer()
-            
             Divider()
             
-            Text("인원")
-                .frame(width: 80, alignment: .leading)
+            Text("정전기 지수")
+                .minimumScaleFactor(0.5)
+                .frame(width: 100, alignment: .leading)
                 .multilineTextAlignment(.leading)
             
             Divider()
             
-            Text(verbatim: "날짜")
-                .frame(width: 90, alignment: .leading)
+            Text(verbatim: "출생 연도")
+                .minimumScaleFactor(0.5)
+                .frame(width: 120, alignment: .leading)
                 .multilineTextAlignment(.leading)
             
             Divider()
             
-            Text("활성화")
-                .frame(width: 90, alignment: .leading)
+            Text("성별")
+                .minimumScaleFactor(0.5)
+                .frame(width: 100, alignment: .leading)
                 .multilineTextAlignment(.leading)
         }
         .fontWeight(.bold)
@@ -42,8 +45,4 @@ struct PlaygroundSectionHeader: View {
                 .foregroundStyle(Color.staticGray6)
         }
     }
-}
-
-#Preview {
-    PlaygroundSectionHeader()
 }

@@ -46,7 +46,7 @@ struct StaticTextView: View {
         Text(title)
             .font(font)
             .fontWeight(.bold)
-            .padding()
+            .padding(12.5)
             .frame(minWidth: 40.0, maxWidth: width)
             .foregroundStyle(.white)
             .background(backGroundColor)

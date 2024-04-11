@@ -38,6 +38,7 @@ struct ContactManagerContentView: View {
         VStack {
             HStack(alignment: .bottom) {
                 Text("문의 내용")
+                    .fontWeight(.bold)
                 Spacer()
                 // TODO: 모임내용 보여야할때 주석 풀기
                 //                Button(action: {
