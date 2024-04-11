@@ -97,12 +97,7 @@ public final class UserService {
     /// 모임 후 찌릿 멤버를 선정하여 정전기 지수를 높입니다.
     /// - Parameter userUIDs([String]): 정전기 지수를 높일 회원의 uid 배열
     public func applyEvaluation(userUIDs: [String]) async throws {
-        if try await !loginedCheck() {
-            
-            // TODO: 에러타입 throw 하도록 수정
-            
-            return
-        }
+        try await loginedCheck()
         
         do {
             for uid in userUIDs {
