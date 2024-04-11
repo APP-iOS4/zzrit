@@ -23,6 +23,9 @@
 		DFC760002BC589AE0005DDD9 /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FFF2BC589AE0005DDD9 /* NoticeView.swift */; };
 		DFC760022BC589ED0005DDD9 /* WriteNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC760012BC589ED0005DDD9 /* WriteNoticeView.swift */; };
 		DFC760062BC58D610005DDD9 /* NoticeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC760052BC58D610005DDD9 /* NoticeListView.swift */; };
+		DFCEEA2A2BC80352003598F0 /* AdminManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCEEA292BC80352003598F0 /* AdminManageView.swift */; };
+		DFCEEA2D2BC80400003598F0 /* CreateAdminAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCEEA2C2BC80400003598F0 /* CreateAdminAccountView.swift */; };
+		DFCEEA2F2BC80BF8003598F0 /* AdminLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCEEA2E2BC80BF8003598F0 /* AdminLoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,9 @@
 		DFC75FFF2BC589AE0005DDD9 /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
 		DFC760012BC589ED0005DDD9 /* WriteNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteNoticeView.swift; sourceTree = "<group>"; };
 		DFC760052BC58D610005DDD9 /* NoticeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListView.swift; sourceTree = "<group>"; };
+		DFCEEA292BC80352003598F0 /* AdminManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminManageView.swift; sourceTree = "<group>"; };
+		DFCEEA2C2BC80400003598F0 /* CreateAdminAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAdminAccountView.swift; sourceTree = "<group>"; };
+		DFCEEA2E2BC80BF8003598F0 /* AdminLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminLoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +113,7 @@
 		DFC75FD42BC3CCB30005DDD9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DFCEEA2B2BC80357003598F0 /* Admin */,
 				DF25D90C2BC6B9C1004B4B96 /* Room */,
 				DFC75FFE2BC589A20005DDD9 /* Notice */,
 				DFC75FD52BC3CCC90005DDD9 /* LoginView.swift */,
@@ -134,6 +141,16 @@
 				DFC760052BC58D610005DDD9 /* NoticeListView.swift */,
 			);
 			path = Notice;
+			sourceTree = "<group>";
+		};
+		DFCEEA2B2BC80357003598F0 /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				DFCEEA292BC80352003598F0 /* AdminManageView.swift */,
+				DFCEEA2C2BC80400003598F0 /* CreateAdminAccountView.swift */,
+				DFCEEA2E2BC80BF8003598F0 /* AdminLoginView.swift */,
+			);
+			path = Admin;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFCEEA2F2BC80BF8003598F0 /* AdminLoginView.swift in Sources */,
 				DFC75FFB2BC57C310005DDD9 /* IncrementStaticGuageView.swift in Sources */,
 				DFC760062BC58D610005DDD9 /* NoticeListView.swift in Sources */,
 				DFC75FD62BC3CCCA0005DDD9 /* LoginView.swift in Sources */,
@@ -217,10 +235,12 @@
 				DFC760022BC589ED0005DDD9 /* WriteNoticeView.swift in Sources */,
 				098C0C492BC7D0AC00970E54 /* RoomLoadView.swift in Sources */,
 				DFC760002BC589AE0005DDD9 /* NoticeView.swift in Sources */,
+				DFCEEA2A2BC80352003598F0 /* AdminManageView.swift in Sources */,
 				DFC75FF92BC535F60005DDD9 /* ImagePicker.swift in Sources */,
 				DFC75FC72BC3CC850005DDD9 /* ZzritModelTestApp.swift in Sources */,
 				DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */,
 				DFC75FF72BC5345C0005DDD9 /* ImageUploadView.swift in Sources */,
+				DFCEEA2D2BC80400003598F0 /* CreateAdminAccountView.swift in Sources */,
 				0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

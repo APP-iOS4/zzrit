@@ -128,4 +128,36 @@ public final class UserService {
             throw AuthError.noUserInfo
         }
     }
+    
+    // MARK: - Admin Methods
+    
+    /// 현재 로그인 되어있는 관리자의 정보를 가져옵니다.
+    /// - Returns: Optional(AdminModel)
+    public func loginedAdminInfo() async throws -> AdminModel? {
+        if let uid = authService.currentUID {
+            return try await getAdminInfo(uid: uid)
+        } else {
+            return nil
+        }
+    }
+    
+    /// 관리자의 정보를 가져옵니다.
+    /// - Parameter uid(String): FirebaseAuth 로그인정보의 uid
+    /// - Returns: Optional(AdminModel)
+    public func getAdminInfo(uid: String) async throws -> AdminModel? {
+        // 유저 정보가 존재하지 않을 경우, 에러 throw
+        let document = try await firebaseConst.adminCollection.document(uid).getDocument()
+        if !document.exists {
+            throw AuthError.noUserInfo
+        }
+        
+        return try await firebaseConst.adminCollection.document(uid).getDocument(as: AdminModel.self)
+    }
+    
+    /// 사용자의 정보를 저장합니다.
+    /// - Parameter admin(String): FirebaseAuth 로그인정보의 uid
+    /// - Parameter info(UserModel): 사용자의 정보가 담겨있는 모델
+    public func setUserInfo(admin uid: String, info: AdminModel) throws {
+        try firebaseConst.adminCollection.document(uid).setData(from: info, merge: true)
+    }
 }

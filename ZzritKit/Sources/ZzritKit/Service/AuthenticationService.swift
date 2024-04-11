@@ -143,4 +143,18 @@ public final class AuthenticationService: ObservableObject {
             print("에러: \(error)")
         }
     }
+    
+    // MARK: - Admin Methods
+    
+    /// 이메일과 비밀번호로 관리자 로그인 합니다.
+    /// - Parameter email(String): 이메일주소
+    /// - Parameter password(String): 비밀번호
+    /// - Warning: 로그인 성공을 제외한 모든 경우에는 에러를 throw합니다. 사용하는 부분에서 에러핸들링이 필요합니다.
+    public func loginAdmin(email: String, password: String) async throws {
+        do {
+            try await Auth.auth().signIn(withEmail: email, password: password)
+        } catch {
+            throw error
+        }
+    }
 }
