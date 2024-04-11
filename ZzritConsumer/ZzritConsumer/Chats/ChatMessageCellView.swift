@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ChatMessageCellView: View {
     
-    @Binding var message: MessageModel
+    var message: MessageModel
     
     var body: some View {
         HStack {
@@ -44,5 +44,5 @@ struct ChatMessageCellView: View {
 }
 
 #Preview {
-    ChatMessageCellView(message: .constant(MessageViewModel.dummyMessage))
+    ChatMessageCellView(message: MessageViewModel.dummyMessage)
 }

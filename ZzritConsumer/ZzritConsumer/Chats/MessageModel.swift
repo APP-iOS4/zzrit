@@ -8,7 +8,7 @@
 import Foundation
 
 //MARK: - 임시 더미 모델!!! 이건 계속 쓸 거 아님!!!!!
-struct MessageModel {
+struct MessageModel: Identifiable {
     let id: UUID = UUID()
     let user: String
     let isYou: Bool

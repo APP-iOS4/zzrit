@@ -12,14 +12,28 @@ struct ChatView: View {
     let messageViewModel: MessageViewModel = MessageViewModel()
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                
+        ZStack {
+            ScrollView {
+                LazyVStack {
+                    ForEach(messageViewModel.messages) { message in
+                        if !message.isYou {
+                            LazyVStack(alignment: .leading) {
+                                ChatMessageCellView(message: message)
+                            }
+                        } else {
+                            LazyVStack(alignment: .trailing) {
+                                ChatMessageCellView(message: message)
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 }
 
 #Preview {
-    ChatView()
+    NavigationStack {
+        ChatView()
+    }
 }
