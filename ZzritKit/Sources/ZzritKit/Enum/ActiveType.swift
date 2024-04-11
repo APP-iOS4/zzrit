@@ -10,4 +10,5 @@ import Foundation
 public enum ActiveType: String, Codable {
     case activation
     case deactivation
+    case delete
 }
