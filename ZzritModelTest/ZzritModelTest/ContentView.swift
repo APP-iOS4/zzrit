@@ -28,6 +28,9 @@ struct ContentView: View {
             NavigationLink("모임생성") {
                 RoomCreateView()
             }
+            NavigationLink("모임불러오기") {
+                RoomLoadView()
+            }
         }
     }
 }

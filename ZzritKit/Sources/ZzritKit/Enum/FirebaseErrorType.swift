@@ -12,6 +12,7 @@ public enum FirebaseErrorType: Error {
     case unknown
     case firebase
     case failCreateRoom
+    case failLoadRoom
     case mismatch
     case noMoreSearching
     case invalidPassword

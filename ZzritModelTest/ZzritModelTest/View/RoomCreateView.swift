@@ -84,13 +84,6 @@ struct RoomCreateView: View {
                 HStack {
                     Text("status")
                     Toggle("방이 살아있는지", isOn: $isActive)
-                        .onTapGesture {
-                            if isActive {
-                                activationType = .activation
-                            } else {
-                                activationType = .deactivation
-                            }
-                        }
                 }
                 HStack {
                     Text("limitPeople")
@@ -117,10 +110,15 @@ struct RoomCreateView: View {
             }
             
             Button {
+                if isActive {
+                    activationType = .activation
+                } else {
+                    activationType = .deactivation
+                }
                 let aa = RoomModel(title: title, category: category, dateTime: Date(), content: content, coverImage: imageURLString, isOnline: isOnline, status: activationType, leaderID: leaderID, limitPeople: Int(limitPeople)!)
                 Task {
                     do {
-                        try await rs.createRoom(aa)
+                        try rs.createRoom(aa)
                     } catch {
                         print(error)
                     }
