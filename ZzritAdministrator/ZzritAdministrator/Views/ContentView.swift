@@ -29,15 +29,13 @@ struct ContentView: View {
             NavigationSplitView {
                 // Logo
                 VStack {
-                    // TODO: 스태틱 로고로 바꿔야 함
                     Image(.staticLogo)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 300)
-                    Text("관리자용 static")
-                        .font(.title2)
-                    // TODO: 악센트 컬러로 바꿔야 함
-                        .foregroundStyle(.gray)
+                    Text("ZZ!RIT 관리")
+                        .font(.title2.weight(.bold))
+                        .foregroundStyle(Color.staticGray2)
                 }
                 
                 // 하위 리스트

@@ -35,11 +35,12 @@ struct ComplaintManagementView: View {
                         .clipShape(UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(bottomTrailing: 10, topTrailing: 10)))
                 }
             }
-            .background {
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(.white)
-                    .shadow(radius: 10)
+            .overlay {
+                RoundedRectangle(cornerRadius: Constants.commonRadius)
+                    .stroke(Color.staticGray3, lineWidth: 1.0)
+                    .foregroundStyle(.gray)
             }
+            
             List(tempContactList){ list in
                 Button {
                     pickedContact = list
@@ -49,13 +50,13 @@ struct ComplaintManagementView: View {
                     ContactListCell(contactTitle: list.title, contactCategory: list.category, contactDateString: dateService.dateString(date: list.requestedDated))
                 }
             }
-            .listStyle(.inset)
+            .listStyle(.plain)
             .overlay {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.staticGray3, lineWidth: 1.0)
             }
         }
-        .padding()
+        .padding(20)
         .fullScreenCover(isPresented: $isShowingModalView, content: {
             ComplaintDetailView(contact: $pickedContact, isShowingModalView: $isShowingModalView)
         })

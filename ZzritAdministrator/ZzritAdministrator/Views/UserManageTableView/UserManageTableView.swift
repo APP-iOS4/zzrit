@@ -27,6 +27,9 @@ struct UserManageTableView: View {
             HStack(spacing: 20.0) {
                 SearchField(placeHolder: "유저 이메일을 입력하세요.", text: searchText, action: {
                     print("검색")
+                    #if canImport(UIKit)
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    #endif
                 })
                 Button {
                     print("필터 버튼 눌림")
@@ -39,7 +42,6 @@ struct UserManageTableView: View {
                     StaticTextView(title: "필터", selectType: .filter, width: 140.0, isActive: $isFilterActive)
                 }
             }
-            .padding(20.0)
             .fixedSize(horizontal: false, vertical: true)
             
             if isFilterActive {
@@ -95,12 +97,12 @@ struct UserManageTableView: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
                 }
-                .padding()
+                // .padding()
             }
 
             ScrollView {
                 LazyVStack(pinnedViews: [.sectionHeaders]) {
-                    Section(header: ScrollHeader())
+                    Section(header: UserSectionHeader())
                     {
                         ForEach(userData) { user in
                             
@@ -137,7 +139,7 @@ struct UserManageTableView: View {
                                 }
                                 .font(.title3)
                                 .foregroundStyle(user.id == selection?.id ? Color.pointColor : Color.staticGray1)
-                                .padding(10)
+                                .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
                             }
                             
                         }
@@ -163,28 +165,31 @@ struct UserManageTableView: View {
             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
             .overlay {
                 RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                    .stroke(lineWidth: 2)
-                    .foregroundStyle(Color.staticGray3)
+                    .stroke(Color.staticGray3, lineWidth: 1.0)
             }
-            .padding(20.0)
+            .padding(.vertical, 5)
             
             HStack {
-                Spacer()
-                
                 MyButton(named: "선택한 유저 제재/관리", features: {
                     if selection != nil {
                         // print("\(selection ?? UUID())")
                         isUserModal.toggle()
                     }
-                }, width: 350.0)
+                })
                 .frame(maxWidth: .infinity, alignment: .bottomTrailing)
             }
         }
+        .padding(20.0)
         .tint(.pointColor)
         .fullScreenCover(isPresented: $isUserModal, content: {
             UserInfoModalView(isUserModal: $isUserModal, user: selection ?? .init(userID: "example@example.com", userName: "NO DATA", userImage: "xmark", gender: .male, birthYear: 1900, staticGuage: 0))
         })
-        .padding()
+        .onTapGesture {
+            #if canImport(UIKit)
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            #endif
+        }
+        // .padding()
     }
 }
 
@@ -205,51 +210,10 @@ struct MyButton: View {
             Text("\(named)")
                 .foregroundStyle(.white)
                 .font(.title2)
-                .frame(minWidth: 300.0, maxWidth: .infinity, minHeight: 40.0, maxHeight: .infinity)
-                .frame(width: width, height: height)
+                .frame(minWidth: 300.0, maxWidth: .infinity)
+                .frame(height: 50.0)
                 .background(Color.pointColor)
                 .clipShape(.rect(cornerRadius: Constants.commonRadius))
-        }
-    }
-}
-
-struct ScrollHeader: View {
-    
-    var body: some View {
-        HStack {
-            Text("유저 이메일")
-                .minimumScaleFactor(0.5)
-                .frame(minWidth: 200, alignment: .leading)
-                .multilineTextAlignment(.leading)
-            
-            Spacer()
-            Divider()
-            
-            Text("정전기 지수")
-                .minimumScaleFactor(0.5)
-                .frame(width: 100, alignment: .leading)
-                .multilineTextAlignment(.leading)
-            
-            Divider()
-            
-            Text(verbatim: "출생 연도")
-                .minimumScaleFactor(0.5)
-                .frame(width: 120, alignment: .leading)
-                .multilineTextAlignment(.leading)
-            
-            Divider()
-            
-            Text("성별")
-                .minimumScaleFactor(0.5)
-                .frame(width: 100, alignment: .leading)
-                .multilineTextAlignment(.leading)
-        }
-        .fontWeight(.bold)
-        .foregroundStyle(Color.pointColor)
-        .padding(10)
-        .background {
-            Rectangle()
-                .foregroundStyle(Color.staticGray6)
         }
     }
 }

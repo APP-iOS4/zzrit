@@ -28,10 +28,9 @@ struct SearchField: View {
                     .clipShape(UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(bottomTrailing: 10, topTrailing: 10)))
             }
         }
-        .background {
+        .overlay {
             RoundedRectangle(cornerRadius: Constants.commonRadius)
-                .foregroundStyle(.white)
-                .shadow(radius: 10)
+                .stroke(Color.staticGray3, lineWidth: 1.0)
         }
     }
 }

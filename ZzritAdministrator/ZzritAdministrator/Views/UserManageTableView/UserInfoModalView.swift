@@ -40,6 +40,7 @@ struct UserInfoModalView: View {
             }
             HStack {
                 Text("제재 이력")
+                    .fontWeight(.bold)
                 Spacer()
                 HStack {
                     Text("계정 상태 : ")
