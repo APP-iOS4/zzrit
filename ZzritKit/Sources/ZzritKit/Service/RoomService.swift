@@ -89,7 +89,14 @@ public final class RoomService {
         
     }
     
-    // TODO: 모임 삭제
+    // TODO: 모임 상태 변경
+    
+    /// 모임 상태를 변경합니다.
+    ///  - Parameter roomID(String): 변경할 모임 ID
+    ///  - Parameter status(ActiveType): 변경할 상태
+    public func changeStatus(roomID: String, status: ActiveType) {
+        fbConstants.roomCollection.document(roomID).setData(["status": status.rawValue], merge: true)
+    }
     
     // TODO: 모임 참여 - 해당 모임 하위 컬렉션 JoinedUser에 현재 user.id 넣어줘야됨.
     

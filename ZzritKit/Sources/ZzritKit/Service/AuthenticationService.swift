@@ -143,4 +143,8 @@ public final class AuthenticationService: ObservableObject {
             print("에러: \(error)")
         }
     }
+    
+    // MARK: - Admin Methods
+    
+    
 }
