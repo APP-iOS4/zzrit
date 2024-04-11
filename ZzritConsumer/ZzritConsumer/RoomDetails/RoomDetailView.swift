@@ -55,7 +55,7 @@ struct RoomDetailView: View {
                 .padding(.horizontal, 20)
             }
             .padding(.vertical, 1)
-            .padding(.bottom, 70)
+            .padding(.bottom, 85)
             
             VStack {
                 GeneralButton("참여하기") {

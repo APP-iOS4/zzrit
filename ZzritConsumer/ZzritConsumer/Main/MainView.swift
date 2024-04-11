@@ -19,12 +19,15 @@ struct MainView: View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
                 ScrollView(.vertical, showsIndicators: false) {
+                    MainLocationView()
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 40)
+
                     LazyVStack(alignment: .leading) {
                         // 마감 임박 타이틀
                         Text("인원 마감 임박")
                             .modifier(SubTitleModifier())
                     }
-                    .padding(.top, 20)
                     
                     // 모임 카트 뷰 리스트 불러오기
                     // TODO: 모델 연동 시 모임 마감 인원 모델 배열을 넘겨줘야 한다.
