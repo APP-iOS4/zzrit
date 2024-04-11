@@ -24,6 +24,9 @@
 		9B4DFFFD2BC58AB2008C5FC7 /* ContactManagerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4DFFFC2BC58AB2008C5FC7 /* ContactManagerContentView.swift */; };
 		9B4DFFFF2BC58B46008C5FC7 /* ContactManageUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4DFFFE2BC58B46008C5FC7 /* ContactManageUserInfoView.swift */; };
 		9B7574902BC7BC0600A247C1 /* UserSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75748F2BC7BC0600A247C1 /* UserSectionHeader.swift */; };
+		9B7574922BC7D19800A247C1 /* BanReasonField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7574912BC7D19800A247C1 /* BanReasonField.swift */; };
+		9B7574942BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7574932BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift */; };
+		9B7574962BC7D99F00A247C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9B7574952BC7D99E00A247C1 /* GoogleService-Info.plist */; };
 		9BA976632BC3D615008B1CD5 /* ComplaintDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA976622BC3D615008B1CD5 /* ComplaintDetailView.swift */; };
 		9BEB2FBD2BC3A6D3009C398F /* UserInfoModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */; };
 		DF54D2392BC36C6600D72491 /* ZzritAdministratorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D2382BC36C6600D72491 /* ZzritAdministratorApp.swift */; };
@@ -51,6 +54,9 @@
 		9B4DFFFC2BC58AB2008C5FC7 /* ContactManagerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactManagerContentView.swift; sourceTree = "<group>"; };
 		9B4DFFFE2BC58B46008C5FC7 /* ContactManageUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactManageUserInfoView.swift; sourceTree = "<group>"; };
 		9B75748F2BC7BC0600A247C1 /* UserSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSectionHeader.swift; sourceTree = "<group>"; };
+		9B7574912BC7D19800A247C1 /* BanReasonField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BanReasonField.swift; sourceTree = "<group>"; };
+		9B7574932BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticGaugeEditingSubview.swift; sourceTree = "<group>"; };
+		9B7574952BC7D99E00A247C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9BA976622BC3D615008B1CD5 /* ComplaintDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintDetailView.swift; sourceTree = "<group>"; };
 		9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModalView.swift; sourceTree = "<group>"; };
 		DF54D2352BC36C6600D72491 /* ZzritAdministrator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritAdministrator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +117,8 @@
 				3B09C1F52BC37E9100EA9D54 /* UserManageTableView.swift */,
 				9B75748F2BC7BC0600A247C1 /* UserSectionHeader.swift */,
 				9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */,
+				9B7574932BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift */,
+				9B7574912BC7D19800A247C1 /* BanReasonField.swift */,
 			);
 			path = UserManageTableView;
 			sourceTree = "<group>";
@@ -184,6 +192,7 @@
 		DF54D2372BC36C6600D72491 /* ZzritAdministrator */ = {
 			isa = PBXGroup;
 			children = (
+				9B7574952BC7D99E00A247C1 /* GoogleService-Info.plist */,
 				3B09C1F32BC37DDF00EA9D54 /* App */,
 				3B09C1F42BC37DF200EA9D54 /* Views */,
 				DF54D23C2BC36C6800D72491 /* Assets.xcassets */,
@@ -271,6 +280,7 @@
 			files = (
 				DF54D2412BC36C6800D72491 /* Preview Assets.xcassets in Resources */,
 				DF54D23D2BC36C6800D72491 /* Assets.xcassets in Resources */,
+				9B7574962BC7D99F00A247C1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +296,9 @@
 				9BEB2FBD2BC3A6D3009C398F /* UserInfoModalView.swift in Sources */,
 				3B09C2082BC38A8500EA9D54 /* SearchField.swift in Sources */,
 				3B7350C72BC3A4BC008C02AE /* Constants.swift in Sources */,
+				9B7574942BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift in Sources */,
 				3B7350C52BC3A474008C02AE /* StaticTextView.swift in Sources */,
+				9B7574922BC7D19800A247C1 /* BanReasonField.swift in Sources */,
 				DF54D23B2BC36C6600D72491 /* ContentView.swift in Sources */,
 				3B05B1902BC6721B00BF9548 /* LoginInputView.swift in Sources */,
 				9B4DFFFF2BC58B46008C5FC7 /* ContactManageUserInfoView.swift in Sources */,
