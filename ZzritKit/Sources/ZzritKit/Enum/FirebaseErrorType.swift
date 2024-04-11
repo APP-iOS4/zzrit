@@ -22,4 +22,5 @@ public enum FirebaseErrorType: Error {
     case chatMessageEmpty
     case alreadyJoinedRoom
     case notJoinedRoom
+    case failModifyingRoom
 }
