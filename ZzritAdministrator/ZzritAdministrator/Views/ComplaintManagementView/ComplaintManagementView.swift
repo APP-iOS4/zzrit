@@ -40,6 +40,7 @@ struct ComplaintManagementView: View {
                     .stroke(Color.staticGray3, lineWidth: 1.0)
                     .foregroundStyle(.gray)
             }
+            
             List(tempContactList){ list in
                 Button {
                     pickedContact = list
@@ -49,7 +50,7 @@ struct ComplaintManagementView: View {
                     ContactListCell(contactTitle: list.title, contactCategory: list.category, contactDateString: dateService.dateString(date: list.requestedDated))
                 }
             }
-            .listStyle(.inset)
+            .listStyle(.plain)
             .overlay {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.staticGray3, lineWidth: 1.0)

@@ -34,7 +34,7 @@ struct LoginView: View {
                             .fontWeight(.bold)
                             .foregroundStyle(Color.staticGray1)
                         
-                        Text("STATIC!")
+                        Text("ZZ!RIT")
                             .font(.largeTitle)
                             .fontWeight(.heavy)
                             .kerning(2.2)
