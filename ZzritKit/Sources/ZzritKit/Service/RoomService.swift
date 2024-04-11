@@ -14,6 +14,7 @@ public final class RoomService {
     public static let shared = RoomService()
     let fbConstants = FirebaseConstants()
     
+    private var lastSnashot: QueryDocumentSnapshot?
     // 쿼리를 아끼기 위해 존재. 검색했을때 나와줄 친구들.
     var tempRooms: [RoomModel] = []
     
@@ -48,43 +49,39 @@ public final class RoomService {
     // TODO: 모임 불러오기
     public func loadRoom(
         title: String? = nil,
-        isOnline: Bool? = nil,
-        placeLatitude: Double? = nil,
-        placeLongitude: Double? = nil,
-        dateTime: Date? = nil,
-        category: CategoryType? = nil,
-        isInitial: Bool
+        isInitial: Bool = true
     ) async throws -> [RoomModel] {
         do {
             var query = fbConstants.roomCollection
+//                .whereField("status", isEqualTo: "activation")
+                .limit(to: 16)
             
             // 필터가 있는 경우
             //검색탭에서 필터링된 쿼리 만들기
-            if (title != nil) || (isOnline != nil) || (placeLatitude != nil) || (placeLongitude != nil) || (dateTime != nil) || (category != nil) {
-                let params: [String: Any?] = [
-                    "title": title,
-                    "isOnline": isOnline,
-                    "placeLatitude": placeLatitude,
-                    "placeLongitude": placeLongitude,
-                    "dateTime": dateTime,
-                    "category": category
-                ]
-                let filteredParams = params.filter { $0.value != nil}
-                for (key, value) in filteredParams {
-                    //value는 값이 있어야지만 남습니다. 따라서 forceUnwrapping 했습니다.
-                    query = query.whereField(key, isEqualTo: value!) as! CollectionReference
-                }
+            if let title = title {
+                // title이 있다면
+                query = query.whereField("title", isEqualTo: title)
+            }
+            
+            if !isInitial {
+                query = query.start(afterDocument: lastSnashot!)
             }
             
             let snapshot = try await query.getDocuments()
             
-            let documents = try snapshot.documents.map { try $0.data(as: RoomModel.self) }
-            
+//            let documents = try snapshot.documents.map { try $0.data(as: RoomModel.self) }
+            let documents = snapshot.documents
+            lastSnashot = documents.last
             //쿼리를 아끼기 위한 append
-            tempRooms.append(contentsOf: documents)
-            return documents
+//            tempRooms.append(contentsOf: documents)
+            
+            for temp in documents {
+                tempRooms.append(try temp.data(as: RoomModel.self))
+            }
+            
+            return tempRooms
         } catch {
-            throw error
+            throw FirebaseErrorType.failLoadRoom
         }
     }
     // TODO: 모임 수정
