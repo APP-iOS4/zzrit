@@ -12,13 +12,13 @@ class MessageViewModel {
     var messages: [MessageModel] = []
     
     static var dummyMessage: MessageModel {
-        MessageModel(user: "정웅재", isYou: true, message: "안녕하세요", dateString: "오전 11:30")
+        MessageModel(user: "정웅재", isYou: false, message: "안녕하세요", dateString: "오전 11:30")
     }
     
     init() {
         messages = [
-            MessageModel(user: "정웅재", isYou: true, message: "안녕하세요", dateString: "오전 11:30"),
-            MessageModel(user: "정웅재", isYou: true, message: "반가워여~", dateString: "오전 11:30")
+            MessageModel(user: "정웅재", isYou: false, message: "안녕하세요", dateString: "오전 11:30"),
+            MessageModel(user: "정웅재", isYou: false, message: "반가워여~", dateString: "오전 11:30")
         ]
     }
 }

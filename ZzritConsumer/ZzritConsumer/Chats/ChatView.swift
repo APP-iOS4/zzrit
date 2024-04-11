@@ -14,7 +14,7 @@ struct ChatView: View {
     let messageViewModel: MessageViewModel = MessageViewModel()
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             ScrollView {
                 LazyVStack {
                     ForEach(messageViewModel.messages) { message in
@@ -32,6 +32,14 @@ struct ChatView: View {
                     }
                 }
             }
+            
+            TextField("메세지를 입력하세요.", text: $messageText)
+                .onSubmit {
+                    let messageModel: MessageModel = .init(user: "일이삼", isYou: true, message: messageText, dateString: "더미시간")
+                    messageViewModel.messages.append(messageModel)
+                    
+                    messageText = ""
+                }
         }
     }
 }
