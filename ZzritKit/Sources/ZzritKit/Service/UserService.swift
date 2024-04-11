@@ -110,7 +110,7 @@ public final class UserService {
     
     // MARK: - Private Methods
     
-    /// 접송된 회원정보 삭제
+    /// 접속된 회원정보 삭제
     func deleteLoginedUserInfo() async throws {
         try await loginedCheck()
         
