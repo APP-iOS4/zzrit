@@ -13,6 +13,7 @@ struct ContactManagerAnswerView: View {
         VStack() {
             HStack {
                 Text("문의 답변")
+                    .fontWeight(.bold)
                 Spacer()
             }
             .padding(.top)

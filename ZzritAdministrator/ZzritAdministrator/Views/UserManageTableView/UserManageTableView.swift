@@ -39,7 +39,7 @@ struct UserManageTableView: View {
                     StaticTextView(title: "필터", selectType: .filter, width: 140.0, isActive: $isFilterActive)
                 }
             }
-            .padding(20.0)
+            .padding(.top , 20.0)
             .fixedSize(horizontal: false, vertical: true)
             
             if isFilterActive {
@@ -95,7 +95,7 @@ struct UserManageTableView: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
                 }
-                .padding()
+                // .padding()
             }
 
             ScrollView {
@@ -137,7 +137,7 @@ struct UserManageTableView: View {
                                 }
                                 .font(.title3)
                                 .foregroundStyle(user.id == selection?.id ? Color.pointColor : Color.staticGray1)
-                                .padding(10)
+                                .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
                             }
                             
                         }
@@ -163,10 +163,9 @@ struct UserManageTableView: View {
             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
             .overlay {
                 RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                    .stroke(lineWidth: 2)
-                    .foregroundStyle(Color.staticGray3)
+                    .stroke(Color.staticGray3, lineWidth: 1.0)
             }
-            .padding(20.0)
+            .padding(.vertical, 5)
             
             HStack {
                 Spacer()
@@ -180,11 +179,12 @@ struct UserManageTableView: View {
                 .frame(maxWidth: .infinity, alignment: .bottomTrailing)
             }
         }
+        .padding(20.0)
         .tint(.pointColor)
         .fullScreenCover(isPresented: $isUserModal, content: {
             UserInfoModalView(isUserModal: $isUserModal, user: selection ?? .init(userID: "example@example.com", userName: "NO DATA", userImage: "xmark", gender: .male, birthYear: 1900, staticGuage: 0))
         })
-        .padding()
+        // .padding()
     }
 }
 
@@ -246,7 +246,7 @@ struct ScrollHeader: View {
         }
         .fontWeight(.bold)
         .foregroundStyle(Color.pointColor)
-        .padding(10)
+        .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
         .background {
             Rectangle()
                 .foregroundStyle(Color.staticGray6)
