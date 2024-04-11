@@ -68,6 +68,8 @@ struct ProfileEditView: View {
                                     Image(systemName: "xmark")
                                         .font(.title2)
                                         .foregroundStyle(Color.staticGray)
+                                        .offset(x: 15, y: -10)
+                                        .padding()
                                 }
                             }
                             .padding(.trailing, Configs.paddingValue)
