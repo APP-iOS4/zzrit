@@ -69,5 +69,5 @@ struct SetProfilePhotoView: View {
 }
 
 #Preview {
-    SetProfileView()
+    SetProfileView(registeredUID: .constant(""))
 }

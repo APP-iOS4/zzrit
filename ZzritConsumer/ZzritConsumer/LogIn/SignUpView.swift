@@ -113,18 +113,17 @@ struct SignUpView: View {
                     activeSignUpButton()
                 }
                 .navigationDestination(isPresented: $showProfile) {
-                    SetProfileView(emailField: signUpId, registeredUID: registeredUID)
+                    SetProfileView(emailField: signUpId, registeredUID: $registeredUID)
                 }
             } else {
                 GeneralButton(isDisabled: !isSignUpButtonActive, "회원가입" ) {
                     register()
-                    showProfile.toggle()
                 }
                 .onChange(of: selectAgree, perform: { value in
                     activeSignUpButton()
                 })
                 .navigationDestination(isPresented: $showProfile) {
-                    SetProfileView(emailField: signUpId, registeredUID: registeredUID)
+                    SetProfileView(emailField: signUpId, registeredUID: $registeredUID)
                 }
             }
             
@@ -182,6 +181,7 @@ struct SignUpView: View {
                 let register = try await authService.register(email: signUpId, password: signUpPw1)
                 print("회원가입 성공, 생성된 계정 uid: \(register.user.uid)")
                 registeredUID = register.user.uid
+                showProfile.toggle()
             } catch {
                 print("에러: \(error)")
             }
