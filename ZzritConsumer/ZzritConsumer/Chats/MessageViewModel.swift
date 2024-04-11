@@ -7,13 +7,18 @@
 
 import Foundation
 
+//MARK: - 임시 더미 뷰모델!!! 이건 계속 쓸 거 아님!!!!!
 class MessageViewModel {
     var messages: [MessageModel] = []
     
+    static var dummyMessage: MessageModel {
+        MessageModel(user: "정웅재", isYou: false, message: "안녕하세요", dateString: "오전 11:30")
+    }
+    
     init() {
         messages = [
-            MessageModel(message: "안녕하세요", date: "2024/02/22"),
-            MessageModel(message: "반가워여~", date: "2024/02/22")
+            MessageModel(user: "정웅재", isYou: false, message: "안녕하세요", dateString: "2024/02/22"),
+            MessageModel(user: "정웅재", isYou: false, message: "반가워여~", dateString: "2024/02/22")
         ]
     }
 }
