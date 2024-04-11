@@ -28,7 +28,6 @@ struct MainView: View {
                         Text("인원 마감 임박")
                             .modifier(SubTitleModifier())
                     }
-
                     
                     // 모임 카트 뷰 리스트 불러오기
                     // TODO: 모델 연동 시 모임 마감 인원 모델 배열을 넘겨줘야 한다.
