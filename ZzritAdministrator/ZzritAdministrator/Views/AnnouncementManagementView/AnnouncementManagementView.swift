@@ -61,6 +61,7 @@ struct AnnouncementManagementView: View {
                                             .frame(width: 150, alignment: .center)
                                     }
                                     .foregroundStyle(selectedAnnouncement?.id == announce.id ? Color.pointColor : Color.black)
+
                                 }
                                 .padding(10)
                             }
@@ -73,11 +74,11 @@ struct AnnouncementManagementView: View {
                 }
             }
             
-            MyButton(named: "선택한 공지 수정", features: {
+            MyButton(named: "선택한 공지 수정") {
                 if selectedAnnouncement != nil {
                     showAnnounceModal.toggle()
                 }
-            }, width: 350.0)
+            }
             .frame(maxWidth: .infinity, alignment: .bottomTrailing)
         }
         .padding(20)
