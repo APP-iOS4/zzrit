@@ -36,6 +36,7 @@ struct ZzritConsumerApp: App {
                     navigationBarAppearance.configureWithTransparentBackground()
                     UINavigationBar.appearance().standardAppearance = navigationBarAppearance
                 })
+                .preferredColorScheme(.light)
         }
     }
 }
