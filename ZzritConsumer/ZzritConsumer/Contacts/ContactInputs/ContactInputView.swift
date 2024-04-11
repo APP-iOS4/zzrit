@@ -110,6 +110,9 @@ struct ContactInputView: View {
         }
         .padding(Configs.paddingValue)
         .toolbarRole(.editor)
+        .onTapGesture {
+            self.endTextEditing()
+        }
     }
 }
 

@@ -14,7 +14,7 @@ struct ChatCategoryView: View {
     
     @Binding var selection: String
     
-    let  chatCategory: [String] = ["참여 중인 모임", "참여 완료 모임"]
+    let  chatCategory: [String] = ["참여 중인 모임", "종료된 모임"]
     
     var body: some View {
         HStack {

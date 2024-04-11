@@ -14,17 +14,31 @@ struct RoomView: View {
     
     @State private var rooms: [RoomModel] = []
     
+    @State private var toggle: Bool = true
+    
     var body: some View {
         NavigationStack {
             List(rooms) { room in
-                HStack {
+                VStack {
                     Text(room.title)
+                    Text(room.id!)
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
                 }
                 Button("모임 참여") {
                     joinRoom(roomID: room.id!)
                 }
                 Button("모임 탈퇴") {
                     leaveRoom(roomID: room.id!)
+                }
+                Button("활성화") {
+                    roomService.changeStatus(roomID: room.id!, status: .activation)
+                }
+                Button("비활성화") {
+                    roomService.changeStatus(roomID: room.id!, status: .deactivation)
+                }
+                Button("삭제") {
+                    roomService.changeStatus(roomID: room.id!, status: .delete)
                 }
             }
             .onAppear {
@@ -40,13 +54,13 @@ struct RoomView: View {
         }
     }
     
-//    private func createRoom() {
-//        do {
-//            
-//        } catch {
-//            print("에러: \(error)")
-//        }
-//    }
+    //    private func createRoom() {
+    //        do {
+    //
+    //        } catch {
+    //            print("에러: \(error)")
+    //        }
+    //    }
     
     private func fetchRooms() {
         Task {

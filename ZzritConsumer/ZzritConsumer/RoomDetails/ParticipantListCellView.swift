@@ -40,7 +40,8 @@ struct ParticipantListCellView: View {
                 // 사용자의 정전기 지수
                 Text("75W")
                     .font(.caption2)
-                    .padding(2)
+                    .padding(.vertical, 2)
+                    .padding(.horizontal, 5)
                     .foregroundStyle(.white)
                     .background(Color.pointColor)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
