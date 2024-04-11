@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		092876D22BC6C57C00AFCA1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 092876D12BC6C57C00AFCA1D /* GoogleService-Info.plist */; };
-		0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0979935A2BC52774004EC087 /* RoomCreateView.swift */; };;
+		0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0979935A2BC52774004EC087 /* RoomCreateView.swift */; };
 		DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */; };
 		DFC75FC72BC3CC850005DDD9 /* ZzritModelTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FC62BC3CC850005DDD9 /* ZzritModelTestApp.swift */; };
 		DFC75FC92BC3CC850005DDD9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FC82BC3CC850005DDD9 /* ContentView.swift */; };
