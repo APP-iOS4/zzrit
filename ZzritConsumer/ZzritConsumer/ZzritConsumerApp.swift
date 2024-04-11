@@ -7,11 +7,36 @@
 
 import SwiftUI
 
+import ZzritKit
+import FirebaseCore
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
+}
+
 @main
 struct ZzritConsumerApp: App {
+    // register app delegate for Firebase setup
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear(perform: {
+                    let tabBarAppearance = UITabBarAppearance()
+                    tabBarAppearance.configureWithTransparentBackground()
+                    UITabBar.appearance().standardAppearance = tabBarAppearance
+                    UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+                    
+                    let navigationBarAppearance = UINavigationBarAppearance()
+                    navigationBarAppearance.configureWithTransparentBackground()
+                    UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+                })
+                .preferredColorScheme(.light)
         }
     }
 }

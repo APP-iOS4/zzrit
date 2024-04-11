@@ -21,19 +21,17 @@ struct PlaygroundManageMainView: View {
     // 모임 활성화,비활성화 시 보여줄 얼럿
     @State private var showActiveAlert = false
     
-    // TODO: 데이터 연결 후 뷰 분리 예정입니다.
+    // TODO: 뷰 뷴리는 로그인 뷰부터 짜고(급해서) 진행하겠습니다
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
-            HStack {
-                SearchField(action: {
-                    print("검색")
-                })
-            }
+            SearchField(action: {
+                print("검색")
+            })
+            
             HStack(spacing: 20) {
                 ScrollView {
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
-                        Section(header: PlaygroundSectionHeader())
-                        {
+                        Section(header: PlaygroundSectionHeader()) {
                             ForEach(dummyModeledRooms) { room in
                                 Button {
                                     selectedRoom = room
@@ -58,28 +56,22 @@ struct PlaygroundManageMainView: View {
                                         Divider()
                                         
                                         
-                                        Text(room.status == isActive.active ? "활성화" : "비활성화")
+                                        Text(room.status == ActiveType.activation ? "활성화" : "비활성화")
                                             .frame(width: 90, alignment: .center)
                                             .multilineTextAlignment(.leading)
                                     }
                                     .font(.title3)
-                                    // .foregroundStyle(room == selectedRoom ? Color.pointColor : Color(uiColor: .label))
+                                    .foregroundStyle(room.id == selectedRoom?.id ? Color.pointColor : Color.black)
                                     .padding(10)
                                 }
                             }
                         }
                     }
                 }
-                .listStyle(.inset)
                 .overlay {
                     RoundedRectangle(cornerRadius: Constants.commonRadius)
                         .stroke(Color.staticGray3, lineWidth: 1.0)
                 }
-                .onTapGesture(count: 2, perform: {
-                    withAnimation{
-                        selectedRoom = nil
-                    }
-                })
                 
                 if let selectedRoom {
                     VStack(spacing: 0) {
@@ -124,7 +116,7 @@ struct PlaygroundManageMainView: View {
                                 }
                             }
                             
-                            LabeledContent("카테고리", value: selectedRoom.category)
+                            LabeledContent("카테고리", value: selectedRoom.category.rawValue)
                             // TODO: 데이트 포매터 필요
                             LabeledContent("모임날짜", value: "날짜 정보")
                             // TODO: 데이트 포매터 필요
@@ -166,10 +158,12 @@ struct PlaygroundManageMainView: View {
                     .frame(width: 260)
                 }
             }
+            
+            Spacer()
         }
         .padding(20)
         .alert(isPresented: $showActiveAlert, content: {
-            // TODO: SelectedRoom.isActive로 수정해야 함
+            // TODO: SelectedRoom.ActiveType로 수정해야 함
             istActive ? getInactiveAlert() : getActiveAlert()
         })
     }
@@ -223,18 +217,18 @@ struct DummyModeledUsers {
 
 struct DummyModeledRoom {
     static let dummyData: [RoomModel] = [
-        RoomModel(title: "칼바람 빠른 5인팟", category: "게임", dateTime: Date(), content: "모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다.", coverImage: URL(string: "https://picsum.photos/250/250")!, isOnline: true, status: isActive.active, leaderID: "LeaderIDAAA", limitPeople: 4),
+        RoomModel(title: "칼바람 빠른 5인팟", category: .game, dateTime: Date(), content: "모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다.", coverImage: "https://picsum.photos/250/250", isOnline: true, status: ActiveType.activation, leaderID: "LeaderIDAAA", limitPeople: 4),
         
-        RoomModel(title: "몬헌이 너무 하고싶어요", category: "게임", dateTime: Date(), content: "모임 설명입니다 글자수에 따른 변화를 보고 있습니다.", coverImage: URL(string: "https://picsum.photos/250/250")!, isOnline: true, status: isActive.active, leaderID: "LeaderIDAAA", limitPeople: 12),
+        RoomModel(title: "몬헌이 너무 하고싶어요", category: .game, dateTime: Date(), content: "모임 설명입니다 글자수에 따른 변화를 보고 있습니다.", coverImage: "https://picsum.photos/250/250", isOnline: true, status: ActiveType.activation, leaderID: "LeaderIDAAA", limitPeople: 12),
         
-        RoomModel(title: "나랑 같이 배드민턴 칠사람", category: "운동", dateTime: Date(), content: "모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다.", coverImage: URL(string: "https://picsum.photos/250/250")!, isOnline: false, status: isActive.active, leaderID: "LeaderIDAAA", limitPeople: 5),
+        RoomModel(title: "나랑 같이 배드민턴 칠사람", category: .game, dateTime: Date(), content: "모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다.", coverImage: "https://picsum.photos/250/250", isOnline: false, status: ActiveType.activation, leaderID: "LeaderIDAAA", limitPeople: 5),
         
-        RoomModel(title: "축구는 아침축구", category: "운동", dateTime: Date(), content: "모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다.", coverImage: URL(string: "https://picsum.photos/250/250")!, isOnline: false, status: isActive.active, leaderID: "LeaderIDAAA", limitPeople: 2),
+        RoomModel(title: "축구는 아침축구", category: .sport, dateTime: Date(), content: "모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다.", coverImage: "https://picsum.photos/250/250", isOnline: false, status: ActiveType.activation, leaderID: "LeaderIDAAA", limitPeople: 2),
         
-        RoomModel(title: "헬스장 같이 가실 분", category: "운동", dateTime: Date(), content: "모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다.", coverImage: URL(string: "https://picsum.photos/250/250")!, isOnline: false, status: isActive.active, leaderID: "LeaderIDAAA", limitPeople: 9),
+        RoomModel(title: "헬스장 같이 가실 분", category: .sport, dateTime: Date(), content: "모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다.", coverImage: "https://picsum.photos/250/250", isOnline: false, status: ActiveType.activation, leaderID: "LeaderIDAAA", limitPeople: 9),
         
-        RoomModel(title: "리듬게임은 2인 게임이다", category: "게임", dateTime: Date(), content: "모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다.", coverImage: URL(string: "https://picsum.photos/250/250")!, isOnline: true, status: isActive.active, leaderID: "LeaderIDAAA", limitPeople: 10),
+        RoomModel(title: "리듬게임은 2인 게임이다", category: .game, dateTime: Date(), content: "모임 설명입니다 글자수에 따른 변화를 보고 있습니다. 모임 설명입니다 글자수에 따른 변화를 보고 있습니다.", coverImage: "https://picsum.photos/250/250", isOnline: true, status: ActiveType.activation, leaderID: "LeaderIDAAA", limitPeople: 10),
         
-        RoomModel(title: "못된 방이라 비횔성화인 방", category: "나쁨", dateTime: Date(), content: "못~난놈", coverImage: URL(string: "https://picsum.photos/250/250")!, isOnline: true, status: isActive.deactive, leaderID: "LeaderIDAAA", limitPeople: 2),
+        RoomModel(title: "못된 방이라 비횔성화인 방", category: .etc, dateTime: Date(), content: "못~난놈", coverImage: "https://picsum.photos/250/250", isOnline: true, status: ActiveType.deactivation, leaderID: "LeaderIDAAA", limitPeople: 2),
     ]
 }

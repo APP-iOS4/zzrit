@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Platform: String, Codable, CaseIterable {
+public enum PlatformType: String, Codable, CaseIterable {
     case zoom = "줌"
     case googleMeet = "구글미트"
     case discord = "디스코드"

@@ -34,6 +34,7 @@ struct MainView: View {
                     // TODO: 모델 연동 시 최근 생성된 모임 모델 배열을 넘겨줘야 한다.
                     MainExistView()
                 }
+                .padding(.vertical, 1)
                 
                 // 방 생성 플로팅 버튼
                 Button {
@@ -54,34 +55,34 @@ struct MainView: View {
                     Text("방 생성뷰")
                 }
             }
-        }
-        .toolbar {
-            // 왼쪽 앱 메인 로고
-            ToolbarItem(placement: .topBarLeading) {
-                HStack(spacing: 0) {
-                    Text("ZZ!RIT")
-                }
-                .font(.title2)
-                .fontWeight(.black)
-            }
-            
-            // 오른쪽 알림 창
-            ToolbarItem(placement: .topBarTrailing) {
-                HStack {
-                    Button {
-                        isTopTrailingAction.toggle()
-                    } label: {
-                        Image(systemName: "bell")
-                            .foregroundStyle(.black)
+            .toolbar {
+                // 왼쪽 앱 메인 로고
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack(spacing: 0) {
+                        Text("ZZ!RIT")
                     }
-                    // 알람 뷰로 이동하는 navigationDestination
-                    .navigationDestination(isPresented: $isTopTrailingAction) {
-                        Text("알람 뷰")
+                    .font(.title2)
+                    .fontWeight(.black)
+                }
+                
+                // 오른쪽 알림 창
+                ToolbarItem(placement: .topBarTrailing) {
+                    HStack {
+                        Button {
+                            isTopTrailingAction.toggle()
+                        } label: {
+                            Image(systemName: "bell")
+                                .foregroundStyle(.black)
+                        }
+                        // 알람 뷰로 이동하는 navigationDestination
+                        .navigationDestination(isPresented: $isTopTrailingAction) {
+                            Text("알람 뷰")
+                        }
                     }
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

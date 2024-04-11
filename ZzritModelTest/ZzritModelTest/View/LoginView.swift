@@ -51,6 +51,11 @@ struct LoginView: View {
                 secessionCancel()
             }
         }
+        HStack {
+            Button("구글 로그인") {
+                googleSignIn()
+            }
+        }
     }
     
     // MARK: Authentication Service Method
@@ -125,6 +130,16 @@ struct LoginView: View {
         Task {
             do {
                 try await userService.secessionCancel()
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    
+    private func googleSignIn() {
+        Task {
+            do {
+                try await authService.loginWithGoogle()
             } catch {
                 print("에러: \(error)")
             }

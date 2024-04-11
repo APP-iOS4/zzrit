@@ -208,7 +208,7 @@ struct MyButton: View {
                 .frame(minWidth: 300.0, maxWidth: .infinity, minHeight: 40.0, maxHeight: .infinity)
                 .frame(width: width, height: height)
                 .background(Color.pointColor)
-                .clipShape(.rect(cornerRadius: 60))
+                .clipShape(.rect(cornerRadius: Constants.commonRadius))
         }
     }
 }

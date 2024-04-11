@@ -52,8 +52,9 @@ struct RoomDetailView: View {
                     // TODO: 모임에 참석하는 유저 정보를 전달해주어야 함
                     ParticipantListView()
                 }
-                .padding(20)
+                .padding(.horizontal, 20)
             }
+            .padding(.vertical, 1)
             .padding(.bottom, 70)
             
             VStack {

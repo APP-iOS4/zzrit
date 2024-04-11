@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct SetProfileView: View {
     @State var selectedImage: UIImage?
     
@@ -21,6 +23,11 @@ struct SetProfileView: View {
     
     @State var finishProfile = false
     @State var completeSignUp = false
+    
+    private let userService = UserService()
+    
+    var emailField: String = ""
+    @Binding var registeredUID: String
     
     var body: some View {
         NavigationStack {
@@ -85,6 +92,7 @@ struct SetProfileView: View {
             // TODO: 성별은 isMan과 isWoman중 true인 것으로 보내기. (enum 반환 함수 만들기)
             if #available(iOS 17.0, *) {
                 GeneralButton(isDisabled: !finishProfile, "다음") {
+                    setUserInfo()
                     completeSignUp.toggle()
                 }
                 .navigationDestination(isPresented: $completeSignUp, destination: {
@@ -95,6 +103,7 @@ struct SetProfileView: View {
                 }
             } else {
                 GeneralButton(isDisabled: !finishProfile, "다음") {
+                    setUserInfo()
                     completeSignUp.toggle()
                 }
                 .navigationDestination(isPresented: $completeSignUp, destination: {
@@ -117,8 +126,17 @@ struct SetProfileView: View {
             finishProfile = false
         }
     }
+    
+    private func setUserInfo() {
+        do {
+            let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: "", gender: isMan ? .male : .female, birthYear: birthYear, staticGuage: 20.0)
+            try userService.setUserInfo(uid: registeredUID, info: userInfo)
+        } catch {
+            print("에러: \(error)")
+        }
+    }
 }
 
 #Preview {
-    SetProfileView()
+    SetProfileView(emailField: "", registeredUID: .constant(""))
 }

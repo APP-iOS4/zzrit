@@ -7,29 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		092876D22BC6C57C00AFCA1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 092876D12BC6C57C00AFCA1D /* GoogleService-Info.plist */; };
+		0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0979935A2BC52774004EC087 /* RoomCreateView.swift */; };
+		DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */; };
 		DFC75FC72BC3CC850005DDD9 /* ZzritModelTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FC62BC3CC850005DDD9 /* ZzritModelTestApp.swift */; };
 		DFC75FC92BC3CC850005DDD9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FC82BC3CC850005DDD9 /* ContentView.swift */; };
 		DFC75FCB2BC3CC880005DDD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFC75FCA2BC3CC880005DDD9 /* Assets.xcassets */; };
 		DFC75FCE2BC3CC880005DDD9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFC75FCD2BC3CC880005DDD9 /* Preview Assets.xcassets */; };
 		DFC75FD62BC3CCCA0005DDD9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FD52BC3CCC90005DDD9 /* LoginView.swift */; };
 		DFC75FD92BC3D0B90005DDD9 /* ZzritKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFC75FD82BC3D0B90005DDD9 /* ZzritKit */; };
-		DFC75FDB2BC3D2AC0005DDD9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFC75FDA2BC3D2AC0005DDD9 /* GoogleService-Info.plist */; };
 		DFC75FF72BC5345C0005DDD9 /* ImageUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FF62BC5345C0005DDD9 /* ImageUploadView.swift */; };
 		DFC75FF92BC535F60005DDD9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */; };
 		DFC75FFB2BC57C310005DDD9 /* IncrementStaticGuageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FFA2BC57C310005DDD9 /* IncrementStaticGuageView.swift */; };
+		DFC760002BC589AE0005DDD9 /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FFF2BC589AE0005DDD9 /* NoticeView.swift */; };
+		DFC760022BC589ED0005DDD9 /* WriteNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC760012BC589ED0005DDD9 /* WriteNoticeView.swift */; };
+		DFC760062BC58D610005DDD9 /* NoticeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC760052BC58D610005DDD9 /* NoticeListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0979935A2BC52774004EC087 /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
+		DF25D9082BC63FD9004B4B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
+		092876D12BC6C57C00AFCA1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0979935A2BC52774004EC087 /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
+		DF25D9082BC63FD9004B4B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DFC75FC32BC3CC840005DDD9 /* ZzritModelTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritModelTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFC75FC62BC3CC850005DDD9 /* ZzritModelTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzritModelTestApp.swift; sourceTree = "<group>"; };
 		DFC75FC82BC3CC850005DDD9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DFC75FCA2BC3CC880005DDD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DFC75FCD2BC3CC880005DDD9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DFC75FD52BC3CCC90005DDD9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		DFC75FDA2BC3D2AC0005DDD9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DFC75FF62BC5345C0005DDD9 /* ImageUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadView.swift; sourceTree = "<group>"; };
 		DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		DFC75FFA2BC57C310005DDD9 /* IncrementStaticGuageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementStaticGuageView.swift; sourceTree = "<group>"; };
+
+		DFC75FFF2BC589AE0005DDD9 /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
+		DFC760012BC589ED0005DDD9 /* WriteNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteNoticeView.swift; sourceTree = "<group>"; };
+		DFC760052BC58D610005DDD9 /* NoticeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF25D90C2BC6B9C1004B4B96 /* Room */ = {
+			isa = PBXGroup;
+			children = (
+				DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */,
+			);
+			path = Room;
+			sourceTree = "<group>";
+		};
 		DFC75FBA2BC3CC840005DDD9 = {
 			isa = PBXGroup;
 			children = (
@@ -64,11 +86,12 @@
 		DFC75FC52BC3CC850005DDD9 /* ZzritModelTest */ = {
 			isa = PBXGroup;
 			children = (
+				092876D12BC6C57C00AFCA1D /* GoogleService-Info.plist */,
+				DF25D9082BC63FD9004B4B96 /* Info.plist */,
 				DFC75FD42BC3CCB30005DDD9 /* View */,
 				DFC75FC62BC3CC850005DDD9 /* ZzritModelTestApp.swift */,
 				DFC75FC82BC3CC850005DDD9 /* ContentView.swift */,
 				DFC75FCA2BC3CC880005DDD9 /* Assets.xcassets */,
-				DFC75FDA2BC3D2AC0005DDD9 /* GoogleService-Info.plist */,
 				DFC75FCC2BC3CC880005DDD9 /* Preview Content */,
 			);
 			path = ZzritModelTest;
@@ -85,10 +108,13 @@
 		DFC75FD42BC3CCB30005DDD9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DF25D90C2BC6B9C1004B4B96 /* Room */,
+				DFC75FFE2BC589A20005DDD9 /* Notice */,
 				DFC75FD52BC3CCC90005DDD9 /* LoginView.swift */,
 				DFC75FF62BC5345C0005DDD9 /* ImageUploadView.swift */,
 				DFC75FF82BC535F60005DDD9 /* ImagePicker.swift */,
 				DFC75FFA2BC57C310005DDD9 /* IncrementStaticGuageView.swift */,
+				0979935A2BC52774004EC087 /* RoomCreateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -98,6 +124,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DFC75FFE2BC589A20005DDD9 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				DFC75FFF2BC589AE0005DDD9 /* NoticeView.swift */,
+				DFC760012BC589ED0005DDD9 /* WriteNoticeView.swift */,
+				DFC760052BC58D610005DDD9 /* NoticeListView.swift */,
+			);
+			path = Notice;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,7 +199,7 @@
 			files = (
 				DFC75FCE2BC3CC880005DDD9 /* Preview Assets.xcassets in Resources */,
 				DFC75FCB2BC3CC880005DDD9 /* Assets.xcassets in Resources */,
-				DFC75FDB2BC3D2AC0005DDD9 /* GoogleService-Info.plist in Resources */,
+				092876D22BC6C57C00AFCA1D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,11 +211,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFC75FFB2BC57C310005DDD9 /* IncrementStaticGuageView.swift in Sources */,
+				DFC760062BC58D610005DDD9 /* NoticeListView.swift in Sources */,
 				DFC75FD62BC3CCCA0005DDD9 /* LoginView.swift in Sources */,
 				DFC75FC92BC3CC850005DDD9 /* ContentView.swift in Sources */,
+				DFC760022BC589ED0005DDD9 /* WriteNoticeView.swift in Sources */,
+				DFC760002BC589AE0005DDD9 /* NoticeView.swift in Sources */,
 				DFC75FF92BC535F60005DDD9 /* ImagePicker.swift in Sources */,
 				DFC75FC72BC3CC850005DDD9 /* ZzritModelTestApp.swift in Sources */,
+				DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */,
 				DFC75FF72BC5345C0005DDD9 /* ImageUploadView.swift in Sources */,
+				0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +357,7 @@
 				DEVELOPMENT_TEAM = 6R3M7VGRP2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZzritModelTest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -345,6 +387,7 @@
 				DEVELOPMENT_TEAM = 6R3M7VGRP2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZzritModelTest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
