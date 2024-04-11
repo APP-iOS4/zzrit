@@ -20,7 +20,7 @@ struct ChatActiveListView: View {
                 NavigationLink {
                     // 상세 페이지
                     // FIXME: 아직 채팅창 뷰는 미구현, 구현 되는 대로 뷰와 모델 연동
-                    Text("활성화 된 채팅창 뷰 입니다.")
+                    ChatView(isActive: true)
                 } label: {
                     // 여기는 쓰이지 않는다
                 }

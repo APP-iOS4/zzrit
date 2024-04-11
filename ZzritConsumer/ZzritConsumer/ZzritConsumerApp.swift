@@ -25,7 +25,7 @@ struct ZzritConsumerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ChatView()
+            ContentView()
                 .onAppear(perform: {
                     let tabBarAppearance = UITabBarAppearance()
                     tabBarAppearance.configureWithTransparentBackground()
