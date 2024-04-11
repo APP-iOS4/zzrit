@@ -88,7 +88,9 @@ public final class RoomService {
         }
     }
     // TODO: 모임 수정
-    
+    func modifyRoom(_ room: RoomModel) async throws {
+        
+    }
     
     // TODO: 모임 삭제
     

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0979935A2BC52774004EC087 /* RoomCreateView.swift */; };
-		0979935D2BC527E4004EC087 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0979935C2BC527E4004EC087 /* GoogleService-Info.plist */; };
+		092876D22BC6C57C00AFCA1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 092876D12BC6C57C00AFCA1D /* GoogleService-Info.plist */; };
+		0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0979935A2BC52774004EC087 /* RoomCreateView.swift */; };;
 		DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */; };
 		DFC75FC72BC3CC850005DDD9 /* ZzritModelTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FC62BC3CC850005DDD9 /* ZzritModelTestApp.swift */; };
 		DFC75FC92BC3CC850005DDD9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FC82BC3CC850005DDD9 /* ContentView.swift */; };
@@ -25,9 +25,11 @@
 
 /* Begin PBXFileReference section */
 		0979935A2BC52774004EC087 /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
-		0979935C2BC527E4004EC087 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF25D9082BC63FD9004B4B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
+		092876D12BC6C57C00AFCA1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0979935A2BC52774004EC087 /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
+		DF25D9082BC63FD9004B4B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DFC75FC32BC3CC840005DDD9 /* ZzritModelTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritModelTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFC75FC62BC3CC850005DDD9 /* ZzritModelTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzritModelTestApp.swift; sourceTree = "<group>"; };
 		DFC75FC82BC3CC850005DDD9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,8 +83,8 @@
 		DFC75FC52BC3CC850005DDD9 /* ZzritModelTest */ = {
 			isa = PBXGroup;
 			children = (
+				092876D12BC6C57C00AFCA1D /* GoogleService-Info.plist */,
 				DF25D9082BC63FD9004B4B96 /* Info.plist */,
-				0979935C2BC527E4004EC087 /* GoogleService-Info.plist */,
 				DFC75FD42BC3CCB30005DDD9 /* View */,
 				DFC75FC62BC3CC850005DDD9 /* ZzritModelTestApp.swift */,
 				DFC75FC82BC3CC850005DDD9 /* ContentView.swift */,
@@ -193,7 +195,7 @@
 			files = (
 				DFC75FCE2BC3CC880005DDD9 /* Preview Assets.xcassets in Resources */,
 				DFC75FCB2BC3CC880005DDD9 /* Assets.xcassets in Resources */,
-				0979935D2BC527E4004EC087 /* GoogleService-Info.plist in Resources */,
+				092876D22BC6C57C00AFCA1D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
