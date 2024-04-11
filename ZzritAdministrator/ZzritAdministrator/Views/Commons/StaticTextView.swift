@@ -14,6 +14,7 @@ struct StaticTextView: View {
         case login
         case filter
         case text
+        case gauge
     }
     
     var title: String
@@ -28,17 +29,28 @@ struct StaticTextView: View {
         case .filter:
             return isActive ? Color.pointColor : Color.staticGray4
          
-        case .text:
+        case .text, .gauge:
             return Color.pointColor
         }
     }
     
     var font: Font {
         switch selectType {
-        case .login, .filter:
+        case .login, .filter, .gauge:
             return .title2
         case .text:
-            return .body
+            return .title3
+        }
+    }
+    
+    var padding: CGFloat {
+        switch selectType {
+        case .login, .text:
+            15
+        case .filter:
+            12.5
+        case .gauge:
+            18
         }
     }
     
@@ -46,7 +58,7 @@ struct StaticTextView: View {
         Text(title)
             .font(font)
             .fontWeight(.bold)
-            .padding(12.5)
+            .padding(padding)
             .frame(minWidth: 40.0, maxWidth: width)
             .foregroundStyle(.white)
             .background(backGroundColor)
