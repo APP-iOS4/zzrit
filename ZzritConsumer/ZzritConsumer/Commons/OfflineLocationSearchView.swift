@@ -8,37 +8,12 @@
 import SwiftUI
 
 struct OfflineLocationSearchView: View {
-    @State private var searchText: String = ""
-    
     @Binding var offlineLocationString: String
     
     var body: some View {
-        // 검색 필드 뷰
-        HStack(spacing: 15.0) {
-            TextField("검색어를 입력하세요.", text: $searchText)
-            
-            if !searchText.isEmpty {
-                Button {
-                    searchText = ""
-                } label: {
-                    Label("검색 취소", systemImage: "xmark.circle.fill")
-                        .labelStyle(.iconOnly)
-                        .foregroundStyle(Color.black)
-                }
-            }
-            
-            Button {
-                offlineLocationString = searchText
-                print("검색했습니다.")
-            } label: {
-                Label("검색", systemImage: "magnifyingglass")
-                    .labelStyle(.iconOnly)
-                    .foregroundStyle(Color.black)
-            }
-        }
-        .padding()
+        OfflineLocationSearchTextFieldView(offlineLocationString: $offlineLocationString)
         
-        Divider()
+        OfflineLocationResultView()
     }
 }
 
