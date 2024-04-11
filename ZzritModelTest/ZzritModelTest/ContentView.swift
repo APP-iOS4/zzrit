@@ -18,6 +18,7 @@ struct ContentView: View {
             }
             NavigationLink("찌릿 멤버 정전기 지수 올리기") {
                 IncrementStaticGuageView()
+            }
             NavigationLink("공지사항") {
                 NoticeView()
             }
