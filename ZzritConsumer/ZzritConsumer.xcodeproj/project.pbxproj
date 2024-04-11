@@ -34,6 +34,9 @@
 		1FF17E552BC509C500B505FA /* FirstRoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF17E542BC509C500B505FA /* FirstRoomCreateView.swift */; };
 		1FF17E572BC509E400B505FA /* SelectionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF17E562BC509E400B505FA /* SelectionButtonView.swift */; };
 		1FF17E5B2BC512A000B505FA /* RoomCreateSubTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF17E5A2BC512A000B505FA /* RoomCreateSubTitle.swift */; };
+		30064DB82BC8025D00FD04A2 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30064DB72BC8025D00FD04A2 /* ChatView.swift */; };
+		30064DBA2BC8027700FD04A2 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30064DB92BC8027700FD04A2 /* MessageModel.swift */; };
+		30064DBC2BC802A000FD04A2 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30064DBB2BC802A000FD04A2 /* MessageViewModel.swift */; };
 		3007E8AF2BC40E6E00B9F7B3 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3007E8AE2BC40E6E00B9F7B3 /* MainView.swift */; };
 		3007E8B22BC4143700B9F7B3 /* SubTitleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3007E8B12BC4143700B9F7B3 /* SubTitleModifier.swift */; };
 		3007E8B42BC4255900B9F7B3 /* RoomCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3007E8B32BC4255900B9F7B3 /* RoomCardListView.swift */; };
@@ -124,6 +127,9 @@
 		1FF17E542BC509C500B505FA /* FirstRoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRoomCreateView.swift; sourceTree = "<group>"; };
 		1FF17E562BC509E400B505FA /* SelectionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionButtonView.swift; sourceTree = "<group>"; };
 		1FF17E5A2BC512A000B505FA /* RoomCreateSubTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateSubTitle.swift; sourceTree = "<group>"; };
+		30064DB72BC8025D00FD04A2 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		30064DB92BC8027700FD04A2 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		30064DBB2BC802A000FD04A2 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		3007E8AE2BC40E6E00B9F7B3 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		3007E8B12BC4143700B9F7B3 /* SubTitleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTitleModifier.swift; sourceTree = "<group>"; };
 		3007E8B32BC4255900B9F7B3 /* RoomCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCardListView.swift; sourceTree = "<group>"; };
@@ -300,6 +306,16 @@
 			path = CommonViews;
 			sourceTree = "<group>";
 		};
+		30064DB62BC8024500FD04A2 /* Chats */ = {
+			isa = PBXGroup;
+			children = (
+				30064DB72BC8025D00FD04A2 /* ChatView.swift */,
+				30064DB92BC8027700FD04A2 /* MessageModel.swift */,
+				30064DBB2BC802A000FD04A2 /* MessageViewModel.swift */,
+			);
+			path = Chats;
+			sourceTree = "<group>";
+		};
 		3007E8B02BC4138D00B9F7B3 /* MainModifier */ = {
 			isa = PBXGroup;
 			children = (
@@ -443,6 +459,7 @@
 				1F3859BB2BC3D2A800C753BD /* SearchingViews */,
 				30BE7EB82BC57C2A00A5A178 /* Contacts */,
 				DF54D2222BC36C4800D72491 /* Assets.xcassets */,
+				30064DB62BC8024500FD04A2 /* Chats */,
 				DF54D2242BC36C4800D72491 /* Preview Content */,
 			);
 			path = ZzritConsumer;
@@ -631,8 +648,10 @@
 				1FF17E5B2BC512A000B505FA /* RoomCreateSubTitle.swift in Sources */,
 				3007E8B82BC43D8900B9F7B3 /* ArchieveRoomCardListView.swift in Sources */,
 				309688012BC6492E007064A3 /* ChatActiveListView.swift in Sources */,
+				30064DB82BC8025D00FD04A2 /* ChatView.swift in Sources */,
 				303EDA762BC503EF0023FC09 /* RoomDetailView.swift in Sources */,
 				30BE7E9F2BC5055600A5A178 /* ParticipantListCellView.swift in Sources */,
+				30064DBA2BC8027700FD04A2 /* MessageModel.swift in Sources */,
 				30BE7EBF2BC57C7E00A5A178 /* QuestionListView.swift in Sources */,
 				3007E8B42BC4255900B9F7B3 /* RoomCardListView.swift in Sources */,
 				FC2DDC212BC591F300A51E64 /* FakeDivider.swift in Sources */,
@@ -661,6 +680,7 @@
 				1F0603522BC5BF56003808F4 /* FilterCategory.swift in Sources */,
 				FCBCB31E2BC3DC090048B86F /* ServiceAgreeSheet.swift in Sources */,
 				FCBCB31A2BC3D2A90048B86F /* SignUpView.swift in Sources */,
+				30064DBC2BC802A000FD04A2 /* MessageViewModel.swift in Sources */,
 				1F0603562BC63289003808F4 /* RCContentTextField.swift in Sources */,
 				1F5038DF2BC4E69E00381EE5 /* SearchFieldView.swift in Sources */,
 				1F5038EA2BC4EC3600381EE5 /* SearchFilterPicker.swift in Sources */,
