@@ -19,4 +19,6 @@ public enum FirebaseErrorType: Error {
     case noSignIn
     case noUserInfo
     case chatMessageEmpty
+    case alreadyJoinedRoom
+    case notJoinedRoom
 }

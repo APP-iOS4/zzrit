@@ -105,7 +105,7 @@ public final class UserService {
     }
     
     /// 로그인 상태 검증
-    private func loginedCheck() async throws {
+    func loginedCheck() async throws {
         guard let _ = authService.currentUID else {
             throw AuthError.notLogin
         }

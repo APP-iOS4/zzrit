@@ -19,6 +19,9 @@ struct ContentView: View {
             NavigationLink("공지사항") {
                 NoticeView()
             }
+            NavigationLink("모임관리") {
+                RoomView()
+            }
         }
     }
 }

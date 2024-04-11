@@ -33,7 +33,7 @@ public final class RoomService {
      # Error
      - FirebaseErrorType.failCreateRoom
      */
-    public func createRoom(_ room: RoomModel) async throws {
+    public func createRoom(_ room: RoomModel) throws {
         do {
             // TODO: 빈칸 있으면 에러.(소비자앱과 상의 필.)
             try fbConstants.roomCollection.addDocument(from: room)
@@ -46,7 +46,7 @@ public final class RoomService {
     }
     
     // TODO: 모임 불러오기
-    func loadRoom(
+    public func loadRoom(
         title: String? = nil,
         isOnline: Bool? = nil,
         placeLatitude: Double? = nil,
@@ -96,8 +96,54 @@ public final class RoomService {
     
     // TODO: 모임 참여 - 해당 모임 하위 컬렉션 JoinedUser에 현재 user.id 넣어줘야됨.
     
+    /// 현재 로그인 되어있는 회원이 모임에 창여합니다.
+    ///  - Parameter roomID(String): 가입할 모임 ID
+    public func joinRoom(_ roomID: String) async throws {
+        // 로그인 여부 및 회원정보 등록 여부에 따른 에러 throw
+        var userService: UserService? = UserService()
+        try await userService?.loginedCheck()
+        userService = nil
+        
+        // 이미 위에서 uid 검증을 끝냈으므로, 강제 언래핑
+        let uid = AuthenticationService.shared.currentUID!
+        
+        if try await isJoined(roomID: roomID, userUID: uid) {
+            // 이미 방에 가입이 되어있을 경우 에러 throw
+            throw FirebaseErrorType.alreadyJoinedRoom
+        } else {
+            let tempModel = JoinedUserModel(userID: uid, joinedDatetime: Date())
+            try fbConstants.joinedCollection(roomID).document(uid).setData(from: tempModel, merge: true)
+        }
+    }
+    
+    /// 모임을 탈퇴합니다.
+    ///  - Parameter roomID(String): 가입할 모임 ID
+    public func leaveRoom(roomID: String) async throws {
+        // 로그인 여부 및 회원정보 등록 여부에 따른 에러 throw
+        var userService: UserService? = UserService()
+        try await userService?.loginedCheck()
+        userService = nil
+        
+        // 이미 위에서 uid 검증을 끝냈으므로, 강제 언래핑
+        let uid = AuthenticationService.shared.currentUID!
+
+        if try await isJoined(roomID: roomID, userUID: uid) {
+            try await fbConstants.joinedCollection(roomID).document(uid).delete()
+        } else {
+            // 방에 가입이 되어있지 않을 경우 에러 throw
+            throw FirebaseErrorType.notJoinedRoom
+        }
+    }
+    
+    
     // TODO: 모임에 참여한 User 리스트 뽑아주기
     
-    
-    
+    /// 모임 참여 여부를 확인합니다.
+    /// - Parameter roomID(String): 확인 할 모임 ID
+    /// - Parameter uid(String): 유저의 uid
+    /// - Returns: 참여 여부(Bool)
+    public func isJoined(roomID: String, userUID uid: String) async throws -> Bool {
+        let document = try await fbConstants.joinedCollection(roomID).document(uid).getDocument()
+        return document.exists
+    }
 }
