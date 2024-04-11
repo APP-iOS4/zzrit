@@ -54,7 +54,8 @@ struct MoreInfoView: View {
                     HStack(spacing: 0) {
                         Text("더보기")
                     }
-                    .font(.title2)
+                    .font(.title3)
+                    .fontWeight(.black)
                 }
                 
                 // 오른쪽 위 아이콘

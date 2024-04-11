@@ -27,7 +27,7 @@ struct SetProfileView: View {
     private let userService = UserService()
     
     var emailField: String = ""
-    var registeredUID: String = ""
+    @Binding var registeredUID: String
     
     var body: some View {
         NavigationStack {
@@ -138,5 +138,5 @@ struct SetProfileView: View {
 }
 
 #Preview {
-    SetProfileView(emailField: "", registeredUID: "")
+    SetProfileView(emailField: "", registeredUID: .constant(""))
 }
