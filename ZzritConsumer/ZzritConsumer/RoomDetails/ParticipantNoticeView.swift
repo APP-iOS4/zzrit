@@ -101,7 +101,7 @@ struct ParticipantNoticeView: View {
             }
             .navigationDestination(isPresented: $isPressedChat) {
                 // TODO: 여기에 나중에 채팅 뷰 만들어 지면 넣기
-                Text("채팅 뷰")
+                ChatView(isActive: true)
             }
         }
         .padding(.horizontal, 20)
