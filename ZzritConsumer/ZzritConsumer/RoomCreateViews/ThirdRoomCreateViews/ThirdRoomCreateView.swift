@@ -92,9 +92,9 @@ struct ThirdRoomCreateView: View {
                     .padding(.vertical)
                 }
                 // 다음으로 넘어가기 버튼
-                GeneralButton(isDisabled: !isButtonEnabled, "완료",tapAction: {
+                GeneralButton(isDisabled: !isButtonEnabled, "완료") {
                     print("새 모임 등록")
-                })
+                }
             }
             .padding()
         }
