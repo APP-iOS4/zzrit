@@ -19,6 +19,7 @@ final class FirebaseConstants {
         case joinedUser = "JoinedUsers"
         case admin = "AdminUsers"
         case contact = "Contacts"
+        case reply = "Replies"
     }
     
     private let db = Firestore.firestore()
@@ -36,6 +37,10 @@ final class FirebaseConstants {
     
     public func joinedCollection(_ room: String) -> CollectionReference {
         return roomCollection.document(room).collection(collection(.joinedUser))
+    }
+    
+    public func contactReplyCollection(_ contact: String) -> CollectionReference {
+        return contactCollection.document(contact).collection(collection(.reply))
     }
 
     // MARK: Private Methods

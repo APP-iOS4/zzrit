@@ -39,46 +39,54 @@ public final class ContactService {
     
     // MARK: - Admin Service
     
-    private var isInitial: Bool = true
-    private var lastDocument: DocumentSnapshot? = nil
+    private var lastDocument: QueryDocumentSnapshot? = nil
     private var isFetchEnd: Bool = false
     
     /// 모든 문의사항을 불러옵니다.
     /// - Returns Array(ContactModel)
     /// - Warning: 관리자에서만 호출될 수 있도록 부탁드립니다.
     public func fetchContact(isInitialFetch: Bool = true) async throws -> [ContactModel] {
-        // 처음 로딩의 경우 기존에 저장되어 있는 lastDocument nil
-        if isInitial {
-            lastDocument = nil
-            isFetchEnd = false
+        do {
+            // 처음 로딩의 경우 기존에 저장되어 있는 lastDocument nil
+            if isInitialFetch {
+                lastDocument = nil
+                isFetchEnd = false
+            }
+            
+            // 이미 모든 문서를 불러온 경우 에러 throw하여 트래픽 낭비 방지
+            if isFetchEnd {
+                throw FetchError.noMoreFetch
+            }
+            
+            var query = firebaseConstant.contactCollection
+                .order(by: "requestedDate", descending: true)
+                .limit(to: 20)
+            
+            // 읽어온 문서의 기록이 있을경우 이어서 데이터를 불러오도록 쿼리를 추가한다.
+            if !isInitialFetch, let lastDocument {
+                query = query.start(afterDocument: lastDocument)
+            }
+            
+            let snapshot = try await query.getDocuments()
+            let documents = try snapshot.documents.map { try $0.data(as: ContactModel.self) }
+            
+            // 마지막 문서를 변수에 저장해둠
+            lastDocument = snapshot.documents.last
+            
+            // 더이상 불러올 문서가 없다면 에러 throw, 트래픽 낭비 방지
+            if lastDocument == nil {
+                isFetchEnd = true
+                throw FetchError.noMoreFetch
+            }
+            
+            return documents
+        } catch {
+            throw error
         }
-        
-        // 이미 모든 문서를 불러온 경우 에러 throw하여 트래픽 낭비 방지
-        if isFetchEnd {
-            throw FetchError.noMoreFetch
-        }
-        
-        var query = firebaseConstant.contactCollection
-            .order(by: "requestedDate", descending: true)
-            .limit(to: 20)
-        
-        // 읽어온 문서의 기록이 있을경우 이어서 데이터를 불러오도록 쿼리를 추가한다.
-        if let lastDocument {
-            query = query.start(afterDocument: lastDocument)
-        }
-        
-        let snapshot = try await query.getDocuments()
-        let documents = try snapshot.documents.map { try $0.data(as: ContactModel.self) }
-        
-        // 마지막 문서를 변수에 저장해둠
-        lastDocument = snapshot.documents.last
-
-        // 더이상 불러올 문서가 없다면 에러 throw, 트래픽 낭비 방지
-        if lastDocument == nil {
-            isFetchEnd = true
-            throw FetchError.noMoreFetch
-        }
-        
-        return documents
+    }
+    
+    /// 문의사항에 답변을 등록합니다.
+    public func writeReply(_ reply: ContactReplyModel, contactID: String) throws {
+        try firebaseConstant.contactReplyCollection(contactID).addDocument(from: reply)
     }
 }

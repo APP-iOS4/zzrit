@@ -19,7 +19,9 @@ struct ContactView: View {
         NavigationStack {
             List {
                 ForEach(contacts) { contact in
-                    Text(contact.title)
+                    NavigationLink(contact.title) {
+                        ContactReplyView(contact: contact)
+                    }
                 }
                 .onDelete { indexSet in
                     deleteContact(indexSet: indexSet)
@@ -41,6 +43,7 @@ struct ContactView: View {
     private func fetchContacts() {
         Task {
             do {
+                print(isInitial)
                 contacts += try await contactService.fetchContact(isInitialFetch: isInitial)
                 isInitial = false
             } catch {
