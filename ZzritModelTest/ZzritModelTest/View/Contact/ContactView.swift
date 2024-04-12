@@ -28,8 +28,13 @@ struct ContactView: View {
         
         // MARK: 문의사항 목록 (모든회원)
         
-        List(contacts) { contact in
-            Text(contact.title)
+        List {
+            ForEach(contacts) { contact in
+                Text(contact.title)
+            }
+            .onDelete { indexSet in
+                deleteContact(indexSet: indexSet)
+            }
         }
         .onAppear {
             fetchContacts()
@@ -84,6 +89,12 @@ struct ContactView: View {
             contactContent = ""
         } catch {
             print("에러: \(error)")
+        }
+    }
+    
+    private func deleteContact(indexSet: IndexSet) {
+        if let index = indexSet.first {
+            contactService.deleteContact(contactID: contacts[index].id!)
         }
     }
 }

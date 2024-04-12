@@ -26,6 +26,12 @@ public final class ContactService {
         
         return try snapshot.documents.map { try $0.data(as: ContactModel.self) }
     }
+    
+    /// 문의사항을 삭제합니다.
+    /// -Parameter contactID(String): 삭제할 문의사항 id
+    public func deleteContact(contactID: String) {
+        firebaseConstant.contactCollection.document(contactID).delete()
+    }
 
     public func writeContact(_ contact: ContactModel) throws {
         try firebaseConstant.contactCollection.addDocument(from: contact)
@@ -63,8 +69,6 @@ public final class ContactService {
         
         let snapshot = try await query.getDocuments()
         let documents = try snapshot.documents.map { try $0.data(as: ContactModel.self) }
-        
-        print(documents)
         
         // 마지막 문서를 변수에 저장해둠
         lastDocument = snapshot.documents.last
