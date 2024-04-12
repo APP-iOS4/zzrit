@@ -15,3 +15,5 @@ struct MessageModel: Identifiable {
     let message: String
     let dateString: String
 }
+
+// 정각 알림 메시지와 공지 메시지와 참여자입장 메시지도 MessageModel에 필요
