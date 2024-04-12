@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MoreInfoListView: View {
     @State var isNoticeShow = false
+    @State var isQuestionShow = false
     var isLogined: Bool
     
     var body: some View {
@@ -42,9 +43,12 @@ struct MoreInfoListView: View {
                     }
                     // 문의하기
                     Button {
-                        
+                        isQuestionShow.toggle()
                     } label: {
                         HorizontalLabel(string: "문의하기")
+                    }
+                    .navigationDestination(isPresented: $isQuestionShow){
+                        QuestionView()
                     }
                 }
                 .padding(Configs.paddingValue)

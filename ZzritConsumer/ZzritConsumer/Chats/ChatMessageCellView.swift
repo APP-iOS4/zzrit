@@ -28,8 +28,14 @@ struct ChatMessageCellView: View {
                 HStack(alignment: .bottom) {
                     VStack(alignment: .leading) {
                         //FIXME: 모델 연동시 이곳은 유저의 닉네임으로 변경
-                        Text(message.user)
-                            .foregroundStyle(Color.staticGray1)
+                        HStack {
+                            // TODO: if userId가 방장 일때
+                            Image(systemName: "crown.fill")
+                                .font(.callout)
+                                .foregroundStyle(Color.yellow)
+                            Text(message.user)
+                                .foregroundStyle(Color.staticGray1)
+                        }
                         
                         // FIXME: 모델 연동시 이곳은 유저가 작성한 메세지로 변경
                         Text(message.message)
