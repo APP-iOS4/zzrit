@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AnnouncementHeader: View {
+struct NoticeHeader: View {
     var body: some View {
         HStack {
             Text("제목")
@@ -33,5 +33,5 @@ struct AnnouncementHeader: View {
 }
 
 #Preview {
-    AnnouncementHeader()
+    NoticeHeader()
 }

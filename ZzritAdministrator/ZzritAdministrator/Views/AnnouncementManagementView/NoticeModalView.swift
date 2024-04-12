@@ -8,8 +8,8 @@
 import SwiftUI
 import ZzritKit
 
-struct AnnounceModalView: View {
-    @State var announcemnet: NoticeModel? = nil
+struct NoticeModalView: View {
+    @State var notice: NoticeModel? = nil
     @State private var title: String = ""
     @State private var content: String = ""
     @State private var warning: Bool = false
@@ -21,8 +21,9 @@ struct AnnounceModalView: View {
    
     @Environment(\.dismiss) private var dismiss
     
-    // 데이트 포매터
+    // 데이트 서비스
     private let dateService = DateService.shared
+    // 공지 서비스
     private let noticeService = NoticeService()
     
     // TODO: 뷰 뷴리는 로그인 뷰부터 짜고(급해서) 진행하겠습니다
@@ -63,8 +64,8 @@ struct AnnounceModalView: View {
                 }
                 Spacer()
 
-                if let announcemnet {
-                    Text(dateService.formattedString(date: announcemnet.date, format: "yyyy MM/dd HH:mm"))
+                if let notice {
+                    Text(dateService.formattedString(date: notice.date, format: "yyyy MM/dd HH:mm"))
                         .foregroundStyle(Color.staticGray3)
                 }
             }
@@ -80,13 +81,13 @@ struct AnnounceModalView: View {
             }
             
             
-            if let announcemnet {
+            if let notice {
                 HStack {
-                    Text("작성자: \(announcemnet.writerUID)")
+                    Text("작성자: \(notice.writerUID)")
                     
                     Spacer()
                     
-                    Text("\(announcemnet.id ?? "")")
+                    Text("\(notice.id ?? "")")
                 }
                 .foregroundStyle(Color.staticGray3)
                 
@@ -96,6 +97,8 @@ struct AnnounceModalView: View {
                         .frame(width: 160, height: 50)
                         .overlay(
                             Button {
+                                // id는 반드시 존재하기 때문에 포스 언래핑
+                                deleteNotice(noticeID: notice.id!)
                                 alertCase = .delelte
                                 showAlert = true
                             } label: {
@@ -134,9 +137,9 @@ struct AnnounceModalView: View {
         }
         .padding(20)
         .onAppear {
-            if let announcemnet {
-                title = announcemnet.title
-                content = announcemnet.content
+            if let notice {
+                title = notice.title
+                content = notice.content
             }
         }
         .alert(isPresented: $showAlert, content: {
@@ -205,6 +208,7 @@ struct AnnounceModalView: View {
             secondaryButton: .cancel(Text("취소")))
     }
     
+    /// 빈 문자열인지 확인
     private func checkIsBlank() -> Bool {
         if title == "" || content == "" {
             warning = true
@@ -214,6 +218,16 @@ struct AnnounceModalView: View {
         }
     }
     
+    /// 공지 삭제 함수
+    private func deleteNotice(noticeID: String) {
+        Task {
+            do {
+                try await noticeService.deleteNotice(noticeID: noticeID)
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
     /// 공지 작성 함수
     private func writeNotice() {
         if checkIsBlank() {
@@ -234,7 +248,7 @@ struct AnnounceModalView: View {
 }
 
 #Preview {
-    AnnounceModalView()
+    NoticeModalView()
 }
 
 private enum AlertCase {
