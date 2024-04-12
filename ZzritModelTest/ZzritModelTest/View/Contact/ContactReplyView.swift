@@ -15,6 +15,7 @@ struct ContactReplyView: View {
     var contact: ContactModel
     
     @State private var replyContent: String = ""
+    @State private var replies: [ContactReplyModel] = []
     
     var body: some View {
         ScrollView {
@@ -30,6 +31,16 @@ struct ContactReplyView: View {
                 Rectangle()
                     .foregroundStyle(.gray)
                     .frame(height: 10)
+                
+                ForEach(replies) { reply in
+                    VStack {
+                        Text(DateService.shared.formattedString(date: reply.date))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text(reply.content)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .padding()
+                }
                 
                 TextEditor(text: $replyContent)
                     .overlay {
@@ -48,6 +59,19 @@ struct ContactReplyView: View {
                 }
             }
         }
+        .onAppear {
+            fetchRelies()
+        }
+    }
+    
+    private func fetchRelies() {
+        Task {
+            do {
+                replies += try await contactService.fetchReplies(contact.id!)
+            } catch {
+                print("에러: \(error)")
+            }
+        }
     }
     
     private func replyContact() {
@@ -56,6 +80,7 @@ struct ContactReplyView: View {
             let tempModel: ContactReplyModel = .init(date: Date(), content: replyContent, answeredAdmin: requestAdmin)
             
             try contactService.writeReply(tempModel, contactID: contact.id!)
+            replies.insert(tempModel, at: 0)
         } catch {
             print("에러: \(error)")
         }

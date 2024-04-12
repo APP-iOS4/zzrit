@@ -85,6 +85,12 @@ public final class ContactService {
         }
     }
     
+    /// 해당 문의사항에 등록된 답변을 불러옵니다.
+    public func fetchReplies(_ contactID: String) async throws -> [ContactReplyModel] {
+        let documents = try await firebaseConstant.contactReplyCollection(contactID).order(by: "date", descending: true).getDocuments()
+        return try documents.documents.map { try $0.data(as: ContactReplyModel.self) }
+    }
+    
     /// 문의사항에 답변을 등록합니다.
     public func writeReply(_ reply: ContactReplyModel, contactID: String) throws {
         try firebaseConstant.contactReplyCollection(contactID).addDocument(from: reply)
