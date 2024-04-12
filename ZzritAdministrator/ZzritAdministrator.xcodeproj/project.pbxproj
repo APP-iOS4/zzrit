@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09DC83B02BC90E56004C68D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09DC83AF2BC90E56004C68D0 /* GoogleService-Info.plist */; };
 		3B05B18E2BC671C100BF9548 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B05B18D2BC671C100BF9548 /* LoginView.swift */; };
 		3B05B1902BC6721B00BF9548 /* LoginInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B05B18F2BC6721B00BF9548 /* LoginInputView.swift */; };
 		3B09C1F62BC37E9100EA9D54 /* UserManageTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C1F52BC37E9100EA9D54 /* UserManageTableView.swift */; };
@@ -27,7 +28,6 @@
 		9B7574902BC7BC0600A247C1 /* UserSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75748F2BC7BC0600A247C1 /* UserSectionHeader.swift */; };
 		9B7574922BC7D19800A247C1 /* BanReasonField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7574912BC7D19800A247C1 /* BanReasonField.swift */; };
 		9B7574942BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7574932BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift */; };
-		9B7574962BC7D99F00A247C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9B7574952BC7D99E00A247C1 /* GoogleService-Info.plist */; };
 		9BA976632BC3D615008B1CD5 /* ComplaintDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA976622BC3D615008B1CD5 /* ComplaintDetailView.swift */; };
 		9BEB2FBD2BC3A6D3009C398F /* UserInfoModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */; };
 		DF54D2392BC36C6600D72491 /* ZzritAdministratorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D2382BC36C6600D72491 /* ZzritAdministratorApp.swift */; };
@@ -38,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09DC83AF2BC90E56004C68D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3B05B18D2BC671C100BF9548 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3B05B18F2BC6721B00BF9548 /* LoginInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInputView.swift; sourceTree = "<group>"; };
 		3B09C1F52BC37E9100EA9D54 /* UserManageTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManageTableView.swift; sourceTree = "<group>"; };
@@ -58,7 +59,6 @@
 		9B75748F2BC7BC0600A247C1 /* UserSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSectionHeader.swift; sourceTree = "<group>"; };
 		9B7574912BC7D19800A247C1 /* BanReasonField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BanReasonField.swift; sourceTree = "<group>"; };
 		9B7574932BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticGaugeEditingSubview.swift; sourceTree = "<group>"; };
-		9B7574952BC7D99E00A247C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9BA976622BC3D615008B1CD5 /* ComplaintDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintDetailView.swift; sourceTree = "<group>"; };
 		9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModalView.swift; sourceTree = "<group>"; };
 		DF54D2352BC36C6600D72491 /* ZzritAdministrator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritAdministrator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -202,7 +202,7 @@
 		DF54D2372BC36C6600D72491 /* ZzritAdministrator */ = {
 			isa = PBXGroup;
 			children = (
-				9B7574952BC7D99E00A247C1 /* GoogleService-Info.plist */,
+				09DC83AF2BC90E56004C68D0 /* GoogleService-Info.plist */,
 				3B09C1F32BC37DDF00EA9D54 /* App */,
 				3B09C1F42BC37DF200EA9D54 /* Views */,
 				3B78418A2BC8B7DC003CAEA1 /* ViewModel */,
@@ -291,7 +291,7 @@
 			files = (
 				DF54D2412BC36C6800D72491 /* Preview Assets.xcassets in Resources */,
 				DF54D23D2BC36C6800D72491 /* Assets.xcassets in Resources */,
-				9B7574962BC7D99F00A247C1 /* GoogleService-Info.plist in Resources */,
+				09DC83B02BC90E56004C68D0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,7 +453,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ZzritAdministrator/ZzritAdministrator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"ZzritAdministrator/Preview Content\"";
 				DEVELOPMENT_TEAM = 6R3M7VGRP2;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -492,7 +492,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ZzritAdministrator/ZzritAdministrator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"ZzritAdministrator/Preview Content\"";
 				DEVELOPMENT_TEAM = 6R3M7VGRP2;
 				ENABLE_HARDENED_RUNTIME = YES;
