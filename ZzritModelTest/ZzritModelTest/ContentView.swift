@@ -32,6 +32,9 @@ struct ContentView: View {
                 NavigationLink("모임불러오기") {
                     RoomLoadView()
                 }
+                NavigationLink("Date <-> String 변환 뷰") {
+                    DateNStringView()
+                }
             }
             .tabItem {
                 Label("소비자", systemImage: "cart")

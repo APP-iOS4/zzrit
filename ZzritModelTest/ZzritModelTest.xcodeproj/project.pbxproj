@@ -10,6 +10,7 @@
 		092876D22BC6C57C00AFCA1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 092876D12BC6C57C00AFCA1D /* GoogleService-Info.plist */; };
 		0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0979935A2BC52774004EC087 /* RoomCreateView.swift */; };
 		098C0C492BC7D0AC00970E54 /* RoomLoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C0C482BC7D0AC00970E54 /* RoomLoadView.swift */; };
+		09DC83AC2BC8C36D004C68D0 /* DateNStringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */; };
 		DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */; };
 		DFC75FC72BC3CC850005DDD9 /* ZzritModelTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FC62BC3CC850005DDD9 /* ZzritModelTestApp.swift */; };
 		DFC75FC92BC3CC850005DDD9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FC82BC3CC850005DDD9 /* ContentView.swift */; };
@@ -32,6 +33,7 @@
 		092876D12BC6C57C00AFCA1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0979935A2BC52774004EC087 /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
 		098C0C482BC7D0AC00970E54 /* RoomLoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomLoadView.swift; sourceTree = "<group>"; };
+		09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateNStringView.swift; sourceTree = "<group>"; };
 		DF25D9082BC63FD9004B4B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
 		DFC75FC32BC3CC840005DDD9 /* ZzritModelTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritModelTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +124,7 @@
 				DFC75FFA2BC57C310005DDD9 /* IncrementStaticGuageView.swift */,
 				0979935A2BC52774004EC087 /* RoomCreateView.swift */,
 				098C0C482BC7D0AC00970E54 /* RoomLoadView.swift */,
+				09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */,
 				DFC75FF72BC5345C0005DDD9 /* ImageUploadView.swift in Sources */,
 				DFCEEA2D2BC80400003598F0 /* CreateAdminAccountView.swift in Sources */,
+				09DC83AC2BC8C36D004C68D0 /* DateNStringView.swift in Sources */,
 				0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
