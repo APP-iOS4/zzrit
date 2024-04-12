@@ -13,6 +13,9 @@
 		098C0C492BC7D0AC00970E54 /* RoomLoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C0C482BC7D0AC00970E54 /* RoomLoadView.swift */; };
 		09DC83AC2BC8C36D004C68D0 /* DateNStringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */; };
 		DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */; };
+		DFAE9AE72BC8D1A20056E2ED /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAE9AE62BC8D1A20056E2ED /* ContactView.swift */; };
+		DFAE9AE92BC8F8AC0056E2ED /* ContactWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAE9AE82BC8F8AB0056E2ED /* ContactWriteView.swift */; };
+		DFAE9AEB2BC8F9E80056E2ED /* ContactReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAE9AEA2BC8F9E80056E2ED /* ContactReplyView.swift */; };
 		DFC75FC72BC3CC850005DDD9 /* ZzritModelTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FC62BC3CC850005DDD9 /* ZzritModelTestApp.swift */; };
 		DFC75FC92BC3CC850005DDD9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC75FC82BC3CC850005DDD9 /* ContentView.swift */; };
 		DFC75FCB2BC3CC880005DDD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFC75FCA2BC3CC880005DDD9 /* Assets.xcassets */; };
@@ -38,6 +41,9 @@
 		09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateNStringView.swift; sourceTree = "<group>"; };
 		DF25D9082BC63FD9004B4B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
+		DFAE9AE62BC8D1A20056E2ED /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
+		DFAE9AE82BC8F8AB0056E2ED /* ContactWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactWriteView.swift; sourceTree = "<group>"; };
+		DFAE9AEA2BC8F9E80056E2ED /* ContactReplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactReplyView.swift; sourceTree = "<group>"; };
 		DFC75FC32BC3CC840005DDD9 /* ZzritModelTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritModelTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFC75FC62BC3CC850005DDD9 /* ZzritModelTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzritModelTestApp.swift; sourceTree = "<group>"; };
 		DFC75FC82BC3CC850005DDD9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -73,6 +79,16 @@
 				DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */,
 			);
 			path = Room;
+			sourceTree = "<group>";
+		};
+		DFAE9AE52BC8D1900056E2ED /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				DFAE9AE62BC8D1A20056E2ED /* ContactView.swift */,
+				DFAE9AE82BC8F8AB0056E2ED /* ContactWriteView.swift */,
+				DFAE9AEA2BC8F9E80056E2ED /* ContactReplyView.swift */,
+			);
+			path = Contact;
 			sourceTree = "<group>";
 		};
 		DFC75FBA2BC3CC840005DDD9 = {
@@ -117,6 +133,7 @@
 		DFC75FD42BC3CCB30005DDD9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DFAE9AE52BC8D1900056E2ED /* Contact */,
 				DFCEEA2B2BC80357003598F0 /* Admin */,
 				DF25D90C2BC6B9C1004B4B96 /* Room */,
 				DFC75FFE2BC589A20005DDD9 /* Notice */,
@@ -236,6 +253,7 @@
 				DFCEEA2F2BC80BF8003598F0 /* AdminLoginView.swift in Sources */,
 				DFC75FFB2BC57C310005DDD9 /* IncrementStaticGuageView.swift in Sources */,
 				DFC760062BC58D610005DDD9 /* NoticeListView.swift in Sources */,
+				DFAE9AE72BC8D1A20056E2ED /* ContactView.swift in Sources */,
 				DFC75FD62BC3CCCA0005DDD9 /* LoginView.swift in Sources */,
 				DFC75FC92BC3CC850005DDD9 /* ContentView.swift in Sources */,
 				DFC760022BC589ED0005DDD9 /* WriteNoticeView.swift in Sources */,
@@ -246,7 +264,9 @@
 				DFC75FC72BC3CC850005DDD9 /* ZzritModelTestApp.swift in Sources */,
 				DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */,
 				DFC75FF72BC5345C0005DDD9 /* ImageUploadView.swift in Sources */,
+				DFAE9AE92BC8F8AC0056E2ED /* ContactWriteView.swift in Sources */,
 				DFCEEA2D2BC80400003598F0 /* CreateAdminAccountView.swift in Sources */,
+				DFAE9AEB2BC8F9E80056E2ED /* ContactReplyView.swift in Sources */,
 				09DC83AC2BC8C36D004C68D0 /* DateNStringView.swift in Sources */,
 				09108DAF2BC831FD00F63BFF /* RoomModiView.swift in Sources */,
 				0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */,

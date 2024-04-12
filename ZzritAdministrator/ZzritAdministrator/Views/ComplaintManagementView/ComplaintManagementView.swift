@@ -47,7 +47,7 @@ struct ComplaintManagementView: View {
                     isShowingModalView.toggle()
                     print("modal .toggle     pickUserId = list.id")
                 } label: {
-                    ContactListCell(contactTitle: list.title, contactCategory: list.category, contactDateString: dateService.dateString(date: list.requestedDated))
+                    ContactListCell(contactTitle: list.title, contactCategory: list.category, contactDateString: dateService.dateString(date: list.requestedDate))
                 }
             }
             .listStyle(.plain)
