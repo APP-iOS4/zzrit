@@ -9,32 +9,36 @@ import SwiftUI
 import ZzritKit
 
 struct NoticeManagementView: View {
-    @State private var showNoticeModal: Bool = false
-    @State private var selectedNotice: NoticeModel? = nil
+    // 공지 뷰모델
+    @EnvironmentObject private var noticeViewModel: NoticeViewModel
+    
+    // 선택된 공지
+    @State private var selectedNoticeIndex: Int? = nil
+    @State private var showNoticeDetail: Bool = false
     @State private var showtAlert: Bool = false
-    
-    @State private var notices: [NoticeModel] = []
-    @State private var initialFetch: Bool = true
-    
-    // 데이트 포매터
+
+    // 데이트 서비스
     private var dateService = DateService.shared
-    private let noticeService = NoticeService()
     
     // TODO: 뷰 뷴리는 로그인 뷰부터 짜고(급해서) 진행하겠습니다
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             HStack(spacing: 20) {
-                SearchField(placeHolder: "공지 제목을 입력하세요", action: {
-                    print("검색")
-                })
+                
+                // TODO: 공지 검색 -> 보류
+//                SearchField(placeHolder: "공지 제목을 입력하세요", action: {
+//                    print("검색")
+//                })
+              
+                Spacer()
                 
                 RoundedRectangle(cornerRadius: Constants.commonRadius)
                     .foregroundStyle(Color.pointColor)
                     .frame(width: 100, height: 50)
                     .overlay(
                         Button {
-                            selectedNotice = nil
-                            showNoticeModal.toggle()
+                            selectedNoticeIndex = nil
+                            showNoticeDetail.toggle()
                         } label: {
                             Text("등록")
                                 .font(.title2)
@@ -48,23 +52,22 @@ struct NoticeManagementView: View {
                 ScrollView {
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
                         Section(header: NoticeHeader()) {
-                            ForEach(notices) { notice in
+                            //ForEach(noticeViewModel.notices) { notice in
+                            ForEach(0..<noticeViewModel.notices.count, id: \.self) { index in
                                 Button {
-                                    selectedNotice = notice
+                                    selectedNoticeIndex = index
                                 } label: {
                                     HStack {
-                                        Text(notice.title)
+                                        Text(noticeViewModel.notices[index].title)
                                         
                                         Spacer()
                                         Divider()
                                         
-                                        Text(dateService.formattedString(date: notice.date, format: "yyyy/MM/dd HH:mm"))
+                                             Text(dateService.formattedString(date: noticeViewModel.notices[index].date, format: "yyyy/MM/dd HH:mm"))
                                             .frame(width: 150, alignment: .center)
                                     }
-                                    .foregroundStyle(selectedNotice?.id == notice.id ? Color.pointColor : Color.black)
-                                    
+                                    .foregroundStyle(selectedNoticeIndex == index ? Color.pointColor : Color.black)
                                 }
-                                .id(notice.id)
                                 .padding(10)
                             }
                             
@@ -74,7 +77,7 @@ struct NoticeManagementView: View {
                                 Text("")
                             }
                             .onAppear {
-                                print("FetchMore!!!!!!!")
+                               print("FetchMore!!!!!!!")
                             }
                         }
                     }
@@ -86,35 +89,24 @@ struct NoticeManagementView: View {
             }
             
             MyButton(named: "선택한 공지 수정") {
-                if selectedNotice != nil {
-                    showNoticeModal.toggle()
+                if selectedNoticeIndex != nil {
+                    showNoticeDetail.toggle()
                 }
             }
             .frame(maxWidth: .infinity, alignment: .bottomTrailing)
         }
         .padding(20)
-        .onAppear {
-            loadNotices()
-            initialFetch = false
-        }
-        .fullScreenCover(isPresented: $showNoticeModal, content: {
-            NoticeModalView(notice: selectedNotice)
-        })
-    }
-    
-    private func loadNotices() {
-        print("\(initialFetch)")
-        
-        Task {
-            do {
-                notices += try await noticeService.fetchNotice(isInitialFetch: initialFetch)
-            } catch {
-                print("에러: \(error)")
+        .fullScreenCover(isPresented: $showNoticeDetail, content: {
+            if let selectedNoticeIndex {
+                NoticeDetailView(notice: noticeViewModel.notices[selectedNoticeIndex])
+            } else {
+                NoticeDetailView()
             }
-        }
+        })
     }
 }
 
 #Preview {
     NoticeManagementView()
+        .environmentObject(NoticeViewModel())
 }
