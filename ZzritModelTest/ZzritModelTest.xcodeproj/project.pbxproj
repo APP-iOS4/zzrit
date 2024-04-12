@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09108DAF2BC831FD00F63BFF /* RoomModiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09108DAE2BC831FD00F63BFF /* RoomModiView.swift */; };
 		092876D22BC6C57C00AFCA1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 092876D12BC6C57C00AFCA1D /* GoogleService-Info.plist */; };
 		0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0979935A2BC52774004EC087 /* RoomCreateView.swift */; };
 		098C0C492BC7D0AC00970E54 /* RoomLoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C0C482BC7D0AC00970E54 /* RoomLoadView.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09108DAE2BC831FD00F63BFF /* RoomModiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomModiView.swift; sourceTree = "<group>"; };
 		092876D12BC6C57C00AFCA1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0979935A2BC52774004EC087 /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
 		098C0C482BC7D0AC00970E54 /* RoomLoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomLoadView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				0979935A2BC52774004EC087 /* RoomCreateView.swift */,
 				098C0C482BC7D0AC00970E54 /* RoomLoadView.swift */,
 				09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */,
+				09108DAE2BC831FD00F63BFF /* RoomModiView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				DFC75FF72BC5345C0005DDD9 /* ImageUploadView.swift in Sources */,
 				DFCEEA2D2BC80400003598F0 /* CreateAdminAccountView.swift in Sources */,
 				09DC83AC2BC8C36D004C68D0 /* DateNStringView.swift in Sources */,
+				09108DAF2BC831FD00F63BFF /* RoomModiView.swift in Sources */,
 				0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

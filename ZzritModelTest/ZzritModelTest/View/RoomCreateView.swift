@@ -116,6 +116,7 @@ struct RoomCreateView: View {
                     activationType = .deactivation
                 }
                 let aa = RoomModel(title: title, category: category, dateTime: Date(), content: content, coverImage: imageURLString, isOnline: isOnline, status: activationType, leaderID: leaderID, limitPeople: Int(limitPeople)!)
+                
                 Task {
                     do {
                         try rs.createRoom(aa)

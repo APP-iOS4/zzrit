@@ -12,6 +12,7 @@ import ZzritKit
 struct RoomLoadView: View {
     let rs: RoomService = RoomService.shared
     @State var allRooms: [RoomModel] = []
+    @State private var roomID = ""
     
     var body: some View {
         VStack {
@@ -29,8 +30,12 @@ struct RoomLoadView: View {
             NavigationStack{
                 List {
                     ForEach(allRooms) { roomDetail in
+                        
                         NavigationLink(roomDetail.title) {
-                            Text("\(roomDetail.content)")
+                        
+                            RoomModiView(passedRoomID: roomDetail.id!)
+                            
+                            
                         }
                     }
                 }
