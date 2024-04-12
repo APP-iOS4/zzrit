@@ -43,6 +43,12 @@ public final class NoticeService {
     /// - Warning: FetchError 타입의 에러는 description 프로퍼티를 통해 에러 메세지를 확인할 수 있습니다.
     public func fetchNotice(isInitialFetch: Bool = true) async throws -> [NoticeModel] {
         do {
+            // 처음 로딩의 경우 기존에 저장되어 있는 lastDocument nil
+            if isInitialFetch {
+                lastSnapshot = nil
+                isFetchEnd = false
+            }
+            
             // 더이상 불러올 데이터가 없을 경우, 에러 throw
             if isFetchEnd {
                 throw FetchError.noMoreFetch

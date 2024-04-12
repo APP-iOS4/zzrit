@@ -57,7 +57,7 @@ struct ContactManagerContentView: View {
                             .font(.title2)
                             .fontWeight(.bold)
                         Spacer()
-                        Text("\(dateService.dateString(date: contact?.requestedDated ?? Date()))")
+                        Text("\(dateService.dateString(date: contact?.requestedDate ?? Date()))")
                             .foregroundStyle(Color.staticGray3)
                     }
                     Divider()

@@ -19,7 +19,7 @@ public struct ContactModel: Codable, Identifiable {
     /// 문의사항 내용
     public var content: String
     /// 문의사항 등록 날짜
-    public var requestedDated: Date
+    public var requestedDate: Date
     /// 문의사항 등록 유저의 uid
     public var requestedUser: String
     /// 모임에 대한 문의인 경우 모임방 id값
@@ -34,7 +34,7 @@ public struct ContactModel: Codable, Identifiable {
         self.category = category
         self.title = title
         self.content = content
-        self.requestedDated = requestedDated
+        self.requestedDate = requestedDated
         self.requestedUser = requestedUser
         self.targetRoom = targetRoom
         self.targetUser = targetUser

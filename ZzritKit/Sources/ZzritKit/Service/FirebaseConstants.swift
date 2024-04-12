@@ -18,6 +18,7 @@ final class FirebaseConstants {
         case notice = "Notices"
         case joinedUser = "JoinedUsers"
         case admin = "AdminUsers"
+        case contact = "Contacts"
     }
     
     private let db = Firestore.firestore()
@@ -29,7 +30,7 @@ final class FirebaseConstants {
     lazy var roomCollection: CollectionReference = db.collection(collection(.room))
     lazy var noticeCollection: CollectionReference = db.collection(collection(.notice))
     lazy var adminCollection: CollectionReference = db.collection(collection(.admin))
-    
+    lazy var contactCollection: CollectionReference = db.collection(collection(.contact))
     
     // MARK: Public Methods
     
