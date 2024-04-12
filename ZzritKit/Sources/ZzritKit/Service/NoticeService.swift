@@ -20,7 +20,6 @@ public final class NoticeService {
     /// 가장 마지막까지 모두 불러들였는가?
     private var isFetchEnd: Bool = false
     
-    
     public init() { }
     
     // MARK: - Administrator's Method

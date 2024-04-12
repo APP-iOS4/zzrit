@@ -28,33 +28,7 @@ struct BanReasonField: View {
                 .padding(.leading)
             Button {
                 if !banMemo.isEmpty{
-                    let penalty: Double = switch banPeriod {
-                    case 3:
-                        1
-                    case 5:
-                        2
-                    case 7:
-                        3
-                    case 14:
-                        5
-                    case 30:
-                        10
-                    case 180:
-                        20
-                    case 365:
-                        30
-                    case 3649635:
-                        100
-                    default:
-                        0
-                    }
-                    
-                    indexAfterPenalty = if user.staticGuage - penalty < 0 {
-                        0
-                    } else {
-                        user.staticGuage - penalty
-                    }
-                    
+                    penalizeUser()
                     banAlert.toggle()
                 }
             } label: {
@@ -83,6 +57,35 @@ struct BanReasonField: View {
             Text("\"\(String(describing: user.userID))\"를 \(banReason.rawValue)(으)로 \(banPeriod)일 제재\n제재 후 정전기 지수: \(String(format: "%.1f", indexAfterPenalty))W \n사유 : \(banMemo)")
         }
         
+    }
+    
+    private func penalizeUser() {
+        let penalty: Double = switch banPeriod {
+        case 3:
+            1
+        case 5:
+            2
+        case 7:
+            3
+        case 14:
+            5
+        case 30:
+            10
+        case 180:
+            20
+        case 365:
+            30
+        case 3649635:
+            100
+        default:
+            0
+        }
+        
+        indexAfterPenalty = if user.staticGuage - penalty < 0 {
+            0
+        } else {
+            user.staticGuage - penalty
+        }
     }
 }
 

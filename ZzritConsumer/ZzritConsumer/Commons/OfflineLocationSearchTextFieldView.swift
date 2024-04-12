@@ -16,6 +16,7 @@ struct OfflineLocationSearchTextFieldView: View {
         // 검색 필드 뷰
         HStack(spacing: 15.0) {
             TextField("검색어를 입력하세요.", text: $searchText)
+                .tint(Color.pointColor)
             
             if !searchText.isEmpty {
                 Button {

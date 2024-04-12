@@ -9,12 +9,19 @@ import SwiftUI
 import ZzritKit
 
 struct LoginView: View {
+    private let authService = AuthenticationService.shared
+    private let userService = UserService()
+    
     @State var id: String = ""
     @State var pw: String = ""
     @State var isLoginButtonActive: Bool = false
     @State var isCanLogin: Bool = false
     
     @Binding var isLogin: Bool
+    @State private var showError = false
+    
+    @Binding var adminName: String
+    @Binding var adminID: String
     
     var body: some View {
         NavigationStack {
@@ -54,6 +61,12 @@ struct LoginView: View {
                                 .onChange(of: pw) { newValue in
                                     activeLoginButton()
                                 }
+                            
+                            if showError {
+                                Text("이메일이나 비밀번호를 다시 확인해 주세요.")
+                                    .font(.subheadline.bold())
+                                    .foregroundStyle(.red)
+                            }
                         }
                         VStack(alignment: .trailing) {
                             Text("비밀번호 분실시 관리자에게 문의하세요")
@@ -62,7 +75,7 @@ struct LoginView: View {
                             
                             // TODO: Login 로직 추가(필요)
                             Button {
-                                isLogin = true
+                                login()
                                 
                                 // 레거시 코드(로구인에 필요할 듯)
 //                                isCanLogin = true
@@ -97,18 +110,25 @@ struct LoginView: View {
         }
     }
     
-    // 레거시 코드 추후 활용 예정
-//    func checkSignInUser() {
-//        Task {
-//            isCanLogin = await AuthorizationService.shared.signInUser(withAdmin:
-//                    UserSignInModel(userID: id, userPW: pw)
-//                )
-//        }
-//        
-//        print("isCanLogin = \(isCanLogin)")
-//    }
+    private func login() {
+        Task {
+            do {
+                try await authService.loginAdmin(email: id, password: pw)
+                if let admin = try await userService.loginedAdminInfo() {
+                    adminName = admin.name
+                    adminID = admin.email
+                    
+                    isLogin = true
+                    showError = false
+                }
+            } catch {
+                showError = true
+                print("에러: \(error)")
+            }
+        }
+    }
 }
 
 #Preview {
-    LoginView(isLogin: .constant(false))
+    LoginView(isLogin: .constant(false), adminName: .constant(""), adminID: .constant(""))
 }

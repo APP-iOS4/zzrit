@@ -10,10 +10,18 @@ import SwiftUI
 struct OfflineLocationSearchView: View {
     @Binding var offlineLocationString: String
     
+    @FocusState private var isTextFocus: Bool
+    
     var body: some View {
         OfflineLocationSearchTextFieldView(offlineLocationString: $offlineLocationString)
+            .focused($isTextFocus)
         
-        OfflineLocationResultView()
+        // 텍스트 입력 중에는 사라짐
+        if !isTextFocus {
+            OfflineLocationResultView()
+        }
+        
+        Spacer()
     }
 }
 
