@@ -57,7 +57,7 @@ public final class RoomService {
                 .limit(to: 16)
             
             // 필터가 있는 경우
-            //검색탭에서 필터링된 쿼리 만들기
+            // 검색탭에서 필터링된 쿼리 만들기
             if let title = title {
                 // title이 있다면
                 query = query.whereField("title", isEqualTo: title)
@@ -84,9 +84,14 @@ public final class RoomService {
             throw FirebaseErrorType.failLoadRoom
         }
     }
+    
     // TODO: 모임 수정
-    func modifyRoom(_ room: RoomModel) async throws {
-        
+    /// 모임 상태를 변경합니다.
+    ///  - Parameter room: 수정된 RoomModel
+    ///  - Parameter roomID(String): 변경할 모임 ID
+    public func modifyRoom(_ room: RoomModel, roomID: String) throws {
+//        fbConstants.roomCollection.document(roomID).setData(room)
+        try fbConstants.roomCollection.document(roomID).setData(from: room)
     }
     
     // TODO: 모임 상태 변경
@@ -138,7 +143,6 @@ public final class RoomService {
             throw FirebaseErrorType.notJoinedRoom
         }
     }
-    
     
     // TODO: 모임에 참여한 User 리스트 뽑아주기
     
