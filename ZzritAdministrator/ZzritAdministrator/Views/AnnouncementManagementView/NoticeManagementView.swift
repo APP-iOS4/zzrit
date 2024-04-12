@@ -13,7 +13,7 @@ struct NoticeManagementView: View {
     @EnvironmentObject private var noticeViewModel: NoticeViewModel
     
     // 선택된 공지
-    @State private var selectedNoticeIndex: Int? = nil
+    @State private var selectedNotice: NoticeModel? = nil
     @State private var showNoticeDetail: Bool = false
     @State private var showtAlert: Bool = false
 
@@ -37,7 +37,7 @@ struct NoticeManagementView: View {
                     .frame(width: 100, height: 50)
                     .overlay(
                         Button {
-                            selectedNoticeIndex = nil
+                            selectedNotice = nil
                             showNoticeDetail.toggle()
                         } label: {
                             Text("등록")
@@ -53,20 +53,20 @@ struct NoticeManagementView: View {
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
                         Section(header: NoticeHeader()) {
                             //ForEach(noticeViewModel.notices) { notice in
-                            ForEach(0..<noticeViewModel.notices.count, id: \.self) { index in
+                            ForEach(noticeViewModel.notices) { notice in
                                 Button {
-                                    selectedNoticeIndex = index
+                                    selectedNotice = notice
                                 } label: {
                                     HStack {
-                                        Text(noticeViewModel.notices[index].title)
+                                        Text(notice.title)
                                         
                                         Spacer()
                                         Divider()
                                         
-                                             Text(dateService.formattedString(date: noticeViewModel.notices[index].date, format: "yyyy/MM/dd HH:mm"))
+                                             Text(dateService.formattedString(date: notice.date, format: "yyyy/MM/dd HH:mm"))
                                             .frame(width: 150, alignment: .center)
                                     }
-                                    .foregroundStyle(selectedNoticeIndex == index ? Color.pointColor : Color.black)
+                                    .foregroundStyle(selectedNotice?.id == notice.id ? Color.pointColor : Color.black)
                                 }
                                 .padding(10)
                             }
@@ -89,7 +89,7 @@ struct NoticeManagementView: View {
             }
             
             MyButton(named: "선택한 공지 수정") {
-                if selectedNoticeIndex != nil {
+                if selectedNotice != nil {
                     showNoticeDetail.toggle()
                 }
             }
@@ -97,11 +97,7 @@ struct NoticeManagementView: View {
         }
         .padding(20)
         .fullScreenCover(isPresented: $showNoticeDetail, content: {
-            if let selectedNoticeIndex {
-                NoticeDetailView(notice: noticeViewModel.notices[selectedNoticeIndex])
-            } else {
-                NoticeDetailView()
-            }
+            NoticeDetailView(notice: selectedNotice)
         })
     }
 }
