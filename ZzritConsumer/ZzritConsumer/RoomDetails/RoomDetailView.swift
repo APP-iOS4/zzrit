@@ -42,7 +42,7 @@ struct RoomDetailView: View {
                     
                     // 위치, 시간, 참여 인원에 대한 정보를 나타내는 뷰
                     // TODO: 모임 모델 하나를 이 곳에 전달을 해주어야 함
-                    RoomInfoView()
+                    RoomInfoView(isGenderLimit: true, isScoreLimit: true)
                         .padding(.bottom, 40)
                     
                     Text("와우, 벌써 4명이나 모였어요.")
