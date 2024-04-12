@@ -20,10 +20,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct ZzritAdministratorApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    // 공지 데이터 뷰 모델
+    @StateObject private var noticeViewModel = NoticeViewModel()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.light)
+                .environmentObject(noticeViewModel)
         }
     }
 }

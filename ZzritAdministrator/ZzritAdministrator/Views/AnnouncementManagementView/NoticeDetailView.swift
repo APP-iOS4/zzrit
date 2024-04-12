@@ -8,24 +8,24 @@
 import SwiftUI
 import ZzritKit
 
-struct NoticeModalView: View {
-    @State var notice: NoticeModel? = nil
-    @State private var title: String = ""
-    @State private var content: String = ""
-    @State private var warning: Bool = false
+struct NoticeDetailView: View {
+    // 공지 뷰모델
+    @EnvironmentObject private var noticeViewModel: NoticeViewModel
+    @Environment(\.dismiss) private var dismiss
     
     // 알럿 종류를 구분하기 위한 enum
     @State private var alertCase: AlertCase? = nil
     // 알럿 표시
     @State private var showAlert: Bool = false
-   
-    @Environment(\.dismiss) private var dismiss
+    @State private var title: String = ""
+    @State private var content: String = ""
+    @State private var warning: Bool = false
+    
+    @State var notice: NoticeModel? = nil
     
     // 데이트 서비스
     private let dateService = DateService.shared
-    // 공지 서비스
-    private let noticeService = NoticeService()
-    
+
     // TODO: 뷰 뷴리는 로그인 뷰부터 짜고(급해서) 진행하겠습니다
     var body: some View {
         VStack {
@@ -55,6 +55,7 @@ struct NoticeModalView: View {
                 VStack(alignment: .leading) {
                     Text("공지 내용")
                         .font(.title2)
+                        .fontWeight(.bold)
                     
                     if warning {
                         Text("공지 내용을 입력하셔야 합니다*")
@@ -97,8 +98,6 @@ struct NoticeModalView: View {
                         .frame(width: 160, height: 50)
                         .overlay(
                             Button {
-                                // id는 반드시 존재하기 때문에 포스 언래핑
-                                deleteNotice(noticeID: notice.id!)
                                 alertCase = .delelte
                                 showAlert = true
                             } label: {
@@ -175,7 +174,11 @@ struct NoticeModalView: View {
             title: Text("공지 등록"),
             message: Text("공지를 등록하시겠습니까?"),
             primaryButton: .destructive(Text("등록"), action: {
-                writeNotice()
+                if checkIsBlank() {
+                    return
+                } else {
+                    noticeViewModel.writeNotice(title: title, content: content)
+                }
                 alertCase = nil
                 dismiss()
             }),
@@ -188,7 +191,8 @@ struct NoticeModalView: View {
             title: Text("공지 삭제"),
             message: Text("공지를 정말 삭제하시겠습니까?"),
             primaryButton: .destructive(Text("삭제"), action: {
-               // TODO: 공지 삭제 로직
+                guard let notice else { return }
+                noticeViewModel.deleteNotice(noticeID: notice.id!)
                 alertCase = nil
                 dismiss()
             }),
@@ -201,7 +205,7 @@ struct NoticeModalView: View {
             title: Text("공지 수정"),
             message: Text("공지를 정말 수정하시겠습니까?"),
             primaryButton: .destructive(Text("수정"), action: {
-               // TODO: 공지 수정 로직
+                noticeViewModel.updateNotice(noticeID: notice?.id, title: title, content: content)
                 alertCase = nil
                 dismiss()
             }),
@@ -217,38 +221,11 @@ struct NoticeModalView: View {
             return false
         }
     }
-    
-    /// 공지 삭제 함수
-    private func deleteNotice(noticeID: String) {
-        Task {
-            do {
-                try await noticeService.deleteNotice(noticeID: noticeID)
-            } catch {
-                print("에러: \(error)")
-            }
-        }
-    }
-    /// 공지 작성 함수
-    private func writeNotice() {
-        if checkIsBlank() {
-            return
-        }
-        
-        Task {
-            do {
-                // TODO: writerUID 수정해야 함
-                let tempNotice = NoticeModel(title: title, content: content, date: Date(), writerUID: "lZJDCklNWnbIBcARDFfwVL8oSCf1")
-                try noticeService.writeNotice(tempNotice)
-                print("공지사항 작성 완료")
-            } catch {
-                print("에러: \(error)")
-            }
-        }
-    }
 }
 
 #Preview {
-    NoticeModalView()
+    NoticeDetailView()
+        .environmentObject(NoticeViewModel())
 }
 
 private enum AlertCase {
