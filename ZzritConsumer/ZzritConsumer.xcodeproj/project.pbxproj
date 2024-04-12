@@ -30,6 +30,10 @@
 		1F5038E42BC4E6AF00381EE5 /* ArchieveRecentSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5038E22BC4E6AF00381EE5 /* ArchieveRecentSearchCell.swift */; };
 		1F5038E82BC4EB0E00381EE5 /* ProcedureSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5038E72BC4EB0E00381EE5 /* ProcedureSelectButton.swift */; };
 		1F5038EA2BC4EC3600381EE5 /* SearchFilterPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5038E92BC4EC3600381EE5 /* SearchFilterPicker.swift */; };
+		1F6454F22BC8B60B00C9D235 /* RCParticipantsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6454F12BC8B60B00C9D235 /* RCParticipantsSection.swift */; };
+		1F6454F42BC8B96000C9D235 /* GenderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6454F32BC8B96000C9D235 /* GenderButton.swift */; };
+		1F6454F52BC8C5E300C9D235 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBCB3192BC3D2A90048B86F /* SignUpView.swift */; };
+		1F6454F62BC8C61E00C9D235 /* ServiceAgreeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBCB31D2BC3DC090048B86F /* ServiceAgreeSheet.swift */; };
 		1FF17E522BC5079700B505FA /* RoomCreateIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF17E512BC5079700B505FA /* RoomCreateIndicator.swift */; };
 		1FF17E552BC509C500B505FA /* FirstRoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF17E542BC509C500B505FA /* FirstRoomCreateView.swift */; };
 		1FF17E572BC509E400B505FA /* SelectionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF17E562BC509E400B505FA /* SelectionButtonView.swift */; };
@@ -94,8 +98,6 @@
 		FCADAA342BC4EB7700364272 /* CompleteSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCADAA332BC4EB7700364272 /* CompleteSignUpView.swift */; };
 		FCAF4A1A2BC40C8400603C2D /* AppSlogan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAF4A192BC40C8400603C2D /* AppSlogan.swift */; };
 		FCAF4A1C2BC40CBA00603C2D /* SignUpAgreeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAF4A1B2BC40CBA00603C2D /* SignUpAgreeButton.swift */; };
-		FCBCB31A2BC3D2A90048B86F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBCB3192BC3D2A90048B86F /* SignUpView.swift */; };
-		FCBCB31E2BC3DC090048B86F /* ServiceAgreeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBCB31D2BC3DC090048B86F /* ServiceAgreeSheet.swift */; };
 		FCCCEEB52BC3B56600DABCA6 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCCEEB32BC3B56600DABCA6 /* LogInView.swift */; };
 		FCCCEEB62BC3B56600DABCA6 /* UserInputCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCCEEB42BC3B56600DABCA6 /* UserInputCellView.swift */; };
 /* End PBXBuildFile section */
@@ -124,6 +126,8 @@
 		1F5038E22BC4E6AF00381EE5 /* ArchieveRecentSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchieveRecentSearchCell.swift; sourceTree = "<group>"; };
 		1F5038E72BC4EB0E00381EE5 /* ProcedureSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcedureSelectButton.swift; sourceTree = "<group>"; };
 		1F5038E92BC4EC3600381EE5 /* SearchFilterPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterPicker.swift; sourceTree = "<group>"; };
+		1F6454F12BC8B60B00C9D235 /* RCParticipantsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCParticipantsSection.swift; sourceTree = "<group>"; };
+		1F6454F32BC8B96000C9D235 /* GenderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderButton.swift; sourceTree = "<group>"; };
 		1FF17E512BC5079700B505FA /* RoomCreateIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateIndicator.swift; sourceTree = "<group>"; };
 		1FF17E542BC509C500B505FA /* FirstRoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRoomCreateView.swift; sourceTree = "<group>"; };
 		1FF17E562BC509E400B505FA /* SelectionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionButtonView.swift; sourceTree = "<group>"; };
@@ -232,6 +236,8 @@
 				1F06034B2BC58EAE003808F4 /* ThirdRoomCreateView.swift */,
 				1F0603572BC6611D003808F4 /* RCProcedurePicker.swift */,
 				1F06034D2BC596B1003808F4 /* RCTimeSettingView.swift */,
+				1F6454F12BC8B60B00C9D235 /* RCParticipantsSection.swift */,
+				1F6454F32BC8B96000C9D235 /* GenderButton.swift */,
 			);
 			path = ThirdRoomCreateViews;
 			sourceTree = "<group>";
@@ -617,10 +623,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F6454F62BC8C61E00C9D235 /* ServiceAgreeSheet.swift in Sources */,
+				1F6454F52BC8C5E300C9D235 /* SignUpView.swift in Sources */,
 				30F80C422BC7E37300B432DA /* OfflineLocationResultView.swift in Sources */,
 				1FF17E552BC509C500B505FA /* FirstRoomCreateView.swift in Sources */,
 				309F8ABA2BC3A8570045C6D8 /* GeneralButton.swift in Sources */,
 				1F5038D92BC4E67B00381EE5 /* SearchViewVM.swift in Sources */,
+				1F6454F42BC8B96000C9D235 /* GenderButton.swift in Sources */,
 				30F80C402BC7D9B200B432DA /* OfflineLocationSearchTextFieldView.swift in Sources */,
 				3007E8AF2BC40E6E00B9F7B3 /* MainView.swift in Sources */,
 				30F80C442BC7E38F00B432DA /* OfflineLocationSearchView.swift in Sources */,
@@ -678,12 +687,9 @@
 				1F5038E42BC4E6AF00381EE5 /* ArchieveRecentSearchCell.swift in Sources */,
 				30BE7EC92BC57CCA00A5A178 /* ContactInputView.swift in Sources */,
 				309688072BC65A5B007064A3 /* ChatCategoryView.swift in Sources */,
-				FCBCB31E2BC3DC090048B86F /* ServiceAgreeSheet.swift in Sources */,
-				FCBCB31A2BC3D2A90048B86F /* SignUpView.swift in Sources */,
 				FC2DDC112BC50B6900A51E64 /* StaticGuageProgressView.swift in Sources */,
+				1F6454F22BC8B60B00C9D235 /* RCParticipantsSection.swift in Sources */,
 				1F0603522BC5BF56003808F4 /* FilterCategory.swift in Sources */,
-				FCBCB31E2BC3DC090048B86F /* ServiceAgreeSheet.swift in Sources */,
-				FCBCB31A2BC3D2A90048B86F /* SignUpView.swift in Sources */,
 				30064DBC2BC802A000FD04A2 /* MessageViewModel.swift in Sources */,
 				1F0603562BC63289003808F4 /* RCContentTextField.swift in Sources */,
 				1F5038DF2BC4E69E00381EE5 /* SearchFieldView.swift in Sources */,
