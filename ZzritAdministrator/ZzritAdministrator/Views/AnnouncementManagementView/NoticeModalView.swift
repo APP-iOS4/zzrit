@@ -8,10 +8,11 @@
 import SwiftUI
 import ZzritKit
 
-struct AnnounceModalView: View {
-    @State var announcemnet: NoticeModel? = nil
+struct NoticeModalView: View {
+    @State var notice: NoticeModel? = nil
     @State private var title: String = ""
     @State private var content: String = ""
+    @State private var warning: Bool = false
     
     // 알럿 종류를 구분하기 위한 enum
     @State private var alertCase: AlertCase? = nil
@@ -20,8 +21,10 @@ struct AnnounceModalView: View {
    
     @Environment(\.dismiss) private var dismiss
     
-    // 데이트 포매터
-    var dateService = DateService.shared
+    // 데이트 서비스
+    private let dateService = DateService.shared
+    // 공지 서비스
+    private let noticeService = NoticeService()
     
     // TODO: 뷰 뷴리는 로그인 뷰부터 짜고(급해서) 진행하겠습니다
     var body: some View {
@@ -49,13 +52,20 @@ struct AnnounceModalView: View {
             }
             
             HStack {
-                Text("공지 내용")
-                    .font(.title2)
-             
+                VStack(alignment: .leading) {
+                    Text("공지 내용")
+                        .font(.title2)
+                    
+                    if warning {
+                        Text("공지 내용을 입력하셔야 합니다*")
+                            .foregroundStyle(Color.pointColor)
+                            .fontWeight(.semibold)
+                    }
+                }
                 Spacer()
 
-                if let announcemnet {
-                    Text(dateService.formattedString(date: announcemnet.date, format: "yyyy MM/dd HH:mm"))
+                if let notice {
+                    Text(dateService.formattedString(date: notice.date, format: "yyyy MM/dd HH:mm"))
                         .foregroundStyle(Color.staticGray3)
                 }
             }
@@ -71,13 +81,13 @@ struct AnnounceModalView: View {
             }
             
             
-            if let announcemnet {
+            if let notice {
                 HStack {
-                    Text("작성자: \(announcemnet.writerUID)")
+                    Text("작성자: \(notice.writerUID)")
                     
                     Spacer()
                     
-                    Text("\(announcemnet.id ?? "")")
+                    Text("\(notice.id ?? "")")
                 }
                 .foregroundStyle(Color.staticGray3)
                 
@@ -87,6 +97,8 @@ struct AnnounceModalView: View {
                         .frame(width: 160, height: 50)
                         .overlay(
                             Button {
+                                // id는 반드시 존재하기 때문에 포스 언래핑
+                                deleteNotice(noticeID: notice.id!)
                                 alertCase = .delelte
                                 showAlert = true
                             } label: {
@@ -125,9 +137,9 @@ struct AnnounceModalView: View {
         }
         .padding(20)
         .onAppear {
-            if let announcemnet {
-                title = announcemnet.title
-                content = announcemnet.content
+            if let notice {
+                title = notice.title
+                content = notice.content
             }
         }
         .alert(isPresented: $showAlert, content: {
@@ -146,9 +158,8 @@ struct AnnounceModalView: View {
         })
     }
     
-    // TODO: 로직 추가해야 함
     /// 뒤로가기 얼럿
-    func getDismissAlert() -> Alert {
+    private func getDismissAlert() -> Alert {
         return Alert(
             title: Text("목록으로 돌아가기"),
             message: Text("목록으로 돌아가시겠습니까?"),
@@ -159,12 +170,12 @@ struct AnnounceModalView: View {
     }
     
     /// 공지 등록 얼럿
-    func getRegisterAlert() -> Alert {
+    private func getRegisterAlert() -> Alert {
         return Alert(
             title: Text("공지 등록"),
             message: Text("공지를 등록하시겠습니까?"),
             primaryButton: .destructive(Text("등록"), action: {
-               // TODO: 공지 등록 로직
+                writeNotice()
                 alertCase = nil
                 dismiss()
             }),
@@ -172,7 +183,7 @@ struct AnnounceModalView: View {
     }
     
     /// 공지 삭제 얼럿
-    func getDeleteAlert() -> Alert {
+    private func getDeleteAlert() -> Alert {
         return Alert(
             title: Text("공지 삭제"),
             message: Text("공지를 정말 삭제하시겠습니까?"),
@@ -185,7 +196,7 @@ struct AnnounceModalView: View {
     }
     
     /// 공지 수정 얼럿
-    func getModifyAlert() -> Alert {
+    private func getModifyAlert() -> Alert {
         return Alert(
             title: Text("공지 수정"),
             message: Text("공지를 정말 수정하시겠습니까?"),
@@ -196,10 +207,48 @@ struct AnnounceModalView: View {
             }),
             secondaryButton: .cancel(Text("취소")))
     }
+    
+    /// 빈 문자열인지 확인
+    private func checkIsBlank() -> Bool {
+        if title == "" || content == "" {
+            warning = true
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    /// 공지 삭제 함수
+    private func deleteNotice(noticeID: String) {
+        Task {
+            do {
+                try await noticeService.deleteNotice(noticeID: noticeID)
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    /// 공지 작성 함수
+    private func writeNotice() {
+        if checkIsBlank() {
+            return
+        }
+        
+        Task {
+            do {
+                // TODO: writerUID 수정해야 함
+                let tempNotice = NoticeModel(title: title, content: content, date: Date(), writerUID: "lZJDCklNWnbIBcARDFfwVL8oSCf1")
+                try noticeService.writeNotice(tempNotice)
+                print("공지사항 작성 완료")
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
 }
 
 #Preview {
-    AnnounceModalView()
+    NoticeModalView()
 }
 
 private enum AlertCase {

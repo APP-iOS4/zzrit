@@ -69,7 +69,7 @@ struct ContentView: View {
             ComplaintManagementView()
         // 공지사항 관리
         case .announcementManagement:
-            AnnouncementManagementView()
+            NoticeManagementView()
         // 설정 뷰
         case .settings:
             SettingsView()
