@@ -82,6 +82,7 @@ struct LoginInputView: View {
                                 .autocorrectionDisabled()
                         } else {
                             TextField("", text: $text)
+                                .textInputAutocapitalization(.never)
                                 .fontWeight(.semibold)
                                 .foregroundStyle(textFieldForegroundColor)
                                 .focused($focused)
