@@ -20,11 +20,13 @@ struct ContentView: View {
     
     @State var selection: Category = .userManagement
     @State var isLogin: Bool = false
+    @State var adminName: String = ""
+    @State var adminID: String = ""
     
     var body: some View {
         
         if !isLogin {
-            LoginView(isLogin: $isLogin)
+            LoginView(isLogin: $isLogin, adminName: $adminName, adminID: $adminID)
         } else {
             NavigationSplitView {
                 // Logo
@@ -36,6 +38,13 @@ struct ContentView: View {
                     Text("ZZ!RIT 관리")
                         .font(.title2.weight(.bold))
                         .foregroundStyle(Color.staticGray2)
+                    Text("\(adminName) 님")
+                        .font(.subheadline)
+                        .foregroundStyle(Color.staticGray)
+                    Text("\(adminID)")
+                        .foregroundStyle(Color.staticGray3)
+                        .font(.caption)
+                        .lineLimit(1)
                 }
                 
                 // 하위 리스트
@@ -72,14 +81,8 @@ struct ContentView: View {
             NoticeManagementView()
         // 설정 뷰
         case .settings:
-            SettingsView()
+            SettingsView(adminID: $adminID, isLogin: $isLogin)
         }
-    }
-}
-
-struct UserManagementView: View {
-    var body: some View {
-        Text("유저 관리")
     }
 }
 
