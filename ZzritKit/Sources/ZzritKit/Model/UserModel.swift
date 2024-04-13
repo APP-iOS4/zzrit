@@ -28,8 +28,10 @@ public struct UserModel: Codable, Identifiable {
     public var staticGuage: Double
     /// 회원 탈퇴 일자
     public var secessionDate: Date?
+    /// 유저가 참여한 모임 목록
+    public var joinedRooms: [String]?
     
-    public init(id: String? = UUID().uuidString, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGuage: Double) {
+    public init(id: String? = UUID().uuidString, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGuage: Double, joinedRooms: [String]? = nil) {
         self.id = id
         self.userID = userID
         self.userName = userName
@@ -37,6 +39,7 @@ public struct UserModel: Codable, Identifiable {
         self.gender = gender
         self.birthYear = birthYear
         self.staticGuage = staticGuage
+        self.joinedRooms = joinedRooms
     }
     
     // FIXME: 프로필 이미지 비어있을 경우 보일 이미지 URL 추가 (25 line)

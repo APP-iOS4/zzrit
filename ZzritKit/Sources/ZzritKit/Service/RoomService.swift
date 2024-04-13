@@ -34,10 +34,11 @@ public final class RoomService {
      # Error
      - FirebaseErrorType.failCreateRoom
      */
-    public func createRoom(_ room: RoomModel) throws {
+    public func createRoom(_ room: RoomModel) async throws {
         do {
             // TODO: 빈칸 있으면 에러.(소비자앱과 상의 필.)
-            try fbConstants.roomCollection.addDocument(from: room)
+            let result = try fbConstants.roomCollection.addDocument(from: room)
+            try await joinRoom(result.documentID)
             //쿼리를 아끼기 위한 append
             tempRooms.append(room)
             // TODO: 모임 참여 await
@@ -122,6 +123,8 @@ public final class RoomService {
         } else {
             let tempModel = JoinedUserModel(userID: uid, joinedDatetime: Date())
             try fbConstants.joinedCollection(roomID).document(uid).setData(from: tempModel, merge: true)
+            // 유저 데이터에 가입한 모임 ID 추가
+            try await fbConstants.userCollection.document(uid).updateData(["joinedRooms": FieldValue.arrayUnion([roomID])])
         }
     }
     
@@ -138,6 +141,7 @@ public final class RoomService {
 
         if try await isJoined(roomID: roomID, userUID: uid) {
             try await fbConstants.joinedCollection(roomID).document(uid).delete()
+            try await fbConstants.userCollection.document(uid).updateData(["joinedRooms": FieldValue.arrayRemove([roomID])])
         } else {
             // 방에 가입이 되어있지 않을 경우 에러 throw
             throw FirebaseErrorType.notJoinedRoom

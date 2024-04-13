@@ -119,7 +119,7 @@ struct RoomCreateView: View {
                 
                 Task {
                     do {
-                        try rs.createRoom(aa)
+                        try await rs.createRoom(aa)
                     } catch {
                         print(error)
                     }
