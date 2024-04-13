@@ -29,6 +29,7 @@ struct RoomCreateView: View {
     @State private var gender: Bool = false
     @State private var genderLimitation: GenderType = .female
     @State var score: Double = 0.0
+    @State private var alertUp: Bool = false
     
     var body: some View {
         VStack {
@@ -124,9 +125,22 @@ struct RoomCreateView: View {
                         print(error)
                     }
                 }
+                alertUp.toggle()
             } label: {
                 Text("데이터전송!")
             }
+            .onTapGesture {
+                title = ""
+                
+            }
+        }
+        .alert("전송완료", isPresented: $alertUp) {
+            Button(role: .cancel) {
+                
+            } label: {
+                Text("확인")
+            }
+            
         }
     }
 }
