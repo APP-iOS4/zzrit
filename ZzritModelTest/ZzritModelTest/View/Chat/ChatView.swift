@@ -131,7 +131,7 @@ struct ChatView: View {
     
     @ViewBuilder
     private func chatView(chat: ChattingModel) -> some View {
-        var isYou = uid == chat.userID
+        let isYou = uid != chat.userID
         switch chat.type {
         case .text:
             VStack(alignment: isYou ? .trailing : .leading) {
