@@ -21,6 +21,7 @@ final class FirebaseConstants {
         case contact = "Contacts"
         case reply = "Replies"
         case term = "Terms"
+        case chat = "Chatting"
     }
     
     private let db = Firestore.firestore()
@@ -43,6 +44,10 @@ final class FirebaseConstants {
     
     public func contactReplyCollection(_ contact: String) -> CollectionReference {
         return contactCollection.document(contact).collection(collection(.reply))
+    }
+    
+    public func roomChatCollection(_ room: String) -> CollectionReference {
+        return roomCollection.document(room).collection(collection(.chat))
     }
 
     // MARK: Private Methods

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum ChattingType: Codable {
+public enum ChattingType: String, Codable {
     case text
     case image
     case notice
