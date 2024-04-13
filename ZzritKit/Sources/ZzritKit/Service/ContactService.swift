@@ -28,7 +28,7 @@ public final class ContactService {
     }
     
     /// 문의사항을 삭제합니다.
-    /// -Parameter contactID(String): 삭제할 문의사항 id
+    /// - Parameter contactID(String): 삭제할 문의사항 id
     public func deleteContact(contactID: String) {
         firebaseConstant.contactCollection.document(contactID).delete()
     }
