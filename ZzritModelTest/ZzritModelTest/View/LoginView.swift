@@ -12,7 +12,7 @@ import ZzritKit
 struct LoginView: View {
     private let authService = AuthenticationService.shared
     private let userService = UserService()
-    @State private var emailField: String = "test1@test.com"
+    @State private var emailField: String = "test1222@test.com"
     @State private var passwordField: String = "testpassword"
     @State private var registeredUID: String = ""
     
@@ -85,11 +85,20 @@ struct LoginView: View {
     }
     
     private func setUserInfo() {
-        do {
-            let userInfo: UserModel = .init(userID: emailField, userName: "닉네임", userImage: "", gender: .male, birthYear: 1994, staticGuage: 20.0)
-            try userService.setUserInfo(uid: registeredUID, info: userInfo)
-        } catch {
-            print("에러: \(error)")
+        Task {
+            do {
+                let serviceTerm = try await userService.term(type: .service)
+                let privacyTerm = try await userService.term(type: .privacy)
+                let locationTerm = try await userService.term(type: .location)
+                
+                let userInfo: UserModel = .init(userID: emailField, userName: "닉네임", userImage: "", gender: .male, birthYear: 1994, staticGuage: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
+                
+                print(userInfo)
+                
+                try userService.setUserInfo(uid: registeredUID, info: userInfo)
+            } catch {
+                print("에러: \(error)")
+            }
         }
     }
     

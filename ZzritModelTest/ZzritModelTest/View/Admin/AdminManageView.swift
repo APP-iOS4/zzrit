@@ -18,6 +18,10 @@ struct AdminManageView: View {
                 NavigationLink("관리자 로그인") {
                     AdminLoginView()
                 }
+                
+                NavigationLink("이용약관 등록") {
+                    AddTermView()
+                }
             }
         }
     }
