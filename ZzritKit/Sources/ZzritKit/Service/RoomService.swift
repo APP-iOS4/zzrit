@@ -18,6 +18,8 @@ public final class RoomService {
     // 쿼리를 아끼기 위해 존재. 검색했을때 나와줄 친구들.
     var tempRooms: [RoomModel] = []
     
+    private var isPagingEnd: Bool = false
+    
     // 임시 값, 온라인, 이미지URL은 반드시 존재합니다.
     public static let onlineRoomModel: RoomModel = ZzritKit.RoomModel(title: "9시 옵치고고", category: .game, dateTime: Date(), content: "9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.", coverImage:  "https://picsum.photos/200", isOnline: true, platform: .discord, status: .activation, leaderID: "123123", limitPeople: 5)
     
@@ -49,20 +51,26 @@ public final class RoomService {
     
     // TODO: 모임 불러오기
     public func loadRoom(
-        title: String? = nil,
         isInitial: Bool = true
     ) async throws -> [RoomModel] {
         do {
+            
+            if isPagingEnd {
+                print("더이상 갖고올 데이터가 없음.")
+                throw FirebaseErrorType.noMoreSearching
+            }
+            
             var query = fbConstants.roomCollection
-//                .whereField("status", isEqualTo: "activation")
+                .whereField("status", isEqualTo: "activation")
                 .limit(to: 16)
             
             // 필터가 있는 경우
             // 검색탭에서 필터링된 쿼리 만들기
-            if let title = title {
-                // title이 있다면
-                query = query.whereField("title", isEqualTo: title)
-            }
+            // 제목으로 필터링하는 부분 나중에 다시 사용할 수도있어서 일단은 주석처리했습니다.
+//            if title != "" {
+//                // title이 있다면
+//                query = query.whereField("title", isEqualTo: title!)
+//            }
             
             if !isInitial {
                 query = query.start(afterDocument: lastSnashot!)
@@ -70,9 +78,13 @@ public final class RoomService {
             
             let snapshot = try await query.getDocuments()
             
-//            let documents = try snapshot.documents.map { try $0.data(as: RoomModel.self) }
             let documents = snapshot.documents
             lastSnashot = documents.last
+            
+            if lastSnashot == nil {
+                isPagingEnd = true
+            }
+            
             //쿼리를 아끼기 위한 append
 //            tempRooms.append(contentsOf: documents)
             
@@ -85,6 +97,8 @@ public final class RoomService {
             throw FirebaseErrorType.failLoadRoom
         }
     }
+    
+    
     
     // TODO: 모임 수정
     /// 모임 상태를 변경합니다.
