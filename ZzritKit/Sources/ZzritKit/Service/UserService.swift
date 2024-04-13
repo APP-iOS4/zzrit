@@ -112,9 +112,11 @@ public final class UserService {
     /// - Parameter type(TermType): 약관의 타입
     /// - Returns TermModel
     /// - Important: 유저가 동의한 약관의 날짜와 최신 날짜의 정보와 같은지 확인하는 작업은 앱단에서 구현 부탁드립니다.
+    /// - Important: 시행날짜가 미래인 경우는 가져오지 않습니다.
     public func term(type: TermType) async throws -> TermModel {
         let snapshot = try await firebaseConst.termCollection
             .whereField("type", isEqualTo: type.rawValue)
+            .whereField("date", isLessThanOrEqualTo: Date.now)
             .order(by: "date", descending: true)
             .limit(to: 1)
             .getDocuments()

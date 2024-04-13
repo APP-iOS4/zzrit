@@ -92,6 +92,9 @@ struct LoginView: View {
                 let locationTerm = try await userService.term(type: .location)
                 
                 let userInfo: UserModel = .init(userID: emailField, userName: "닉네임", userImage: "", gender: .male, birthYear: 1994, staticGuage: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
+                
+                print(userInfo)
+                
                 try userService.setUserInfo(uid: registeredUID, info: userInfo)
             } catch {
                 print("에러: \(error)")
