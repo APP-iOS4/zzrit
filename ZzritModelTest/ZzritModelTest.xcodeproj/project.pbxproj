@@ -13,6 +13,7 @@
 		098C0C492BC7D0AC00970E54 /* RoomLoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C0C482BC7D0AC00970E54 /* RoomLoadView.swift */; };
 		09DC83AC2BC8C36D004C68D0 /* DateNStringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */; };
 		DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */; };
+		DF9674B62BCA6FCE00322382 /* AddTermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B52BCA6FCE00322382 /* AddTermView.swift */; };
 		DFAE9AE72BC8D1A20056E2ED /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAE9AE62BC8D1A20056E2ED /* ContactView.swift */; };
 		DFAE9AE92BC8F8AC0056E2ED /* ContactWriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAE9AE82BC8F8AB0056E2ED /* ContactWriteView.swift */; };
 		DFAE9AEB2BC8F9E80056E2ED /* ContactReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAE9AEA2BC8F9E80056E2ED /* ContactReplyView.swift */; };
@@ -41,6 +42,7 @@
 		09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateNStringView.swift; sourceTree = "<group>"; };
 		DF25D9082BC63FD9004B4B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
+		DF9674B52BCA6FCE00322382 /* AddTermView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTermView.swift; sourceTree = "<group>"; };
 		DFAE9AE62BC8D1A20056E2ED /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
 		DFAE9AE82BC8F8AB0056E2ED /* ContactWriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactWriteView.swift; sourceTree = "<group>"; };
 		DFAE9AEA2BC8F9E80056E2ED /* ContactReplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactReplyView.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				DFCEEA292BC80352003598F0 /* AdminManageView.swift */,
 				DFCEEA2C2BC80400003598F0 /* CreateAdminAccountView.swift */,
 				DFCEEA2E2BC80BF8003598F0 /* AdminLoginView.swift */,
+				DF9674B52BCA6FCE00322382 /* AddTermView.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */,
 				DFC75FF72BC5345C0005DDD9 /* ImageUploadView.swift in Sources */,
 				DFAE9AE92BC8F8AC0056E2ED /* ContactWriteView.swift in Sources */,
+				DF9674B62BCA6FCE00322382 /* AddTermView.swift in Sources */,
 				DFCEEA2D2BC80400003598F0 /* CreateAdminAccountView.swift in Sources */,
 				DFAE9AEB2BC8F9E80056E2ED /* ContactReplyView.swift in Sources */,
 				09DC83AC2BC8C36D004C68D0 /* DateNStringView.swift in Sources */,

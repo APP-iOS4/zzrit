@@ -23,4 +23,5 @@ public enum FirebaseErrorType: Error {
     case alreadyJoinedRoom
     case notJoinedRoom
     case failModifyingRoom
+    case noDocument
 }

@@ -108,6 +108,24 @@ public final class UserService {
         }
     }
     
+    /// 최신 약관을 불러옵니다.
+    /// - Parameter type(TermType): 약관의 타입
+    /// - Returns TermModel
+    /// - Important: 유저가 동의한 약관의 날짜와 최신 날짜의 정보와 같은지 확인하는 작업은 앱단에서 구현 부탁드립니다.
+    public func term(type: TermType) async throws -> TermModel {
+        let snapshot = try await firebaseConst.termCollection
+            .whereField("type", isEqualTo: type.rawValue)
+            .order(by: "date", descending: true)
+            .limit(to: 1)
+            .getDocuments()
+        
+        if snapshot.documents.isEmpty {
+            throw FirebaseErrorType.noDocument
+        }
+        
+        return try snapshot.documents.first!.data(as: TermModel.self)
+    }
+    
     // MARK: - Private Methods
     
     /// 접속된 회원정보 삭제
@@ -159,5 +177,26 @@ public final class UserService {
     /// - Parameter info(UserModel): 사용자의 정보가 담겨있는 모델
     public func setUserInfo(admin uid: String, info: AdminModel) throws {
         try firebaseConst.adminCollection.document(uid).setData(from: info, merge: true)
+    }
+    
+    /// 약관 정보를 등록합니다.
+    /// - Parameter term(TermModel): 약관 정보 모델
+    public func addTerm(term: TermModel) throws {
+        try firebaseConst.termCollection.addDocument(from: term)
+    }
+    
+    /// 약관 정보를 불러옵니다.
+    /// - Parameter type(TermType): 약관의 타입
+    public func terms(type: TermType) async throws -> [TermModel] {
+        let snapshot = try await firebaseConst.termCollection
+            .whereField("type", isEqualTo: type.rawValue)
+            .order(by: "date", descending: true)
+            .getDocuments()
+        
+        if snapshot.isEmpty {
+            throw FirebaseErrorType.noDocument
+        }
+        
+        return try snapshot.documents.map { try $0.data(as: TermModel.self) }
     }
 }
