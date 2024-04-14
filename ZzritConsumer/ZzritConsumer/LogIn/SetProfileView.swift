@@ -128,11 +128,17 @@ struct SetProfileView: View {
     }
     
     private func setUserInfo() {
-        do {
-            let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: "", gender: isMan ? .male : .female, birthYear: birthYear, staticGuage: 20.0)
-            try userService.setUserInfo(uid: registeredUID, info: userInfo)
-        } catch {
-            print("에러: \(error)")
+        Task {
+            do {
+                let serviceTerm = try await userService.term(type: .service)
+                let privacyTerm = try await userService.term(type: .privacy)
+                let locationTerm = try await userService.term(type: .location)
+                
+                let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: "", gender: isMan ? .male : .female, birthYear: birthYear, staticGuage: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
+                try userService.setUserInfo(uid: registeredUID, info: userInfo)
+            } catch {
+                print("에러: \(error)")
+            }
         }
     }
 }
