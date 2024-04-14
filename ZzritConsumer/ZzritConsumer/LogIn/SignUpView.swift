@@ -91,6 +91,8 @@ struct SignUpView: View {
                 }
             }
             Spacer()
+            
+            // MARK: 이용약관 동의 버튼
             SignUpAgreeButton(selectAgree: $selectAgree)
                 .onTapGesture {
                     if selectAgree {
