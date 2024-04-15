@@ -15,6 +15,7 @@ struct ContentView: View {
         case userManagement = "유저 관리"
         case complaintManagement = "문의 관리"
         case announcementManagement = "공지사항 관리"
+        case termsManagement = "이용약관 관리"
         case settings = "설정"
     }
     
@@ -79,6 +80,9 @@ struct ContentView: View {
         // 공지사항 관리
         case .announcementManagement:
             NoticeManagementView()
+        // 이용약관 관리
+        case .termsManagement:
+            TermsView()
         // 설정 뷰
         case .settings:
             SettingsView(adminID: $adminID, isLogin: $isLogin)
