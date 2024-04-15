@@ -42,6 +42,10 @@ public struct RoomModel: Identifiable, Codable {
     /// 점수 제한
     public var scoreLimitation: Int?
     
+    public var lastChatContent: String?
+    
+    public var lastChatTime: Date?
+    
     public init(id: String? = UUID().uuidString, title: String, category: CategoryType, dateTime: Date, placeLatitude: Double? = nil, placeLongitude: Double? = nil, content: String, coverImage: String, isOnline: Bool, platform: PlatformType? = nil, status: ActiveType, leaderID: String, limitPeople: Int) {
         self.id = id
         self.title = title

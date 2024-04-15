@@ -10,7 +10,7 @@ import Foundation
 import FirebaseFirestore
 
 @available(iOS 16.0.0, *)
-public final class UserService {
+public final class UserService: ObservableObject {
     private let firebaseConst = FirebaseConstants()
     private let authService = AuthenticationService.shared
     

@@ -79,6 +79,11 @@
 		DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D2202BC36C4500D72491 /* ContentView.swift */; };
 		DF54D2232BC36C4800D72491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D2222BC36C4800D72491 /* Assets.xcassets */; };
 		DF54D2262BC36C4800D72491 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D2252BC36C4800D72491 /* Preview Assets.xcassets */; };
+		DF9674B92BCCF4C800322382 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B82BCCF4C800322382 /* SocialLoginType.swift */; };
+		DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */; };
+		DF9674BD2BCCFC9700322382 /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */; };
+		DF9674BF2BCCFCC300322382 /* AuthenticationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BE2BCCFCC300322382 /* AuthenticationType.swift */; };
+		DF9674C12BCD027B00322382 /* AuthenticationErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674C02BCD027B00322382 /* AuthenticationErrorView.swift */; };
 		DFC75F822BC36CC50005DDD9 /* ZzritKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFC75F812BC36CC50005DDD9 /* ZzritKit */; };
 		FC0A793F2BC8C9B30012F85D /* ChatRoomNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0A793E2BC8C9B30012F85D /* ChatRoomNoticeView.swift */; };
 		FC2DDC0D2BC5070A00A51E64 /* MoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */; };
@@ -175,6 +180,11 @@
 		DF54D2202BC36C4500D72491 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DF54D2222BC36C4800D72491 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF54D2252BC36C4800D72491 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DF9674B82BCCF4C800322382 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
+		DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
+		DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
+		DF9674BE2BCCFCC300322382 /* AuthenticationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationType.swift; sourceTree = "<group>"; };
+		DF9674C02BCD027B00322382 /* AuthenticationErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationErrorView.swift; sourceTree = "<group>"; };
 		FC0A793E2BC8C9B30012F85D /* ChatRoomNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomNoticeView.swift; sourceTree = "<group>"; };
 		FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoView.swift; sourceTree = "<group>"; };
 		FC2DDC0E2BC508B700A51E64 /* MyStaticGuageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStaticGuageView.swift; sourceTree = "<group>"; };
@@ -383,6 +393,7 @@
 				30F80C3F2BC7D9B200B432DA /* OfflineLocationSearchTextFieldView.swift */,
 				30F80C412BC7E37300B432DA /* OfflineLocationResultView.swift */,
 				30F80C432BC7E38F00B432DA /* OfflineLocationSearchView.swift */,
+				DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -457,6 +468,7 @@
 		DF54D21D2BC36C4500D72491 /* ZzritConsumer */ = {
 			isa = PBXGroup;
 			children = (
+				DF9674B72BCCF4B400322382 /* Enum */,
 				3056254B2BC6B74400814FBF /* Extensions */,
 				FC2DDC0B2BC506E500A51E64 /* MoreInfo */,
 				30C1BAC62BC3ECD100827BD1 /* Main */,
@@ -483,6 +495,15 @@
 				DF54D2252BC36C4800D72491 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DF9674B72BCCF4B400322382 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				DF9674B82BCCF4C800322382 /* SocialLoginType.swift */,
+				DF9674BE2BCCFCC300322382 /* AuthenticationType.swift */,
+			);
+			path = Enum;
 			sourceTree = "<group>";
 		};
 		DFC75F802BC36CC50005DDD9 /* Frameworks */ = {
@@ -548,6 +569,8 @@
 				FC628F312BC440DF007F5E5C /* SetProfilePhotoView.swift */,
 				FC628F332BC4D114007F5E5C /* BirthYearPickerView.swift */,
 				FCADAA332BC4EB7700364272 /* CompleteSignUpView.swift */,
+				DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */,
+				DF9674C02BCD027B00322382 /* AuthenticationErrorView.swift */,
 			);
 			path = LogIn;
 			sourceTree = "<group>";
@@ -631,6 +654,7 @@
 				30F80C422BC7E37300B432DA /* OfflineLocationResultView.swift in Sources */,
 				1FF17E552BC509C500B505FA /* FirstRoomCreateView.swift in Sources */,
 				309F8ABA2BC3A8570045C6D8 /* GeneralButton.swift in Sources */,
+				DF9674C12BCD027B00322382 /* AuthenticationErrorView.swift in Sources */,
 				1F5038D92BC4E67B00381EE5 /* SearchViewVM.swift in Sources */,
 				1F6454F42BC8B96000C9D235 /* GenderButton.swift in Sources */,
 				30F80C402BC7D9B200B432DA /* OfflineLocationSearchTextFieldView.swift in Sources */,
@@ -672,11 +696,14 @@
 				30BE7EBF2BC57C7E00A5A178 /* QuestionListView.swift in Sources */,
 				3007E8B42BC4255900B9F7B3 /* RoomCardListView.swift in Sources */,
 				FC2DDC212BC591F300A51E64 /* FakeDivider.swift in Sources */,
+				DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */,
+				DF9674B92BCCF4C800322382 /* SocialLoginType.swift in Sources */,
 				1F0603542BC5C1C3003808F4 /* RoomCreateViewModel.swift in Sources */,
 				309F8ABC2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift in Sources */,
 				1F06034E2BC596B1003808F4 /* RCTimeSettingView.swift in Sources */,
 				DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */,
 				30F80C3E2BC7C23A00B432DA /* MainLocationView.swift in Sources */,
+				DF9674BF2BCCFCC300322382 /* AuthenticationType.swift in Sources */,
 				1F0603472BC576D5003808F4 /* RoomCreateAddPictureView.swift in Sources */,
 				FCAF4A1A2BC40C8400603C2D /* AppSlogan.swift in Sources */,
 				30BE7EC42BC57C7E00A5A178 /* QuestionListCellView.swift in Sources */,
@@ -701,6 +728,7 @@
 				FC628F342BC4D115007F5E5C /* BirthYearPickerView.swift in Sources */,
 				1F0603452BC53F36003808F4 /* RCTitleTextField.swift in Sources */,
 				30BE7EA12BC50A1100A5A178 /* ParticipantListView.swift in Sources */,
+				DF9674BD2BCCFC9700322382 /* AuthenticationButton.swift in Sources */,
 				30BE7EC82BC57CCA00A5A178 /* ContactInputCompleteView.swift in Sources */,
 				FCCCEEB52BC3B56600DABCA6 /* LogInView.swift in Sources */,
 				30BE7ECE2BC5977400A5A178 /* ChatListCellView.swift in Sources */,

@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct MainView: View {
-    // 플로팅 버튼을 눌렀는지 안 눌렀는지 검사
-    @State private var isFloatingAction: Bool = false
     // 우측 상단 알람 버튼 눌렀는지 안눌렀는지 검사
     @State private var isTopTrailingAction: Bool = false
     
@@ -39,9 +37,8 @@ struct MainView: View {
                 }
                 .padding(.vertical, 1)
                 
-                // 방 생성 플로팅 버튼
-                Button {
-                    isFloatingAction.toggle()
+                NavigationLink {
+                    FirstRoomCreateView(VM: RoomCreateViewModel())
                 } label: {
                     Image(systemName: "plus")
                         .font(.title)
@@ -53,10 +50,6 @@ struct MainView: View {
                         .shadow(color: .black.opacity(0.4), radius: 3)
                 }
                 .padding(20)
-                // 방 생성뷰로 이동하는 navigationDestination
-                .navigationDestination(isPresented: $isFloatingAction) {
-                    Text("방 생성뷰")
-                }
             }
             .toolbar {
                 // 왼쪽 앱 메인 로고

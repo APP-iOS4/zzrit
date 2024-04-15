@@ -13,6 +13,7 @@ public enum FirebaseErrorType: Error {
     case firebase
     case failCreateRoom
     case failLoadRoom
+    case failModifyingRoom
     case mismatch
     case noMoreSearching
     case invalidPassword
@@ -22,6 +23,6 @@ public enum FirebaseErrorType: Error {
     case chatMessageEmpty
     case alreadyJoinedRoom
     case notJoinedRoom
-    case failModifyingRoom
+    case failLoadRestrictions
     case noDocument
 }

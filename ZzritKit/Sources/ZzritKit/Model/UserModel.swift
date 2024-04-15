@@ -25,7 +25,7 @@ public struct UserModel: Codable, Identifiable {
     /// 유저의 출생년도
     public var birthYear: Int
     /// 유저의 정전기 지수
-    public var staticGuage: Double
+    public var staticGauge: Double
     /// 회원 탈퇴 일자
     public var secessionDate: Date?
     /// 유저가 참여한 모임 목록
@@ -47,7 +47,7 @@ public struct UserModel: Codable, Identifiable {
         self.userImage = userImage
         self.gender = gender
         self.birthYear = birthYear
-        self.staticGuage = staticGuage
+        self.staticGauge = staticGuage
         self.joinedRooms = joinedRooms
         self.agreeServiceDate = agreeServiceDate
         self.agreePrivacyDate = agreePrivacyDate

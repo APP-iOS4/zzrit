@@ -24,6 +24,7 @@ struct QuestionListView: View {
             }
         }
         .listStyle(.plain)
+        .padding(.vertical, 1)
     }
 }
 
