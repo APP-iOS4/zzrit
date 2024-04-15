@@ -29,13 +29,14 @@ struct RoomCardListView: View {
                         } label: {
                             // 라벨은 카드 뷰
                             RoomCardView(titleToHStackPadding: 75)
+                                .padding(.leading, 10)
                         }
                     }
                 }
                 .scrollTargetLayout()
+                .padding(.trailing, 10)
             }
             .scrollTargetBehavior(.viewAligned)
-            .padding(.horizontal, 10)
             .padding(.bottom, 20)
             
             // 몇 번째 인덱스인지 알려주는 인디케이터
