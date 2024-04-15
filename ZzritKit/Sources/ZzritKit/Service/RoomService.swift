@@ -47,9 +47,7 @@ public final class RoomService {
         }
     }
     
-    public func loadRoom(
-        isInitial: Bool = true
-    ) async throws -> [RoomModel] {
+    public func loadRoom(isInitial: Bool = true) async throws -> [RoomModel] {
         do {
             
             if isPagingEnd {
@@ -84,7 +82,7 @@ public final class RoomService {
             
             //쿼리를 아끼기 위한 append
 //            tempRooms.append(contentsOf: documents)
-            
+            // 유저앱에서 데이터를 들고있어야해서 이부분은 추후 수정 필수
             for temp in documents {
                 tempRooms.append(try temp.data(as: RoomModel.self))
             }

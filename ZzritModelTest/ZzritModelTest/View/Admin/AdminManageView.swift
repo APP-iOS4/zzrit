@@ -22,6 +22,9 @@ struct AdminManageView: View {
                 NavigationLink("이용약관 등록") {
                     AddTermView()
                 }
+                NavigationLink("UserManagingView") {
+                    UserManagingView()
+                }
             }
         }
     }
