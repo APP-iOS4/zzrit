@@ -47,7 +47,7 @@ public struct UserModel: Codable, Identifiable {
         self.userImage = userImage
         self.gender = gender
         self.birthYear = birthYear
-        self.staticGuage = staticGuage
+        self.staticGauge = staticGuage
         self.joinedRooms = joinedRooms
         self.agreeServiceDate = agreeServiceDate
         self.agreePrivacyDate = agreePrivacyDate
