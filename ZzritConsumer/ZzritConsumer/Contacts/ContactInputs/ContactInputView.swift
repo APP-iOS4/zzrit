@@ -29,51 +29,28 @@ struct ContactInputView: View {
     
     var body: some View {
         VStack {
-            // 문의 제목을 받는 곳
-            TextField("문의 제목을 입력해주세요", text: $contactTitle)
-                .foregroundStyle(Color.staticGray1)
-                .padding(10)
-                .overlay {
-                    RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                        .stroke(Color.staticGray5, lineWidth: 1)
-                }
-                .tint(Color.pointColor)
-                .padding(.bottom, Configs.paddingValue)
-            
-            // 문의 종류를 받는 곳
-            HStack {
-                Text("문의 종류")
-                
-                Spacer()
-                
-                // Picker를 통해 selectedContactCategory에 값을 바인딩한다.
-                Picker("Choose contact category", selection: $selectedContactCategory) {
-                    ForEach(ContactCategory.allCases, id: \.self) {
-                        Text($0.rawValue)
+            ScrollView {
+                // 문의 제목을 받는 곳
+                TextField("문의 제목을 입력해주세요", text: $contactTitle)
+                    .foregroundStyle(Color.staticGray1)
+                    .padding(10)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: Configs.cornerRadius)
+                            .stroke(Color.staticGray5, lineWidth: 1)
                     }
-                }
-            }
-            .foregroundStyle(Color.staticGray1)
-            .padding(10)
-            .overlay {
-                RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                    .stroke(Color.staticGray5, lineWidth: 1)
-            }
-            .tint(Color.pointColor)
-            .padding(.bottom, Configs.paddingValue)
-            
-            // 만약 문의 종류가 모임이라면....
-            if selectedContactCategory == .room {
-                // 문의 종류가 모임 관련 시 어떤 모임인지 선택하는 곳
+                    .tint(Color.pointColor)
+                    .padding(.bottom, Configs.paddingValue)
+                
+                // 문의 종류를 받는 곳
                 HStack {
-                    Text("모임")
+                    Text("문의 종류")
                     
                     Spacer()
                     
-                    // Picker를 통해 selectedRoomContact에 값을 바인딩한다.
-                    Picker("Choose room title", selection: $selectedRoomContact) {
-                        ForEach(rooms, id: \.self) { room in
-                            Text(room)
+                    // Picker를 통해 selectedContactCategory에 값을 바인딩한다.
+                    Picker("Choose contact category", selection: $selectedContactCategory) {
+                        ForEach(ContactCategory.allCases, id: \.self) {
+                            Text($0.rawValue)
                         }
                     }
                 }
@@ -85,30 +62,56 @@ struct ContactInputView: View {
                 }
                 .tint(Color.pointColor)
                 .padding(.bottom, Configs.paddingValue)
-            }
-        
-            // 문의 내용을 작성하는 곳
-            TextField("문의 내용을 입력해주세요", text: $contactContent)
-                .foregroundStyle(Color.staticGray1)
-                .frame(height: 300, alignment: .top)
-                .padding(10)
-                .overlay {
-                    RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                        .stroke(Color.staticGray5, lineWidth: 1)
+                
+                // 만약 문의 종류가 모임이라면....
+                if selectedContactCategory == .room {
+                    // 문의 종류가 모임 관련 시 어떤 모임인지 선택하는 곳
+                    HStack {
+                        Text("모임")
+                        
+                        Spacer()
+                        
+                        // Picker를 통해 selectedRoomContact에 값을 바인딩한다.
+                        Picker("Choose room title", selection: $selectedRoomContact) {
+                            ForEach(rooms, id: \.self) { room in
+                                Text(room)
+                            }
+                        }
+                    }
+                    .foregroundStyle(Color.staticGray1)
+                    .padding(10)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: Configs.cornerRadius)
+                            .stroke(Color.staticGray5, lineWidth: 1)
+                    }
+                    .tint(Color.pointColor)
+                    .padding(.bottom, Configs.paddingValue)
                 }
-                .tint(Color.pointColor)
-                .padding(.bottom, Configs.paddingValue)
-            
-            Spacer()
-            
-            GeneralButton(isDisabled: contactTitle.isEmpty, "문의하기") {
-                isPressContactButton.toggle()
+                
+                // 문의 내용을 작성하는 곳
+                TextField("문의 내용을 입력해주세요", text: $contactContent)
+                    .foregroundStyle(Color.staticGray1)
+                    .frame(height: 300, alignment: .top)
+                    .padding(10)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: Configs.cornerRadius)
+                            .stroke(Color.staticGray5, lineWidth: 1)
+                    }
+                    .tint(Color.pointColor)
+                    .padding(.bottom, Configs.paddingValue)
+                
+                Spacer()
+                
+                GeneralButton(isDisabled: contactTitle.isEmpty, "문의하기") {
+                    isPressContactButton.toggle()
+                }
+                .navigationDestination(isPresented: $isPressContactButton) {
+                    ContactInputCompleteView()
+                }
             }
-            .navigationDestination(isPresented: $isPressContactButton) {
-                ContactInputCompleteView()
-            }
+            .padding(.vertical, 1)
+            .padding(.horizontal, Configs.paddingValue)
         }
-        .padding(Configs.paddingValue)
         .toolbarRole(.editor)
         .onTapGesture {
             self.endTextEditing()

@@ -24,7 +24,7 @@ struct QuestionDetailView: View {
             }
             .padding(.horizontal, 20)
         }
-        
+        .padding(.vertical, 1)
     }
 }
 
