@@ -40,7 +40,7 @@ struct UserManagingView: View {
                     Task {
                         do {
                             var someDate = someDateString.toDate()
-                            try userManager.registerUserRestriction(userID: userId, adminID: "123123", bannedType: .abuse, period: someDate!)
+                            try userManager.registerUserRestriction(userID: userId, adminID: "123123", bannedType: .abuse, period: someDate!, content: "aasdf")
                         } catch {
                             print(error)
                         }
