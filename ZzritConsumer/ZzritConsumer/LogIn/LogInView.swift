@@ -121,6 +121,7 @@ struct LogInView: View {
         Task {
             do {
                 try await authService.loginWithGoogle()
+                dismiss()
             } catch {
                 errorMessage = "오류가 발생했습니다.\n잠시 후 다시 시도해주시기 바랍니다."
             }
