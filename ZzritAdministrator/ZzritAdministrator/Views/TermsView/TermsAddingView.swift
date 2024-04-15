@@ -47,6 +47,7 @@ struct TermsAddingView: View {
                     .font(.title3.bold())
                 TextField("약관 URL 주소를 입력해 주세요", text: $termsURLString)
                     .textInputAutocapitalization(.never)
+                    .keyboardType(.URL)
                     .padding(10)
                     .overlay {
                         RoundedRectangle(cornerRadius: Constants.commonRadius)
@@ -65,7 +66,6 @@ struct TermsAddingView: View {
         .padding(20)
         .alert("새로운 약관을 등록하시겠습니까?", isPresented: $showConfirmAlert) {
             Button("취소", role: .cancel){
-                print("취소하기")
                 showConfirmAlert.toggle()
             }
             Button("등록"){

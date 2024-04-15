@@ -78,7 +78,6 @@ struct TermsPickerView: View {
     @Binding var selectedTerms: TermType
     var body: some View {
         Picker("\(selectedTerms)", selection: $selectedTerms){
-            // Text("문의 종류").tag(ContactCategory.allCases)
             Text(TermType.privacy.title).tag(TermType.privacy)
             Text(TermType.location.title).tag(TermType.location)
             Text(TermType.service.title).tag(TermType.service)
