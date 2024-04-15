@@ -180,4 +180,12 @@ public final class RoomService {
         let document = try await fbConstants.joinedCollection(roomID).document(uid).getDocument()
         return document.exists
     }
+    
+    /// 모임 정보를 불러옵니다.
+    /// - Parameter roomID(String): 확인 할 모임 ID
+    /// - Returns: RoomModel
+    public func roomInfo(_ roomID: String) async throws -> RoomModel {
+        let document = try await fbConstants.roomCollection.document(roomID).getDocument()
+        return try document.data(as: RoomModel.self)
+    }
 }
