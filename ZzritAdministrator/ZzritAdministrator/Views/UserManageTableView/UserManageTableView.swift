@@ -12,12 +12,12 @@ import ZzritKit
 struct UserManageTableView: View {
     let genderList: [GenderType] = [.male, .female]
     
-    @State var selection: UserModel? = nil
-    @State var isFilterActive: Bool = true
-    @State var isUserModal: Bool = false
-    @State var genderSelection: GenderType? = nil
-    @State var isSortedByStatic: Bool = false
-    @State var isSortedByYear: Bool = false
+    @State private var selection: UserModel? = nil
+    @State private var isFilterActive: Bool = true
+    @State private var isUserModal: Bool = false
+    @State private var genderSelection: GenderType? = nil
+    @State private var isSortedByStatic: Bool = false
+    @State private var isSortedByYear: Bool = false
     @State private var searchText: String = ""
     
     @State private var userData: [UserModel] = tempUsers
@@ -138,7 +138,7 @@ struct UserManageTableView: View {
                                         .multilineTextAlignment(.leading)
                                 }
                                 .font(.title3)
-                                .foregroundStyle(user.id == selection?.id ? Color.pointColor : Color.staticGray1)
+                                .foregroundStyle(user.id == selection?.id ? Color.pointColor : Color.primary)
                                 .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
                             }
                             
@@ -181,9 +181,9 @@ struct UserManageTableView: View {
         }
         .padding(20.0)
         .tint(.pointColor)
-        .fullScreenCover(isPresented: $isUserModal, content: {
-            UserInfoModalView(isUserModal: $isUserModal, user: selection ?? .init(userID: "example@example.com", userName: "NO DATA", userImage: "xmark", gender: .male, birthYear: 1900, staticGuage: 0))
-        })
+        .fullScreenCover(isPresented: $isUserModal) {
+            UserInfoModalView(isUserModal: $isUserModal, user: selection ?? .init(userID: "example@example.com", userName: "EXAMPLE DATA", userImage: "xmark", gender: .male, birthYear: 1900, staticGuage: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()))
+        }
         .onTapGesture {
             #if canImport(UIKit)
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -219,21 +219,21 @@ struct MyButton: View {
 }
 
 private var tempUsers: [UserModel] = [
-    .init(id: UUID().uuidString, userID: "user1@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2005, staticGuage: 99),
-    .init(id: UUID().uuidString, userID: "user2@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2010, staticGuage: 88),
-    .init(id: UUID().uuidString, userID: "user3@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1991, staticGuage: 66),
-    .init(id: UUID().uuidString, userID: "user4@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1992, staticGuage: 77),
-    .init(id: UUID().uuidString, userID: "user5@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1986, staticGuage: 75),
-    .init(id: UUID().uuidString, userID: "user6@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 55),
-    .init(id: UUID().uuidString, userID: "user7@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2004, staticGuage: 90),
-    .init(id: UUID().uuidString, userID: "user8@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2009, staticGuage: 85),
-    .init(id: UUID().uuidString,userID: "user9@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1990, staticGuage: 70),
-    .init(id: UUID().uuidString, userID: "user10@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1991, staticGuage: 80),
-    .init(id: UUID().uuidString, userID: "user11@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1985, staticGuage: 77),
-    .init(id: UUID().uuidString, userID: "user12@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1970, staticGuage: 65),
-    .init(id: UUID().uuidString, userID: "supercalifragilisticexpialidocious@example.com", userName: "Supercalifragilisticexpialidocious", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 30),
-    .init(id: UUID().uuidString, userID: "taumata­whakatangihanga­koauau­o­tamatea­turi­pukaka­piki­maunga­horo­nuku­pokai­whenua­ki­tana­tahu@example.com", userName: "다람쥐 헌 쳇바퀴에 타고파", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 40),
-    .init(id: UUID().uuidString, userID: "krungthepmahanakhonamonrattanakosinmahintharayutthayamahadilokphopnoppharatratchathaniburiromudomratchaniwetmahasathanamonphimanawatansathitsakkathattiyawitsanukamprasit@example.com", userName: "끄룽 텝 마하나콘 아몬 라따나꼬신 마힌타라 유타야 마하딜록 폽 노파랏 랏차타니 부리롬 우돔랏차니웻 마하사탄 아몬 피만 아와딴 사팃 사카타띠야 윗사누깜 쁘라싯", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 35),
+    .init(id: UUID().uuidString, userID: "user1@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2005, staticGuage: 99, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user2@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2010, staticGuage: 88, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user3@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1991, staticGuage: 66, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user4@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1992, staticGuage: 77, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user5@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1986, staticGuage: 75, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user6@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1970, staticGuage: 65, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user7@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2004, staticGuage: 98, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user8@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2009, staticGuage: 87, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user9@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1989, staticGuage: 67, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user10@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1990, staticGuage: 76, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user11@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1985, staticGuage: 73, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user12@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 60, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "supercalifragilisticexpialidocious@example.com", userName: "Supercalifragilisticexpialidocious", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 30, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "taumata­whakatangihanga­koauau­o­tamatea­turi­pukaka­piki­maunga­horo­nuku­pokai­whenua­ki­tana­tahu@example.com", userName: "다람쥐 헌 쳇바퀴에 타고파", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 40, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "krungthepmahanakhonamonrattanakosinmahintharayutthayamahadilokphopnoppharatratchathaniburiromudomratchaniwetmahasathanamonphimanawatansathitsakkathattiyawitsanukamprasit@example.com", userName: "끄룽 텝 마하나콘 아몬 라따나꼬신 마힌타라 유타야 마하딜록 폽 노파랏 랏차타니 부리롬 우돔랏차니웻 마하사탄 아몬 피만 아와딴 사팃 사카타띠야 윗사누깜 쁘라싯", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 35, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
 ]
 
 #Preview {

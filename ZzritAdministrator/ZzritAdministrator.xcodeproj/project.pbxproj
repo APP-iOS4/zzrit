@@ -28,6 +28,7 @@
 		9B7574902BC7BC0600A247C1 /* UserSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75748F2BC7BC0600A247C1 /* UserSectionHeader.swift */; };
 		9B7574922BC7D19800A247C1 /* BanReasonField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7574912BC7D19800A247C1 /* BanReasonField.swift */; };
 		9B7574942BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7574932BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift */; };
+		9B90CBC22BCCAFD60005B0BD /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B90CBC12BCCAFD60005B0BD /* TermsView.swift */; };
 		9BA976632BC3D615008B1CD5 /* ComplaintDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA976622BC3D615008B1CD5 /* ComplaintDetailView.swift */; };
 		9BEB2FBD2BC3A6D3009C398F /* UserInfoModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */; };
 		DF54D2392BC36C6600D72491 /* ZzritAdministratorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D2382BC36C6600D72491 /* ZzritAdministratorApp.swift */; };
@@ -59,6 +60,7 @@
 		9B75748F2BC7BC0600A247C1 /* UserSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSectionHeader.swift; sourceTree = "<group>"; };
 		9B7574912BC7D19800A247C1 /* BanReasonField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BanReasonField.swift; sourceTree = "<group>"; };
 		9B7574932BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticGaugeEditingSubview.swift; sourceTree = "<group>"; };
+		9B90CBC12BCCAFD60005B0BD /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		9BA976622BC3D615008B1CD5 /* ComplaintDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintDetailView.swift; sourceTree = "<group>"; };
 		9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModalView.swift; sourceTree = "<group>"; };
 		DF54D2352BC36C6600D72491 /* ZzritAdministrator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritAdministrator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +109,7 @@
 				3B09C1FC2BC3811600EA9D54 /* PlaygroundManageMainView */,
 				3B09C2002BC3836A00EA9D54 /* ComplaintManagementView */,
 				3B09C2032BC383A200EA9D54 /* AnnouncementManagementView */,
+				9B90CBC32BCCAFDA0005B0BD /* TermsView */,
 				3B09C2062BC383D600EA9D54 /* SettingsView */,
 				3B7350C32BC3A200008C02AE /* Commons */,
 			);
@@ -180,6 +183,14 @@
 				3B5C6E362BC8BBB600668AB8 /* NoticeViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9B90CBC32BCCAFDA0005B0BD /* TermsView */ = {
+			isa = PBXGroup;
+			children = (
+				9B90CBC12BCCAFD60005B0BD /* TermsView.swift */,
+			);
+			path = TermsView;
 			sourceTree = "<group>";
 		};
 		DF54D22C2BC36C6600D72491 = {
@@ -314,6 +325,7 @@
 				DF54D23B2BC36C6600D72491 /* ContentView.swift in Sources */,
 				3B05B1902BC6721B00BF9548 /* LoginInputView.swift in Sources */,
 				9B4DFFFF2BC58B46008C5FC7 /* ContactManageUserInfoView.swift in Sources */,
+				9B90CBC22BCCAFD60005B0BD /* TermsView.swift in Sources */,
 				3B09C2052BC383D300EA9D54 /* SettingsView.swift in Sources */,
 				3B09C1F62BC37E9100EA9D54 /* UserManageTableView.swift in Sources */,
 				DF54D2392BC36C6600D72491 /* ZzritAdministratorApp.swift in Sources */,

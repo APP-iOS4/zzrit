@@ -14,7 +14,7 @@ import ZzritKit
 struct ComplaintManagementView: View {
     @State private var contactCategory: ContactCategory = .app
     @State private var contactSearchText: String = ""
-    @State var pickedContact: ContactModel?
+    @State private var pickedContact: ContactModel?
     @State private var isShowingModalView = false
     let dateService = DateService.shared
     
@@ -86,7 +86,6 @@ struct ContactListCell: View {
         VStack(alignment: .leading, spacing: 10) {
             Text("\(contactTitle)")
                 .fontWeight(.bold)
-                .foregroundStyle(.black)
             HStack {
                 Text("\(contactCategory.rawValue)")
                     .fontWeight(.bold)
