@@ -56,7 +56,7 @@ struct RoomCreateSubTitle: View {
     enum SubTitleType {
         case none
         case coverPhoto
-        case staticGuage
+        case staticGauge
     }
 }
 

@@ -134,7 +134,7 @@ struct SetProfileView: View {
                 let privacyTerm = try await userService.term(type: .privacy)
                 let locationTerm = try await userService.term(type: .location)
                 
-                let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: "", gender: isMan ? .male : .female, birthYear: birthYear, staticGuage: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
+                let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: "", gender: isMan ? .male : .female, birthYear: birthYear, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
                 try userService.setUserInfo(uid: registeredUID, info: userInfo)
             } catch {
                 print("에러: \(error)")

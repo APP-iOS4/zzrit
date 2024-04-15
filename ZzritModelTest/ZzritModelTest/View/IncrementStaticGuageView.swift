@@ -9,7 +9,7 @@ import SwiftUI
 
 import ZzritKit
 
-struct IncrementStaticGuageView: View {
+struct IncrementStaticGaugeView: View {
     private let userService = UserService()
     
     @State private var UIDs: [String] = [
@@ -33,7 +33,7 @@ struct IncrementStaticGuageView: View {
         }
         
         Button("정전기 지수 높이기") {
-            incrementStaticGuage()
+            incrementStaticGauge()
         }
     }
     
@@ -42,7 +42,7 @@ struct IncrementStaticGuageView: View {
         uidField = ""
     }
     
-    private func incrementStaticGuage() {
+    private func incrementStaticGauge() {
         Task {
             do {
                 try await userService.applyEvaluation(userUIDs: UIDs)
@@ -55,5 +55,5 @@ struct IncrementStaticGuageView: View {
 }
 
 #Preview {
-    IncrementStaticGuageView()
+    IncrementStaticGaugeView()
 }

@@ -101,7 +101,7 @@ public final class UserService: ObservableObject {
         
         do {
             for uid in userUIDs {
-                try await firebaseConst.userCollection.document(uid).updateData(["staticGuage": FieldValue.increment(1.0)])
+                try await firebaseConst.userCollection.document(uid).updateData(["staticGauge": FieldValue.increment(1.0)])
             }
         } catch {
             throw error

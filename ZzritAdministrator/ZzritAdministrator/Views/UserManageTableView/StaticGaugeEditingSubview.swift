@@ -55,7 +55,7 @@ struct StaticGaugeEditingSubview: View {
                     .frame(height: 20)
             }
             .buttonStyle(.borderedProminent)
-            .disabled(indexAfterEdit == user.staticGuage)
+            .disabled(indexAfterEdit == user.staticGauge)
         }
         .alert("정전기 지수를 수정하시겠습니까?", isPresented: $editAlert) {
             Button("취소하기", role: .cancel){
@@ -68,7 +68,7 @@ struct StaticGaugeEditingSubview: View {
                 isUserModal.toggle()
             }
         } message: {
-            Text("대상자: \(user.userID)\n수정 전: \(String(format: "%.1f", user.staticGuage))W\n수정 후: \(String(format: "%.1f", indexAfterEdit))W")
+            Text("대상자: \(user.userID)\n수정 전: \(String(format: "%.1f", user.staticGauge))W\n수정 후: \(String(format: "%.1f", indexAfterEdit))W")
         }
     }
 }

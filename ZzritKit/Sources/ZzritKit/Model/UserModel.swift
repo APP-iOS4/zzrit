@@ -40,14 +40,14 @@ public struct UserModel: Codable, Identifiable {
     /// - Warning: 동의를 한 날짜가 아닌, 시행날짜 입니다.
     public var agreeLocationDate: Date?
     
-    public init(id: String? = UUID().uuidString, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGuage: Double, joinedRooms: [String]? = nil, agreeServiceDate: Date?, agreePrivacyDate: Date?, agreeLocationDate: Date?) {
+    public init(id: String? = UUID().uuidString, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGauge: Double, joinedRooms: [String]? = nil, agreeServiceDate: Date?, agreePrivacyDate: Date?, agreeLocationDate: Date?) {
         self.id = id
         self.userID = userID
         self.userName = userName
         self.userImage = userImage
         self.gender = gender
         self.birthYear = birthYear
-        self.staticGauge = staticGuage
+        self.staticGauge = staticGauge
         self.joinedRooms = joinedRooms
         self.agreeServiceDate = agreeServiceDate
         self.agreePrivacyDate = agreePrivacyDate

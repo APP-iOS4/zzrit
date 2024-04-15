@@ -47,7 +47,7 @@ struct UserManageTableView: View {
             if isFilterActive {
                 HStack {
                     Button {
-                        userData = userData.sorted{ $0.staticGuage > $1.staticGuage }
+                        userData = userData.sorted{ $0.staticGauge > $1.staticGauge }
                         isSortedByStatic = true
                         isSortedByYear = false
                     } label: {
@@ -118,7 +118,7 @@ struct UserManageTableView: View {
                                     
                                     Divider()
                                     
-                                    Text("\(String(format: "%.1f", user.staticGuage))W")
+                                    Text("\(String(format: "%.1f", user.staticGauge))W")
                                         .minimumScaleFactor(0.5)
                                         .frame(width: 100, alignment: .leading)
                                         .multilineTextAlignment(.leading)
@@ -155,7 +155,7 @@ struct UserManageTableView: View {
                     userData = tempUsers.filter{ $0.gender == genderSelection }
                     
                     if isSortedByStatic {
-                        userData = userData.sorted{ $0.staticGuage > $1.staticGuage }
+                        userData = userData.sorted{ $0.staticGauge > $1.staticGauge }
                     } else if isSortedByYear {
                         userData = userData.sorted{ $0.birthYear < $1.birthYear }
                     }
@@ -182,7 +182,7 @@ struct UserManageTableView: View {
         .padding(20.0)
         .tint(.pointColor)
         .fullScreenCover(isPresented: $isUserModal) {
-            UserInfoModalView(isUserModal: $isUserModal, user: selection ?? .init(userID: "example@example.com", userName: "EXAMPLE DATA", userImage: "xmark", gender: .male, birthYear: 1900, staticGuage: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()))
+            UserInfoModalView(isUserModal: $isUserModal, user: selection ?? .init(userID: "example@example.com", userName: "EXAMPLE DATA", userImage: "xmark", gender: .male, birthYear: 1900, staticGauge: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()))
         }
         .onTapGesture {
             #if canImport(UIKit)
@@ -196,21 +196,21 @@ struct UserManageTableView: View {
 
 
 private var tempUsers: [UserModel] = [
-    .init(id: UUID().uuidString, userID: "user1@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2005, staticGuage: 99, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "user2@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2010, staticGuage: 88, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "user3@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1991, staticGuage: 66, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "user4@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1992, staticGuage: 77, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "user5@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1986, staticGuage: 75, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "user6@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1970, staticGuage: 65, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "user7@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2004, staticGuage: 98, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "user8@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2009, staticGuage: 87, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "user9@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1989, staticGuage: 67, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "user10@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1990, staticGuage: 76, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "user11@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1985, staticGuage: 73, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "user12@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 60, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "supercalifragilisticexpialidocious@example.com", userName: "Supercalifragilisticexpialidocious", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 30, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "taumata­whakatangihanga­koauau­o­tamatea­turi­pukaka­piki­maunga­horo­nuku­pokai­whenua­ki­tana­tahu@example.com", userName: "다람쥐 헌 쳇바퀴에 타고파", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 40, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-    .init(id: UUID().uuidString, userID: "krungthepmahanakhonamonrattanakosinmahintharayutthayamahadilokphopnoppharatratchathaniburiromudomratchaniwetmahasathanamonphimanawatansathitsakkathattiyawitsanukamprasit@example.com", userName: "끄룽 텝 마하나콘 아몬 라따나꼬신 마힌타라 유타야 마하딜록 폽 노파랏 랏차타니 부리롬 우돔랏차니웻 마하사탄 아몬 피만 아와딴 사팃 사카타띠야 윗사누깜 쁘라싯", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 35, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user1@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2005, staticGauge: 99, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user2@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2010, staticGauge: 88, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user3@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1991, staticGauge: 66, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user4@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1992, staticGauge: 77, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user5@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1986, staticGauge: 75, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user6@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1970, staticGauge: 65, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user7@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2004, staticGauge: 98, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user8@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2009, staticGauge: 87, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user9@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1989, staticGauge: 67, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user10@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1990, staticGauge: 76, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user11@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1985, staticGauge: 73, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "user12@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1971, staticGauge: 60, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "supercalifragilisticexpialidocious@example.com", userName: "Supercalifragilisticexpialidocious", userImage: "person", gender: .male, birthYear: 1971, staticGauge: 30, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "taumata­whakatangihanga­koauau­o­tamatea­turi­pukaka­piki­maunga­horo­nuku­pokai­whenua­ki­tana­tahu@example.com", userName: "다람쥐 헌 쳇바퀴에 타고파", userImage: "person", gender: .male, birthYear: 1971, staticGauge: 40, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+    .init(id: UUID().uuidString, userID: "krungthepmahanakhonamonrattanakosinmahintharayutthayamahadilokphopnoppharatratchathaniburiromudomratchaniwetmahasathanamonphimanawatansathitsakkathattiyawitsanukamprasit@example.com", userName: "끄룽 텝 마하나콘 아몬 라따나꼬신 마힌타라 유타야 마하딜록 폽 노파랏 랏차타니 부리롬 우돔랏차니웻 마하사탄 아몬 피만 아와딴 사팃 사카타띠야 윗사누깜 쁘라싯", userImage: "person", gender: .male, birthYear: 1971, staticGauge: 35, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
 ]
 
 #Preview {
