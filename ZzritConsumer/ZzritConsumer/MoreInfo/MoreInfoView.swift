@@ -35,7 +35,7 @@ struct MoreInfoView: View {
                     
                     // 정전기 지수
                     if isLogined {
-                        MyStaticGuageView()
+                        MyStaticGaugeView()
                             .padding()
                     }
                     

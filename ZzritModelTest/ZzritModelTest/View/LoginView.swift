@@ -91,7 +91,7 @@ struct LoginView: View {
                 let privacyTerm = try await userService.term(type: .privacy)
                 let locationTerm = try await userService.term(type: .location)
                 
-                let userInfo: UserModel = .init(userID: emailField, userName: "닉네임", userImage: "", gender: .male, birthYear: 1994, staticGuage: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
+                let userInfo: UserModel = .init(userID: emailField, userName: "닉네임", userImage: "", gender: .male, birthYear: 1994, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
                 
                 print(userInfo)
                 

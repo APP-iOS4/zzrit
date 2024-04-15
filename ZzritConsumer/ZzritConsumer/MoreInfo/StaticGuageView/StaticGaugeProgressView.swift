@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct StaticGuageProgressView: View {
-    var staticGuage: Double
+struct StaticGaugeProgressView: View {
+    var staticGauge: Double
     // 말풍선 꼬리 아래 점 계산
     var downPoint: Double {
         var tempNum: Double
-        if staticGuage < 8 {
-            tempNum =  -((8 - staticGuage)  * 3.3)
-        } else if staticGuage > 93 {
-            tempNum = ((staticGuage - 93 ) * 3.3)
+        if staticGauge < 8 {
+            tempNum =  -((8 - staticGauge)  * 3.3)
+        } else if staticGauge > 93 {
+            tempNum = ((staticGauge - 93 ) * 3.3)
         } else {
             tempNum = 0
         }
@@ -28,7 +28,7 @@ struct StaticGuageProgressView: View {
             // 정전기 지수 풍선
             VStack {
                 ZStack {
-                    Text("\(String(format: "%.1f", staticGuage))W")
+                    Text("\(String(format: "%.1f", staticGauge))W")
                         .font(.caption)
                         .fontWeight(.semibold)
                         .foregroundStyle(.white)
@@ -44,7 +44,7 @@ struct StaticGuageProgressView: View {
                     .fill(Color.pointColor)
                     
                 }
-                .position(CGPoint(x: viewWidth * limitMaxMin(staticGuage), y: 20.0))
+                .position(CGPoint(x: viewWidth * limitMaxMin(staticGauge), y: 20.0))
                 
                 // 정전기 지수 상태바
                 ZStack(alignment: .leading) {
@@ -52,7 +52,7 @@ struct StaticGuageProgressView: View {
                         .foregroundStyle(Color.staticGray4)
                     Rectangle()
                         .foregroundStyle(Color.pointColor)
-                        .frame(width: viewWidth * staticGuage)
+                        .frame(width: viewWidth * staticGauge)
                 }
                 .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
                 .frame(height: 6)
