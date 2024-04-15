@@ -12,9 +12,10 @@ import ZzritKit
 struct ChatView: View {
     // TODO: 모임방의 ID
     @StateObject private var chattingService = ChattingService(roomID: "1Ab05L2UJXVpbYD7qxNc")
+    var storageService = StorageService()
     
-    // 현재 계정의 uid = tMecHWbZuyYapCJmmiN9AnP9TeQ2
-    var uid: String = "tMecHWbZuyYapCJmmiN9AnP9TeQ2"
+    // FIXME: 현재 계정의 uid로 바꾸어 주기
+    var uid: String = "dPwldldl"
     
     // 입력 메세지 변수
     @State private var messageText: String = ""
@@ -27,6 +28,13 @@ struct ChatView: View {
         chattingService.messages
     }
     
+    // 이미지 전송
+    @State private var isShowingImagePicker: Bool = false
+    @State private var isRealSendSheet: Bool = false
+    
+    @State private var selectedUIImage: UIImage?
+    @State private var image: Image?
+    
     var body: some View {
         
         // FIXME: 모임의 장소, 시간 정보 View 한번 들어가서 고쳐주세요.
@@ -36,73 +44,118 @@ struct ChatView: View {
         VStack {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack {
-                    // 채팅 내용 스크롤뷰
+                    // TODO: 채팅 내용 스크롤뷰 아래서 부터 보이게 + 날짜별로 + 페이징
                     ForEach(messages) { message in
                         chatView(chat: message)
                     }
                 }
             }
-            .padding(.vertical, 5)
+            .padding(.bottom, 5)
             .onTapGesture {
                 self.endTextEditing()
             }
             .onAppear {
                 fetchChatting()
             }
-            
-            // 사용자가 메세지 보내는 뷰
-            VStack {
-                HStack(alignment: .bottom) {
-                    // 사진 보내기 버튼
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "photo.badge.plus")
-                            .foregroundStyle(.black)
-                            .font(.title3)
-                            .padding(.bottom, 10)
-                    }
-                
-                    HStack(alignment: .bottom) {
-                        // 입력칸
-                        TextField(isActive ? "메세지를 입력해주세요." : "비활성화된 모임입니다.", text: $messageText, axis: .vertical)
-                            .lineLimit(4)
-                            .onSubmit {
-                                sendMessage()
-                            }
-                        // 입력칸 지우기 버튼
-                        if !messageText.isEmpty {
-                            Button {
-                                messageText = ""
-                            } label: {
-                                Label("입력 취소", systemImage: "xmark.circle.fill")
-                                    .labelStyle(.iconOnly)
-                                    .font(.title3)
-                                    .foregroundStyle(Color.staticGray3)
-                            }
-                        }
-                        // 메시지 보내기 버튼
-                        Button {
-                            sendMessage()
-                        } label: {
-                            Image(systemName: "paperplane.circle.fill")
-                                .font(.title3)
-                                .tint(Color.pointColor)
-                        }
-                    }
-                    .padding(10)
-                    .background(RoundedRectangle(cornerRadius: Configs.cornerRadius).foregroundStyle(Color.staticGray6))
+        }
+        // 사용자가 메세지 보내는 뷰
+        VStack {
+            HStack(alignment: .bottom) {
+                // 사진 보내기 버튼
+                Button {
+                    // 이미지 피커 열기
+                    isShowingImagePicker.toggle()
+                } label: {
+                    Image(systemName: "photo.badge.plus")
+                        .foregroundStyle(.black)
+                        .font(.title3)
+                        .padding(.bottom, 10)
                 }
-                .disabled(!isActive)
-                .padding(.top, 5)
+                // 이미지 피커 시트
+                .sheet(isPresented: $isShowingImagePicker) {
+                    ImagePicker(image: $selectedUIImage)
+                        .onDisappear(){
+                            if selectedUIImage != nil {
+                                showImage()
+                                isRealSendSheet.toggle()
+                            }
+                        }
+                }
+                // 전송 전 사진 확인 페이지
+                .fullScreenCover(isPresented: $isRealSendSheet) {
+                    VStack {
+                        HStack(alignment: .top) {
+                            Button {
+                                isRealSendSheet.toggle()
+                            } label: {
+                                Text("취소하기")
+                            }
+                            Spacer()
+                            Button {
+                                loadImage()
+                                isRealSendSheet.toggle()
+                            } label: {
+                                Text("보내기")
+                            }
+                        }
+                        .padding(Configs.paddingValue)
+                        Spacer()
+                        if let image = image {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: .infinity, height: .infinity)
+                        } else {
+                            Rectangle()
+                                .frame(width: .infinity, height: .infinity)
+                        }
+                        Spacer()
+                    }
+                }
+                
+                HStack(alignment: .bottom) {
+                    // 입력칸
+                    TextField(isActive ? "메세지를 입력해주세요." : "비활성화된 모임입니다.", text: $messageText, axis: .vertical)
+                        .lineLimit(4)
+                        .onSubmit {
+                            sendMessage()
+                        }
+                    
+                    // 입력칸 지우기 버튼
+                    if !messageText.isEmpty {
+                        Button {
+                            messageText = ""
+                        } label: {
+                            Label("입력 취소", systemImage: "xmark.circle.fill")
+                                .labelStyle(.iconOnly)
+                                .font(.title3)
+                                .foregroundStyle(Color.staticGray3)
+                        }
+                    }
+                    
+                    // 메시지 보내기 버튼
+                    Button {
+                        if !messageText.isEmpty {
+                            sendMessage()
+                        }
+                    } label: {
+                        Image(systemName: "paperplane.circle.fill")
+                            .font(.title3)
+                            .tint(Color.pointColor)
+                    }
+                }
+                .padding(10)
+                .background(RoundedRectangle(cornerRadius: Configs.cornerRadius).foregroundStyle(Color.staticGray6))
             }
+            .disabled(!isActive)
+            .padding(.top, 5)
         }
         .padding(.horizontal, Configs.paddingValue)
         
         // FIXME: 채팅방 제목으로
         .navigationTitle("수요일에 맥주 한잔 찌그려요~")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar{
+        .toolbar {
             // 오른쪽 메뉴창
             ToolbarItem(placement: .topBarTrailing) {
                 HStack {
@@ -142,19 +195,32 @@ struct ChatView: View {
     @ViewBuilder
     private func chatView(chat: ChattingModel) -> some View {
         let isYou = uid != chat.userID
+        
         switch chat.type {
+            // 내용이 Text 일때
         case .text:
             HStack {
                 if !isYou {
                     Spacer()
                 }
-                ChatMessageCellView(message: chat, isYou: isYou)
+                ChatMessageCellView(message: chat, isYou: isYou, messageType: .text)
                 if isYou {
                     Spacer()
                 }
             }
+            
+            // 내용이 이미지 일때
         case .image:
-            Text("이미지")
+            HStack {
+                if !isYou {
+                    Spacer()
+                }
+                ChatMessageCellView(message: chat, isYou: isYou, messageType: .image)
+                if isYou {
+                    Spacer()
+                }
+            }
+            // TODO: 날짜 넘어갈때 처리해야합니다.
         case .notice:
             Text(chat.message)
                 .foregroundStyle(Color.pointColor)
@@ -162,6 +228,31 @@ struct ChatView: View {
                 .frame(maxWidth: .infinity)
                 .background(Color.lightPointColor)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
+        }
+    }
+    
+    // 이미지 보내기전 보여주기 위해 로딩하는 함수
+    func showImage() {
+        guard let selectedImage = selectedUIImage else { return }
+        Task {
+            image = Image(uiImage: selectedImage)
+        }
+    }
+    
+    // 이미지를 보내는 함수
+    func loadImage() {
+        guard let selectedImage = selectedUIImage else { return }
+        guard let imageData = selectedImage.pngData() else { return }
+        Task {
+            do {
+                let downloadURL = try await storageService.imageUpload(topDir: .chatting, dirs: ["\(uid)", "chatting"], image: imageData)
+                //                image = Image(uiImage: selectedImage)
+                try chattingService.sendMessage(uid: uid, message: downloadURL, type: .image)
+                
+                print("업로드 완료: \(downloadURL)")
+            } catch {
+                print("에러: \(error)")
+            }
         }
     }
 }
