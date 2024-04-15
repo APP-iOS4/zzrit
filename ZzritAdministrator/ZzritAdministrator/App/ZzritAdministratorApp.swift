@@ -22,12 +22,14 @@ struct ZzritAdministratorApp: App {
     
     // 공지 데이터 뷰 모델
     @StateObject private var noticeViewModel = NoticeViewModel()
+    @StateObject private var termsViewModel = TermsViewModel()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.light)
                 .environmentObject(noticeViewModel)
+                .environmentObject(termsViewModel)
         }
     }
 }

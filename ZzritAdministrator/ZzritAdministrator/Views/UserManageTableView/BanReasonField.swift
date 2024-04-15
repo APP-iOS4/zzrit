@@ -15,7 +15,7 @@ struct BanReasonField: View {
     @State private var banPeriod = 3
     @State private var banMemo = ""
     @State private var banAlert = false
-    @State var isButtonActive: Bool = false
+    @State private var isButtonActive: Bool = false
     @State private var indexAfterPenalty: Double = 0
     @Binding var isUserModal: Bool
     
