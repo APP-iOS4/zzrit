@@ -164,6 +164,14 @@ public final class RoomService {
     
     // TODO: 모임에 참여한 User 리스트 뽑아주기
     
+    /// 모임에 참여한 유저의 목록을 불러옵니다.
+    /// - Parameter roomID(String): 확인 할 모임 ID
+    /// - Returns Array(UserModel)
+    public func joinedUsers(roomID: String) async throws -> [UserModel] {
+        let snapshop = try await fbConstants.joinedCollection(roomID).getDocuments()
+        return try snapshop.documents.map { try $0.data(as: UserModel.self) }
+    }
+    
     /// 모임 참여 여부를 확인합니다.
     /// - Parameter roomID(String): 확인 할 모임 ID
     /// - Parameter uid(String): 유저의 uid
