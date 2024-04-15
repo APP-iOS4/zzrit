@@ -26,8 +26,6 @@ public final class RoomService {
     // 임시 값, 오프라인, deactive
     public static let offlineRoomModel: RoomModel = ZzritKit.RoomModel(title: "저녁 같이 먹을 사람", category: .etc, dateTime: Date(), placeLatitude: 37.4, placeLongitude: 126.4, content: "저녁에 같이 밥먹을 사람을 구해요, 근데 이제 술을 곁들인", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "123123", limitPeople: 5)
     
-    // TODO: 모임 추가
-    
     /**
      # Description
      - 모임 추가를 위한 메서드
@@ -49,7 +47,6 @@ public final class RoomService {
         }
     }
     
-    // TODO: 모임 불러오기
     public func loadRoom(
         isInitial: Bool = true
     ) async throws -> [RoomModel] {
@@ -98,10 +95,7 @@ public final class RoomService {
         }
     }
     
-    
-    
-    // TODO: 모임 수정
-    /// 모임 상태를 변경합니다.
+    /// 모임 내용을 변경합니다.
     ///  - Parameter room: 수정된 RoomModel
     ///  - Parameter roomID(String): 변경할 모임 ID
     public func modifyRoom(_ room: RoomModel, roomID: String) throws {
@@ -109,16 +103,12 @@ public final class RoomService {
         try fbConstants.roomCollection.document(roomID).setData(from: room)
     }
     
-    // TODO: 모임 상태 변경
-    
     /// 모임 상태를 변경합니다.
     ///  - Parameter roomID(String): 변경할 모임 ID
     ///  - Parameter status(ActiveType): 변경할 상태
     public func changeStatus(roomID: String, status: ActiveType) {
         fbConstants.roomCollection.document(roomID).setData(["status": status.rawValue], merge: true)
     }
-    
-    // TODO: 모임 참여 - 해당 모임 하위 컬렉션 JoinedUser에 현재 user.id 넣어줘야됨.
     
     /// 현재 로그인 되어있는 회원이 모임에 창여합니다.
     ///  - Parameter roomID(String): 가입할 모임 ID
@@ -161,8 +151,6 @@ public final class RoomService {
             throw FirebaseErrorType.notJoinedRoom
         }
     }
-    
-    // TODO: 모임에 참여한 User 리스트 뽑아주기
     
     /// 모임 참여 여부를 확인합니다.
     /// - Parameter roomID(String): 확인 할 모임 ID
