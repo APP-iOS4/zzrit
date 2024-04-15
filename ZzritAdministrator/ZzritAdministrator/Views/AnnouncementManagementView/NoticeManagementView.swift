@@ -66,7 +66,7 @@ struct NoticeManagementView: View {
                                              Text(dateService.formattedString(date: notice.date, format: "yyyy/MM/dd HH:mm"))
                                             .frame(width: 150, alignment: .center)
                                     }
-                                    .foregroundStyle(selectedNotice?.id == notice.id ? Color.pointColor : Color.black)
+                                    .foregroundStyle(selectedNotice?.id == notice.id ? Color.pointColor : Color.primary)
                                 }
                                 .padding(10)
                             }

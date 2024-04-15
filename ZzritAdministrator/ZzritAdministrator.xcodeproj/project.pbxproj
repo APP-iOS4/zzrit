@@ -30,6 +30,8 @@
 		9B7574942BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7574932BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift */; };
 		9B90CBC22BCCAFD60005B0BD /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B90CBC12BCCAFD60005B0BD /* TermsView.swift */; };
 		9BA976632BC3D615008B1CD5 /* ComplaintDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA976622BC3D615008B1CD5 /* ComplaintDetailView.swift */; };
+		9BE9A3A02BCCDFFF00272065 /* TermsAddingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A39F2BCCDFFF00272065 /* TermsAddingView.swift */; };
+		9BE9A3A22BCCE28500272065 /* MyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A3A12BCCE28500272065 /* MyButton.swift */; };
 		9BEB2FBD2BC3A6D3009C398F /* UserInfoModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */; };
 		DF54D2392BC36C6600D72491 /* ZzritAdministratorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D2382BC36C6600D72491 /* ZzritAdministratorApp.swift */; };
 		DF54D23B2BC36C6600D72491 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D23A2BC36C6600D72491 /* ContentView.swift */; };
@@ -62,6 +64,8 @@
 		9B7574932BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticGaugeEditingSubview.swift; sourceTree = "<group>"; };
 		9B90CBC12BCCAFD60005B0BD /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		9BA976622BC3D615008B1CD5 /* ComplaintDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintDetailView.swift; sourceTree = "<group>"; };
+		9BE9A39F2BCCDFFF00272065 /* TermsAddingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAddingView.swift; sourceTree = "<group>"; };
+		9BE9A3A12BCCE28500272065 /* MyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyButton.swift; sourceTree = "<group>"; };
 		9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModalView.swift; sourceTree = "<group>"; };
 		DF54D2352BC36C6600D72491 /* ZzritAdministrator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritAdministrator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF54D2382BC36C6600D72491 /* ZzritAdministratorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzritAdministratorApp.swift; sourceTree = "<group>"; };
@@ -173,6 +177,7 @@
 				3B09C2072BC38A8500EA9D54 /* SearchField.swift */,
 				3B7350C42BC3A474008C02AE /* StaticTextView.swift */,
 				3B7350C62BC3A4BC008C02AE /* Constants.swift */,
+				9BE9A3A12BCCE28500272065 /* MyButton.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -189,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				9B90CBC12BCCAFD60005B0BD /* TermsView.swift */,
+				9BE9A39F2BCCDFFF00272065 /* TermsAddingView.swift */,
 			);
 			path = TermsView;
 			sourceTree = "<group>";
@@ -332,9 +338,11 @@
 				9BA976632BC3D615008B1CD5 /* ComplaintDetailView.swift in Sources */,
 				3B09C1FF2BC3836200EA9D54 /* ComplaintManagementView.swift in Sources */,
 				9B4D00012BC58BC1008C5FC7 /* ContactManagerAnswerView.swift in Sources */,
+				9BE9A3A02BCCDFFF00272065 /* TermsAddingView.swift in Sources */,
 				9B7574902BC7BC0600A247C1 /* UserSectionHeader.swift in Sources */,
 				9B4DFFFD2BC58AB2008C5FC7 /* ContactManagerContentView.swift in Sources */,
 				3B09C1F82BC37EA100EA9D54 /* PlaygroundManageMainView.swift in Sources */,
+				9BE9A3A22BCCE28500272065 /* MyButton.swift in Sources */,
 				3B05B18E2BC671C100BF9548 /* LoginView.swift in Sources */,
 				3B09C2022BC3838D00EA9D54 /* NoticeManagementView.swift in Sources */,
 				3B8ECC602BC3CCEA0084C389 /* PlaygroundSectionHeader.swift in Sources */,

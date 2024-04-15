@@ -193,30 +193,7 @@ struct UserManageTableView: View {
     }
 }
 
-struct MyButton: View {
-    var named: String = "My Button"
-    
-    var features: () -> Void = {
-        print("My Button Features!!")
-    }
-    
-    var width: CGFloat = .infinity
-    var height: CGFloat = 50.0
-    
-    var body: some View {
-        Button {
-            features()
-        } label: {
-            Text("\(named)")
-                .foregroundStyle(.white)
-                .font(.title2)
-                .frame(minWidth: 300.0, maxWidth: .infinity)
-                .frame(height: 50.0)
-                .background(Color.pointColor)
-                .clipShape(.rect(cornerRadius: Constants.commonRadius))
-        }
-    }
-}
+
 
 private var tempUsers: [UserModel] = [
     .init(id: UUID().uuidString, userID: "user1@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2005, staticGuage: 99, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
