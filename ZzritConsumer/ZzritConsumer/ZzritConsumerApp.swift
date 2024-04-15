@@ -23,6 +23,8 @@ struct ZzritConsumerApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @StateObject private var userService = UserService()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -37,6 +39,7 @@ struct ZzritConsumerApp: App {
                     UINavigationBar.appearance().standardAppearance = navigationBarAppearance
                 })
                 .preferredColorScheme(.light)
+                .environmentObject(userService)
         }
     }
 }

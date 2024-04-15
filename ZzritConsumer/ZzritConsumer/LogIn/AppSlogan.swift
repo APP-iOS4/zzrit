@@ -12,11 +12,11 @@ struct AppSlogan: View {
     var body: some View {
         Text("만나는 순간의 짜릿함")
             .font(.title3)
-            .fontWeight(.bold)
+            .fontWeight(.black)
             .foregroundStyle(Color.staticGray1)
         Text("ZZ!RIT")
             .font(.largeTitle)
-            .fontWeight(.heavy)
+            .fontWeight(.black)
             .foregroundStyle(Color.pointColor)
     }
 }
