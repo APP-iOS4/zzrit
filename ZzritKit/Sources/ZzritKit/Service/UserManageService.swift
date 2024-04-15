@@ -43,7 +43,6 @@ public final class UserManageService {
                 } else {
                     print("삭제할 문서가 없음.")
                 }
-                
             }
         }
     }
