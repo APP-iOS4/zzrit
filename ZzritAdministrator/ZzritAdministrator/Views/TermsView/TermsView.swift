@@ -11,21 +11,20 @@ import ZzritKit
 
 struct TermsView: View {
     private let userService = UserService()
-    @State private var selectedTerms: TermType = .privacy
-    @State private var isShowingModal: Bool = false
     
-    let termsList: [TermModel] = [
-        .init(id: "1", date: Date(), urlString: "https://www.example.com/1", type: .service),
-        .init(id: "2", date: Date(), urlString: "https://www.example.com/2", type: .privacy),
-        .init(id: "3", date: Date(), urlString: "https://www.example.com/3", type: .location),
-    ]
+    // 공지 뷰모델
+    @EnvironmentObject private var termsViewModel: TermsViewModel
+    
+    // 선택한 약관 종류 - 기본은 개인정보 처리방침
+    @State private var selectedTermType: TermType = .privacy
+    @State private var isShowingModal: Bool = false
     
     private var dateService = DateService.shared
     
     var body: some View {
         VStack {
             HStack {
-                TermsPickerView(selectedTerms: $selectedTerms)
+                TermsPickerView(selectedTerms: $selectedTermType)
                     .padding(8)
                     .overlay {
                         RoundedRectangle(cornerRadius: Constants.commonRadius)
@@ -46,7 +45,7 @@ struct TermsView: View {
             
             ScrollView {
                 LazyVStack(alignment: .leading) {
-                    ForEach(termsList) { term in
+                    ForEach(termsViewModel.termsList) { term in
                         TermsListCell(termURLString: term.urlString, termType: term.type, termDateString: dateService.formattedString(date: term.date, format: "yyyy/MM/dd HH:mm"))
                             .padding(5)
                         Divider()
@@ -58,11 +57,19 @@ struct TermsView: View {
                 RoundedRectangle(cornerRadius: Constants.commonRadius)
                     .stroke(Color.staticGray3, lineWidth: 1.0)
             }
+            .onChange(of: selectedTermType) { _ in
+                termsViewModel.loadTerms(type: selectedTermType)
+            }
+            .onChange(of: isShowingModal) { _ in
+                if !isShowingModal {
+                    termsViewModel.loadTerms(type: selectedTermType)
+                }
+            }
             
         }
         .padding(20)
         .sheet(isPresented: $isShowingModal) {
-            TermsAddingView()
+            TermsAddingView(termType: $selectedTermType)
         }
     }
 }
@@ -105,4 +112,5 @@ struct TermsListCell: View {
 
 #Preview {
     TermsView()
+        .environmentObject(TermsViewModel())
 }

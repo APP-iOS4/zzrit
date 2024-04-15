@@ -11,9 +11,13 @@ import ZzritKit
 
 struct TermsAddingView: View {
     
+    @EnvironmentObject private var termsViewModel: TermsViewModel
     @Environment(\.dismiss) private var dismiss
-    @State private var termType: TermType = .privacy
+    
+    @Binding var termType: TermType
+    
     @State private var termsURLString: String = "https://"
+    @State private var showConfirmAlert: Bool = false
     
     var body: some View {
         VStack {
@@ -55,13 +59,24 @@ struct TermsAddingView: View {
             Spacer()
             
             MyButton(named: "등록") {
-                
+                showConfirmAlert.toggle()
             }
         }
         .padding(20)
+        .alert("새로운 약관을 등록하시겠습니까?", isPresented: $showConfirmAlert) {
+            Button("취소", role: .cancel){
+                print("취소하기")
+                showConfirmAlert.toggle()
+            }
+            Button("등록"){
+                termsViewModel.addTerms(term: .init(date: Date(), urlString: termsURLString, type: termType))
+                showConfirmAlert.toggle()
+                dismiss()
+            }
+        }
     }
 }
 
 #Preview {
-    TermsAddingView()
+    TermsAddingView(termType: .constant(.location))
 }
