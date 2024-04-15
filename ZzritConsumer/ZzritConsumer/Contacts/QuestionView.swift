@@ -7,16 +7,23 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct QuestionView: View {
+    @EnvironmentObject private var userService: UserService
+    private let contactService = ContactService()
+    
     // 문의 내용 작성 버튼을 눌렀는지
     @State private var isTopTrailingAction: Bool = false
+    
+    @State private var contacts: [ContactModel] = []
     
     //MARK: - body
     
     var body: some View {
         VStack {
             // 문의 목록 리스트 뷰
-            QuestionListView()
+            QuestionListView(contacts: contacts)
         }
         .toolbarRole(.editor)
         .toolbar {
@@ -35,11 +42,27 @@ struct QuestionView: View {
                 }
             }
         }
+        .onAppear {
+            fetchContacts()
+        }
+    }
+    
+    private func fetchContacts() {
+        Task {
+            do {
+                if let userUID = try await userService.loginedUserInfo()?.id {
+                    contacts = try await contactService.fetchContact(requestedUID: userUID)
+                }
+            } catch {
+                print("에러: \(error)")
+            }
+        }
     }
 }
 
 #Preview {
     NavigationStack {
         QuestionView()
+            .environmentObject(UserService())
     }
 }

@@ -10,6 +10,11 @@ import SwiftUI
 import ZzritKit
 
 struct ContactInputView: View {
+    @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var contactService: ContactService
+    
+    private let roomService = RoomService.shared
+    
     // 문의 제목 스트링 변수
     @State private var contactTitle: String = ""
     // 문의 내용 스트링 변수
@@ -18,12 +23,14 @@ struct ContactInputView: View {
     @State private var selectedContactCategory: ContactCategory = .app
     // 문의할 모임 변수
     @State private var selectedRoomContact: String = ""
+    // 문의할 모임 내 회원 변수
+    @State private var selectedUserContact: String = ""
     // '문의하기'버튼을 눌렀을 시
     @State private var isPressContactButton: Bool = false
-    // 임시 모임 배열 변수 - 모델 주입 시 삭제될 변수
-    let rooms: [String] = [
-        "수요일에 맥주 한잔 찌그려요~",  "같이 모여서 가볍게 치맥하실 분 구해요!",  "비즈니스 영어회화 스터디",  "파직빠직파지직",
-    ]
+    // 모임 배열 변수
+    @State private var rooms: [RoomModel] = []
+    // 모임 내 회원 변수
+    @State private var users: [UserModel] = []
     
     //MARK: - body
     
@@ -33,12 +40,7 @@ struct ContactInputView: View {
                 // 문의 제목을 받는 곳
                 TextField("문의 제목을 입력해주세요", text: $contactTitle)
                     .foregroundStyle(Color.staticGray1)
-                    .padding(10)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                            .stroke(Color.staticGray5, lineWidth: 1)
-                    }
-                    .tint(Color.pointColor)
+                    .roundedBorder()
                     .padding(.bottom, Configs.paddingValue)
                 
                 // 문의 종류를 받는 곳
@@ -55,12 +57,7 @@ struct ContactInputView: View {
                     }
                 }
                 .foregroundStyle(Color.staticGray1)
-                .padding(10)
-                .overlay {
-                    RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                        .stroke(Color.staticGray5, lineWidth: 1)
-                }
-                .tint(Color.pointColor)
+                .roundedBorder()
                 .padding(.bottom, Configs.paddingValue)
                 
                 // 만약 문의 종류가 모임이라면....
@@ -72,49 +69,126 @@ struct ContactInputView: View {
                         Spacer()
                         
                         // Picker를 통해 selectedRoomContact에 값을 바인딩한다.
-                        Picker("Choose room title", selection: $selectedRoomContact) {
-                            ForEach(rooms, id: \.self) { room in
-                                Text(room)
+                        if #available(iOS 17.0, *) {
+                            Picker("Choose room title", selection: $selectedRoomContact) {
+                                ForEach(rooms) { room in
+                                    Text(room.title)
+                                        .tag(room.id!)
+                                }
+                            }
+                            .onChange(of: selectedRoomContact) { _, _ in
+                                fetchUsers()
+                            }
+                        } else {
+                            Picker("Choose room title", selection: $selectedRoomContact) {
+                                ForEach(rooms) { room in
+                                    Text(room.title)
+                                        .tag(room.id!)
+                                }
+                            }
+                            .onChange(of: selectedRoomContact) { _ in
+                                fetchUsers()
                             }
                         }
                     }
                     .foregroundStyle(Color.staticGray1)
-                    .padding(10)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                            .stroke(Color.staticGray5, lineWidth: 1)
-                    }
-                    .tint(Color.pointColor)
+                    .roundedBorder()
                     .padding(.bottom, Configs.paddingValue)
+                    
+                    if selectedRoomContact != "" {
+                        // 모임 선택시 회원 목록 뜸
+                        HStack {
+                            Text("회원")
+                            
+                            Spacer()
+                            
+                            // Picker를 통해 selectedUserContact에 값을 바인딩한다.
+                            Picker("Choose member", selection: $selectedUserContact) {
+                                Text("신고할 회원을 선택하세요.")
+                                    .tag("")
+                                ForEach(users) { user in
+                                    Text(user.userName)
+                                        .tag(user.id!)
+                                }
+                            }
+                        }
+                        .foregroundStyle(Color.staticGray1)
+                        .roundedBorder()
+                        .padding(.bottom, Configs.paddingValue)
+                    }
                 }
                 
                 // 문의 내용을 작성하는 곳
                 TextField("문의 내용을 입력해주세요", text: $contactContent)
                     .foregroundStyle(Color.staticGray1)
                     .frame(height: 300, alignment: .top)
-                    .padding(10)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                            .stroke(Color.staticGray5, lineWidth: 1)
-                    }
-                    .tint(Color.pointColor)
+                    .roundedBorder()
                     .padding(.bottom, Configs.paddingValue)
                 
                 Spacer()
                 
                 GeneralButton(isDisabled: contactTitle.isEmpty, "문의하기") {
-                    isPressContactButton.toggle()
+                    writeContact()
                 }
                 .navigationDestination(isPresented: $isPressContactButton) {
                     ContactInputCompleteView()
                 }
             }
-            .padding(.vertical, 1)
+            .padding(.vertical, Configs.paddingValue)
             .padding(.horizontal, Configs.paddingValue)
+            .navigationTitle("문의하기")
         }
         .toolbarRole(.editor)
         .onTapGesture {
             self.endTextEditing()
+        }
+        .onAppear {
+            fetchRooms()
+        }
+    }
+    
+    private func fetchRooms() {
+        Task {
+            do {
+                if let joinedRooms = try await userService.loginedUserInfo()?.joinedRooms {
+                    for roomID in joinedRooms {
+                        let room = try await roomService.roomInfo(roomID)
+                        rooms.append(room)
+                    }
+                }
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    
+    private func fetchUsers() {
+        users.removeAll()
+        
+        Task {
+            do {
+                let joinedUsers = try await roomService.joinedUsers(roomID: selectedRoomContact)
+                for user in joinedUsers {
+                    if let userModel = try await userService.getUserInfo(uid: user.userID) {
+                        users.append(userModel)
+                    }
+                }
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    
+    private func writeContact() {
+        Task {
+            do {
+                let userUID = try await userService.loginedUserInfo()?.id
+                let contact = ContactModel(category: selectedContactCategory, title: contactTitle, content: contactContent, requestedDated: .now, requestedUser: userUID!, targetRoom: selectedRoomContact, targetUser: [selectedUserContact])
+                try contactService.writeContact(contact)
+                isPressContactButton.toggle()
+            } catch {
+                print("에러: \(error)")
+            }
         }
     }
 }
@@ -122,5 +196,7 @@ struct ContactInputView: View {
 #Preview {
     NavigationStack {
         ContactInputView()
+            .environmentObject(UserService())
+            .environmentObject(ContactService())
     }
 }

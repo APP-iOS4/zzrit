@@ -10,7 +10,7 @@ import Foundation
 import FirebaseFirestore
 
 @available(iOS 16.0.0, *)
-public final class ContactService {
+public final class ContactService: ObservableObject {
     private let firebaseConstant = FirebaseConstants()
     
     public init() {}
@@ -94,5 +94,6 @@ public final class ContactService {
     /// 문의사항에 답변을 등록합니다.
     public func writeReply(_ reply: ContactReplyModel, contactID: String) throws {
         try firebaseConstant.contactReplyCollection(contactID).addDocument(from: reply)
+        firebaseConstant.contactCollection.document(contactID).setData(["latestAnswerDate": Date()], merge: true)
     }
 }
