@@ -21,11 +21,14 @@ public struct BannedModel: Codable, Identifiable {
     
     public var adminID: String
     
-    public init(id: String? = UUID().uuidString, date: Date, period: Date, type: BannedType, adminID: String) {
+    public var content: String
+    
+    public init(id: String? = UUID().uuidString, date: Date, period: Date, type: BannedType, adminID: String, content: String) {
         self.id = id
         self.date = date
         self.period = period
         self.type = type
         self.adminID = adminID
+        self.content = content
     }
 }

@@ -198,18 +198,18 @@ struct PlaygroundManageMainView: View {
 // TODO: 더미 데이터 입니다 추후 삭제할 예정입니다.
 struct DummyModeledUsers {
     static let dummyUsers: [UserModel] = [
-        .init(id: UUID().uuidString, userID: "user1@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2005, staticGuage: 99, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-        .init(id: UUID().uuidString, userID: "user2@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2010, staticGuage: 88, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-        .init(id: UUID().uuidString, userID: "user3@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1991, staticGuage: 66, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-        .init(id: UUID().uuidString, userID: "user4@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1992, staticGuage: 77, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-        .init(id: UUID().uuidString, userID: "user5@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1986, staticGuage: 75, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-        .init(id: UUID().uuidString, userID: "user6@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1970, staticGuage: 65, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-        .init(id: UUID().uuidString, userID: "user7@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2004, staticGuage: 98, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-        .init(id: UUID().uuidString, userID: "user8@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2009, staticGuage: 87, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-        .init(id: UUID().uuidString, userID: "user9@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1989, staticGuage: 67, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-        .init(id: UUID().uuidString, userID: "user10@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1990, staticGuage: 76, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-        .init(id: UUID().uuidString, userID: "user11@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1985, staticGuage: 73, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
-        .init(id: UUID().uuidString, userID: "user12@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1971, staticGuage: 60, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+        .init(id: UUID().uuidString, userID: "user1@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2005, staticGauge: 99, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+        .init(id: UUID().uuidString, userID: "user2@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2010, staticGauge: 88, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+        .init(id: UUID().uuidString, userID: "user3@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1991, staticGauge: 66, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+        .init(id: UUID().uuidString, userID: "user4@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1992, staticGauge: 77, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+        .init(id: UUID().uuidString, userID: "user5@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1986, staticGauge: 75, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+        .init(id: UUID().uuidString, userID: "user6@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1970, staticGauge: 65, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+        .init(id: UUID().uuidString, userID: "user7@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2004, staticGauge: 98, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+        .init(id: UUID().uuidString, userID: "user8@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2009, staticGauge: 87, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+        .init(id: UUID().uuidString, userID: "user9@example.com", userName: "A340", userImage: "person", gender: .female, birthYear: 1989, staticGauge: 67, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+        .init(id: UUID().uuidString, userID: "user10@example.com", userName: "A330", userImage: "person", gender: .male, birthYear: 1990, staticGauge: 76, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+        .init(id: UUID().uuidString, userID: "user11@example.com", userName: "A320", userImage: "person", gender: .female, birthYear: 1985, staticGauge: 73, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
+        .init(id: UUID().uuidString, userID: "user12@example.com", userName: "A300", userImage: "person", gender: .male, birthYear: 1971, staticGauge: 60, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
     ]
 }
 

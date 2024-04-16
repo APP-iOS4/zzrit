@@ -81,10 +81,10 @@ struct BanReasonField: View {
             0
         }
         
-        indexAfterPenalty = if user.staticGuage - penalty < 0 {
+        indexAfterPenalty = if user.staticGauge - penalty < 0 {
             0
         } else {
-            user.staticGuage - penalty
+            user.staticGauge - penalty
         }
     }
 }

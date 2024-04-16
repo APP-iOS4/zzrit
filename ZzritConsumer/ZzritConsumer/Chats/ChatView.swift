@@ -7,58 +7,53 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct ChatView: View {
+    // TODO: 모임방의 ID
+    @StateObject private var chattingService = ChattingService(roomID: "1Ab05L2UJXVpbYD7qxNc")
+    
+    // 현재 계정의 uid = tMecHWbZuyYapCJmmiN9AnP9TeQ2
+    var uid: String = "tMecHWbZuyYapCJmmiN9AnP9TeQ2"
+    
     // 입력 메세지 변수
     @State private var messageText: String = ""
-    // 활성화 여부
+    
+    // FIXME: 모임방 활성화 여부
     var isActive: Bool
-    //임시 뷰모델 호출
-    let messageViewModel: MessageViewModel = MessageViewModel()
+    
+    // 메시지 모델
+    var messages: [ChattingModel] {
+        chattingService.messages
+    }
     
     var body: some View {
-        // 공지사항: 방의 세부 정보
+        
+        // FIXME: 모임의 장소, 시간 정보 View 한번 들어가서 고쳐주세요.
         ChatRoomNoticeView()
         Divider()
         
         VStack {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack {
-                    ForEach(messageViewModel.messages) { message in
-                        // 메세지가 상대방일 경우
-                        if !message.isYou {
-                            LazyVStack(alignment: .leading) {
-                                ChatMessageCellView(message: message)
-                            }
-                            //  메세지가 내꺼일 경우
-                        } else if message.isYou {
-                            LazyVStack(alignment: .trailing) {
-                                ChatMessageCellView(message: message)
-                            }
-                        } else {
-                            // 어떻게 벌써 12시~~
-                            HStack {
-                                Text("2024년 4월 12일 금요일")
-                                    .font(.caption)
-                                    .foregroundStyle(Color.staticGray3)
-                                    .frame(maxWidth: .infinity)
-                            }
-                            // 누군가 두둥등쟝 ✨
-                            // JoinedUserModel
-                            Text("\(message.user)님께서 입장하셨어요.")
-                                .foregroundStyle(Color.pointColor)
-                                .padding(10)
-                                .frame(maxWidth: .infinity)
-                                .background(Color.lightPointColor)
-                                .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                        }
+                    // 채팅 내용 스크롤뷰
+                    ForEach(messages) { message in
+                        chatView(chat: message)
                     }
                 }
             }
-            .padding(.vertical, 1)
+            .padding(.vertical, 5)
+            .onTapGesture {
+                self.endTextEditing()
+            }
+            .onAppear {
+                fetchChatting()
+            }
             
             // 사용자가 메세지 보내는 뷰
             VStack {
                 HStack(alignment: .bottom) {
+                    // 사진 보내기 버튼
                     Button {
                         
                     } label: {
@@ -67,29 +62,28 @@ struct ChatView: View {
                             .font(.title3)
                             .padding(.bottom, 10)
                     }
-                    
-                    // 메세지 입력칸
+                
                     HStack(alignment: .bottom) {
+                        // 입력칸
                         TextField(isActive ? "메세지를 입력해주세요." : "비활성화된 모임입니다.", text: $messageText, axis: .vertical)
                             .lineLimit(4)
                             .onSubmit {
-                                let messageModel: MessageModel = .init(user: "일이삼", isYou: true, message: messageText, dateString: "더미시간")
-                                messageViewModel.messages.append(messageModel)
-                                
-                                messageText = ""
+                                sendMessage()
                             }
+                        // 입력칸 지우기 버튼
                         if !messageText.isEmpty {
                             Button {
                                 messageText = ""
                             } label: {
-                                Label("검색 취소", systemImage: "xmark.circle.fill")
+                                Label("입력 취소", systemImage: "xmark.circle.fill")
                                     .labelStyle(.iconOnly)
                                     .font(.title3)
                                     .foregroundStyle(Color.staticGray3)
                             }
                         }
+                        // 메시지 보내기 버튼
                         Button {
-                            
+                            sendMessage()
                         } label: {
                             Image(systemName: "paperplane.circle.fill")
                                 .font(.title3)
@@ -104,10 +98,8 @@ struct ChatView: View {
             }
         }
         .padding(.horizontal, Configs.paddingValue)
-        .onTapGesture {
-            self.endTextEditing()
-        }
-        // FIXME: 모델 연동시 채팅방 제목으로
+        
+        // FIXME: 채팅방 제목으로
         .navigationTitle("수요일에 맥주 한잔 찌그려요~")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar{
@@ -123,6 +115,54 @@ struct ChatView: View {
             }
         }
         .toolbarRole(.editor)
+    }
+    
+    // 채팅 불러오는 함수
+    private func fetchChatting() {
+        Task {
+            do {
+                try await chattingService.fetchChatting()
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    
+    // 메세지 보내는 함수
+    private func sendMessage() {
+        do {
+            try chattingService.sendMessage(uid: uid, message: messageText, type: .text)
+            messageText = ""
+        } catch {
+            print("에러: \(error)")
+        }
+    }
+    
+    // 메시지 뷰
+    @ViewBuilder
+    private func chatView(chat: ChattingModel) -> some View {
+        let isYou = uid != chat.userID
+        switch chat.type {
+        case .text:
+            HStack {
+                if !isYou {
+                    Spacer()
+                }
+                ChatMessageCellView(message: chat, isYou: isYou)
+                if isYou {
+                    Spacer()
+                }
+            }
+        case .image:
+            Text("이미지")
+        case .notice:
+            Text(chat.message)
+                .foregroundStyle(Color.pointColor)
+                .padding(10)
+                .frame(maxWidth: .infinity)
+                .background(Color.lightPointColor)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+        }
     }
 }
 

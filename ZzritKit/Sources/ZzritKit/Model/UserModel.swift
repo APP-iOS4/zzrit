@@ -25,7 +25,7 @@ public struct UserModel: Codable, Identifiable {
     /// 유저의 출생년도
     public var birthYear: Int
     /// 유저의 정전기 지수
-    public var staticGuage: Double
+    public var staticGauge: Double
     /// 회원 탈퇴 일자
     public var secessionDate: Date?
     /// 유저가 참여한 모임 목록
@@ -40,14 +40,14 @@ public struct UserModel: Codable, Identifiable {
     /// - Warning: 동의를 한 날짜가 아닌, 시행날짜 입니다.
     public var agreeLocationDate: Date?
     
-    public init(id: String? = UUID().uuidString, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGuage: Double, joinedRooms: [String]? = nil, agreeServiceDate: Date?, agreePrivacyDate: Date?, agreeLocationDate: Date?) {
+    public init(id: String? = UUID().uuidString, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGauge: Double, joinedRooms: [String]? = nil, agreeServiceDate: Date?, agreePrivacyDate: Date?, agreeLocationDate: Date?) {
         self.id = id
         self.userID = userID
         self.userName = userName
         self.userImage = userImage
         self.gender = gender
         self.birthYear = birthYear
-        self.staticGuage = staticGuage
+        self.staticGauge = staticGauge
         self.joinedRooms = joinedRooms
         self.agreeServiceDate = agreeServiceDate
         self.agreePrivacyDate = agreePrivacyDate

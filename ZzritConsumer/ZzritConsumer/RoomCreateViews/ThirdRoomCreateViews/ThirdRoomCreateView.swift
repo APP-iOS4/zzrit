@@ -17,8 +17,8 @@ struct ThirdRoomCreateView: View {
     @State var dateNumber: Int?
     // 버튼 활성화 여부를 결정할 변수
     @State var isButtonEnabled: Bool = false
-    @State var isStaticGuageLimit: Bool = false
-    @State var staticGuageLimit: Double = 20.0
+    @State var isStaticGaugeLimit: Bool = false
+    @State var staticGaugeLimit: Double = 20.0
     
     var body: some View {
         NavigationStack {
@@ -80,14 +80,14 @@ struct ThirdRoomCreateView: View {
                     // 참여 가능 정전기 지수
                     VStack(spacing: 20.0) {
                         HStack {
-                            RoomCreateSubTitle("참여가능 정전기 지수", clarification: "\(Int(staticGuageLimit))W이상", type: .staticGuage)
+                            RoomCreateSubTitle("참여가능 정전기 지수", clarification: "\(Int(staticGaugeLimit))W이상", type: .staticGauge)
                             
-                            Toggle("", isOn: $isStaticGuageLimit)
+                            Toggle("", isOn: $isStaticGaugeLimit)
                                 .frame(width: 100.0)
                                 .offset(x: -2.0)
                         }
                         
-                        Slider(value: $staticGuageLimit, in: 1 ... 100, step: 1.0)
+                        Slider(value: $staticGaugeLimit, in: 1 ... 100, step: 1.0)
                     }
                     .padding(.vertical)
                 }

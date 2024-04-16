@@ -20,9 +20,9 @@ public final class UserManageService {
     
     // TODO: 유저 제제 등록
     // 관리자id, 유저id
-    public func registerUserRestriction(userID uid: String, adminID aid: String, bannedType: BannedType, period: Date) throws {
+    public func registerUserRestriction(userID uid: String, adminID aid: String, bannedType: BannedType, period: Date, content: String) throws {
         do {
-            let tempBannedModel = BannedModel(date: Date(), period: period, type: bannedType, adminID: aid)
+            let tempBannedModel = BannedModel(date: Date(), period: period, type: bannedType, adminID: aid, content: content)
             try fbConstant.userCollection.document(uid).collection("BannedHistory").addDocument(from: tempBannedModel)
 
         } catch {
@@ -43,7 +43,6 @@ public final class UserManageService {
                 } else {
                     print("삭제할 문서가 없음.")
                 }
-                
             }
         }
     }

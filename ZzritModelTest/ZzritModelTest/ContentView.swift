@@ -19,7 +19,7 @@ struct ContentView: View {
                         ImageUploadView()
                     }
                     NavigationLink("찌릿 멤버 정전기 지수 올리기") {
-                        IncrementStaticGuageView()
+                        IncrementStaticGaugeView()
                     }
                     NavigationLink("공지사항") {
                         NoticeView()

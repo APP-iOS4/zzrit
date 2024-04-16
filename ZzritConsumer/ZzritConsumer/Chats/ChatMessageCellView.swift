@@ -7,18 +7,20 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct ChatMessageCellView: View {
     
-    var message: MessageModel
+    var message: ChattingModel
+    var isYou: Bool
     
     var body: some View {
         HStack {
             
             //MARK: - 상대방 메세지 뷰 구현
             
-            if !message.isYou {
-                // FIXME: 모델 연동시 이곳 이미지 유저 프로필 이미지로 변경
-                // 이곳에 나중
+            if isYou {
+                // FIXME: 유저 프로필 이미지로 변경
                 Image(systemName: "person.crop.circle.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -27,25 +29,25 @@ struct ChatMessageCellView: View {
                 
                 HStack(alignment: .bottom) {
                     VStack(alignment: .leading) {
-                        //FIXME: 모델 연동시 이곳은 유저의 닉네임으로 변경
+                        // FIXME: 메시지를 보낸 유저의 닉네임으로 변경
                         HStack {
                             // TODO: if userId가 방장 일때
+                            // if message.userID == RoomModel.leaderID
                             Image(systemName: "crown.fill")
                                 .font(.callout)
                                 .foregroundStyle(Color.yellow)
-                            Text(message.user)
+                            Text(message.userID)
                                 .foregroundStyle(Color.staticGray1)
                         }
-                        
-                        // FIXME: 모델 연동시 이곳은 유저가 작성한 메세지로 변경
+                        // 상대방 메시지 내용
                         Text(message.message)
                             .foregroundStyle(Color.staticGray1)
                             .padding(10)
                             .background(Color.staticGray6)
                             .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
                     }
-                    
-                    Text(message.dateString)
+                    // 메시지 보낸 날짜 - 상대방
+                    Text(DateService.shared.timeString(time: message.date.toStringHour() + ":" + message.date.toStringMinute()))
                         .font(.caption2)
                         .foregroundStyle(Color.staticGray2)
                 }
@@ -54,14 +56,13 @@ struct ChatMessageCellView: View {
                 
             } else {
                 HStack(alignment: .bottom) {
-                    // FIXME: 모델 연동시 이곳은 메세지 등록 시간으로 변경
-                    Text(message.dateString)
+                    // 메시지 보낸 날짜 - 나
+                    Text(DateService.shared.timeString(time: message.date.toStringHour() + ":" + message.date.toStringMinute()))
                         .font(.caption2)
                         .foregroundStyle(Color.staticGray2)
                     
-                    
+                    // 나의 메시지 내용
                     VStack(alignment: .leading) {
-                        // FIXME: 모델 연동시 이곳은 유저가 작성한 메세지로 변경
                         Text(message.message)
                             .foregroundStyle(.white)
                             .padding(10)
@@ -74,6 +75,6 @@ struct ChatMessageCellView: View {
     }
 }
 
-#Preview {
-    ChatMessageCellView(message: MessageViewModel.dummyMessage)
-}
+//#Preview {
+//    ChatMessageCellView(message: MessageViewModel.dummyMessage, isYou: <#Bool#>)
+//}

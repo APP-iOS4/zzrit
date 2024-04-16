@@ -16,12 +16,14 @@ struct ChatRoomNoticeView: View {
                 .fontWeight(.bold)
                 .foregroundStyle(Color.pointColor)
                 .padding(.bottom, 5)
+            // FIXME: RoomModel.dateTime
             Text("2024년 05월 04일 19:00")
                 .padding(.bottom, 5)
             
             Text("모임 장소")
                 .fontWeight(.bold)
                 .foregroundStyle(Color.pointColor)
+            // FIXME: RoomModel.placeLatitude - RoomModel.placeLongitude
             Text("서울특별시 종로구 종로 17길 바밤바밤뚜두두")
         }
         .font(.footnote)

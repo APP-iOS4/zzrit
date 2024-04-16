@@ -87,8 +87,8 @@
 		DFC75F822BC36CC50005DDD9 /* ZzritKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFC75F812BC36CC50005DDD9 /* ZzritKit */; };
 		FC0A793F2BC8C9B30012F85D /* ChatRoomNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0A793E2BC8C9B30012F85D /* ChatRoomNoticeView.swift */; };
 		FC2DDC0D2BC5070A00A51E64 /* MoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */; };
-		FC2DDC0F2BC508B700A51E64 /* MyStaticGuageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC0E2BC508B700A51E64 /* MyStaticGuageView.swift */; };
-		FC2DDC112BC50B6900A51E64 /* StaticGuageProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC102BC50B6900A51E64 /* StaticGuageProgressView.swift */; };
+		FC2DDC0F2BC508B700A51E64 /* MyStaticGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC0E2BC508B700A51E64 /* MyStaticGaugeView.swift */; };
+		FC2DDC112BC50B6900A51E64 /* StaticGaugeProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC102BC50B6900A51E64 /* StaticGaugeProgressView.swift */; };
 		FC2DDC132BC5231200A51E64 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC122BC5231200A51E64 /* ProfileEditView.swift */; };
 		FC2DDC152BC528F900A51E64 /* RecentWatchRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC142BC528F900A51E64 /* RecentWatchRoomView.swift */; };
 		FC2DDC172BC52FBA00A51E64 /* MoreInfoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC162BC52FBA00A51E64 /* MoreInfoListView.swift */; };
@@ -188,8 +188,8 @@
 		DF9674C22BCD211B00322382 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FC0A793E2BC8C9B30012F85D /* ChatRoomNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomNoticeView.swift; sourceTree = "<group>"; };
 		FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoView.swift; sourceTree = "<group>"; };
-		FC2DDC0E2BC508B700A51E64 /* MyStaticGuageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStaticGuageView.swift; sourceTree = "<group>"; };
-		FC2DDC102BC50B6900A51E64 /* StaticGuageProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticGuageProgressView.swift; sourceTree = "<group>"; };
+		FC2DDC0E2BC508B700A51E64 /* MyStaticGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStaticGaugeView.swift; sourceTree = "<group>"; };
+		FC2DDC102BC50B6900A51E64 /* StaticGaugeProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticGaugeProgressView.swift; sourceTree = "<group>"; };
 		FC2DDC122BC5231200A51E64 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		FC2DDC142BC528F900A51E64 /* RecentWatchRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWatchRoomView.swift; sourceTree = "<group>"; };
 		FC2DDC162BC52FBA00A51E64 /* MoreInfoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoListView.swift; sourceTree = "<group>"; };
@@ -542,8 +542,8 @@
 		FC2DDC1F2BC586EB00A51E64 /* StaticGuageView */ = {
 			isa = PBXGroup;
 			children = (
-				FC2DDC0E2BC508B700A51E64 /* MyStaticGuageView.swift */,
-				FC2DDC102BC50B6900A51E64 /* StaticGuageProgressView.swift */,
+				FC2DDC0E2BC508B700A51E64 /* MyStaticGaugeView.swift */,
+				FC2DDC102BC50B6900A51E64 /* StaticGaugeProgressView.swift */,
 			);
 			path = StaticGuageView;
 			sourceTree = "<group>";
@@ -673,7 +673,7 @@
 				FC2DDC232BC5921000A51E64 /* HorizontalLabel.swift in Sources */,
 				1F06034C2BC58EAE003808F4 /* ThirdRoomCreateView.swift in Sources */,
 				FCAF4A1C2BC40CBA00603C2D /* SignUpAgreeButton.swift in Sources */,
-				FC2DDC0F2BC508B700A51E64 /* MyStaticGuageView.swift in Sources */,
+				FC2DDC0F2BC508B700A51E64 /* MyStaticGaugeView.swift in Sources */,
 				30BE7EC12BC57C7E00A5A178 /* QuestionView.swift in Sources */,
 				3056254D2BC6B77000814FBF /* View+Extension.swift in Sources */,
 				30BE7EC02BC57C7E00A5A178 /* ContactQuestionDetailView.swift in Sources */,
@@ -720,7 +720,7 @@
 				1F5038E42BC4E6AF00381EE5 /* ArchieveRecentSearchCell.swift in Sources */,
 				30BE7EC92BC57CCA00A5A178 /* ContactInputView.swift in Sources */,
 				309688072BC65A5B007064A3 /* ChatCategoryView.swift in Sources */,
-				FC2DDC112BC50B6900A51E64 /* StaticGuageProgressView.swift in Sources */,
+				FC2DDC112BC50B6900A51E64 /* StaticGaugeProgressView.swift in Sources */,
 				1F6454F22BC8B60B00C9D235 /* RCParticipantsSection.swift in Sources */,
 				1F0603522BC5BF56003808F4 /* FilterCategory.swift in Sources */,
 				30064DBC2BC802A000FD04A2 /* MessageViewModel.swift in Sources */,

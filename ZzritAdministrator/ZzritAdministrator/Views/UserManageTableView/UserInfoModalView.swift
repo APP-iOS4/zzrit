@@ -37,14 +37,14 @@ struct UserInfoModalView: View {
                 Button {
                     isEditingIndex.toggle()
                 } label: {
-                    StaticTextView(title: "\(String(format: "%.1f", user.staticGuage))W", selectType: .gauge, width: 100, isActive: .constant(true))
+                    StaticTextView(title: "\(String(format: "%.1f", user.staticGauge))W", selectType: .gauge, width: 100, isActive: .constant(true))
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                 }
             }
             
             if isEditingIndex {
-                StaticGaugeEditingSubview(user: user, indexAfterEdit: user.staticGuage, isUserModal: $isUserModal)
+                StaticGaugeEditingSubview(user: user, indexAfterEdit: user.staticGauge, isUserModal: $isUserModal)
             }
             
             HStack {
@@ -158,5 +158,5 @@ private var SomeoneBanList: [SomeoneBan] = [
 ]
 
 #Preview {
-    UserInfoModalView(isUserModal: .constant(true), user: .init(userID: "example@example.com", userName: "EXAMPLE DATA", userImage: "xmark", gender: .male, birthYear: 1900, staticGuage: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()))
+    UserInfoModalView(isUserModal: .constant(true), user: .init(userID: "example@example.com", userName: "EXAMPLE DATA", userImage: "xmark", gender: .male, birthYear: 1900, staticGauge: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()))
 }
