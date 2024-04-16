@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RoomCreateSubTitle: View {
+struct ArchieveRCSubtitle: View {
     // 부제목 변수
     let title: String
     // 추가 설명
@@ -61,5 +61,5 @@ struct RoomCreateSubTitle: View {
 }
 
 #Preview {
-    RoomCreateSubTitle("정원", clarification: "2~10명", type: .coverPhoto)
+    ArchieveRCSubtitle("정원", clarification: "2~10명", type: .coverPhoto)
 }

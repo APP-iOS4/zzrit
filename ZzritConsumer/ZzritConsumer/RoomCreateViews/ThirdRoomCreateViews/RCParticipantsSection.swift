@@ -28,7 +28,7 @@ struct RCParticipantsSection: View {
     
     var body: some View {
         HStack {
-            RoomCreateSubTitle("정원", clarification: "2~10명")
+            RCSubTitle("정원", clarification: "2~10명")
                 .lineLimit(1)
             
             ZStack {

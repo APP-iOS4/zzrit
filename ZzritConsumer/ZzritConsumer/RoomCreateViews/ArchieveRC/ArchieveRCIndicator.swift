@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RoomCreateIndicator: View {
+struct ArchieveRCIndicator: View {
     let page: RoomCreatePage
     
     var body: some View {
@@ -28,5 +28,5 @@ struct RoomCreateIndicator: View {
 }
 
 #Preview {
-    RoomCreateIndicator(page: .second)
+    ArchieveRCIndicator(page: .second)
 }

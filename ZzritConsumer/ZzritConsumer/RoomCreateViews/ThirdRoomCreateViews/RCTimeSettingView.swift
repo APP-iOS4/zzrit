@@ -8,30 +8,16 @@
 import SwiftUI
 
 struct RCTimeSettingView: View {
-    @State var isShowingTimeSettingSheet: Bool = false
-    @State var selectedTime: String = "오전 10:00"
+    @State private var date: Date = Date()
     
     var body: some View {
-        Button {
-            isShowingTimeSettingSheet.toggle()
-        } label: {
-            HStack {
-                Label(selectedTime, systemImage: "alarm")
-                Spacer()
-            }
-            .foregroundStyle(.black)
-            .padding()
-            .overlay {
-                RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                    .stroke(Color.staticGray6, lineWidth: 1.0)
-            }
-        }
-        .sheet(isPresented: $isShowingTimeSettingSheet) {
-            HStack {
-                Text("시간 선택 화면")
-            }
-            .presentationDetents([.medium])
-        }
+        DatePicker("시간을 정해주세요.",
+            selection: $date,
+            displayedComponents: .hourAndMinute
+        )
+        .datePickerStyle(.wheel)
+        .labelsHidden()
+        .tint(Color.pointColor)
     }
 }
 

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RCNavigationBarView: View {
+struct ArchieveRCNaviBar: View {
     @Environment(\.dismiss) private var dismiss
     let page: RCPage
     
@@ -52,5 +52,5 @@ struct RCNavigationBarView: View {
 }
 
 #Preview {
-    RCNavigationBarView(page: .first)
+    ArchieveRCNaviBar(page: .first)
 }
