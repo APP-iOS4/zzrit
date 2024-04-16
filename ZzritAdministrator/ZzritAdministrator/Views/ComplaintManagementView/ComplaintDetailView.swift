@@ -12,6 +12,8 @@ import SwiftUI
 import ZzritKit
 
 struct ComplaintDetailView: View {
+    @EnvironmentObject private var contactViewModel: ContactViewModel
+    
     @Binding var contact: ContactModel?
     @Binding var isShowingModalView: Bool
     @State private var contactAnswerText: String = ""
@@ -95,11 +97,14 @@ struct ComplaintDetailView: View {
             }
             Button("등록하기"){
                 print("등록하기")
+                contactViewModel.replyContact(contact: contact ?? .init(category: .app, title: "", content: "", requestedDated: Date(), requestedUser: ""),
+                                              replyContent: contactAnswerText)
+                
+                contactAnswerText = ""
+                
                 isContactAlert.toggle()
             }
         }
-        //         message: {
-        //        }
         .onTapGesture {
             #if canImport(UIKit)
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)

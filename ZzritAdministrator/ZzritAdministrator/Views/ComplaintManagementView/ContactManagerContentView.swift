@@ -10,6 +10,8 @@ import SwiftUI
 import ZzritKit
 
 struct ContactManagerContentView: View {
+    @EnvironmentObject private var contactViewModel: ContactViewModel
+    
     @Binding var isShowingGroupInfo: Bool
     @Binding var contact: ContactModel?
     let dateService = DateService.shared
@@ -47,39 +49,66 @@ struct ContactManagerContentView: View {
                 //                    StaticTextView(title: "모임정보", width: 100, isActive: .constant(true))
                 //                })
             }
-            VStack(alignment: .leading, spacing: 30) {
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("\(contact?.category.rawValue ?? "")")
-                        .foregroundStyle(Color.pointColor)
-                        .fontWeight(.bold)
-                    HStack {
-                        Text("\(contact?.title ?? "")")
-                            .font(.title2)
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 30) {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("\(contact?.category.rawValue ?? "")")
+                            .foregroundStyle(Color.pointColor)
                             .fontWeight(.bold)
-                        Spacer()
-                        Text("\(dateService.dateString(date: contact?.requestedDate ?? Date()))")
-                            .foregroundStyle(Color.staticGray3)
-                    }
-                    Divider()
-                    
-                    if contact?.targetRoom != nil && contact?.category == .room {
                         HStack {
-                            Text("대상 모임: ")
+                            Text("\(contact?.title ?? "")")
+                                .font(.title2)
                                 .fontWeight(.bold)
-                            Text("\(contact?.targetRoom ?? "")")
+                            Spacer()
+                            Text("\(dateService.formattedString(date: contact?.requestedDate ?? Date(), format: "yyyy/MM/dd HH:mm:ss"))")
+                                .foregroundStyle(Color.staticGray3)
                         }
-                    } 
+                        Divider()
+                        
+                        if contact?.targetRoom != nil && contact?.category == .room {
+                            HStack {
+                                Text("대상 모임: ")
+                                    .fontWeight(.bold)
+                                Text("\(contact?.targetRoom ?? "")")
+                            }
+                        }
+                    }
+                    
+                    Text("\(contact?.content ?? "")")
+                    
+                    Spacer(minLength: 10)
+                    
+                    if !contactViewModel.replies.isEmpty {
+                        ForEach(contactViewModel.replies) { reply in
+                            Divider()
+                            //Text("관리자(\(reply.answeredAdmin))의 답변")
+                            HStack(alignment: .bottom) {
+                                Text("관리자 답변")
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                
+                                Spacer()
+                                
+                                Text(dateService.formattedString(date: reply.date,
+                                                            format: "yyyy/MM/dd HH:mm:ss"))
+                                    .foregroundStyle(Color.staticGray3)
+                            }
+                            Text(reply.content)
+                        }
+                    }
+                    
                 }
-                Text("\(contact?.content ?? "")")
-                Spacer(minLength: 10)
+                .padding(30)
             }
-            .padding(30)
             .overlay {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.staticGray3, lineWidth: 1.0)
             }
         }
         .padding(.top, 10)
+        .onAppear {
+            contactViewModel.fetchReplies(contact: contact ?? .init(category: .app, title: "", content: "", requestedDated: Date(), requestedUser: ""))
+        }
     }
 }
 

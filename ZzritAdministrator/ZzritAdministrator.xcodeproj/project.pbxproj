@@ -150,9 +150,9 @@
 			children = (
 				3B09C1FE2BC3836200EA9D54 /* ComplaintManagementView.swift */,
 				9BA976622BC3D615008B1CD5 /* ComplaintDetailView.swift */,
+				9B4DFFFC2BC58AB2008C5FC7 /* ContactManagerContentView.swift */,
 				9B4D00002BC58BC1008C5FC7 /* ContactManagerAnswerView.swift */,
 				9B4DFFFE2BC58B46008C5FC7 /* ContactManageUserInfoView.swift */,
-				9B4DFFFC2BC58AB2008C5FC7 /* ContactManagerContentView.swift */,
 			);
 			path = ComplaintManagementView;
 			sourceTree = "<group>";

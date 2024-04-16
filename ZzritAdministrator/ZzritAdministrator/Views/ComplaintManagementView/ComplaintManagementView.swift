@@ -188,4 +188,5 @@ public struct ScrollViewWithOffset<Content: View>: View {
 
 #Preview {
     ComplaintManagementView()
+        .environmentObject(ContactViewModel())
 }
