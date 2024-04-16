@@ -255,11 +255,11 @@ struct ChatView: View {
             Task {
                 do {
                     try await chattingService.fetchChatting()
+                    isComingNew = messages.last!.id
                 } catch let error {
                     switch error.self {
                     case FetchError.noMoreFetch:
                         isfetchFinish.toggle()
-                        isComingNew = messages.last!.id
                     default:
                         print("error: \(error)")
                     }
