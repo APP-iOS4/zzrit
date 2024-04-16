@@ -9,11 +9,11 @@ import Foundation
 import ZzritKit
 
 @MainActor
-class NoticeViewModel: ObservableObject {
+final class NoticeViewModel: ObservableObject {
     @Published var notices: [NoticeModel] = []
-    var initialFetch: Bool = true
-    private let noticeService = NoticeService()
     
+    private var initialFetch: Bool = true
+    private let noticeService = NoticeService()
     
     init() {
         loadNotices()
@@ -64,18 +64,18 @@ class NoticeViewModel: ObservableObject {
     }
     
     /// 공지 수정 함수
-    func updateNotice(notice: NoticeModel, title: String, content: String) {
+    func updateNotice(noticeID: NoticeModel.ID, title: String, content: String) {
         let date = Date()
         
         Task {
             do {
                 // TODO: writerUID 수정해야 함
-                // let tempNotice = NoticeModel(id: notice.id, title: title, content: content, date: date, writerUID: "lZJDCklNWnbIBcARDFfwVL8oSCf1")
-                try noticeService.writeNotice(NoticeModel(id: notice.id, title: title, content: content, date: date, writerUID: "lZJDCklNWnbIBcARDFfwVL8oSCf1"))
+                let tempNotice = NoticeModel(id: noticeID, title: title, content: content, date: date, writerUID: "lZJDCklNWnbIBcARDFfwVL8oSCf1")
+                try noticeService.modifyNotice(tempNotice)
                 print("공지사항 수정 완료")
                 
                 // 앱(로컬) 데이터 수정
-                if let index = notices.firstIndex(where: { $0.id == notice.id }) {
+                if let index = notices.firstIndex(where: { $0.id == noticeID }) {
                     notices[index].title = title
                     notices[index].content = content
                     notices[index].date = date

@@ -206,7 +206,7 @@ struct NoticeDetailView: View {
             message: Text("공지를 정말 수정하시겠습니까?"),
             primaryButton: .destructive(Text("수정"), action: {
                 // 이전 단계에서 옵셔널 바인딩을 했기 때문에 옵셔널 포스 언래핑
-                noticeViewModel.updateNotice(notice: notice!, title: title, content: content)
+                noticeViewModel.updateNotice(noticeID: notice?.id, title: title, content: content)
                 alertCase = nil
                 dismiss()
             }),

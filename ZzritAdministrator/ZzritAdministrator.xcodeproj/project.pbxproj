@@ -16,6 +16,7 @@
 		3B09C2022BC3838D00EA9D54 /* NoticeManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2012BC3838D00EA9D54 /* NoticeManagementView.swift */; };
 		3B09C2052BC383D300EA9D54 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2042BC383D300EA9D54 /* SettingsView.swift */; };
 		3B09C2082BC38A8500EA9D54 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2072BC38A8500EA9D54 /* SearchField.swift */; };
+		3B4F50BA2BCE13C3001A5197 /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F50B92BCE13C3001A5197 /* RoomViewModel.swift */; };
 		3B5C6E372BC8BBB600668AB8 /* NoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5C6E362BC8BBB600668AB8 /* NoticeViewModel.swift */; };
 		3B7350C52BC3A474008C02AE /* StaticTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7350C42BC3A474008C02AE /* StaticTextView.swift */; };
 		3B7350C72BC3A4BC008C02AE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7350C62BC3A4BC008C02AE /* Constants.swift */; };
@@ -52,6 +53,7 @@
 		3B09C2012BC3838D00EA9D54 /* NoticeManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeManagementView.swift; sourceTree = "<group>"; };
 		3B09C2042BC383D300EA9D54 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3B09C2072BC38A8500EA9D54 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
+		3B4F50B92BCE13C3001A5197 /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
 		3B5C6E362BC8BBB600668AB8 /* NoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewModel.swift; sourceTree = "<group>"; };
 		3B7350C42BC3A474008C02AE /* StaticTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticTextView.swift; sourceTree = "<group>"; };
 		3B7350C62BC3A4BC008C02AE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				3B5C6E362BC8BBB600668AB8 /* NoticeViewModel.swift */,
 				9BE9A3A32BCCE8FE00272065 /* TermsViewModel.swift */,
 				9B6C2F012BCE09190092DE4D /* ContactViewModel.swift */,
+				3B4F50B92BCE13C3001A5197 /* RoomViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				3B09C1FF2BC3836200EA9D54 /* ComplaintManagementView.swift in Sources */,
 				9B4D00012BC58BC1008C5FC7 /* ContactManagerAnswerView.swift in Sources */,
 				9BE9A3A02BCCDFFF00272065 /* TermsAddingView.swift in Sources */,
+				3B4F50BA2BCE13C3001A5197 /* RoomViewModel.swift in Sources */,
 				9B7574902BC7BC0600A247C1 /* UserSectionHeader.swift in Sources */,
 				9B4DFFFD2BC58AB2008C5FC7 /* ContactManagerContentView.swift in Sources */,
 				3B09C1F82BC37EA100EA9D54 /* PlaygroundManageMainView.swift in Sources */,
