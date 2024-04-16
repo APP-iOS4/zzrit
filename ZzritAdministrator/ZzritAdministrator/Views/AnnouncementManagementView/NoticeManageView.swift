@@ -8,7 +8,7 @@
 import SwiftUI
 import ZzritKit
 
-struct NoticeManagementView: View {
+struct NoticeManageView: View {
     // 공지 뷰모델
     @EnvironmentObject private var noticeViewModel: NoticeViewModel
     
@@ -75,10 +75,10 @@ struct NoticeManagementView: View {
                             } label: {
                                 Text("")
                             }
-                            .onAppear {
-                                noticeViewModel.loadNotices()
-                                print("추가 공지 불러오기")
-                            }
+//                            .onAppear {
+//                                noticeViewModel.loadNotices()
+//                                print("추가 공지 불러오기")
+//                            }
                         }
                     }
                 }
@@ -103,6 +103,6 @@ struct NoticeManagementView: View {
 }
 
 #Preview {
-    NoticeManagementView()
+    NoticeManageView()
         .environmentObject(NoticeViewModel())
 }

@@ -9,13 +9,12 @@ import SwiftUI
 
 struct MyButton: View {
     var named: String = "My Button"
-    
-    var features: () -> Void = {
-        print("My Button Features!!")
-    }
-    
     var width: CGFloat = .infinity
     var height: CGFloat = 50.0
+    
+    var features: () -> Void = {
+        
+    }
     
     var body: some View {
         Button {
@@ -24,8 +23,8 @@ struct MyButton: View {
             Text("\(named)")
                 .foregroundStyle(.white)
                 .font(.title2)
-                .frame(minWidth: 300.0, maxWidth: .infinity)
-                .frame(height: 50.0)
+                .frame(idealWidth: width, maxWidth: .infinity)
+                .frame(height: height)
                 .background(Color.pointColor)
                 .clipShape(.rect(cornerRadius: Constants.commonRadius))
         }

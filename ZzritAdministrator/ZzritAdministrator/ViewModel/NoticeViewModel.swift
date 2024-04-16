@@ -17,7 +17,6 @@ final class NoticeViewModel: ObservableObject {
     
     init() {
         loadNotices()
-        initialFetch = false
     }
     
     /// 공지 서버에서 읽어오기
@@ -25,7 +24,7 @@ final class NoticeViewModel: ObservableObject {
         Task {
             do {
                 notices += try await noticeService.fetchNotice(isInitialFetch: initialFetch)
-                // Testing
+                initialFetch = false
             } catch {
                 print("에러: \(error)")
             }

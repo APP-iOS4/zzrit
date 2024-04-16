@@ -17,14 +17,14 @@ final class RoomViewModel: ObservableObject {
     
     init() {
         loadRooms()
-        initialFetch = false
     }
     
-    /// 모임정보 서버에서 읽어오기
+    /// 모임 리스트 서버에서 읽어오기
     func loadRooms() {
         Task {
             do {
-                rooms += try await roomService.loadRoom(isInitial: initialFetch)
+                rooms += try await roomService.loadRoom(isInitial: initialFetch, status: "activation")
+                initialFetch = false
                 print("로드 완료")
             } catch {
                 print("에러: \(error)")
@@ -32,21 +32,20 @@ final class RoomViewModel: ObservableObject {
         }
     }
     
+    /// 모임에 참여한 유저 정보 읽어오기
+    func loadJoinedUsers(roomID : String) async -> [JoinedUserModel] {
+        do {
+            let joinedUsers = try await roomService.joinedUsers(roomID: roomID)
+            print("로드 완료")
+            return joinedUsers
+        } catch {
+            print("에러: \(error)")
+            return []
+        }
+    }
     
-    
-    /// 모임 정보를 불러옵니다.
-    /// - Parameter roomID(String): 확인 할 모임 ID
-    /// - Returns: RoomModel
-//    public func roomInfo(_ roomID: String) async throws -> RoomModel {
-//        let document = try await fbConstants.roomCollection.document(roomID).getDocument()
-//        return try document.data(as: RoomModel.self)
-//    }
-    
-    /// 모임에 참여한 유저의 목록을 불러옵니다.
-    /// - Parameter roomID(String): 확인 할 모임 ID
-    /// - Returns Array(UserModel)
-//    public func joinedUsers(roomID: String) async throws -> [JoinedUserModel] {
-//        let snapshop = try await fbConstants.joinedCollection(roomID).getDocuments()
-//        return try snapshop.documents.map { try $0.data(as: JoinedUserModel.self) }
-//    }
+    /// 모임 상태 변경시키기
+    func changeStatus(roomID: String, status: ActiveType) {
+        roomService.changeStatus(roomID: roomID, status: status)
+    }
 }

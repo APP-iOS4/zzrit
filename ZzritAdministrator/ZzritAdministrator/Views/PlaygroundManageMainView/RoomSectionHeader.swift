@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlaygroundSectionHeader: View {
+struct RoomSectionHeader: View {
     var body: some View {
         HStack {
             Text("모임 관리")
@@ -18,14 +18,14 @@ struct PlaygroundSectionHeader: View {
             
             Divider()
             
-            Text("인원")
-                .frame(width: 80, alignment: .leading)
+            Text("제한 인원")
+                .frame(width: 90, alignment: .leading)
                 .multilineTextAlignment(.leading)
             
             Divider()
             
-            Text(verbatim: "날짜")
-                .frame(width: 90, alignment: .leading)
+            Text(verbatim: "모임 일시")
+                .frame(width: 120, alignment: .leading)
                 .multilineTextAlignment(.leading)
             
             Divider()
@@ -45,5 +45,5 @@ struct PlaygroundSectionHeader: View {
 }
 
 #Preview {
-    PlaygroundSectionHeader()
+    RoomSectionHeader()
 }

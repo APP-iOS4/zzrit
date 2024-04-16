@@ -73,13 +73,13 @@ struct ContentView: View {
         // 모임 관리
         case .playgroundMangement:
             // 레퍼런스 있음
-            PlaygroundManageMainView()
+            RoomManageView()
         // 문의 관리
         case .complaintManagement:
             ComplaintManagementView()
         // 공지사항 관리
         case .announcementManagement:
-            NoticeManagementView()
+            NoticeManageView()
         // 이용약관 관리
         case .termsManagement:
             TermsView()
