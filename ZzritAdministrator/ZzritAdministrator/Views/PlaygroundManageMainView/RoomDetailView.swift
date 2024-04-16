@@ -16,6 +16,7 @@ struct RoomDetailView: View {
     @State var room: RoomModel
     @State var joinedUsers: [JoinedUserModel] = []
     @State var selectedUserIndex: Int? = nil
+    @State var showActiveAlert: Bool = false
     
     // 데이트 서비스
     var dateService = DateService.shared
@@ -44,15 +45,16 @@ struct RoomDetailView: View {
                 Text("현재 상태: ")
                     .fontWeight(.bold)
                 
-                // TODO: 활성화 비활성화 데이터 연결 필요 => 서버에 요청할 함수들
                 Button {
-                    // showActiveAlert = true
+                    if room.status != .delete {
+                        showActiveAlert = true
+                    }
                 } label: {
                     Text(room.status.rawValue)
                         .fontWeight(.bold)
                 }
                 .buttonStyle(.borderedProminent)
-                //.tint(istActive ? Color.pointColor : Color.staticGray3)
+                .tint(room.status == .deactivation || room.status == .delete ? Color.staticGray3 : Color.pointColor)
             }
             .padding(.horizontal, 10)
             
@@ -63,16 +65,15 @@ struct RoomDetailView: View {
                 Section {
                     Text("\(room.content)")
                 } header: {
-                    Text("모임 소개")
+                    Text("소개")
                 }
                 
                 LabeledContent("방장 ID", value: "\(room.leaderID)")
                 
-                /// 온라인 -> LabeledContent, 오프라인 -> Section
                 if room.isOnline {
-                    LabeledContent("플랫폼", value: "플랫폼 정보")
+                    LabeledContent("플랫폼", value: room.platform?.rawValue ?? "플랫폼 정보없음")
                 } else {
-                    // TODO: 위치 정보 표시 이야기하기
+                    // TODO: 위치 정보 표시 논의하기
                     LabeledContent("위치 정보", value: "위치 정보")
                 }
                 
@@ -143,13 +144,22 @@ struct RoomDetailView: View {
             }
         }
         .padding(20)
+        
         .onAppear {
             Task {
                 await fetchJoinedUser()
             }
         }
+        .alert(isPresented: $showActiveAlert) {
+            if room.status == .activation {
+                getInactiveAlert()
+            } else {
+                getActiveAlert()
+            }
+        }
     }
     
+    /// 모임에 참여한 유저 데이터 불러오기
     func fetchJoinedUser() async {
         // 모임에는 반드시 ID값이 존재하기 때문에 포스 언래핑
         joinedUsers = await roomViewModel.loadJoinedUsers(roomID: room.id!)
@@ -162,7 +172,9 @@ struct RoomDetailView: View {
             title: Text("모임 비활성화"),
             message: Text("정말 모임을 비활성화 하시겠습니까?"),
             primaryButton: .destructive(Text("비활성화"), action: {
-                
+                // 모임의 id는 반드시 존재하기 때문에 포스 언래핑
+                roomViewModel.changeStatus(roomID: room.id!, status: .deactivation)
+                room.status = .deactivation
             }),
             secondaryButton: .cancel(Text("취소")))
     }
@@ -173,7 +185,9 @@ struct RoomDetailView: View {
             title: Text("모임 활성화"),
             message: Text("정말 모임을 활성화 하시겠습니까?"),
             primaryButton: .destructive(Text("활성화"), action: {
-                
+                // 모임의 id는 반드시 존재하기 때문에 포스 언래핑
+                roomViewModel.changeStatus(roomID: room.id!, status: .activation)
+                room.status = .activation
             }),
             secondaryButton: .cancel(Text("취소")))
     }

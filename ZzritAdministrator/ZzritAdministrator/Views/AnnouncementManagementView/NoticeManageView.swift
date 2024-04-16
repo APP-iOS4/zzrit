@@ -24,12 +24,7 @@ struct NoticeManageView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             HStack(spacing: 20) {
-                
-                // TODO: 공지 검색 -> 보류
-//                SearchField(placeHolder: "공지 제목을 입력하세요", action: {
-//                    print("검색")
-//                })
-              
+                        
                 Spacer()
                 
                 RoundedRectangle(cornerRadius: Constants.commonRadius)
@@ -75,10 +70,10 @@ struct NoticeManageView: View {
                             } label: {
                                 Text("")
                             }
-//                            .onAppear {
-//                                noticeViewModel.loadNotices()
-//                                print("추가 공지 불러오기")
-//                            }
+                            .onAppear {
+                                noticeViewModel.loadNotices()
+                                print("추가 공지 불러오기")
+                            }
                         }
                     }
                 }

@@ -94,29 +94,6 @@ struct RoomManageView: View {
             RoomDetailView(room: selectedRoom!)
         })
     }
-    
-//    // TODO: 로직 수정해야 함
-//    /// 모임 비활성화 얼럿
-//    func getInactiveAlert() -> Alert {
-//        return Alert(
-//            title: Text("모임 비활성화"),
-//            message: Text("정말 모임을 비활성화 하시겠습니까?"),
-//            primaryButton: .destructive(Text("비활성화"), action: {
-//                istActive = false
-//            }),
-//            secondaryButton: .cancel(Text("취소")))
-//    }
-//    
-//    /// 모임 활성화 얼럿
-//    func getActiveAlert() -> Alert {
-//        return Alert(
-//            title: Text("모임 활성화"),
-//            message: Text("정말 모임을 활성화 하시겠습니까?"),
-//            primaryButton: .destructive(Text("활성화"), action: {
-//                istActive = true
-//            }),
-//            secondaryButton: .cancel(Text("취소")))
-//    }
 }
 
 #Preview {

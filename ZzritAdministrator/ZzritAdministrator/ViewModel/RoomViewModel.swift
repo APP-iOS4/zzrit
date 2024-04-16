@@ -47,5 +47,10 @@ final class RoomViewModel: ObservableObject {
     /// 모임 상태 변경시키기
     func changeStatus(roomID: String, status: ActiveType) {
         roomService.changeStatus(roomID: roomID, status: status)
+        
+        // 앱(로컬) 데이터 수정
+        if let index = rooms.firstIndex(where: { $0.id == roomID }) {
+            rooms[index].status = status
+        }
     }
 }
