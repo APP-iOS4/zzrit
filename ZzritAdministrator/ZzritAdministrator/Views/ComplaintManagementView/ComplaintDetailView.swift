@@ -23,7 +23,7 @@ struct ComplaintDetailView: View {
     
     var body: some View {
         VStack {
-            ContactManageUserInfoView(contact: $contact)
+            ContactManageUserInfoView()
             HStack {
                 VStack {
                     ContactManagerContentView(isShowingGroupInfo: $isShowingGroupInfo, contact: $contact)

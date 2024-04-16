@@ -11,6 +11,7 @@ import ZzritKit
 @MainActor
 class ContactViewModel: ObservableObject {
     @Published var contacts: [ContactModel] = []
+    @Published var userModel: UserModel = .init(userID: "", userName: "", userImage: "", gender: .male, birthYear: 1900, staticGauge: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date())
     @Published var replies: [ContactReplyModel] = []
     @Published var repliedAdmins: [AdminModel] = []
     
@@ -36,9 +37,11 @@ class ContactViewModel: ObservableObject {
     
     func fetchReplies(contact: ContactModel) {
         Task {
+            userModel = .init(userID: "", userName: "", userImage: "", gender: .male, birthYear: 1900, staticGauge: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date())
             repliedAdmins = []
             
             do {
+                userModel = try await userService.getUserInfo(uid: contact.requestedUser) ?? .init(userID: "?", userName: "", userImage: "", gender: .male, birthYear: 1900, staticGauge: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date())
                 replies = try await contactService.fetchReplies(contact.id ?? "").reversed()
                 for reply in replies {
                     let admin = await getAdminInfo(uid: reply.answeredAdmin)
