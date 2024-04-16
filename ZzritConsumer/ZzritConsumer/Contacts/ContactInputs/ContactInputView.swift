@@ -127,7 +127,7 @@ struct ContactInputView: View {
                 
                 Spacer()
                 
-                GeneralButton(isDisabled: contactTitle.isEmpty, "문의하기") {
+                GeneralButton("문의하기", isDisabled: contactTitle.isEmpty) {
                     writeContact()
                 }
                 .navigationDestination(isPresented: $isPressContactButton) {

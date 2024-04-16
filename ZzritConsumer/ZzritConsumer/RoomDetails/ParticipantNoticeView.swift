@@ -96,7 +96,7 @@ struct ParticipantNoticeView: View {
             }
             .padding(.bottom, 10)
             
-            GeneralButton(isDisabled: !isCheck, "채팅방 입장") {
+            GeneralButton("채팅방 입장", isDisabled: !isCheck) {
                 isPressedChat.toggle()
             }
             .navigationDestination(isPresented: $isPressedChat) {

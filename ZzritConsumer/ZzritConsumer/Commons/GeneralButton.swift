@@ -20,7 +20,7 @@ struct GeneralButton: View {
     // MARK: - 초기값 설정
     
     // isDisabled는 기본값이 false, 사용자의 원하는 대로 true, false 지정
-    init(isDisabled: Bool = false, _ title: String, tapAction: @escaping () -> ()) {
+    init(_ title: String, isDisabled: Bool = false, tapAction: @escaping () -> ()) {
         self.isDisabled = isDisabled
         self.title = title
         self.tapAction = tapAction
