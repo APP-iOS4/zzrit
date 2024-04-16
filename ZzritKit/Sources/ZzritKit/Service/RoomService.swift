@@ -47,6 +47,15 @@ public final class RoomService {
         }
     }
     
+    /**
+     # Description
+     - 모임 불러오기를 위한 메서드
+     # Parameters
+     - isInitial: Bool
+     - status: String(all, deactivation, activation / all일땐 아무런 영향없음.)
+     # Error
+     - FirebaseErrorType.failCreateRoom
+     */
     public func loadRoom(isInitial: Bool = true, status: String) async throws -> [RoomModel] {
         do {
 //            if !isInitial {
