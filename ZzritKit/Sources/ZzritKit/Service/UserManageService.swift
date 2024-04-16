@@ -18,7 +18,6 @@ public final class UserManageService {
     
     public init() { }
     
-    // TODO: 유저 제제 등록
     // 관리자id, 유저id
     public func registerUserRestriction(userID uid: String, adminID aid: String, bannedType: BannedType, period: Date, content: String) throws {
         do {
@@ -30,7 +29,6 @@ public final class UserManageService {
         }
     }
     
-    // TODO: 유저 제재 삭제
     // 관리자id, 유저id
     public func deleteUserRestriction(userID uid: String, bannedHistoryId bId: String) {
         fbConstant.userCollection.document(uid).collection("BannedHistory").document(bId).getDocument { document, error in
@@ -47,13 +45,11 @@ public final class UserManageService {
         }
     }
     
-    // TODO: 유저 정전기 지수 수정
     // 관리자id?, 유저id
     public func adjustUserScore(userID uid: String, score: Int) throws {
         fbConstant.userCollection.document(uid).updateData(["staticGauge": score])
     }
     
-    // TODO: 유저 이메일 변경
     // 유저id
     public func changeUserEmail(userID uid: String, newEmail: String) {
         fbConstant.userCollection.document(uid).updateData(["userID": newEmail])
@@ -71,6 +67,21 @@ public final class UserManageService {
             return bannedmodels
         } catch {
             throw FirebaseErrorType.failLoadRestrictions
+        }
+    }
+    
+    public func loadAllUsers() async throws -> [UserModel] {
+        let query = fbConstant.userCollection
+        do {
+            let snapshot = try await query.getDocuments()
+            let documents = snapshot.documents
+            var userModels: [UserModel] = []
+            for document in documents {
+                userModels.append(try document.data(as: UserModel.self))
+            }
+            return userModels
+        } catch {
+            throw FirebaseErrorType.failLoadUsers
         }
     }
 }

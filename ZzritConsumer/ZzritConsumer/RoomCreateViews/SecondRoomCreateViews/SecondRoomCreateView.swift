@@ -60,7 +60,7 @@ struct SecondRoomCreateView: View {
                 
                 Spacer()
                 
-                GeneralButton(isDisabled: !isButtonEnabled, "다음") {
+                GeneralButton("다음", isDisabled: !isButtonEnabled) {
                     // VM에 새 모임 제목 저장
                     VM.saveNewRoomTitle(title: title)
                     // VM에 새 모임의 소개글 저장

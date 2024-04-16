@@ -54,7 +54,7 @@ struct FirstRoomCreateView: View {
                 Spacer()
                 
                 // 다음 화면으로 넘어갈 버튼
-                GeneralButton(isDisabled: !isButtonEnabled, "다음") {
+                GeneralButton("다음", isDisabled: !isButtonEnabled) {
                     // VM에 선택한 카테고리 저장
                     VM.saveSelectedCategory(selection: selection)
                     

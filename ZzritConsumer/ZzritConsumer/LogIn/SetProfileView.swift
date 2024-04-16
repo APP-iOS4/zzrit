@@ -91,7 +91,7 @@ struct SetProfileView: View {
             
             // TODO: 성별은 isMan과 isWoman중 true인 것으로 보내기. (enum 반환 함수 만들기)
             if #available(iOS 17.0, *) {
-                GeneralButton(isDisabled: !finishProfile, "다음") {
+                GeneralButton("다음", isDisabled: !finishProfile) {
                     setUserInfo()
                     completeSignUp.toggle()
                 }
@@ -102,7 +102,7 @@ struct SetProfileView: View {
                     
                 }
             } else {
-                GeneralButton(isDisabled: !finishProfile, "다음") {
+                GeneralButton("다음", isDisabled: !finishProfile) {
                     setUserInfo()
                     completeSignUp.toggle()
                 }
