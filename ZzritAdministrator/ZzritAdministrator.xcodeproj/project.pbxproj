@@ -25,6 +25,7 @@
 		9B4D00012BC58BC1008C5FC7 /* ContactManagerAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4D00002BC58BC1008C5FC7 /* ContactManagerAnswerView.swift */; };
 		9B4DFFFD2BC58AB2008C5FC7 /* ContactManagerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4DFFFC2BC58AB2008C5FC7 /* ContactManagerContentView.swift */; };
 		9B4DFFFF2BC58B46008C5FC7 /* ContactManageUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4DFFFE2BC58B46008C5FC7 /* ContactManageUserInfoView.swift */; };
+		9B6C2F022BCE09190092DE4D /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6C2F012BCE09190092DE4D /* ContactViewModel.swift */; };
 		9B7574902BC7BC0600A247C1 /* UserSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75748F2BC7BC0600A247C1 /* UserSectionHeader.swift */; };
 		9B7574922BC7D19800A247C1 /* BanReasonField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7574912BC7D19800A247C1 /* BanReasonField.swift */; };
 		9B7574942BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7574932BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift */; };
@@ -60,6 +61,7 @@
 		9B4D00002BC58BC1008C5FC7 /* ContactManagerAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactManagerAnswerView.swift; sourceTree = "<group>"; };
 		9B4DFFFC2BC58AB2008C5FC7 /* ContactManagerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactManagerContentView.swift; sourceTree = "<group>"; };
 		9B4DFFFE2BC58B46008C5FC7 /* ContactManageUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactManageUserInfoView.swift; sourceTree = "<group>"; };
+		9B6C2F012BCE09190092DE4D /* ContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewModel.swift; sourceTree = "<group>"; };
 		9B75748F2BC7BC0600A247C1 /* UserSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSectionHeader.swift; sourceTree = "<group>"; };
 		9B7574912BC7D19800A247C1 /* BanReasonField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BanReasonField.swift; sourceTree = "<group>"; };
 		9B7574932BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticGaugeEditingSubview.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			children = (
 				3B5C6E362BC8BBB600668AB8 /* NoticeViewModel.swift */,
 				9BE9A3A32BCCE8FE00272065 /* TermsViewModel.swift */,
+				9B6C2F012BCE09190092DE4D /* ContactViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B6C2F022BCE09190092DE4D /* ContactViewModel.swift in Sources */,
 				3B8662E82BC51D0300BB8E00 /* NoticeHeader.swift in Sources */,
 				3B8662EA2BC538F000BB8E00 /* NoticeDetailView.swift in Sources */,
 				9BEB2FBD2BC3A6D3009C398F /* UserInfoModalView.swift in Sources */,

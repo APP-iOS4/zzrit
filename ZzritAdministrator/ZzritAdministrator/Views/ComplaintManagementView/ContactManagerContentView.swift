@@ -68,13 +68,7 @@ struct ContactManagerContentView: View {
                                 .fontWeight(.bold)
                             Text("\(contact?.targetRoom ?? "")")
                         }
-                    } else if contact?.targetUser != nil && contact?.category == .mamber {
-                        HStack {
-                            Text("대상 유저: ")
-                                .fontWeight(.bold)
-                            Text("\(targetUserString ?? "")")
-                        }
-                    }
+                    } 
                 }
                 Text("\(contact?.content ?? "")")
                 Spacer(minLength: 10)

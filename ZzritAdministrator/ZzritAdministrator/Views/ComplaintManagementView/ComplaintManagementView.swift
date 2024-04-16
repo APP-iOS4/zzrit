@@ -12,11 +12,15 @@ import SwiftUI
 import ZzritKit
 
 struct ComplaintManagementView: View {
+    @EnvironmentObject private var contactViewModel: ContactViewModel
+    
     @State private var contactCategory: ContactCategory = .app
     @State private var contactSearchText: String = ""
     @State private var pickedContact: ContactModel?
     @State private var isShowingModalView = false
     let dateService = DateService.shared
+    
+    @State private var prevValue: Double = 0
     
     var body: some View {
         VStack {
@@ -41,25 +45,46 @@ struct ComplaintManagementView: View {
                     .foregroundStyle(.gray)
             }
             
-            List(tempContactList){ list in
-                Button {
-                    pickedContact = list
-                    isShowingModalView.toggle()
-                    print("modal .toggle     pickUserId = list.id")
-                } label: {
-                    ContactListCell(contactTitle: list.title, contactCategory: list.category, contactDateString: dateService.dateString(date: list.requestedDate))
+            ScrollViewWithOffset(onScroll: scrollEvent) {
+                LazyVStack(alignment: .leading) {
+                    ForEach(contactViewModel.contacts){ list in
+                        Button {
+                            pickedContact = list
+                            isShowingModalView.toggle()
+                            print("modal .toggle     pickUserId = list.id")
+                        } label: {
+                            ContactListCell(contactTitle: list.title, contactCategory: list.category, contactDateString: dateService.dateString(date: list.requestedDate))
+                                .padding(5)
+                        }
+                        Divider()
+                    }
                 }
+                .padding(10)
             }
-            .listStyle(.plain)
             .overlay {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.staticGray3, lineWidth: 1.0)
             }
         }
         .padding(20)
-        .fullScreenCover(isPresented: $isShowingModalView, content: {
+        .fullScreenCover(isPresented: $isShowingModalView) {
             ComplaintDetailView(contact: $pickedContact, isShowingModalView: $isShowingModalView)
-        })
+        }
+    }
+    
+    func scrollEvent(_ offset: CGPoint) {
+        print("\(prevValue) \(offset.y)")
+        
+        let listSize = -CGFloat(contactViewModel.contacts.count * 30)
+        
+        if offset.y > listSize {
+            if prevValue <= listSize - 0.01 {
+                print("불러오기 함수 실행")
+                contactViewModel.loadContacts()
+            }
+        }
+        
+        prevValue = offset.y
     }
 }
 
@@ -67,9 +92,7 @@ struct ContactReasonPickerView: View {
     @Binding var selectReason: ContactCategory
     var body: some View {
         Picker("\(selectReason)", selection: $selectReason){
-            // Text("문의 종류").tag(ContactCategory.allCases)
             Text("앱 이용 문의").tag(ContactCategory.app)
-            Text("회원 신고").tag(ContactCategory.mamber)
             Text("모임 신고").tag(ContactCategory.room)
         }
         .pickerStyle(.menu)
@@ -85,6 +108,7 @@ struct ContactListCell: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("\(contactTitle)")
+                .foregroundStyle(Color.primary)
                 .fontWeight(.bold)
             HStack {
                 Text("\(contactCategory.rawValue)")
@@ -98,23 +122,69 @@ struct ContactListCell: View {
     }
 }
 
-let tempContactList: [ContactModel] = [
-    .init(category: .room, title: "집단으로 성적 수치심을 주는 모임 신고", content: "모임에서 저에게 집단으로 성적 수치심을 주는 채팅을 보내요.", requestedDated: Date(), requestedUser: "abcd1@example.com", targetRoom: "신촌에서 맥주마실 분 구합니다"),
-    .init(category: .room, title: "집단따돌림 모임 신고", content: "다른 멤버들이 저를 따돌리고 제 부모님을 욕했어요.", requestedDated: Date(), requestedUser: "abcd2@example.com", targetRoom: "배틀그라운드 초보자 모임"),
-    .init(category: .mamber, title: "사이비종교 포교 사용자 신고", content: "모임 내에서 자꾸만 세계종말론 설파하며 비인가 성경공부 강요해요.", requestedDated: Date(), requestedUser: "abcd3@example.com", targetUser: ["saibi@example.com"]),
-    .init(category: .mamber, title: "정치 선동 사용자 신고", content: "자꾸만 특정 정당 후보 투표 강요하고 타 정당 비하발언해요. ", requestedDated: Date(), requestedUser: "abcd4@example.com", targetUser: ["politician@example.com", "jeongdang@example.com", "voteme@example.com"]),
-    .init(category: .app, title: "앱 오류 신고", content: "모임 생성이 안 돼요.", requestedDated: Date(), requestedUser: "abcd4@example.com"),
-    .init(category: .app, title: "제재 해제 문의", content: "계정이 해킹당해서 도박사이트 링크가 뿌려졌습니다. 복구 가능할까요?", requestedDated: Date(), requestedUser: "abcd4@example.com"),
-]
-
-struct writerUser: Identifiable {
-    var id: UUID = UUID()
+enum ScrollOffsetNamespace {
     
-    let userID: String
-    let staticIndex: Int
-    let birthYear: Int
-    let gender: GenderType
+    static let namespace = "scrollView"
 }
+
+struct ScrollOffsetKey: PreferenceKey {
+    static var defaultValue: CGPoint = .zero
+    static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) {}
+}
+
+struct ScrollViewOffsetTracker: View {
+    
+    var body: some View {
+        GeometryReader { geo in
+            Color.clear
+                .preference(
+                    key: ScrollOffsetKey.self,
+                    value: geo.frame(in: .named(ScrollOffsetNamespace.namespace)).origin
+                )
+        }
+        .frame(height: 0)
+    }
+}
+
+private extension ScrollView {
+    func withOffsetTracking(
+        action: @escaping (_ offset: CGPoint) -> Void
+    ) -> some View {
+        self.coordinateSpace(name: ScrollOffsetNamespace.namespace)
+            .onPreferenceChange(ScrollOffsetKey.self, perform: action)
+    }
+}
+public struct ScrollViewWithOffset<Content: View>: View {
+    
+    public init(
+        _ axes: Axis.Set = .vertical,
+        showsIndicators: Bool = true,
+        onScroll: ScrollAction? = nil,
+        @ViewBuilder content: @escaping () -> Content
+    ) {
+        self.axes = axes
+        self.showsIndicators = showsIndicators
+        self.onScroll = onScroll ?? { _ in }
+        self.content = content
+    }
+    
+    private let axes: Axis.Set
+    private let showsIndicators: Bool
+    private let onScroll: ScrollAction
+    private let content: () -> Content
+    
+    public typealias ScrollAction = (_ offset: CGPoint) -> Void
+    
+    public var body: some View {
+        ScrollView(axes, showsIndicators: showsIndicators) {
+            ZStack(alignment: .top) {
+                ScrollViewOffsetTracker()
+                content()
+            }
+        }.withOffsetTracking(action: onScroll)
+    }
+}
+
 
 #Preview {
     ComplaintManagementView()
