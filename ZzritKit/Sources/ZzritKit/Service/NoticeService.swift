@@ -37,6 +37,17 @@ public final class NoticeService {
         }
     }
     
+    /// 공지사항 수정
+    public func modifyNotice(_ notice: NoticeModel) throws {
+        do {
+            // notice를 받았기 때문에 애초에 notice의 id가 없을 수 없습니다. 따라서 ForceUnwrapping.
+            try firebaseConst.noticeCollection.document(notice.id!).setData(from: notice)
+            print("공지 수정 완료")
+        } catch {
+            throw error
+        }
+    }
+    
     /// 공지사항을 20개씩 페이징 처리하여 불러옵니다.
     /// - Parameter isInitialFetch(Bool): true일 경우 처음부터 새로 불러옵니다.
     /// - Warning: FetchError 타입의 에러는 description 프로퍼티를 통해 에러 메세지를 확인할 수 있습니다.
