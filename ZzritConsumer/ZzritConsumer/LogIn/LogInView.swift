@@ -67,7 +67,7 @@ struct LogInView: View {
                 .foregroundColor(Color.pointColor)
                 .padding(.top, 10)
                 
-                GeneralButton(isDisabled: !isLoginButtonActive, "로그인") {
+                GeneralButton("로그인", isDisabled: !isLoginButtonActive) {
                     login()
                 }
                 
