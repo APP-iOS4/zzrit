@@ -15,7 +15,7 @@ struct FirstRoomCreateView: View {
     
     // MARK: - 저장 프로퍼티
     
-//    @EnvironmentObject var coordinator: Coordinator
+    //    @EnvironmentObject var coordinator: Coordinator
     // 뷰모델
     let VM: RoomCreateViewModel
     
@@ -52,37 +52,19 @@ struct FirstRoomCreateView: View {
                             .lineLimit(1)
                     }
                 }
-<<<<<<< HEAD
-                
-                Spacer()
-                
                 // 다음 화면으로 넘어갈 버튼
                 GeneralButton("다음", isDisabled: !isButtonEnabled) {
                     // VM에 선택한 카테고리 저장
                     VM.saveSelectedCategory(selection: selection)
                     
                     // 다음 화면으로 이동
-                    isShowingNextView.toggle()
+                    // coordinator.push(.newRoom(.page2))
+                    isShowingNextButton.toggle()
                 }
-                .navigationDestination(isPresented: $isShowingNextView) {
+                .navigationDestination(isPresented: $isShowingNextButton, destination: {
                     SecondRoomCreateView(VM: VM)
-                        .navigationBarBackButtonHidden(true)
-                }
-=======
->>>>>>> c6d61d4 (feat: 코디네이터 기본 틀과 모임 생성 뷰 리펙토링 및 이미지 / 시간 선택 외의 기능 완)
+                })
             }
-            // 다음 화면으로 넘어갈 버튼
-            GeneralButton(isDisabled: !isButtonEnabled, "다음") {
-                // VM에 선택한 카테고리 저장
-                VM.saveSelectedCategory(selection: selection)
-                
-                // 다음 화면으로 이동
-                // coordinator.push(.newRoom(.page2))
-                isShowingNextButton.toggle()
-            }
-            .navigationDestination(isPresented: $isShowingNextButton, destination: {
-                SecondRoomCreateView(VM: VM)
-            })
         }
     }
     
@@ -96,6 +78,6 @@ struct FirstRoomCreateView: View {
 #Preview {
     NavigationStack {
         FirstRoomCreateView(VM: RoomCreateViewModel())
-//            .environmentObject(Coordinator())
+        //            .environmentObject(Coordinator())
     }
 }

@@ -76,11 +76,6 @@ struct ThirdRoomCreateView: View {
                     // 피커 버튼 눌렀을 때 사용할 함수
                     checkButtonEnable()
                 }
-<<<<<<< HEAD
-                // 다음으로 넘어가기 버튼
-                GeneralButton("완료", isDisabled: !isButtonEnabled) {
-                    print("새 모임 등록")
-=======
                 
                 // 시간을 입력 받는 뷰
                 timeSelectionView
@@ -98,7 +93,7 @@ struct ThirdRoomCreateView: View {
             }
             
             // 다음으로 넘어가기 버튼
-            GeneralButton(isDisabled: !isButtonEnabled, "완료") {
+            GeneralButton("완료", isDisabled: !isButtonEnabled) {
                 VM.saveRoomProcess(
                     processSelection: processSelection,
                     placeLatitude: placeLatitude,
@@ -126,7 +121,6 @@ struct ThirdRoomCreateView: View {
                     if result {
                         print("모임 추가 성공!")
                     }
->>>>>>> c6d61d4 (feat: 코디네이터 기본 틀과 모임 생성 뷰 리펙토링 및 이미지 / 시간 선택 외의 기능 완)
                 }
             }
         }

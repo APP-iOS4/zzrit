@@ -72,7 +72,7 @@ struct SecondRoomCreateView: View {
                     VStack {
                         Spacer()
                         
-                        GeneralButton(isDisabled: !isButtonEnabled, "다음") {
+                        GeneralButton("다음", isDisabled: !isButtonEnabled) {
                             // VM에 새 모임 제목 저장
                             VM.saveTitle(title: title)
                             // VM에 새 모임의 소개글 저장
@@ -85,26 +85,6 @@ struct SecondRoomCreateView: View {
                             ThirdRoomCreateView(VM: VM)
                         })
                     }
-<<<<<<< HEAD
-                    .padding(.vertical)
-                }
-                .frame(minHeight: 500.0)
-                
-                Spacer()
-                
-                GeneralButton("다음", isDisabled: !isButtonEnabled) {
-                    // VM에 새 모임 제목 저장
-                    VM.saveNewRoomTitle(title: title)
-                    // VM에 새 모임의 소개글 저장
-                    VM.saveNewRoomContent(content: content)
-                    
-                    // 다음 화면으로 이동
-                    isShowingNextView.toggle()
-                }
-                .navigationDestination(isPresented: $isShowingNextView) {
-                    ThirdRoomCreateView()
-=======
->>>>>>> c6d61d4 (feat: 코디네이터 기본 틀과 모임 생성 뷰 리펙토링 및 이미지 / 시간 선택 외의 기능 완)
                 }
             }
         }
