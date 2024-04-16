@@ -86,6 +86,8 @@
 		DF9674C12BCD027B00322382 /* AuthenticationErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674C02BCD027B00322382 /* AuthenticationErrorView.swift */; };
 		DFB59ECE2BCDFDD100D7DD8A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB59ECD2BCDFDD100D7DD8A /* OnboardingView.swift */; };
 		DFB59ED02BCE03FA00D7DD8A /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB59ECF2BCE03FA00D7DD8A /* PageControl.swift */; };
+		DFB59ED32BCE300C00D7DD8A /* ZziritUserVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB59ED22BCE300C00D7DD8A /* ZziritUserVoteView.swift */; };
+		DFB59ED52BCE358900D7DD8A /* VoteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB59ED42BCE358800D7DD8A /* VoteProfileView.swift */; };
 		DFC75F822BC36CC50005DDD9 /* ZzritKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFC75F812BC36CC50005DDD9 /* ZzritKit */; };
 		FC0A793F2BC8C9B30012F85D /* ChatRoomNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0A793E2BC8C9B30012F85D /* ChatRoomNoticeView.swift */; };
 		FC2DDC0D2BC5070A00A51E64 /* MoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */; };
@@ -192,6 +194,8 @@
 		DF9674C22BCD211B00322382 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DFB59ECD2BCDFDD100D7DD8A /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		DFB59ECF2BCE03FA00D7DD8A /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
+		DFB59ED22BCE300C00D7DD8A /* ZziritUserVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZziritUserVoteView.swift; sourceTree = "<group>"; };
+		DFB59ED42BCE358800D7DD8A /* VoteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteProfileView.swift; sourceTree = "<group>"; };
 		FC0A793E2BC8C9B30012F85D /* ChatRoomNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomNoticeView.swift; sourceTree = "<group>"; };
 		FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoView.swift; sourceTree = "<group>"; };
 		FC2DDC0E2BC508B700A51E64 /* MyStaticGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStaticGaugeView.swift; sourceTree = "<group>"; };
@@ -479,6 +483,7 @@
 		DF54D21D2BC36C4500D72491 /* ZzritConsumer */ = {
 			isa = PBXGroup;
 			children = (
+				DFB59ED12BCE2FF200D7DD8A /* Room */,
 				DF9674C22BCD211B00322382 /* Info.plist */,
 				DF9674B72BCCF4B400322382 /* Enum */,
 				3056254B2BC6B74400814FBF /* Extensions */,
@@ -526,6 +531,15 @@
 				DFB59ECF2BCE03FA00D7DD8A /* PageControl.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		DFB59ED12BCE2FF200D7DD8A /* Room */ = {
+			isa = PBXGroup;
+			children = (
+				DFB59ED22BCE300C00D7DD8A /* ZziritUserVoteView.swift */,
+				DFB59ED42BCE358800D7DD8A /* VoteProfileView.swift */,
+			);
+			path = Room;
 			sourceTree = "<group>";
 		};
 		DFC75F802BC36CC50005DDD9 /* Frameworks */ = {
@@ -726,6 +740,7 @@
 				309F8ABC2BC3B5E70045C6D8 /* ArchieveSelectionButtonView.swift in Sources */,
 				1F06034E2BC596B1003808F4 /* RCTimeSettingView.swift in Sources */,
 				DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */,
+				DFB59ED32BCE300C00D7DD8A /* ZziritUserVoteView.swift in Sources */,
 				30F80C3E2BC7C23A00B432DA /* MainLocationView.swift in Sources */,
 				DF9674BF2BCCFCC300322382 /* AuthenticationType.swift in Sources */,
 				1F0603472BC576D5003808F4 /* RoomCreateAddPictureView.swift in Sources */,
@@ -764,6 +779,7 @@
 				1FF17E572BC509E400B505FA /* SelectionButtonView.swift in Sources */,
 				1F0603412BC53503003808F4 /* CategoryCellView.swift in Sources */,
 				1FF17E522BC5079700B505FA /* RoomCreateIndicator.swift in Sources */,
+				DFB59ED52BCE358900D7DD8A /* VoteProfileView.swift in Sources */,
 				1F0603502BC5A5FE003808F4 /* RCNavigationBarView.swift in Sources */,
 				305137012BC3D0AA00BA41EE /* RoomCardView.swift in Sources */,
 				FC628F322BC440DF007F5E5C /* SetProfilePhotoView.swift in Sources */,
