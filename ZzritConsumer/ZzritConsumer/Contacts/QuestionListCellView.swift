@@ -7,15 +7,21 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct QuestionListCellView: View {
-    var isAnswered: Bool
+    let contact: ContactModel
+    
+    private var isAnswered: Bool {
+        contact.isAnswered
+    }
     
     // MARK: - body
     
     var body: some View {
         VStack(alignment: .leading) {
             // 받은 문의내역의 제목
-            Text("스태틱 문의제목 입니다.")
+            Text(contact.title)
                 .foregroundStyle(Color.staticGray1)
             
             HStack {
@@ -33,14 +39,10 @@ struct QuestionListCellView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 
                 // 문의 내역의 등록 날짜
-                Text("2024.00.00")
+                Text(DateService.shared.formattedString(date: contact.requestedDate))
                     .font(.footnote)
                     .foregroundStyle(Color.staticGray3)
             }
         }
     }
-}
-
-#Preview {
-    QuestionListCellView(isAnswered: true)
 }

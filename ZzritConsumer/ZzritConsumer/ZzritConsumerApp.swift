@@ -24,6 +24,7 @@ struct ZzritConsumerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     @StateObject private var userService = UserService()
+    @StateObject private var contactService = ContactService()
     
     var body: some Scene {
         WindowGroup {
@@ -40,6 +41,7 @@ struct ZzritConsumerApp: App {
                 })
                 .preferredColorScheme(.light)
                 .environmentObject(userService)
+                .environmentObject(contactService)
         }
     }
 }
