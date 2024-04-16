@@ -15,7 +15,7 @@ struct ChatView: View {
     var storageService = StorageService()
     
     // FIXME: 현재 계정의 uid로 바꾸어 주기
-    var uid: String = "dPwldldl"
+    var uid: String = "dPwldlqxdddddl"
     
     // 입력 메세지 변수
     @State private var messageText: String = ""
@@ -28,12 +28,21 @@ struct ChatView: View {
         chattingService.messages
     }
     
-    // 이미지 전송
+    //채팅 로드가 끝났음을 판별
+    @State private var isfetchFinish = false
+    
+    // 이미지 전송용
     @State private var isShowingImagePicker: Bool = false
     @State private var isRealSendSheet: Bool = false
     
     @State private var selectedUIImage: UIImage?
     @State private var image: Image?
+    
+    // 스크롤뷰용
+    // 스크롤뷰의 맨밑 담당
+    @Namespace private var bottomID
+    // 스크롤뷰 맨 위로 올렸을때
+    @State var prevValue: Double = 0
     
     var body: some View {
         
@@ -42,11 +51,52 @@ struct ChatView: View {
         Divider()
         
         VStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack {
-                    // TODO: 채팅 내용 스크롤뷰 아래서 부터 보이게 + 날짜별로 + 페이징
-                    ForEach(messages) { message in
-                        chatView(chat: message)
+            ScrollViewWithOffset(onScroll: scrollEvent) {
+                ScrollViewReader { proxy in
+                    LazyVStack {
+                        // 더 이상 로드할 채팅이 없음을 알림
+                        if isfetchFinish {
+                            Text("- 대화내용의 끝입니다. -")
+                                .foregroundStyle(Color.staticGray1)
+                                .padding(10)
+                                .frame(maxWidth: .infinity)
+                        }
+                        // 채팅 내용
+                        ForEach(messages) { message in
+                            chatView(chat: message)
+                        }
+                        // 새로 로딩 되었을때 가장 최근 메시지부터 보여주도록 설정
+                        .onAppear {
+                            proxy.scrollTo(bottomID, anchor: .bottom)
+                        }
+                    }
+                    //스크롤 뷰의 맨밑 자리 담당
+                    if #available(iOS 17.0, *) {
+                        Rectangle()
+                            .id(bottomID)
+                            .frame(height: 1)
+                            .foregroundStyle(.clear)
+                        
+                        // 메시지 텍스트 입력했을때 밑으로 가도록하는
+                            .onChange(of: messageText) {
+                                proxy.scrollTo(bottomID, anchor: .bottom)
+                            }
+                        // 새로온 메시지 왔을때 밑으로 가게하기
+                            .onChange(of: messages.count) {
+                                proxy.scrollTo(bottomID, anchor: .bottom)
+                            }
+                        
+                    } else {
+                        Rectangle()
+                            .id(bottomID)
+                            .frame(height: 1)
+                            .foregroundStyle(.clear)
+                            .onChange(of: messageText) { newValue in
+                                proxy.scrollTo(bottomID, anchor: .bottom)
+                            }
+                            .onChange(of: messages.count) { newValue in
+                                proxy.scrollTo(bottomID, anchor: .bottom)
+                            }
                     }
                 }
             }
@@ -113,6 +163,7 @@ struct ChatView: View {
                     }
                 }
                 
+                // 메시지 입력
                 HStack(alignment: .bottom) {
                     // 입력칸
                     TextField(isActive ? "메세지를 입력해주세요." : "비활성화된 모임입니다.", text: $messageText, axis: .vertical)
@@ -172,11 +223,18 @@ struct ChatView: View {
     
     // 채팅 불러오는 함수
     private func fetchChatting() {
-        Task {
-            do {
-                try await chattingService.fetchChatting()
-            } catch {
-                print("에러: \(error)")
+        if !isfetchFinish {
+            Task {
+                do {
+                    try await chattingService.fetchChatting()
+                } catch let error {
+                    switch error.self {
+                    case FetchError.noMoreFetch:
+                        isfetchFinish.toggle()
+                    default:
+                        print("error: \(error)")
+                    }
+                }
             }
         }
     }
@@ -195,39 +253,42 @@ struct ChatView: View {
     @ViewBuilder
     private func chatView(chat: ChattingModel) -> some View {
         let isYou = uid != chat.userID
-        
-        switch chat.type {
-            // 내용이 Text 일때
-        case .text:
-            HStack {
-                if !isYou {
-                    Spacer()
+        VStack {
+            switch chat.type {
+                // 내용이 Text 일때
+            case .text:
+                HStack {
+                    if !isYou {
+                        Spacer()
+                    }
+                    ChatMessageCellView(message: chat, isYou: isYou, messageType: .text)
+                    if isYou {
+                        Spacer()
+                    }
                 }
-                ChatMessageCellView(message: chat, isYou: isYou, messageType: .text)
-                if isYou {
-                    Spacer()
+                
+                // 내용이 이미지 일때
+            case .image:
+                HStack {
+                    if !isYou {
+                        Spacer()
+                    }
+                    ChatMessageCellView(message: chat, isYou: isYou, messageType: .image)
+                    if isYou {
+                        Spacer()
+                    }
                 }
+                
+                // TODO: 날짜 넘어갈때 처리해야합니다.
+                // system 메시지
+            case .notice:
+                Text(chat.message)
+                    .foregroundStyle(Color.pointColor)
+                    .padding(10)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.lightPointColor)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
             }
-            
-            // 내용이 이미지 일때
-        case .image:
-            HStack {
-                if !isYou {
-                    Spacer()
-                }
-                ChatMessageCellView(message: chat, isYou: isYou, messageType: .image)
-                if isYou {
-                    Spacer()
-                }
-            }
-            // TODO: 날짜 넘어갈때 처리해야합니다.
-        case .notice:
-            Text(chat.message)
-                .foregroundStyle(Color.pointColor)
-                .padding(10)
-                .frame(maxWidth: .infinity)
-                .background(Color.lightPointColor)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }
     
@@ -254,6 +315,16 @@ struct ChatView: View {
                 print("에러: \(error)")
             }
         }
+    }
+    
+    // 맨 위로 스크롤뷰 당겼을때 실행되는 함수
+    func scrollEvent(_ offset: CGPoint) {
+        if offset.y > 0 {
+            if prevValue <= 0.01 {
+                fetchChatting()
+            }
+        }
+        prevValue = offset.y
     }
 }
 
