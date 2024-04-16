@@ -80,7 +80,7 @@ struct OnboardingView: View {
             .padding(Configs.paddingValue)
         }
         .fullScreenCover(isPresented: $isShowingMain) {
-            MainView()
+            ContentView()
         }
     }
 }
