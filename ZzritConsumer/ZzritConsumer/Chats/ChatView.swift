@@ -27,9 +27,12 @@ struct ChatView: View {
     var messages: [ChattingModel] {
         chattingService.messages
     }
+    @State private var isSending = false
     
-    //채팅 로드가 끝났음을 판별
+    @State private var isComingNew: String?
+    // 불러올 채팅이 없음을 판별
     @State private var isfetchFinish = false
+    @State private var isFirstEnter = true
     
     // 이미지 전송용
     @State private var isShowingImagePicker: Bool = false
@@ -78,12 +81,24 @@ struct ChatView: View {
                             .foregroundStyle(.clear)
                         
                         // 메시지 텍스트 입력했을때 밑으로 가도록하는
-                            .onChange(of: messageText) {
+                            .onChange(of: isSending) {
                                 proxy.scrollTo(bottomID, anchor: .bottom)
+                                isSending.toggle()
                             }
-                        // 새로온 메시지 왔을때 밑으로 가게하기
                             .onChange(of: messages.count) {
-                                proxy.scrollTo(bottomID, anchor: .bottom)
+                                if isFirstEnter {
+                                    proxy.scrollTo(bottomID, anchor: .bottom)
+                                    isFirstEnter.toggle()
+                                } else {
+                                        if isComingNew == messages.last!.id {
+                                            // 과거 메시지 로딩시에는 밑으로 안내려감
+                                            
+                                        } else {
+                                            // 새로온 메시지 왔을때만 밑으로 가게하기
+                                            isComingNew = messages.last!.id
+                                            proxy.scrollTo(bottomID, anchor: .bottom)
+                                        }
+                                }
                             }
                         
                     } else {
@@ -91,11 +106,24 @@ struct ChatView: View {
                             .id(bottomID)
                             .frame(height: 1)
                             .foregroundStyle(.clear)
-                            .onChange(of: messageText) { newValue in
+                            .onChange(of: isSending) { newValue in
                                 proxy.scrollTo(bottomID, anchor: .bottom)
+                                isSending.toggle()
                             }
                             .onChange(of: messages.count) { newValue in
-                                proxy.scrollTo(bottomID, anchor: .bottom)
+                                if isFirstEnter {
+                                    proxy.scrollTo(bottomID, anchor: .bottom)
+                                    isFirstEnter.toggle()
+                                } else {
+                                        if isComingNew == messages.last!.id {
+                                            // 과거 메시지 로딩시에는 밑으로 안내려감
+                                            
+                                        } else {
+                                            // 새로온 메시지 왔을때만 밑으로 가게하기
+                                            isComingNew = messages.last!.id
+                                            proxy.scrollTo(bottomID, anchor: .bottom)
+                                        }
+                                }
                             }
                     }
                 }
@@ -231,6 +259,7 @@ struct ChatView: View {
                     switch error.self {
                     case FetchError.noMoreFetch:
                         isfetchFinish.toggle()
+                        isComingNew = messages.last!.id
                     default:
                         print("error: \(error)")
                     }
@@ -247,6 +276,7 @@ struct ChatView: View {
         } catch {
             print("에러: \(error)")
         }
+        isSending.toggle()
     }
     
     // 메시지 뷰
