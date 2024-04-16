@@ -52,7 +52,6 @@ struct NoticeManagementView: View {
                 ScrollView {
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
                         Section(header: NoticeHeader()) {
-                            //ForEach(noticeViewModel.notices) { notice in
                             ForEach(noticeViewModel.notices) { notice in
                                 Button {
                                     selectedNotice = notice
@@ -77,7 +76,8 @@ struct NoticeManagementView: View {
                                 Text("")
                             }
                             .onAppear {
-                               print("FetchMore!!!!!!!")
+                                noticeViewModel.loadNotices()
+                                print("추가 공지 불러오기")
                             }
                         }
                     }
