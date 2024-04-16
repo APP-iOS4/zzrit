@@ -27,8 +27,10 @@ struct ChatView: View {
     var messages: [ChattingModel] {
         chattingService.messages
     }
-    @State private var isSending = false
     
+    // 메시지를 보냈을 때
+    @State private var isSending = false
+    // 새 메시지가 왔을 때
     @State private var isComingNew: String?
     // 불러올 채팅이 없음을 판별
     @State private var isfetchFinish = false
