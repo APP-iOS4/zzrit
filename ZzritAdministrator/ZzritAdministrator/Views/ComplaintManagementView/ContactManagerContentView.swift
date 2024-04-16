@@ -78,22 +78,20 @@ struct ContactManagerContentView: View {
                     
                     Spacer(minLength: 10)
                     
-                    if !contactViewModel.replies.isEmpty {
-                        ForEach(contactViewModel.replies) { reply in
+                    if !contactViewModel.repliedAdmins.isEmpty {
+                        ForEach(contactViewModel.replies.indices, id: \.self) { index in
                             Divider()
-                            //Text("관리자(\(reply.answeredAdmin))의 답변")
                             HStack(alignment: .bottom) {
-                                Text("관리자 답변")
+                                Text("관리자(\(index >= contactViewModel.repliedAdmins.count ? "?" : contactViewModel.repliedAdmins[index].email)) 답변")
                                     .font(.title3)
                                     .fontWeight(.bold)
                                 
                                 Spacer()
                                 
-                                Text(dateService.formattedString(date: reply.date,
-                                                            format: "yyyy/MM/dd HH:mm:ss"))
+                                Text(dateService.formattedString(date: contactViewModel.replies[index].date, format: "yyyy/MM/dd HH:mm:ss"))
                                     .foregroundStyle(Color.staticGray3)
                             }
-                            Text(reply.content)
+                            Text(contactViewModel.replies[index].content)
                         }
                     }
                     
