@@ -11,6 +11,7 @@
 		092876D22BC6C57C00AFCA1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 092876D12BC6C57C00AFCA1D /* GoogleService-Info.plist */; };
 		0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0979935A2BC52774004EC087 /* RoomCreateView.swift */; };
 		098C0C492BC7D0AC00970E54 /* RoomLoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C0C482BC7D0AC00970E54 /* RoomLoadView.swift */; };
+		0990CFBB2BCE02C700C8AE20 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0990CFBA2BCE02C700C8AE20 /* UserListView.swift */; };
 		09D26BCD2BCCE6B90037BF0A /* UserManagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D26BCC2BCCE6B90037BF0A /* UserManagingView.swift */; };
 		09DC83AC2BC8C36D004C68D0 /* DateNStringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */; };
 		DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */; };
@@ -42,6 +43,7 @@
 		092876D12BC6C57C00AFCA1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0979935A2BC52774004EC087 /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
 		098C0C482BC7D0AC00970E54 /* RoomLoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomLoadView.swift; sourceTree = "<group>"; };
+		0990CFBA2BCE02C700C8AE20 /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
 		09D26BCC2BCCE6B90037BF0A /* UserManagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagingView.swift; sourceTree = "<group>"; };
 		09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateNStringView.swift; sourceTree = "<group>"; };
 		DF25D9082BC63FD9004B4B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				DFCEEA2E2BC80BF8003598F0 /* AdminLoginView.swift */,
 				DF9674B52BCA6FCE00322382 /* AddTermView.swift */,
 				09D26BCC2BCCE6B90037BF0A /* UserManagingView.swift */,
+				0990CFBA2BCE02C700C8AE20 /* UserListView.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				DFAE9AE72BC8D1A20056E2ED /* ContactView.swift in Sources */,
 				DF9674B42BCA3A9A00322382 /* ChatView.swift in Sources */,
 				DFC75FD62BC3CCCA0005DDD9 /* LoginView.swift in Sources */,
+				0990CFBB2BCE02C700C8AE20 /* UserListView.swift in Sources */,
 				DFC75FC92BC3CC850005DDD9 /* ContentView.swift in Sources */,
 				DFC760022BC589ED0005DDD9 /* WriteNoticeView.swift in Sources */,
 				098C0C492BC7D0AC00970E54 /* RoomLoadView.swift in Sources */,
