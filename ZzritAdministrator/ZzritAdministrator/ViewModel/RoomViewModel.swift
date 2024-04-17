@@ -17,13 +17,27 @@ final class RoomViewModel: ObservableObject {
     
     init() {
         loadRooms()
+        loadDeactivateRooms()
     }
     
     /// 모임 리스트 서버에서 읽어오기
     func loadRooms() {
         Task {
             do {
-                rooms += try await roomService.loadRoom(isInitial: initialFetch, status: "activation")
+                rooms += try await roomService.loadRoom(isInitial: initialFetch, status: ActiveType.activation.rawValue)
+                initialFetch = false
+                print("로드 완료")
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    
+    /// 모임 리스트 서버에서 읽어오기
+    func loadDeactivateRooms() {
+        Task {
+            do {
+                rooms += try await roomService.loadRoom(isInitial: initialFetch, status: ActiveType.deactivation.rawValue)
                 initialFetch = false
                 print("로드 완료")
             } catch {

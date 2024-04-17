@@ -27,20 +27,11 @@ struct NoticeManageView: View {
                         
                 Spacer()
                 
-                RoundedRectangle(cornerRadius: Constants.commonRadius)
-                    .foregroundStyle(Color.pointColor)
-                    .frame(width: 100, height: 50)
-                    .overlay(
-                        Button {
-                            selectedNotice = nil
-                            showNoticeDetail.toggle()
-                        } label: {
-                            Text("등록")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundStyle(.white)
-                        }
-                    )
+                MyButton(named: "등록") {
+                    selectedNotice = nil
+                    showNoticeDetail.toggle()
+                }
+                .frame(width: 100, height: 50)
             }
             
             HStack(spacing: 20) {
@@ -57,7 +48,7 @@ struct NoticeManageView: View {
                                         Spacer()
                                         Divider()
                                         
-                                             Text(dateService.formattedString(date: notice.date, format: "yyyy/MM/dd HH:mm"))
+                                        Text(dateService.formattedString(date: notice.date, format: "yyyy/MM/dd HH:mm"))
                                             .frame(width: 150, alignment: .center)
                                     }
                                     .foregroundStyle(selectedNotice?.id == notice.id ? Color.pointColor : Color.primary)
@@ -99,5 +90,5 @@ struct NoticeManageView: View {
 
 #Preview {
     NoticeManageView()
-        .environmentObject(NoticeViewModel())
+       .environmentObject(NoticeViewModel())
 }

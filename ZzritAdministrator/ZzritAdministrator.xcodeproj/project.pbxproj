@@ -166,8 +166,8 @@
 			isa = PBXGroup;
 			children = (
 				3B09C2012BC3838D00EA9D54 /* NoticeManageView.swift */,
-				3B8662E72BC51D0300BB8E00 /* NoticeHeader.swift */,
 				3B8662E92BC538F000BB8E00 /* NoticeDetailView.swift */,
+				3B8662E72BC51D0300BB8E00 /* NoticeHeader.swift */,
 			);
 			path = AnnouncementManagementView;
 			sourceTree = "<group>";

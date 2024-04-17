@@ -135,7 +135,7 @@ struct RoomDetailView: View {
                 .frame(height: 20)
             
             HStack {
-                MyButton(named: "취소") {
+                MyButton(named: "돌아가기") {
                     dismiss()
                 }
                 .frame(width: 150)
