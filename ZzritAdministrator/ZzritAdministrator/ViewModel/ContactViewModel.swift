@@ -19,7 +19,6 @@ class ContactViewModel: ObservableObject {
     
     var initialFetch: Bool = true
     private let contactService = ContactService()
-    private let authService = AuthenticationService.shared
     private let userService = UserService()
     private let roomService = RoomService.shared
     
@@ -69,9 +68,6 @@ class ContactViewModel: ObservableObject {
                 
                 for reply in replies {
                     let admin = await getAdminsInfo(uid: reply.answeredAdmin)
-                    
-                    print(admin)
-                    
                     repliedAdmins.append(admin)
                 }
             } catch {

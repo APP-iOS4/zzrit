@@ -52,7 +52,7 @@ struct ComplaintDetailView: View {
                         Button {
                             isShowingModalView.toggle()
                         } label: {
-                            StaticTextView(title: "목록 보기", width: 120, isActive: .constant(true))
+                            StaticTextView(title: "돌아가기", width: 120, isActive: .constant(true))
                         }
                         
                         Spacer()

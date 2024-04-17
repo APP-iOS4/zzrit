@@ -10,6 +10,8 @@ import SwiftUI
 import ZzritKit
 
 struct UserManageTableView: View {
+    @EnvironmentObject var userViewModel: UserViewModel
+    
     let genderList: [GenderType] = [.male, .female]
     
     @State private var selection: UserModel? = nil
@@ -20,7 +22,7 @@ struct UserManageTableView: View {
     @State private var isSortedByYear: Bool = false
     @State private var searchText: String = ""
     
-    @State private var userData: [UserModel] = tempUsers
+    @State private var userData: [UserModel] = []
     
     var body: some View {
         VStack {
@@ -37,7 +39,7 @@ struct UserManageTableView: View {
                     isSortedByStatic = false
                     isSortedByYear = false
                     genderSelection = nil
-                    userData = tempUsers
+                    userData = userViewModel.users
                 } label: {
                     StaticTextView(title: "필터", selectType: .filter, width: 140.0, isActive: $isFilterActive)
                 }
@@ -149,15 +151,15 @@ struct UserManageTableView: View {
                     selection = nil
                     
                     guard let genderSelection else {
-                        userData = tempUsers
+                        userData = userViewModel.users
                         return
                     }
-                    userData = tempUsers.filter{ $0.gender == genderSelection }
+                    userData = userViewModel.users.filter{ $0.gender == genderSelection }
                     
                     if isSortedByStatic {
-                        userData = userData.sorted{ $0.staticGauge > $1.staticGauge }
+                        userData = userViewModel.users.sorted{ $0.staticGauge > $1.staticGauge }
                     } else if isSortedByYear {
-                        userData = userData.sorted{ $0.birthYear < $1.birthYear }
+                        userData = userViewModel.users.sorted{ $0.birthYear < $1.birthYear }
                     }
                 }
             }
@@ -168,6 +170,10 @@ struct UserManageTableView: View {
                     .stroke(Color.staticGray3, lineWidth: 1.0)
             }
             .padding(.vertical, 5)
+            .refreshable {
+                userViewModel.loadUsers()
+                userData = userViewModel.users
+            }
             
             HStack {
                 MyButton(named: "선택한 유저 제재/관리", features: {
@@ -184,6 +190,9 @@ struct UserManageTableView: View {
         .fullScreenCover(isPresented: $isUserModal) {
             UserInfoModalView(isUserModal: $isUserModal, user: selection ?? .init(userID: "example@example.com", userName: "EXAMPLE DATA", userImage: "xmark", gender: .male, birthYear: 1900, staticGauge: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()))
         }
+        .onAppear {
+            userData = userViewModel.users
+        }
         .onTapGesture {
             #if canImport(UIKit)
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -194,7 +203,7 @@ struct UserManageTableView: View {
 }
 
 
-
+/*
 private var tempUsers: [UserModel] = [
     .init(id: UUID().uuidString, userID: "user1@example.com", userName: "A380", userImage: "person", gender: .male, birthYear: 2005, staticGauge: 99, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
     .init(id: UUID().uuidString, userID: "user2@example.com", userName: "A350", userImage: "person", gender: .male, birthYear: 2010, staticGauge: 88, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
@@ -212,6 +221,7 @@ private var tempUsers: [UserModel] = [
     .init(id: UUID().uuidString, userID: "taumata­whakatangihanga­koauau­o­tamatea­turi­pukaka­piki­maunga­horo­nuku­pokai­whenua­ki­tana­tahu@example.com", userName: "다람쥐 헌 쳇바퀴에 타고파", userImage: "person", gender: .male, birthYear: 1971, staticGauge: 40, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
     .init(id: UUID().uuidString, userID: "krungthepmahanakhonamonrattanakosinmahintharayutthayamahadilokphopnoppharatratchathaniburiromudomratchaniwetmahasathanamonphimanawatansathitsakkathattiyawitsanukamprasit@example.com", userName: "끄룽 텝 마하나콘 아몬 라따나꼬신 마힌타라 유타야 마하딜록 폽 노파랏 랏차타니 부리롬 우돔랏차니웻 마하사탄 아몬 피만 아와딴 사팃 사카타띠야 윗사누깜 쁘라싯", userImage: "person", gender: .male, birthYear: 1971, staticGauge: 35, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()),
 ]
+ */
 
 #Preview {
     UserManageTableView()

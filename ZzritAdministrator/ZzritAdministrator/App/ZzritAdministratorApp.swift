@@ -21,6 +21,7 @@ struct ZzritAdministratorApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     // 공지 데이터 뷰 모델
+    @StateObject private var userViewModel = UserViewModel()
     @StateObject private var noticeViewModel = NoticeViewModel()
     @StateObject private var termsViewModel = TermsViewModel()
     @StateObject private var contactViewModel = ContactViewModel()
@@ -30,6 +31,7 @@ struct ZzritAdministratorApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.light)
+                .environmentObject(userViewModel)
                 .environmentObject(noticeViewModel)
                 .environmentObject(termsViewModel)
                 .environmentObject(contactViewModel)

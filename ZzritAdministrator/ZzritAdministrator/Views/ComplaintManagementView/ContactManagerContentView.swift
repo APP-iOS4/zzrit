@@ -80,7 +80,7 @@ struct ContactManagerContentView: View {
                                 ForEach(contactViewModel.replies.indices, id: \.self) { index in
                                     Divider()
                                     HStack(alignment: .bottom) {
-                                        Text("관리자(\(index >= contactViewModel.repliedAdmins.count ? "?" : contactViewModel.repliedAdmins[index].email)) 답변")
+                                        Text("관리자 \(index >= contactViewModel.repliedAdmins.count ? "?" : contactViewModel.repliedAdmins[index].name)(\(index >= contactViewModel.repliedAdmins.count ? "?" : contactViewModel.repliedAdmins[index].email))의 답변")
                                             .font(.title3)
                                             .fontWeight(.bold)
                                         
