@@ -12,6 +12,7 @@
 		0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0979935A2BC52774004EC087 /* RoomCreateView.swift */; };
 		098C0C492BC7D0AC00970E54 /* RoomLoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098C0C482BC7D0AC00970E54 /* RoomLoadView.swift */; };
 		0990CFBB2BCE02C700C8AE20 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0990CFBA2BCE02C700C8AE20 /* UserListView.swift */; };
+		09C90D572BCF58EE0039D92C /* RoomSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C90D562BCF58EE0039D92C /* RoomSearchView.swift */; };
 		09D26BCD2BCCE6B90037BF0A /* UserManagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D26BCC2BCCE6B90037BF0A /* UserManagingView.swift */; };
 		09DC83AC2BC8C36D004C68D0 /* DateNStringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */; };
 		DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */; };
@@ -44,6 +45,7 @@
 		0979935A2BC52774004EC087 /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
 		098C0C482BC7D0AC00970E54 /* RoomLoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomLoadView.swift; sourceTree = "<group>"; };
 		0990CFBA2BCE02C700C8AE20 /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
+		09C90D562BCF58EE0039D92C /* RoomSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSearchView.swift; sourceTree = "<group>"; };
 		09D26BCC2BCCE6B90037BF0A /* UserManagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagingView.swift; sourceTree = "<group>"; };
 		09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateNStringView.swift; sourceTree = "<group>"; };
 		DF25D9082BC63FD9004B4B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				DFC75FFA2BC57C310005DDD9 /* IncrementStaticGuageView.swift */,
 				0979935A2BC52774004EC087 /* RoomCreateView.swift */,
 				098C0C482BC7D0AC00970E54 /* RoomLoadView.swift */,
+				09C90D562BCF58EE0039D92C /* RoomSearchView.swift */,
 				09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */,
 				09108DAE2BC831FD00F63BFF /* RoomModiView.swift */,
 			);
@@ -296,6 +299,7 @@
 				DF9674B32BCA3A9A00322382 /* ChatMessageCellView.swift in Sources */,
 				DFAE9AEB2BC8F9E80056E2ED /* ContactReplyView.swift in Sources */,
 				09DC83AC2BC8C36D004C68D0 /* DateNStringView.swift in Sources */,
+				09C90D572BCF58EE0039D92C /* RoomSearchView.swift in Sources */,
 				09108DAF2BC831FD00F63BFF /* RoomModiView.swift in Sources */,
 				0979935B2BC52774004EC087 /* RoomCreateView.swift in Sources */,
 			);
