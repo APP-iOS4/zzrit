@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct MainView: View {
     // 우측 상단 알람 버튼 눌렀는지 안눌렀는지 검사
     @State private var isTopTrailingAction: Bool = false
@@ -56,7 +58,9 @@ struct MainView: View {
                 // 왼쪽 앱 메인 로고
                 ToolbarItem(placement: .topBarLeading) {
                     HStack(spacing: 0) {
-                        Text("ZZ!RIT")
+                        Text("ZZ!")
+                            .foregroundStyle(Color.pointColor)
+                        Text("RIT")
                     }
                     .font(.title2)
                     .fontWeight(.black)
