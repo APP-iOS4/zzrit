@@ -49,6 +49,7 @@
 		1F6454F42BC8B96000C9D235 /* GenderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6454F32BC8B96000C9D235 /* GenderButton.swift */; };
 		1F6454F52BC8C5E300C9D235 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBCB3192BC3D2A90048B86F /* SignUpView.swift */; };
 		1F6454F62BC8C61E00C9D235 /* ServiceAgreeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBCB31D2BC3DC090048B86F /* ServiceAgreeSheet.swift */; };
+		1F6B75CA2BCF6ABC004092EB /* NewSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6B75C92BCF6ABC004092EB /* NewSearchView.swift */; };
 		1FF17E522BC5079700B505FA /* ArchieveRCIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF17E512BC5079700B505FA /* ArchieveRCIndicator.swift */; };
 		1FF17E552BC509C500B505FA /* FirstRoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF17E542BC509C500B505FA /* FirstRoomCreateView.swift */; };
 		1FF17E572BC509E400B505FA /* SelectionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF17E562BC509E400B505FA /* SelectionButtonView.swift */; };
@@ -170,6 +171,7 @@
 		1F5038E92BC4EC3600381EE5 /* SearchFilterPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterPicker.swift; sourceTree = "<group>"; };
 		1F6454F12BC8B60B00C9D235 /* RCParticipantsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCParticipantsSection.swift; sourceTree = "<group>"; };
 		1F6454F32BC8B96000C9D235 /* GenderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderButton.swift; sourceTree = "<group>"; };
+		1F6B75C92BCF6ABC004092EB /* NewSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchView.swift; sourceTree = "<group>"; };
 		1FF17E512BC5079700B505FA /* ArchieveRCIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchieveRCIndicator.swift; sourceTree = "<group>"; };
 		1FF17E542BC509C500B505FA /* FirstRoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRoomCreateView.swift; sourceTree = "<group>"; };
 		1FF17E562BC509E400B505FA /* SelectionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionButtonView.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				1F5038E22BC4E6AF00381EE5 /* ArchieveRecentSearchCell.swift */,
+				1F6B75C92BCF6ABC004092EB /* NewSearchView.swift */,
 			);
 			path = ArchieveFiles;
 			sourceTree = "<group>";
@@ -539,12 +542,7 @@
 			children = (
 				DFB59ED12BCE2FF200D7DD8A /* Room */,
 				DF9674C22BCD211B00322382 /* Info.plist */,
-				DF9674B72BCCF4B400322382 /* Enum */,
-				3056254B2BC6B74400814FBF /* Extensions */,
-				FC2DDC0B2BC506E500A51E64 /* MoreInfo */,
 				DFB59ECC2BCDFDB000D7DD8A /* Onboarding */,
-				30C1BAC62BC3ECD100827BD1 /* Main */,
-				FCCCEEB22BC3B55400DABCA6 /* LogIn */,
 				DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */,
 				DF54D2202BC36C4500D72491 /* ContentView.swift */,
 				DF9674B72BCCF4B400322382 /* Enum */,
@@ -807,6 +805,7 @@
 				30064DBA2BC8027700FD04A2 /* MessageModel.swift in Sources */,
 				30BE7EBF2BC57C7E00A5A178 /* QuestionListView.swift in Sources */,
 				FC43146A2BCD600B003D35FB /* ImagePicker.swift in Sources */,
+				1F6B75CA2BCF6ABC004092EB /* NewSearchView.swift in Sources */,
 				3007E8B42BC4255900B9F7B3 /* RoomCardListView.swift in Sources */,
 				FC2DDC212BC591F300A51E64 /* FakeDivider.swift in Sources */,
 				DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */,
@@ -859,9 +858,9 @@
 				1F3859BD2BC3D2A800C753BD /* SearchingView.swift in Sources */,
 				1FF17E572BC509E400B505FA /* SelectionButtonView.swift in Sources */,
 				1F0603412BC53503003808F4 /* CategoryCellView.swift in Sources */,
-				1FF17E522BC5079700B505FA /* RoomCreateIndicator.swift in Sources */,
+				1FF17E522BC5079700B505FA /* ArchieveRCIndicator.swift in Sources */,
 				DFB59ED52BCE358900D7DD8A /* VoteProfileView.swift in Sources */,
-				1F0603502BC5A5FE003808F4 /* RCNavigationBarView.swift in Sources */,
+				1F0603502BC5A5FE003808F4 /* ArchieveRCNaviBar.swift in Sources */,
 				1FF17E522BC5079700B505FA /* ArchieveRCIndicator.swift in Sources */,
 				1F0603502BC5A5FE003808F4 /* ArchieveRCNaviBar.swift in Sources */,
 				305137012BC3D0AA00BA41EE /* RoomCardView.swift in Sources */,
