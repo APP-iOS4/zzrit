@@ -36,13 +36,14 @@ struct MainExistView: View {
                 Task {
                     do {
                         try await loadRoomViewModel.consumerLoadRoom()
+                        loadRoomViewModel.getFilter(isOnline: isOnline)
                     } catch {
                         print("\(error)")
                     }
                 }
                 
             }
-            .onChange(of: loadRoomViewModel.rooms.count) {
+            .onChange(of: isOnline) {
                 loadRoomViewModel.getFilter(isOnline: isOnline)
             }
         } else {
@@ -69,13 +70,13 @@ struct MainExistView: View {
                 Task {
                     do {
                         try await loadRoomViewModel.consumerLoadRoom()
+                        loadRoomViewModel.getFilter(isOnline: isOnline)
                     } catch {
                         print("\(error)")
                     }
                 }
             }
             .onChange(of: isOnline) { newValue in
-                print("실행한다!")
                 loadRoomViewModel.getFilter(isOnline: isOnline)
             }
         }

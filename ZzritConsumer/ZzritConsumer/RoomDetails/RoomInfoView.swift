@@ -25,10 +25,6 @@ struct RoomInfoView: View {
         if room.scoreLimitation != nil { return true }
         else { return false }
     }
-    
-    private var timeSet: String {
-        DateService.shared.formattedString(date: room.dateTime, format: "HH:mm")
-    }
 
     // MARK: - body
     
@@ -51,9 +47,7 @@ struct RoomInfoView: View {
                 .padding(.bottom, 5)
             
             HStack {
-                Text("\(DateService.shared.formattedString(date: room.dateTime, format: "M월 dd일 E요일"))")
-                
-                Text(timeSet)
+                Text("\(DateService.shared.formattedString(date: room.dateTime, format: "M월 dd일 E요일 HH:mm"))")
             }
             .foregroundStyle(Color.staticGray1)
             .padding(.bottom, 5)
