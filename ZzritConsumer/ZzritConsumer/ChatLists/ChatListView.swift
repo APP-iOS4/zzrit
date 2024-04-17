@@ -67,13 +67,15 @@ struct ChatListView: View {
         .onAppear {
             Task {
                 try await isLogined()
-                try await fetchRoom()
+                if rooms.isEmpty {
+                    try await fetchRoom()
+                }
             }
         }
     }
     
     func isLogined() async throws {
-        userModel = try await userService.loginedUserInfo()
+        userModel = try await userService.getUserInfo(uid: "tMecHWbZuyYapCJmmiN9AnP9TeQ2")
     }
     
     func fetchRoom() async throws {

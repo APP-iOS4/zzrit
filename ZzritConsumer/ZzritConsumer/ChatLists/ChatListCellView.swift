@@ -19,11 +19,15 @@ struct ChatListCellView: View {
     var body: some View {
         HStack {
             // 모임 채팅방 썸네일 이미지
-            Image(.dummy)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 56, height: 56)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+            AsyncImage(url: room.roomImage) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 56, height: 56)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            } placeholder: {
+                ProgressView()
+            }
             
             VStack(alignment: .leading) {
                 HStack {
