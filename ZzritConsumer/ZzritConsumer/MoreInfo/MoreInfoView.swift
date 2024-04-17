@@ -49,7 +49,6 @@ struct MoreInfoView: View {
             }
             .padding(.vertical, 1)
             .toolbar {
-                // 왼쪽 앱 메인 로고
                 ToolbarItem(placement: .topBarLeading) {
                     HStack(spacing: 0) {
                         Text("더보기")
@@ -58,6 +57,9 @@ struct MoreInfoView: View {
                     .fontWeight(.black)
                 }
                 
+                // TODO: 추후 기능 구현시 사용
+                
+/*
                 // 오른쪽 위 아이콘
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack {
@@ -85,6 +87,7 @@ struct MoreInfoView: View {
                         }
                     }
                 }
+ */
             }
             .navigationBarTitleDisplayMode(.inline)
         }
