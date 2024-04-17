@@ -7,24 +7,30 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct ChatActiveListView: View {
+    
+    let rooms: [RoomModel]
     
     //MARK: - body
     
     var body: some View {
-        List (0...3, id: \.self) { _ in
-            ZStack {
-                // 리스트로 보여줄 셀을 ZStack으로 감싼다.
-                ChatListCellView()
-                
-                NavigationLink {
-                    // 상세 페이지
-                    // FIXME: 아직 채팅창 뷰는 미구현, 구현 되는 대로 뷰와 모델 연동
-                    ChatView(isActive: true)
-                } label: {
-                    // 여기는 쓰이지 않는다
+        List (rooms) { room in
+            if room.status == .activation {
+                ZStack {
+                    // 리스트로 보여줄 셀을 ZStack으로 감싼다.
+                    ChatListCellView(room: room)
+                    
+                    NavigationLink {
+                        // 상세 페이지
+                        // FIXME: 아직 채팅창 뷰는 미구현, 구현 되는 대로 뷰와 모델 연동
+                        ChatView(isActive: true)
+                    } label: {
+                        // 여기는 쓰이지 않는다
+                    }
+                    .opacity(0.0)
                 }
-                .opacity(0.0)
             }
         }
         .listStyle(.plain)
@@ -51,6 +57,6 @@ struct ChatActiveListView: View {
 
 #Preview {
     NavigationStack {
-        ChatActiveListView()
+        ChatActiveListView(rooms: [RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "", isOnline: false, status: .activation, leaderID: "", limitPeople: 8)])
     }
 }

@@ -22,9 +22,9 @@ class LoadRoomViewModel: ObservableObject {
     private var status: ActiveType = .activation
     
     @MainActor
-    func consumerLoadRoom() async throws {
+    func consumerLoadRoom(_ title: String = "") async throws {
         do {
-            rooms += try await roomService.loadRoom(isInitial: isInit, status: status.rawValue)
+            rooms += try await roomService.loadRoom(isInitial: isInit, status: status.rawValue, title: title)
             isInit = false
         } catch {
             print("\(error)")
@@ -52,5 +52,11 @@ class LoadRoomViewModel: ObservableObject {
                 return element.status == status && element.category == category! && element.isOnline == isOnline!
             }
         }
+    }
+    
+    func roomInfo(_ roomID: String) async throws -> RoomModel {
+        let room = try await roomService.roomInfo(roomID)
+        
+        return room
     }
 }
