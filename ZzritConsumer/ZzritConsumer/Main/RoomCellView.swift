@@ -49,7 +49,7 @@ struct RoomCellView: View {
                 
                 // 시간
                 Label {
-                    Text("16:30")
+                    Text(DateService.shared.formattedString(date: room.dateTime, format: "HH:mm"))
                         .foregroundStyle(Color.staticGray1)
                 } icon: {
                     Image(systemName: "clock.fill")

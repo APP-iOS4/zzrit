@@ -47,7 +47,7 @@ struct RoomInfoView: View {
                 .padding(.bottom, 5)
             
             HStack {
-                Text("\(DateService.shared.formattedString(date: room.dateTime, format: "M월 dd일 E요일 HH:mm"))")
+                Text((DateService.shared.formattedString(date: room.dateTime, format: "M월 dd일 E요일 HH:mm")))
             }
             .foregroundStyle(Color.staticGray1)
             .padding(.bottom, 5)
