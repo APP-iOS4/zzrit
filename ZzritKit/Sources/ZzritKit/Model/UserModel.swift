@@ -56,9 +56,8 @@ public struct UserModel: Codable, Identifiable {
     
     // FIXME: 프로필 이미지 비어있을 경우 보일 이미지 URL 추가 (25 line)
     
-    public var profileImage: URL {
-        guard let url = URL(string: userImage) else { return URL(string: "")! }
-        return url
+    public var profileImage: URL? {
+        URL(string: userImage)
     }
     
     // FIXME: 밴 목록 불러오는 코드 추가
