@@ -7,9 +7,13 @@
 
 import SwiftUI
 
+import ZzritKit
+
 let tempCount = 5
 
 struct RecentWatchRoomView: View {
+    private let loadRoomViewModel: LoadRoomViewModel = LoadRoomViewModel()
+    
     @State var selectedIndex = 0
     
     // 최근 본 모임 전체 뷰
@@ -22,12 +26,12 @@ struct RecentWatchRoomView: View {
             // 최근 본 모임 슬라이드
             VStack {
                 TabView(selection: $selectedIndex) {
-                    ForEach(0..<tempCount, id: \.self) { _ in
+                    ForEach(loadRoomViewModel.rooms) { room in
                         NavigationLink {
                             // 모임 상세 페이지 넘기기
-                            RoomDetailView()
+                            RoomDetailView(room: room)
                         } label: {
-                            RoomCardView(titleToHStackPadding: 25)
+                            RoomCardView(room: room, titleToHStackPadding: 25)
                         }
                     }
                     .padding(.horizontal, 20)
