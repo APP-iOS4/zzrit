@@ -24,6 +24,7 @@ struct ZzritAdministratorApp: App {
     @StateObject private var noticeViewModel = NoticeViewModel()
     @StateObject private var termsViewModel = TermsViewModel()
     @StateObject private var contactViewModel = ContactViewModel()
+    @StateObject private var roomViewModel = RoomViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -32,6 +33,7 @@ struct ZzritAdministratorApp: App {
                 .environmentObject(noticeViewModel)
                 .environmentObject(termsViewModel)
                 .environmentObject(contactViewModel)
+                .environmentObject(roomViewModel)
         }
     }
 }

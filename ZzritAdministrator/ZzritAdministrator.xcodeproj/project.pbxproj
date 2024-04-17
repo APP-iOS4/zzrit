@@ -11,17 +11,19 @@
 		3B05B18E2BC671C100BF9548 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B05B18D2BC671C100BF9548 /* LoginView.swift */; };
 		3B05B1902BC6721B00BF9548 /* LoginInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B05B18F2BC6721B00BF9548 /* LoginInputView.swift */; };
 		3B09C1F62BC37E9100EA9D54 /* UserManageTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C1F52BC37E9100EA9D54 /* UserManageTableView.swift */; };
-		3B09C1F82BC37EA100EA9D54 /* PlaygroundManageMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C1F72BC37EA100EA9D54 /* PlaygroundManageMainView.swift */; };
+		3B09C1F82BC37EA100EA9D54 /* RoomManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C1F72BC37EA100EA9D54 /* RoomManageView.swift */; };
 		3B09C1FF2BC3836200EA9D54 /* ComplaintManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C1FE2BC3836200EA9D54 /* ComplaintManagementView.swift */; };
-		3B09C2022BC3838D00EA9D54 /* NoticeManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2012BC3838D00EA9D54 /* NoticeManagementView.swift */; };
+		3B09C2022BC3838D00EA9D54 /* NoticeManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2012BC3838D00EA9D54 /* NoticeManageView.swift */; };
 		3B09C2052BC383D300EA9D54 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2042BC383D300EA9D54 /* SettingsView.swift */; };
 		3B09C2082BC38A8500EA9D54 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B09C2072BC38A8500EA9D54 /* SearchField.swift */; };
+		3B4F50BA2BCE13C3001A5197 /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F50B92BCE13C3001A5197 /* RoomViewModel.swift */; };
+		3B4F50BC2BCE344A001A5197 /* RoomDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F50BB2BCE344A001A5197 /* RoomDetailView.swift */; };
 		3B5C6E372BC8BBB600668AB8 /* NoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5C6E362BC8BBB600668AB8 /* NoticeViewModel.swift */; };
 		3B7350C52BC3A474008C02AE /* StaticTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7350C42BC3A474008C02AE /* StaticTextView.swift */; };
 		3B7350C72BC3A4BC008C02AE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7350C62BC3A4BC008C02AE /* Constants.swift */; };
 		3B8662E82BC51D0300BB8E00 /* NoticeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8662E72BC51D0300BB8E00 /* NoticeHeader.swift */; };
 		3B8662EA2BC538F000BB8E00 /* NoticeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8662E92BC538F000BB8E00 /* NoticeDetailView.swift */; };
-		3B8ECC602BC3CCEA0084C389 /* PlaygroundSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8ECC5F2BC3CCEA0084C389 /* PlaygroundSectionHeader.swift */; };
+		3B8ECC602BC3CCEA0084C389 /* RoomSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8ECC5F2BC3CCEA0084C389 /* RoomSectionHeader.swift */; };
 		9B4D00012BC58BC1008C5FC7 /* ContactManagerAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4D00002BC58BC1008C5FC7 /* ContactManagerAnswerView.swift */; };
 		9B4DFFFD2BC58AB2008C5FC7 /* ContactManagerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4DFFFC2BC58AB2008C5FC7 /* ContactManagerContentView.swift */; };
 		9B4DFFFF2BC58B46008C5FC7 /* ContactManageUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4DFFFE2BC58B46008C5FC7 /* ContactManageUserInfoView.swift */; };
@@ -47,17 +49,19 @@
 		3B05B18D2BC671C100BF9548 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3B05B18F2BC6721B00BF9548 /* LoginInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInputView.swift; sourceTree = "<group>"; };
 		3B09C1F52BC37E9100EA9D54 /* UserManageTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManageTableView.swift; sourceTree = "<group>"; };
-		3B09C1F72BC37EA100EA9D54 /* PlaygroundManageMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundManageMainView.swift; sourceTree = "<group>"; };
+		3B09C1F72BC37EA100EA9D54 /* RoomManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomManageView.swift; sourceTree = "<group>"; };
 		3B09C1FE2BC3836200EA9D54 /* ComplaintManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintManagementView.swift; sourceTree = "<group>"; };
-		3B09C2012BC3838D00EA9D54 /* NoticeManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeManagementView.swift; sourceTree = "<group>"; };
+		3B09C2012BC3838D00EA9D54 /* NoticeManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeManageView.swift; sourceTree = "<group>"; };
 		3B09C2042BC383D300EA9D54 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3B09C2072BC38A8500EA9D54 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
+		3B4F50B92BCE13C3001A5197 /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
+		3B4F50BB2BCE344A001A5197 /* RoomDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDetailView.swift; sourceTree = "<group>"; };
 		3B5C6E362BC8BBB600668AB8 /* NoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewModel.swift; sourceTree = "<group>"; };
 		3B7350C42BC3A474008C02AE /* StaticTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticTextView.swift; sourceTree = "<group>"; };
 		3B7350C62BC3A4BC008C02AE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3B8662E72BC51D0300BB8E00 /* NoticeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeHeader.swift; sourceTree = "<group>"; };
 		3B8662E92BC538F000BB8E00 /* NoticeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDetailView.swift; sourceTree = "<group>"; };
-		3B8ECC5F2BC3CCEA0084C389 /* PlaygroundSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundSectionHeader.swift; sourceTree = "<group>"; };
+		3B8ECC5F2BC3CCEA0084C389 /* RoomSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSectionHeader.swift; sourceTree = "<group>"; };
 		9B4D00002BC58BC1008C5FC7 /* ContactManagerAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactManagerAnswerView.swift; sourceTree = "<group>"; };
 		9B4DFFFC2BC58AB2008C5FC7 /* ContactManagerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactManagerContentView.swift; sourceTree = "<group>"; };
 		9B4DFFFE2BC58B46008C5FC7 /* ContactManageUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactManageUserInfoView.swift; sourceTree = "<group>"; };
@@ -139,8 +143,9 @@
 		3B09C1FC2BC3811600EA9D54 /* PlaygroundManageMainView */ = {
 			isa = PBXGroup;
 			children = (
-				3B09C1F72BC37EA100EA9D54 /* PlaygroundManageMainView.swift */,
-				3B8ECC5F2BC3CCEA0084C389 /* PlaygroundSectionHeader.swift */,
+				3B09C1F72BC37EA100EA9D54 /* RoomManageView.swift */,
+				3B8ECC5F2BC3CCEA0084C389 /* RoomSectionHeader.swift */,
+				3B4F50BB2BCE344A001A5197 /* RoomDetailView.swift */,
 			);
 			path = PlaygroundManageMainView;
 			sourceTree = "<group>";
@@ -160,9 +165,9 @@
 		3B09C2032BC383A200EA9D54 /* AnnouncementManagementView */ = {
 			isa = PBXGroup;
 			children = (
-				3B09C2012BC3838D00EA9D54 /* NoticeManagementView.swift */,
-				3B8662E72BC51D0300BB8E00 /* NoticeHeader.swift */,
+				3B09C2012BC3838D00EA9D54 /* NoticeManageView.swift */,
 				3B8662E92BC538F000BB8E00 /* NoticeDetailView.swift */,
+				3B8662E72BC51D0300BB8E00 /* NoticeHeader.swift */,
 			);
 			path = AnnouncementManagementView;
 			sourceTree = "<group>";
@@ -192,6 +197,7 @@
 				3B5C6E362BC8BBB600668AB8 /* NoticeViewModel.swift */,
 				9BE9A3A32BCCE8FE00272065 /* TermsViewModel.swift */,
 				9B6C2F012BCE09190092DE4D /* ContactViewModel.swift */,
+				3B4F50B92BCE13C3001A5197 /* RoomViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -346,14 +352,16 @@
 				3B09C1FF2BC3836200EA9D54 /* ComplaintManagementView.swift in Sources */,
 				9B4D00012BC58BC1008C5FC7 /* ContactManagerAnswerView.swift in Sources */,
 				9BE9A3A02BCCDFFF00272065 /* TermsAddingView.swift in Sources */,
+				3B4F50BA2BCE13C3001A5197 /* RoomViewModel.swift in Sources */,
 				9B7574902BC7BC0600A247C1 /* UserSectionHeader.swift in Sources */,
 				9B4DFFFD2BC58AB2008C5FC7 /* ContactManagerContentView.swift in Sources */,
-				3B09C1F82BC37EA100EA9D54 /* PlaygroundManageMainView.swift in Sources */,
+				3B09C1F82BC37EA100EA9D54 /* RoomManageView.swift in Sources */,
+				3B4F50BC2BCE344A001A5197 /* RoomDetailView.swift in Sources */,
 				9BE9A3A22BCCE28500272065 /* MyButton.swift in Sources */,
 				3B05B18E2BC671C100BF9548 /* LoginView.swift in Sources */,
-				3B09C2022BC3838D00EA9D54 /* NoticeManagementView.swift in Sources */,
+				3B09C2022BC3838D00EA9D54 /* NoticeManageView.swift in Sources */,
 				9BE9A3A42BCCE8FE00272065 /* TermsViewModel.swift in Sources */,
-				3B8ECC602BC3CCEA0084C389 /* PlaygroundSectionHeader.swift in Sources */,
+				3B8ECC602BC3CCEA0084C389 /* RoomSectionHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
