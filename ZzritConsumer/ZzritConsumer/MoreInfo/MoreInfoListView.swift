@@ -14,6 +14,9 @@ struct MoreInfoListView: View {
     @State private var isQuestionShow = false
     @State private var isTermNavigationDestination: Bool = false
     @State private var selectedTermType: TermType = .service
+    
+    @Binding var loginedInfo: UserModel?
+    
     var isLogined: Bool
     
     var body: some View {
@@ -79,7 +82,7 @@ struct MoreInfoListView: View {
                     VStack(alignment: .leading, spacing: 40) {
                         // 로그아웃
                         Button {
-                            
+                            logout()
                         } label: {
                             HorizontalLabel(string: "로그아웃")
                                 .foregroundStyle(.red)
@@ -94,8 +97,17 @@ struct MoreInfoListView: View {
             TermView(type: selectedTermType)
         }
     }
+    
+    private func logout() {
+        do {
+            try AuthenticationService.shared.logout()
+            loginedInfo = nil
+        } catch {
+            print("에러: \(error)")
+        }
+    }
 }
 
-#Preview {
-    MoreInfoListView( isLogined: true)
-}
+//#Preview {
+//    MoreInfoListView( isLogined: true)
+//}

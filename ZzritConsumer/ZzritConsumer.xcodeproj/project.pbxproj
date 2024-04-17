@@ -110,7 +110,7 @@
 		FC2DDC0D2BC5070A00A51E64 /* MoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */; };
 		FC2DDC0F2BC508B700A51E64 /* MyStaticGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC0E2BC508B700A51E64 /* MyStaticGaugeView.swift */; };
 		FC2DDC112BC50B6900A51E64 /* StaticGaugeProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC102BC50B6900A51E64 /* StaticGaugeProgressView.swift */; };
-		FC2DDC132BC5231200A51E64 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC122BC5231200A51E64 /* ProfileEditView.swift */; };
+		FC2DDC132BC5231200A51E64 /* ProfileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC122BC5231200A51E64 /* ProfileInfoView.swift */; };
 		FC2DDC152BC528F900A51E64 /* RecentWatchRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC142BC528F900A51E64 /* RecentWatchRoomView.swift */; };
 		FC2DDC172BC52FBA00A51E64 /* MoreInfoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC162BC52FBA00A51E64 /* MoreInfoListView.swift */; };
 		FC2DDC192BC539B700A51E64 /* NoticeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC182BC539B700A51E64 /* NoticeListView.swift */; };
@@ -234,7 +234,7 @@
 		FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoView.swift; sourceTree = "<group>"; };
 		FC2DDC0E2BC508B700A51E64 /* MyStaticGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStaticGaugeView.swift; sourceTree = "<group>"; };
 		FC2DDC102BC50B6900A51E64 /* StaticGaugeProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticGaugeProgressView.swift; sourceTree = "<group>"; };
-		FC2DDC122BC5231200A51E64 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
+		FC2DDC122BC5231200A51E64 /* ProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoView.swift; sourceTree = "<group>"; };
 		FC2DDC142BC528F900A51E64 /* RecentWatchRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWatchRoomView.swift; sourceTree = "<group>"; };
 		FC2DDC162BC52FBA00A51E64 /* MoreInfoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoListView.swift; sourceTree = "<group>"; };
 		FC2DDC182BC539B700A51E64 /* NoticeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListView.swift; sourceTree = "<group>"; };
@@ -629,7 +629,7 @@
 				DFB57BCA2BCF65350070A923 /* TermView */,
 				FC2DDC242BC5924C00A51E64 /* LittleUseView */,
 				FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */,
-				FC2DDC122BC5231200A51E64 /* ProfileEditView.swift */,
+				FC2DDC122BC5231200A51E64 /* ProfileInfoView.swift */,
 				FC2DDC1F2BC586EB00A51E64 /* StaticGuageView */,
 				FC2DDC142BC528F900A51E64 /* RecentWatchRoomView.swift */,
 				FC2DDC162BC52FBA00A51E64 /* MoreInfoListView.swift */,
@@ -799,7 +799,7 @@
 				FC2DDC152BC528F900A51E64 /* RecentWatchRoomView.swift in Sources */,
 				1F4566FB2BCDFFA8001EC0E7 /* Coordinator.swift in Sources */,
 				1F5038E02BC4E69E00381EE5 /* RecentSearchNavigationView.swift in Sources */,
-				FC2DDC132BC5231200A51E64 /* ProfileEditView.swift in Sources */,
+				FC2DDC132BC5231200A51E64 /* ProfileInfoView.swift in Sources */,
 				1F4566E82BCDFCEC001EC0E7 /* RCNavigationBar.swift in Sources */,
 				1F0603582BC6611D003808F4 /* RCProcedurePicker.swift in Sources */,
 				FC628F2E2BC42F1A007F5E5C /* SetProfileView.swift in Sources */,
