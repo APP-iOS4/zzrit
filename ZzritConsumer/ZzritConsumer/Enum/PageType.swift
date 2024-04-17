@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+import ZzritKit
 // MARK: - 가져가야 함
 
 enum PageType: Hashable {
@@ -65,10 +66,10 @@ enum PageType: Hashable {
             switch room {
             // 모임 디테일 페이지
             case .detail:
-                RoomDetailView()
+                RoomDetailView(room: RoomModel(title: "", category: .art, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
             // 모임 참여 시 안내사항 페이지
             case .notice:
-                ParticipantNoticeView()
+                ParticipantNoticeView(room: RoomModel(title: "", category: .art, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
             // 채팅 페이지
             case .chatting:
                 EmptyView()

@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct RoomCardListView: View {
+    @StateObject private var loadRoomViewModel: LoadRoomViewModel = LoadRoomViewModel()
     // 현재 선택된 카드 인덱스
     @State private var selectedIndex: Int = 0
     //
@@ -21,23 +24,32 @@ struct RoomCardListView: View {
         if #available(iOS 17.0, *) {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach (0 ... testCount, id: \.self) { count in
+                    ForEach (loadRoomViewModel.rooms) { room in
                         // 네비게이션 링크를 통한 카드 뷰 상세 페이지 이동
                         NavigationLink {
                             // 상세페이지 뷰 연결
-                            RoomDetailView()
+                            RoomDetailView(room: room)
                         } label: {
                             // 라벨은 카드 뷰
-                            RoomCardView(titleToHStackPadding: 75)
-                                .padding(.leading, 10)
+                            RoomCardView(room: room, titleToHStackPadding: 75)
+//                                .padding(.leading, 10)
                         }
                     }
                 }
                 .scrollTargetLayout()
-                .padding(.trailing, 10)
+                .padding(.horizontal, Configs.paddingValue)
             }
             .scrollTargetBehavior(.viewAligned)
             .padding(.bottom, 20)
+            .onAppear {
+                Task {
+                    do {
+                        try await loadRoomViewModel.consumerLoadRoom()
+                    } catch {
+                        print("\(error)")
+                    }
+                }
+            }
             
             // 몇 번째 인덱스인지 알려주는 인디케이터
 //            HStack(spacing: 3) {
@@ -53,14 +65,14 @@ struct RoomCardListView: View {
             // 카드 탭 뷰
             LazyVStack {
                 TabView(selection: $selectedIndex) {
-                    ForEach (0...testCount, id: \.self) { _ in
+                    ForEach (loadRoomViewModel.rooms) { room in
                         // 네비게이션 링크를 통한 카드 뷰 상세 페이지 이동
                         NavigationLink {
                             // 상세페이지 뷰 연결
-                            RoomDetailView()
+                            RoomDetailView(room: room)
                         } label: {
                             // 라벨은 카드 뷰
-                            RoomCardView(titleToHStackPadding: 75)
+                            RoomCardView(room: room, titleToHStackPadding: 75)
                         }
                     }
                     .padding(.trailing, 5)
@@ -71,6 +83,15 @@ struct RoomCardListView: View {
                 .frame(maxWidth: .infinity, minHeight: 200)
             }
             .padding(.bottom, 10)
+            .onAppear {
+                Task {
+                    do {
+                        try await loadRoomViewModel.consumerLoadRoom()
+                    } catch {
+                        print("\(error)")
+                    }
+                }
+            }
             
             // 몇 번째 인덱스인지 알려주는 인디케이터
             HStack(spacing: 3) {

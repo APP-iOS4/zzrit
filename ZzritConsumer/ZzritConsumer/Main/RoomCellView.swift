@@ -7,7 +7,14 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct RoomCellView: View {
+    let room: RoomModel
+    
+    let roomService = RoomService.shared
+    
+    @State private var participantsCount: Int = 0
     
     // MARK: - body
     
@@ -15,7 +22,7 @@ struct RoomCellView: View {
         VStack {
             HStack {
                 // 모임 타이틀
-                Text("같이 모여서 가볍게 치맥하실 분...")
+                Text(room.title)
                     .lineLimit(1)
                     .foregroundStyle(.black)
                     .font(.title3)
@@ -24,7 +31,7 @@ struct RoomCellView: View {
                 Spacer()
                 
                 // 카테고리
-                RoomCategoryView("술벙")
+                RoomCategoryView(room.category.rawValue)
                     .font(.caption)
             }
             .padding(.bottom, 20)
@@ -42,7 +49,7 @@ struct RoomCellView: View {
                 
                 // 시간
                 Label {
-                    Text("16:30")
+                    Text(DateService.shared.formattedString(date: room.dateTime, format: "HH:mm"))
                         .foregroundStyle(Color.staticGray1)
                 } icon: {
                     Image(systemName: "clock.fill")
@@ -54,7 +61,7 @@ struct RoomCellView: View {
                 
                 // 현재 인원 및 인원 제한 수
                 Label {
-                    Text("4 / 8")
+                    Text("\(participantsCount) / \(room.limitPeople)")
                         .foregroundStyle(Color.staticGray1)
                 } icon: {
                     Image(systemName: "person.fill")
@@ -72,9 +79,18 @@ struct RoomCellView: View {
                     .shadow(color: .black.opacity(0.1), radius: 3)
             }
         )
+        .onAppear {
+            Task {
+                do {
+                    participantsCount = try await roomService.joinedUsers(roomID: room.id ?? "").count
+                } catch {
+                    print("error: \(error)")
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    RoomCellView()
+    RoomCellView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
 }

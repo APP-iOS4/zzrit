@@ -27,12 +27,27 @@ struct LogInView: View {
     
     var body: some View {
         NavigationStack {
+            HStack {
+                Spacer()
+                
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .padding()
+                        .font(.title3)
+                }
+                .tint(.primary)
+            }
+            
             VStack {
-                Image("ZziritLogoImage")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 180)
+//                Image("ZziritLogoImage")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//                    .frame(height: 180)
                 AppSlogan()
+                
+                Spacer(minLength: 50)
                 
                 // MARK: 로그인 입력란
                 if #available(iOS 17.0, *) {
@@ -55,6 +70,7 @@ struct LogInView: View {
                         })
                 }
                 
+                
                 HStack {
                     Spacer()
                     Button(action: {
@@ -75,10 +91,12 @@ struct LogInView: View {
                     googleSignIn()
                 }
                 
-                Spacer()
+                Spacer(minLength: 50)
                 
                 VStack(spacing: 20) {
-                    AuthenticationErrorView(title: $errorMessage)
+                    if errorMessage != "" {
+                        AuthenticationErrorView(title: $errorMessage)
+                    }
                     
                     AuthenticationButton(type: .register) {
                         isShowingRegisterView.toggle()
