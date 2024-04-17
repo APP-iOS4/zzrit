@@ -23,6 +23,8 @@ struct ZzritAdministratorApp: App {
     // 공지 데이터 뷰 모델
     @StateObject private var noticeViewModel = NoticeViewModel()
     @StateObject private var termsViewModel = TermsViewModel()
+    @StateObject private var contactViewModel = ContactViewModel()
+    @StateObject private var roomViewModel = RoomViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -30,6 +32,8 @@ struct ZzritAdministratorApp: App {
                 .preferredColorScheme(.light)
                 .environmentObject(noticeViewModel)
                 .environmentObject(termsViewModel)
+                .environmentObject(contactViewModel)
+                .environmentObject(roomViewModel)
         }
     }
 }

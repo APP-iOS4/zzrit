@@ -76,13 +76,6 @@ struct LoginView: View {
                             // TODO: Login 로직 추가(필요)
                             Button {
                                 login()
-                                
-                                // 레거시 코드(로구인에 필요할 듯)
-//                                isCanLogin = true
-//                                checkSignInUser()
-//                                if !isCanLogin {
-//                                    
-//                                }
                             } label: {
                                 StaticTextView(title: "로그인", selectType: .login, isActive: $isLoginButtonActive)
                             }

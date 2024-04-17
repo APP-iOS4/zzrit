@@ -7,9 +7,16 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct ParticipantListCellView: View {
-    // 임시 닉네임 변수
-    var nickName: String
+    let room: RoomModel
+    
+    let participant: UserModel
+    
+    private var isLeader: Bool {
+        room.leaderID == participant.userID ? true : false
+    }
     
     // MARK: - body
     
@@ -27,18 +34,18 @@ struct ParticipantListCellView: View {
             VStack(alignment: .leading) {
                 HStack {
                     // 만약 이 사람이 방장일 시
-                    if false {
+                    if isLeader {
                         Image(systemName: "crown.fill")
                             .foregroundStyle(.yellow)
                     }
                     // 사용자의 닉네임
-                    Text("\(nickName)")
+                    Text("\(participant.userName)")
                         .fontWeight(.bold)
                         .foregroundStyle(Color.staticGray1)
                 }
                 
                 // 사용자의 정전기 지수
-                Text("75W")
+                Text("\(Int(participant.staticGauge))W")
                     .font(.caption2)
                     .padding(.vertical, 2)
                     .padding(.horizontal, 5)
@@ -51,5 +58,5 @@ struct ParticipantListCellView: View {
 }
 
 #Preview {
-    ParticipantListCellView(nickName: "박현상")
+    ParticipantListCellView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), participant: UserModel(userID: "", userName: "테스트 네임", userImage: "dummyImage", gender: .male, birthYear: 1900, staticGauge: 50.0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()))
 }
