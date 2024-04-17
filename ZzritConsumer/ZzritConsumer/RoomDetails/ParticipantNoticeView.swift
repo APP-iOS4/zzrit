@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct ParticipantNoticeView: View {
+    let room: RoomModel
     // 동의사항 체크했는지
     @State private var isCheck: Bool = false
     // 채팅방 입장 버튼을 눌렀는지
@@ -112,6 +115,6 @@ struct ParticipantNoticeView: View {
 
 #Preview {
     NavigationStack {
-        ParticipantNoticeView()
+        ParticipantNoticeView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
     }
 }
