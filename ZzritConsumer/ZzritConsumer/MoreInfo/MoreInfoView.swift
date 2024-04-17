@@ -29,7 +29,7 @@ struct MoreInfoView: View {
                         ProfileInfoView(loginedInfo: loginedInfo!)
                             .padding()
                         
-                        MyStaticGaugeView()
+                        MyStaticGaugeView(staticPoint: loginedInfo!.staticGauge)
                             .padding()
                     } else {
                         Button {
