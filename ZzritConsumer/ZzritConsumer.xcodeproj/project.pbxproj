@@ -49,6 +49,7 @@
 		1F6454F42BC8B96000C9D235 /* GenderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6454F32BC8B96000C9D235 /* GenderButton.swift */; };
 		1F6454F52BC8C5E300C9D235 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBCB3192BC3D2A90048B86F /* SignUpView.swift */; };
 		1F6454F62BC8C61E00C9D235 /* ServiceAgreeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBCB31D2BC3DC090048B86F /* ServiceAgreeSheet.swift */; };
+		1F6B75CC2BCF72FA004092EB /* NewSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6B75CB2BCF72FA004092EB /* NewSearchView.swift */; };
 		1FF17E522BC5079700B505FA /* ArchieveRCIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF17E512BC5079700B505FA /* ArchieveRCIndicator.swift */; };
 		1FF17E552BC509C500B505FA /* FirstRoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF17E542BC509C500B505FA /* FirstRoomCreateView.swift */; };
 		1FF17E572BC509E400B505FA /* SelectionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF17E562BC509E400B505FA /* SelectionButtonView.swift */; };
@@ -171,6 +172,7 @@
 		1F5038E92BC4EC3600381EE5 /* SearchFilterPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterPicker.swift; sourceTree = "<group>"; };
 		1F6454F12BC8B60B00C9D235 /* RCParticipantsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCParticipantsSection.swift; sourceTree = "<group>"; };
 		1F6454F32BC8B96000C9D235 /* GenderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderButton.swift; sourceTree = "<group>"; };
+		1F6B75CB2BCF72FA004092EB /* NewSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchView.swift; sourceTree = "<group>"; };
 		1FF17E512BC5079700B505FA /* ArchieveRCIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchieveRCIndicator.swift; sourceTree = "<group>"; };
 		1FF17E542BC509C500B505FA /* FirstRoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRoomCreateView.swift; sourceTree = "<group>"; };
 		1FF17E562BC509E400B505FA /* SelectionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionButtonView.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 			children = (
 				1F5038E32BC4E6AF00381EE5 /* ArchieveFiles */,
 				1F5038D82BC4E67B00381EE5 /* SearchViewVM.swift */,
+				1F6B75CB2BCF72FA004092EB /* NewSearchView.swift */,
 				1F3859BA2BC3D2A800C753BD /* SearchingView.swift */,
 				1F5038DB2BC4E69E00381EE5 /* SearchFieldView.swift */,
 				1F5038DA2BC4E69E00381EE5 /* SearcTestView.swift */,
@@ -846,6 +849,7 @@
 				1F6454F22BC8B60B00C9D235 /* RCParticipantsSection.swift in Sources */,
 				1F0603522BC5BF56003808F4 /* FilterCategory.swift in Sources */,
 				DFB59ED02BCE03FA00D7DD8A /* PageControl.swift in Sources */,
+				1F6B75CC2BCF72FA004092EB /* NewSearchView.swift in Sources */,
 				30064DBC2BC802A000FD04A2 /* MessageViewModel.swift in Sources */,
 				1F0603562BC63289003808F4 /* RCContentTextField.swift in Sources */,
 				1F5038DF2BC4E69E00381EE5 /* SearchFieldView.swift in Sources */,
