@@ -96,7 +96,7 @@ public final class RoomService {
                 
                 return temp
                 
-            } else if let titleString = title, (titleString == "") {
+            } else if let titleString = title, titleString == "" {
                 
                 if !isInitial, let lastDocument = lastSnapshot {
                     query = query.start(afterDocument: lastDocument)
