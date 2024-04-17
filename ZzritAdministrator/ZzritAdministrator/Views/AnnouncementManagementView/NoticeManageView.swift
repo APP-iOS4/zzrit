@@ -20,7 +20,6 @@ struct NoticeManageView: View {
     // 데이트 서비스
     private var dateService = DateService.shared
     
-    // TODO: 뷰 뷴리는 로그인 뷰부터 짜고(급해서) 진행하겠습니다
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             HStack(spacing: 20) {
@@ -31,7 +30,7 @@ struct NoticeManageView: View {
                     selectedNotice = nil
                     showNoticeDetail.toggle()
                 }
-                .frame(width: 100, height: 50)
+                .frame(width: 120, height: 50)
             }
             
             HStack(spacing: 20) {
@@ -62,8 +61,8 @@ struct NoticeManageView: View {
                                 Text("")
                             }
                             .onAppear {
-                                noticeViewModel.loadNotices()
-                                print("추가 공지 불러오기")
+                                // TODO: 파베 사용량을 아끼기 위해 주석처리...
+                                // noticeViewModel.loadNotices()
                             }
                         }
                     }

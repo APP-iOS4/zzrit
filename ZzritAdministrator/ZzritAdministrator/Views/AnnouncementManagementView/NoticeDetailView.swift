@@ -40,7 +40,7 @@ struct NoticeDetailView: View {
                             //.shadow(radius: 10)
                     }
                 
-                if let notice {
+                if notice != nil {
                     RoundedRectangle(cornerRadius: Constants.commonRadius)
                         .foregroundStyle(Color.staticGray2)
                         .frame(width: 120, height: 44)
