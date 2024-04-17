@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView: View {
     // 우측 상단 알람 버튼 눌렀는지 안눌렀는지 검사
     @State private var isTopTrailingAction: Bool = false
+    @State private var isOnline = false
     
     // MARK: - body
     
@@ -17,7 +18,7 @@ struct MainView: View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
                 ScrollView(.vertical, showsIndicators: false) {
-                    MainLocationView()
+                    MainLocationView(isOnline: $isOnline)
                         .padding(.horizontal, 20)
                         .padding(.bottom, 40)
 
@@ -33,7 +34,7 @@ struct MainView: View {
                     
                     // 최근 생성된 모임 리스트 불러오기
                     // TODO: 모델 연동 시 최근 생성된 모임 모델 배열을 넘겨줘야 한다.
-                    MainExistView()
+                    MainExistView(isOnline: $isOnline)
                 }
                 .padding(.vertical, 1)
                 
