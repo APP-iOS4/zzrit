@@ -66,10 +66,12 @@ extension Date {
         return df.string(from: self)
     }
     
+    // MARK: - 여기서는 UTC를 일단 빼놓겠습니다!
+    
     public func toStringTimeLine() -> String {
         let df = DateFormatter()
         df.dateFormat = "a hh:mm"
-        df.timeZone = TimeZone(identifier: "UTC")
+        // df.timeZone = TimeZone(identifier: "UTC")
         return df.string(from: self)
     }
 }
