@@ -11,16 +11,13 @@ import ZzritKit
 struct RoomManageView: View {
     // 모임 뷰모델
     @EnvironmentObject private var roomViewModel: RoomViewModel
-    
     // 선택된 모임
     @State private var selectedRoom: RoomModel? = nil
-    
+    // 모임 상세 페이지
     @State private var showRoomDetail: Bool = false
-    
-    // 데이트 서비스
-    private var dateService = DateService.shared
-    
+    // 모임 - 활성화/비활성화 상태
     @State private var roomStatus: ActiveType = .activation
+    // 검색어
     @State private var saerchText: String = ""
     
     // TODO: 뷰 뷴리는 로그인 뷰부터 짜고(급해서) 진행하겠습니다
