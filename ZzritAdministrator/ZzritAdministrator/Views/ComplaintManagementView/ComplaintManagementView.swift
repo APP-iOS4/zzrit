@@ -73,6 +73,9 @@ struct ComplaintManagementView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.staticGray3, lineWidth: 1.0)
             }
+            .refreshable {
+                contactViewModel.loadContacts()
+            }
         }
         .padding(20)
         .fullScreenCover(isPresented: $isShowingModalView) {

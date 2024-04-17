@@ -12,7 +12,7 @@ import ZzritKit
 struct BanReasonField: View {
     @EnvironmentObject var userViewModel: UserViewModel
     
-    var user: UserModel
+    @State var user: UserModel
     @State private var banReason: BannedType = .abuse
     @State private var banPeriod = 3
     @State private var banMemo = ""

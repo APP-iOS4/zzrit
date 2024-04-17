@@ -15,7 +15,7 @@ struct UserInfoModalView: View {
     @Binding var isUserModal: Bool
     @State private var isEditingIndex: Bool = false
     
-    var user: UserModel
+    @State var user: UserModel
     
     var body: some View {
         VStack(spacing: 20) {
@@ -46,7 +46,7 @@ struct UserInfoModalView: View {
             }
             
             if isEditingIndex {
-                StaticGaugeEditingSubview(user: user, indexAfterEdit: user.staticGauge, isUserModal: $isUserModal)
+                StaticGaugeEditingSubview(user: $user, indexAfterEdit: user.staticGauge, isUserModal: $isUserModal)
             }
             
             HStack {
