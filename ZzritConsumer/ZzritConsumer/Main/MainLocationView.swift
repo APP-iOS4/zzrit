@@ -11,7 +11,7 @@ struct MainLocationView: View {
     // 오프라인 시 시트를 띄울 불리언 변수
     @State private var isSheetOn: Bool = false
     // 온라인 선택한 건지 불리언 변수
-    @State private var isOnline: Bool = false
+    @Binding  var isOnline: Bool
     // 현재 위치 이름값
     @State private var offlineLocationString: String = "서울특별시 종로구"
     
@@ -47,5 +47,5 @@ struct MainLocationView: View {
 }
 
 #Preview {
-    MainLocationView()
+    MainLocationView(isOnline: .constant(false))
 }

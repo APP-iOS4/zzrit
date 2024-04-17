@@ -17,7 +17,7 @@ struct ArchieveRoomCardListView: View {
                         // 상세페이지 뷰 연결
                         Text("상세페이지 뷰")
                     } label: {
-                        RoomCardView(titleToHStackPadding: 75)
+//                        RoomCardView(titleToHStackPadding: 75)
                     }
                 }
                 .padding(.trailing, 5)

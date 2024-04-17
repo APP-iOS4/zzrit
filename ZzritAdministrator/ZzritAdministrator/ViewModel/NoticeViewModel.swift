@@ -8,15 +8,15 @@
 import Foundation
 import ZzritKit
 
-class NoticeViewModel: ObservableObject {
-    var notices: [NoticeModel] = []
-    var initialFetch: Bool = true
-    private let noticeService = NoticeService()
+@MainActor
+final class NoticeViewModel: ObservableObject {
+    @Published var notices: [NoticeModel] = []
     
+    private var initialFetch: Bool = true
+    private let noticeService = NoticeService()
     
     init() {
         loadNotices()
-        initialFetch = false
     }
     
     /// 공지 서버에서 읽어오기
@@ -24,7 +24,7 @@ class NoticeViewModel: ObservableObject {
         Task {
             do {
                 notices += try await noticeService.fetchNotice(isInitialFetch: initialFetch)
-                // Testing
+                initialFetch = false
             } catch {
                 print("에러: \(error)")
             }
@@ -70,8 +70,8 @@ class NoticeViewModel: ObservableObject {
             do {
                 // TODO: writerUID 수정해야 함
                 let tempNotice = NoticeModel(id: noticeID, title: title, content: content, date: date, writerUID: "lZJDCklNWnbIBcARDFfwVL8oSCf1")
-                try noticeService.writeNotice(tempNotice)
-                print("공지사항 작성 완료")
+                try noticeService.modifyNotice(tempNotice)
+                print("공지사항 수정 완료")
                 
                 // 앱(로컬) 데이터 수정
                 if let index = notices.firstIndex(where: { $0.id == noticeID }) {

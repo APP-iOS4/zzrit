@@ -73,7 +73,7 @@ public struct RoomModel: Identifiable, Codable {
     }
     
     public var roomImage: URL {
-        guard let url = URL(string: coverImage) else { return URL(string: "")! }
+        guard let url = URL(string: coverImage) else { return URL(string: "https://picsum.photos/200")! }
         return url
     }
 }
