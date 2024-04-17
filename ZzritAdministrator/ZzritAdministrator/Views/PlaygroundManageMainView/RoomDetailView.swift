@@ -60,36 +60,9 @@ struct RoomDetailView: View {
             
             Spacer()
                 .frame(height: 10)
-            
-            List {
-                Section {
-                    Text("\(room.content)")
-                } header: {
-                    Text("소개")
-                }
-                
-                LabeledContent("방장 ID", value: "\(room.leaderID)")
-                
-                if room.isOnline {
-                    LabeledContent("플랫폼", value: room.platform?.rawValue ?? "플랫폼 정보없음")
-                } else {
-                    // TODO: 위치 정보 표시 논의하기
-                    LabeledContent("위치 정보", value: "위치 정보")
-                }
-                
-                LabeledContent("카테고리", value: room.category.rawValue)
-                LabeledContent("모임날짜", value: dateService.formattedString(date: room.dateTime, format: "MM/dd - HH:mm"))
-                LabeledContent("종료시간", value: dateService.formattedString(date: room.limitTime(), format: "MM/dd - HH:mm"))
-                LabeledContent("인원제한", value: "\(room.limitPeople)")
-            }
-            .listStyle(.inset)
-            .listRowSeparator(.hidden)
-            .overlay(
-                RoundedRectangle(cornerRadius: Constants.commonRadius)
-                    .stroke(Color.staticGray3, lineWidth: 1.0)
-            )
+
+            RoomInfoView(room: room)
             .padding(.bottom, 20)
-            
             
             HStack {
                 Text("참여자 정보 (\(joinedUsers.count) / \(room.limitPeople))")
@@ -99,38 +72,8 @@ struct RoomDetailView: View {
             .padding(.horizontal, 10)
             .padding(.bottom, 10)
             
-            VStack {
-                HStack(spacing: 20) {
-                    List {
-                        ForEach(0 ..< joinedUsers.count, id: \.self) { index in
-                            Button {
-                                selectedUserIndex = index
-                            } label: {
-                                VStack {
-                                    LabeledContent("유저 ID :", value: joinedUsers[index].userID)
-                                    LabeledContent("참여한 날짜 :", value: dateService.formattedString(date: joinedUsers[index].joinedDatetime, format: "MM/dd - HH:mm"))
-                                }
-                                .foregroundStyle(selectedUserIndex == index ? Color.pointColor : Color.staticGray3)
-                            }
-                        }
-                    }
-                    .listStyle(.inset)
-                    .overlay (
-                        RoundedRectangle(cornerRadius: Constants.commonRadius)
-                            .stroke(Color.staticGray3, lineWidth: 1.0)
-                    )
-                    
-                    List {
-                        
-                    }
-                    .listStyle(.inset)
-                    .overlay (
-                        RoundedRectangle(cornerRadius: Constants.commonRadius)
-                            .stroke(Color.staticGray3, lineWidth: 1.0)
-                    )
-                }
-            }
-            
+            JoinedUserInfoView(selectedUserIndex: $selectedUserIndex, joinedUsers: joinedUsers)
+
             Spacer()
                 .frame(height: 20)
             
@@ -138,13 +81,12 @@ struct RoomDetailView: View {
                 MyButton(named: "돌아가기") {
                     dismiss()
                 }
-                .frame(width: 150)
+                .frame(width: 120)
                 
                 Spacer()
             }
         }
         .padding(20)
-        
         .onAppear {
             Task {
                 await fetchJoinedUser()
@@ -196,4 +138,68 @@ struct RoomDetailView: View {
 #Preview {
     RoomDetailView(room: RoomModel(title: "모임 이름", category: .art, dateTime: Date(), content: "efpokepsofkspeofkpoesfk  pkfdpofkpoekf", coverImage: "efkef", isOnline: true, status: .activation, leaderID: "fepsfkspoek", limitPeople: 11))
        .environmentObject(RoomViewModel())
+}
+
+struct RoomInfoView: View {
+    @State var room: RoomModel
+    var dateService = DateService.shared
+    
+    var body: some View {
+        List {
+            Section {
+                Text("\(room.content)")
+            } header: {
+                Text("소개")
+            }
+            
+            LabeledContent("방장 ID", value: "\(room.leaderID)")
+            
+            if room.isOnline {
+                LabeledContent("플랫폼", value: room.platform?.rawValue ?? "플랫폼 정보없음")
+            } else {
+                // TODO: 위치 정보 표시 논의하기
+                LabeledContent("위치 정보", value: "위치 정보")
+            }
+            
+            LabeledContent("카테고리", value: room.category.rawValue)
+            LabeledContent("모임날짜", value: dateService.formattedString(date: room.dateTime, format: "MM/dd - HH:mm"))
+            LabeledContent("종료시간", value: dateService.formattedString(date: room.limitTime(), format: "MM/dd - HH:mm"))
+            LabeledContent("인원제한", value: "\(room.limitPeople)")
+        }
+        .listStyle(.inset)
+        .listRowSeparator(.hidden)
+        .overlay(
+            RoundedRectangle(cornerRadius: Constants.commonRadius)
+                .stroke(Color.staticGray3, lineWidth: 1.0)
+        )
+    }
+}
+
+struct JoinedUserInfoView: View {
+    @Binding var selectedUserIndex: Int?
+    
+    var joinedUsers: [JoinedUserModel]
+    // 데이트 서비스
+    var dateService = DateService.shared
+    
+    var body: some View {
+        List {
+            ForEach(0 ..< joinedUsers.count, id: \.self) { index in
+                Button {
+                    selectedUserIndex = index
+                } label: {
+                    VStack {
+                        LabeledContent("유저 ID :", value: joinedUsers[index].userID)
+                        LabeledContent("참여한 날짜 :", value: dateService.formattedString(date: joinedUsers[index].joinedDatetime, format: "MM/dd - HH:mm"))
+                    }
+                    .foregroundStyle(selectedUserIndex == index ? Color.pointColor : Color.staticGray3)
+                }
+            }
+        }
+        .listStyle(.inset)
+        .overlay (
+            RoundedRectangle(cornerRadius: Constants.commonRadius)
+                .stroke(Color.staticGray3, lineWidth: 1.0)
+        )
+    }
 }

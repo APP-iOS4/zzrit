@@ -48,6 +48,7 @@ struct SettingsView: View {
     private func logout() {
         do {
             try authService.logout()
+            UserDefaults.standard.removeObject(forKey: "adminID")
             isLogin = false
         } catch {
             print("에러: \(error)")

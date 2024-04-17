@@ -14,7 +14,7 @@ final class NoticeViewModel: ObservableObject {
     
     private var initialFetch: Bool = true
     private let noticeService = NoticeService()
-    
+
     init() {
         loadNotices()
     }
@@ -51,7 +51,7 @@ final class NoticeViewModel: ObservableObject {
         Task {
             do {
                 // TODO: writerUID 수정해야 함
-                let tempNotice = NoticeModel(title: title, content: content, date: Date(), writerUID: "lZJDCklNWnbIBcARDFfwVL8oSCf1")
+                let tempNotice = NoticeModel(title: title, content: content, date: Date(), writerUID: UserDefaults.standard.string(forKey: "adminID") ?? "등록되지 않은 운영자 메일")
                 try noticeService.writeNotice(tempNotice)
                 print("공지사항 작성 완료")
                 // 앱(로컬) 데이터 수정
@@ -69,7 +69,7 @@ final class NoticeViewModel: ObservableObject {
         Task {
             do {
                 // TODO: writerUID 수정해야 함
-                let tempNotice = NoticeModel(id: noticeID, title: title, content: content, date: date, writerUID: "lZJDCklNWnbIBcARDFfwVL8oSCf1")
+                let tempNotice = NoticeModel(id: noticeID, title: title, content: content, date: date, writerUID: UserDefaults.standard.string(forKey: "adminID") ?? "등록되지 않은 운영자 메일")
                 try noticeService.modifyNotice(tempNotice)
                 print("공지사항 수정 완료")
                 

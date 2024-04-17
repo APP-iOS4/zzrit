@@ -16,17 +16,16 @@ struct RoomManageView: View {
     // 모임 상세 페이지
     @State private var showRoomDetail: Bool = false
     // 모임 - 활성화/비활성화 상태
-    @State private var roomStatus: ActiveType = .activation
+    @State private var roomStatus: RoomStatus = .all
     // 검색어
-    @State private var saerchText: String = ""
+    @State private var searchText: String = ""
     
-    // TODO: 뷰 뷴리는 로그인 뷰부터 짜고(급해서) 진행하겠습니다
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             // 상단 검색 & 필터
             HStack {
                 RoomStatusPickerView(status: $roomStatus)
-                RoomSearchField(searchText: $saerchText)
+                RoomSearchField(searchText: $searchText)
             }
             .overlay {
                 RoundedRectangle(cornerRadius: 10)
@@ -38,19 +37,19 @@ struct RoomManageView: View {
                 ScrollView {
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
                         Section(header: RoomSectionHeader()) {
-                            ForEach(roomStatus == .activation ? roomViewModel.rooms.filter { $0.status == ActiveType.activation } : roomViewModel.rooms.filter { $0.status == ActiveType.deactivation }) { room in
-                                
+                            ForEach(filterRooms(status: roomStatus, searchText: searchText)) { room in
                                 Button {
                                     selectedRoom = room
                                 } label: {
                                     RoomCellView(room: room, selectedRoom: selectedRoom)
                                 }
                             }
-                            
+ 
                             // 패치를 위한 버튼
                             Button("") { }
                                 .onAppear {
-                                    roomStatus == .activation ? roomViewModel.loadRooms() : roomViewModel.loadDeactivateRooms()
+                                    // TODO: 파베 사용량을 아끼기 위해 주석처리...
+                                    // roomViewModel.loadRooms()
                                 }
                         }
                     }
@@ -75,6 +74,17 @@ struct RoomManageView: View {
             RoomDetailView(room: selectedRoom!)
         })
     }
+    
+    func filterRooms(status: RoomStatus, searchText: String) -> [RoomModel] {
+        switch status {
+        case .all:
+            return searchText.isEmpty ? roomViewModel.rooms : roomViewModel.rooms.filter { $0.title.contains(searchText) }
+        case .activation:
+            return searchText.isEmpty ? roomViewModel.rooms.filter { $0.status == ActiveType.activation } : roomViewModel.rooms.filter { $0.status == ActiveType.activation && $0.title.contains(searchText) }
+        case .deactivation:
+            return searchText.isEmpty ? roomViewModel.rooms.filter { $0.status == ActiveType.deactivation } : roomViewModel.rooms.filter { $0.status == ActiveType.deactivation && $0.title.contains(searchText) }
+        }
+    }
 }
 
 #Preview {
@@ -83,12 +93,13 @@ struct RoomManageView: View {
 }
 
 struct RoomStatusPickerView: View {
-    @Binding var status: ActiveType
+    @Binding var status: RoomStatus
     
     var body: some View {
         Picker("\(status)", selection: $status){
-            Text("활성화").tag(ActiveType.activation)
-            Text("비활성화").tag(ActiveType.deactivation)
+            Text("전체").tag(RoomStatus.all)
+            Text("활성화").tag(RoomStatus.activation)
+            Text("비활성화").tag(RoomStatus.deactivation)
         }
         .pickerStyle(.menu)
         .tint(Color.pointColor)
@@ -96,6 +107,9 @@ struct RoomStatusPickerView: View {
 }
 
 struct RoomSearchField: View {
+    // 모임 뷰모델
+    @EnvironmentObject private var roomViewModel: RoomViewModel
+    
     @Binding var searchText: String
     
     var body: some View {
@@ -103,7 +117,7 @@ struct RoomSearchField: View {
             .padding(10.0)
             .padding(.leading)
         Button {
-            print("검색!")
+            roomViewModel.searchRooms(searchText: searchText)
         } label: {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(.white)
@@ -149,4 +163,10 @@ struct RoomCellView: View {
         .foregroundStyle(room.id == selectedRoom?.id ? Color.pointColor : Color.primary)
         .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
     }
+}
+
+enum RoomStatus: String {
+    case all = "전체"
+    case activation = "활성화"
+    case deactivation = "비활성화"
 }
