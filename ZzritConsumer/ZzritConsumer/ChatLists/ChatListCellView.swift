@@ -7,7 +7,15 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct ChatListCellView: View {
+    let roomService = RoomService.shared
+    let room: RoomModel
+    
+    @State private var participants: [JoinedUserModel] = []
+    @State private var participantsCount: Int = 0
+    
     var body: some View {
         HStack {
             // 모임 채팅방 썸네일 이미지
@@ -20,12 +28,12 @@ struct ChatListCellView: View {
             VStack(alignment: .leading) {
                 HStack {
                     // 모임 채팅방 제목
-                    Text("수요일에 맥주 한잔 찌그려요~")
+                    Text(room.title)
                         .fontWeight(.bold)
                         .foregroundStyle(.black)
                     
                     // 현재 채팅방 참여 인원 수
-                    Text("8")
+                    Text("\(participantsCount)")
                         .foregroundStyle(Color.staticGray3)
                 }
                 
@@ -53,9 +61,19 @@ struct ChatListCellView: View {
             .padding(.leading, 20)
         }
         .frame(height: 55)
+        .onAppear {
+            Task {
+                do {
+                    participants = try await roomService.joinedUsers(roomID: room.id ?? "")
+                    participantsCount = participants.count
+                } catch {
+                    print("\(error)")
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    ChatListCellView()
+    ChatListCellView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
 }

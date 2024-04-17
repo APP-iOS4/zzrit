@@ -30,13 +30,12 @@ struct MainLocationView: View {
                 }
             } label: {
                 Label(isOnline ? "온라인" : offlineLocationString, systemImage: isOnline ? "wifi" : "location.circle")
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(Color.pointColor)
             }
             .padding(10)
-            
-            Spacer()
+
         }
-        .frame(maxWidth: .infinity)
         .background(Color(red: 255.0 / 255.0, green: 236.0 / 255.0, blue: 238.0 / 255.0))
         .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
         // 오프라인 위치 검색 시트 토글

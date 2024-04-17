@@ -45,6 +45,7 @@ struct RoomDetailView: View {
                             .padding(.bottom, 20)
                         } placeholder: {
                             ProgressView()
+                                .frame(maxWidth: .infinity, alignment: .center)
                         }
                     // 세부 내용
                     Text(room.content)
