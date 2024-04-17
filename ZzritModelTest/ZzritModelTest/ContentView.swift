@@ -36,6 +36,9 @@ struct ContentView: View {
                     NavigationLink("Date <-> String 변환 뷰") {
                         DateNStringView()
                     }
+                    NavigationLink("모임검색") {
+                        RoomSearchView()
+                    }
                     
                 }
             }
