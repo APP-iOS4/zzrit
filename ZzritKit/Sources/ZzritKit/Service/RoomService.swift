@@ -53,6 +53,7 @@ public final class RoomService {
      # Parameters
      - isInitial: Bool
      - status: String(all, deactivation, activation / all일땐 아무런 영향없음.)
+     - title: String? = nil
      # Error
      - FirebaseErrorType.failCreateRoom
      */
