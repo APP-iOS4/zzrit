@@ -100,35 +100,24 @@ struct RoomDetailView: View {
             .padding(.bottom, 10)
             
             VStack {
-                HStack(spacing: 20) {
-                    List {
-                        ForEach(0 ..< joinedUsers.count, id: \.self) { index in
-                            Button {
-                                selectedUserIndex = index
-                            } label: {
-                                VStack {
-                                    LabeledContent("유저 ID :", value: joinedUsers[index].userID)
-                                    LabeledContent("참여한 날짜 :", value: dateService.formattedString(date: joinedUsers[index].joinedDatetime, format: "MM/dd - HH:mm"))
-                                }
-                                .foregroundStyle(selectedUserIndex == index ? Color.pointColor : Color.staticGray3)
+                List {
+                    ForEach(0 ..< joinedUsers.count, id: \.self) { index in
+                        Button {
+                            selectedUserIndex = index
+                        } label: {
+                            VStack {
+                                LabeledContent("유저 ID :", value: joinedUsers[index].userID)
+                                LabeledContent("참여한 날짜 :", value: dateService.formattedString(date: joinedUsers[index].joinedDatetime, format: "MM/dd - HH:mm"))
                             }
+                            .foregroundStyle(selectedUserIndex == index ? Color.pointColor : Color.staticGray3)
                         }
                     }
-                    .listStyle(.inset)
-                    .overlay (
-                        RoundedRectangle(cornerRadius: Constants.commonRadius)
-                            .stroke(Color.staticGray3, lineWidth: 1.0)
-                    )
-                    
-                    List {
-                        
-                    }
-                    .listStyle(.inset)
-                    .overlay (
-                        RoundedRectangle(cornerRadius: Constants.commonRadius)
-                            .stroke(Color.staticGray3, lineWidth: 1.0)
-                    )
                 }
+                .listStyle(.inset)
+                .overlay (
+                    RoundedRectangle(cornerRadius: Constants.commonRadius)
+                        .stroke(Color.staticGray3, lineWidth: 1.0)
+                )
             }
             
             Spacer()
@@ -138,7 +127,7 @@ struct RoomDetailView: View {
                 MyButton(named: "돌아가기") {
                     dismiss()
                 }
-                .frame(width: 150)
+                .frame(width: 120)
                 
                 Spacer()
             }

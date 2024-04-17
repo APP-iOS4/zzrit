@@ -113,6 +113,9 @@ struct LoginView: View {
                     
                     isLogin = true
                     showError = false
+                    
+                    // adminID - 유저 디폴트에 저장
+                    UserDefaults.standard.setValue(admin.id, forKey: "adminID")
                 }
             } catch {
                 showError = true

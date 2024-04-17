@@ -35,19 +35,26 @@ struct NoticeDetailView: View {
                     .padding(.leading)
                     .background {
                         RoundedRectangle(cornerRadius: Constants.commonRadius)
+                            .strokeBorder(Color.staticGray3, lineWidth: 2)
                             .foregroundStyle(.white)
-                            .shadow(radius: 10)
+                            //.shadow(radius: 10)
                     }
                 
-                Button {                    
-                    alertCase = .dismiss
-                    showAlert = true
-                } label: {
-                    Image(systemName: "xmark.app.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 43)
-                        .foregroundStyle(Color.staticGray3)
+                if let notice {
+                    RoundedRectangle(cornerRadius: Constants.commonRadius)
+                        .foregroundStyle(Color.staticGray2)
+                        .frame(width: 120, height: 44)
+                        .overlay(
+                            Button {
+                                alertCase = .delelte
+                                showAlert = true
+                            } label: {
+                                Text("공지 삭제")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(.white)
+                            }
+                        )
                 }
             }
             
@@ -93,44 +100,41 @@ struct NoticeDetailView: View {
                 .foregroundStyle(Color.staticGray3)
                 
                 HStack {
-                    RoundedRectangle(cornerRadius: Constants.commonRadius)
-                        .foregroundStyle(Color.staticGray2)
-                        .frame(width: 160, height: 50)
-                        .overlay(
-                            Button {
-                                alertCase = .delelte
-                                showAlert = true
-                            } label: {
-                                Text("공지 삭제")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(.white)
-                            }
-                        )
+                    MyButton(named: "돌아가기") {
+                        alertCase = .dismiss
+                        showAlert = true
+                    }
+                    .frame(width: 120, height: 50)
                     
                     Spacer()
                     
-                    RoundedRectangle(cornerRadius: Constants.commonRadius)
-                        .foregroundStyle(Color.pointColor)
-                        .frame(width: 280, height: 50)
-                        .overlay(
-                            Button {
-                                alertCase = .modify
-                                showAlert = true
-                            } label: {
-                                Text("공지 수정")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(.white)
-                            }
-                        )
+                    MyButton(named: "공지수정") {
+                        alertCase = .modify
+                        showAlert = true
+                    }
+                    .frame(width: 120, height: 50)
                 }
+                .font(.title2)
+                .fontWeight(.bold)
                 .padding(.vertical)
             } else {
-                MyButton(named: "공지 등록") {
-                    alertCase = .register
-                    showAlert = true
+                HStack {
+                    MyButton(named: "돌아가기") {
+                        alertCase = .dismiss
+                        showAlert = true
+                    }
+                    .frame(width: 120, height: 50)
+                    
+                    Spacer()
+                    
+                    MyButton(named: "공지 등록") {
+                        alertCase = .register
+                        showAlert = true
+                    }
+                    .frame(width: 120, height: 50)
                 }
+                .font(.title2)
+                .fontWeight(.bold)
                 .padding(.vertical)
             }
         }
