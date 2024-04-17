@@ -32,12 +32,12 @@ struct RoomCardListView: View {
                         } label: {
                             // 라벨은 카드 뷰
                             RoomCardView(room: room, titleToHStackPadding: 75)
-                                .padding(.leading, 10)
+//                                .padding(.leading, 10)
                         }
                     }
                 }
                 .scrollTargetLayout()
-                .padding(.trailing, 10)
+                .padding(.horizontal, Configs.paddingValue)
             }
             .scrollTargetBehavior(.viewAligned)
             .padding(.bottom, 20)
