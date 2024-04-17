@@ -92,13 +92,15 @@ struct ChatMessageCellView: View {
 //    fetchImage(url: chat.message)
     // 채팅의 이미지 불러오는 함수
     func fetchImage(url: String) -> some View {
-        AsyncImage(url: URL(string: url)) { image in
-            image
-                .resizable()
-                .scaledToFit()
-        } placeholder: {
-            ProgressView()
-                .frame(width: 100, height: 100)
+        HStack {
+            AsyncImage(url: URL(string: url)) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+            } placeholder: {
+                ProgressView()
+                    .frame(width: 100, height: 100)
+            }
         }
         .frame(height: 100)
     }

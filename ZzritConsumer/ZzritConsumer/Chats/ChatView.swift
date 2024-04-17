@@ -15,7 +15,7 @@ struct ChatView: View {
     var storageService = StorageService()
     
     // FIXME: 현재 계정의 uid로 바꾸어 주기
-    var uid: String = "dPwldldl"
+    var uid: String = "예삐이"
     
     // 입력 메세지 변수
     @State private var messageText: String = ""
@@ -27,13 +27,36 @@ struct ChatView: View {
     var messages: [ChattingModel] {
         chattingService.messages
     }
+    @State private var sortedChat: [Int: [ChattingModel]]?
+    @State private var sortedDay = [0]
     
-    // 이미지 전송
+    // 메시지를 보냈을 때
+    @State private var isSending = false
+    
+    // 불러올 채팅이 없음을 판별
+    @State private var isfetchFinish = false
+    @State private var isFirstEnter = true
+    
+    // 새로 로딩됨을 판별
+    // 새 메시지가 왔을 때
+    @State private var isLoadNew = false
+    @State private var loadingNewID: String?
+    @State private var loadingMiddleID: String?
+    
+    // 이미지 전송용
     @State private var isShowingImagePicker: Bool = false
     @State private var isRealSendSheet: Bool = false
     
     @State private var selectedUIImage: UIImage?
     @State private var image: Image?
+    
+    // 스크롤뷰용
+    // 스크롤뷰의 맨밑 담당
+    @Namespace private var bottomID
+    // 스크롤뷰의 중간 담당
+    @Namespace private var middleID
+    // 스크롤뷰 맨 위로 올렸을때
+    @State var prevValue: Double = 0
     
     var body: some View {
         
@@ -42,19 +65,116 @@ struct ChatView: View {
         Divider()
         
         VStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack {
-                    // TODO: 채팅 내용 스크롤뷰 아래서 부터 보이게 + 날짜별로 + 페이징
-                    ForEach(messages) { message in
-                        chatView(chat: message)
+            ScrollViewWithOffset(onScroll: scrollEvent) {
+                ScrollViewReader { proxy in
+                    LazyVStack {
+                        // 더 이상 로드할 채팅이 없음을 알림
+                        HStack {
+                            if isfetchFinish {
+                                Text("- 대화내용의 끝입니다. -")
+                                    .foregroundStyle(Color.staticGray1)
+                                    .padding(10)
+                                    .frame(maxWidth: .infinity)
+                            }
+                        }
+                        ForEach(sortedDay, id: \.self) { day in
+                            // 바뀐 날짜 표시
+                            Text(toStringChatDay(chat: sortedChat?[day]!.first ?? ChattingModel(userID: "실패", message: "실패", type: .text)))
+                                .font(.caption)
+                                .foregroundStyle(Color.staticGray3)
+                                .frame(maxWidth: .infinity)
+                            
+                            // 메시지
+                            if let sortedChat = sortedChat?[day]! {
+                                ForEach(sortedChat) { chat in
+                                    // 중간 스크롤 위치 저장용
+                                    if chat.id == loadingMiddleID {
+                                        Rectangle()
+                                            .id(middleID)
+                                            .frame(maxWidth: .infinity)
+                                            .foregroundStyle(.clear)
+                                    }
+                                    chatView(chat: chat)
+                                }
+                                .onAppear {
+                                    // 처음 들어갔을때 가장 최근 메시지부터 보이도록
+                                    if isFirstEnter {
+                                        proxy.scrollTo(bottomID, anchor: .bottom)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    //스크롤 뷰의 맨밑 자리 담당
+                    if #available(iOS 17.0, *) {
+                        Rectangle()
+                            .id(bottomID)
+                            .frame(height: 5)
+                            .frame(maxWidth: .infinity)
+                            .foregroundStyle(.clear)
+                            .onChange(of: messages.count) {
+                                sortedChat = sortChat(chat: messages)
+                                sortedDay = sortedChat!.keys.sorted(by: { prev, next in
+                                    return prev < next
+                                })
+                                if isSending {
+                                    // 내가 보냈을때
+                                    proxy.scrollTo(bottomID, anchor: .bottom)
+                                    isSending.toggle()
+                                } else {
+                                    if isLoadNew == true {
+                                        // 과거 채팅 로딩해왔을때
+                                        middleScroll()
+                                        proxy.scrollTo(middleID, anchor: .top)
+                                        isLoadNew.toggle()
+                                    } else {
+                                        // 상대방에 채팅 보냈을때
+                                        proxy.scrollTo(bottomID, anchor: .bottom)
+                                    }
+                                }
+                            }
+                    } else {
+                        Rectangle()
+                            .id(bottomID)
+                            .frame(height: 5)
+                            .frame(maxWidth: .infinity)
+                            .foregroundStyle(.clear)
+                            .onChange(of: isSending) { newValue in
+                                proxy.scrollTo(bottomID, anchor: .bottom)
+                                isSending.toggle()
+                            }
+                            .onChange(of: messages.count) { newValue in
+                                // TODO: 위에서 바뀐 조건과 같은지 확인하기
+                                sortedChat = sortChat(chat: messages)
+                                sortedDay = sortedChat!.keys.sorted(by: { prev, next in
+                                    return prev < next
+                                })
+                                if isSending {
+                                    // 내가 보냈을때
+                                    proxy.scrollTo(bottomID, anchor: .bottom)
+                                    isSending.toggle()
+                                } else {
+                                    if isLoadNew == true {
+                                        // 과거 채팅 로딩해왔을때
+                                        middleScroll()
+                                        proxy.scrollTo(middleID, anchor: .top)
+                                        isLoadNew.toggle()
+                                    } else {
+                                        // 상대방에 채팅 보냈을때
+                                        proxy.scrollTo(bottomID, anchor: .bottom)
+                                    }
+                                }
+                            }
                     }
                 }
             }
-            .padding(.bottom, 5)
             .onTapGesture {
+                // 키보드 내리는 코드
                 self.endTextEditing()
             }
             .onAppear {
+                // 초기 채팅 로드
                 fetchChatting()
             }
         }
@@ -113,6 +233,7 @@ struct ChatView: View {
                     }
                 }
                 
+                // 메시지 입력
                 HStack(alignment: .bottom) {
                     // 입력칸
                     TextField(isActive ? "메세지를 입력해주세요." : "비활성화된 모임입니다.", text: $messageText, axis: .vertical)
@@ -172,62 +293,100 @@ struct ChatView: View {
     
     // 채팅 불러오는 함수
     private func fetchChatting() {
-        Task {
-            do {
-                try await chattingService.fetchChatting()
-            } catch {
-                print("에러: \(error)")
+        if !isfetchFinish {
+            Task {
+                do {
+                    try await chattingService.fetchChatting()
+                    DispatchQueue.main.async {
+                        // 처음 채팅 로드시에 필요한 정보 저장
+                        if isFirstEnter {
+                            loadingNewID = messages.first?.id
+                            loadingMiddleID = messages.first?.id
+                            isFirstEnter.toggle()
+                        }
+                    }
+                } catch let error {
+                    switch error.self {
+                    case FetchError.noMoreFetch:
+                        isfetchFinish.toggle()
+                    default:
+                        print("error: \(error)")
+                    }
+                }
             }
         }
+    }
+    
+    // 중간 스크롤 위한 위치 저장 함수
+    private func middleScroll() {
+        loadingMiddleID = loadingNewID
+        loadingNewID = messages.first?.id
+    }
+    
+    // 채팅에 날짜 보여주는 텍스트 함수
+    private func toStringChatDay(chat: ChattingModel) -> String {
+        return chat.date.toStringYear() + "년 " + chat.date.toStringMonth() + "월 " + chat.date.toStringDate() + "일 "
+    }
+    
+    // chat 날짜별 정렬 함수
+    func sortChat(chat: [ChattingModel]) -> [Int: [ChattingModel]] {
+        let classificationChat = Dictionary
+            .init(grouping: messages, by: {Int($0.date.toStringDate()) ?? 0})
+        return classificationChat
     }
     
     // 메세지 보내는 함수
     private func sendMessage() {
         do {
             try chattingService.sendMessage(uid: uid, message: messageText, type: .text)
-            messageText = ""
+            DispatchQueue.main.async {
+                messageText = ""
+            }
         } catch {
             print("에러: \(error)")
         }
+        isSending.toggle()
     }
     
     // 메시지 뷰
     @ViewBuilder
     private func chatView(chat: ChattingModel) -> some View {
         let isYou = uid != chat.userID
-        
-        switch chat.type {
-            // 내용이 Text 일때
-        case .text:
-            HStack {
-                if !isYou {
-                    Spacer()
+        VStack {
+            switch chat.type {
+                // 내용이 Text 일때
+            case .text:
+                HStack {
+                    if !isYou {
+                        Spacer()
+                    }
+                    ChatMessageCellView(message: chat, isYou: isYou, messageType: .text)
+                    if isYou {
+                        Spacer()
+                    }
                 }
-                ChatMessageCellView(message: chat, isYou: isYou, messageType: .text)
-                if isYou {
-                    Spacer()
+                
+                // 내용이 이미지 일때
+            case .image:
+                HStack {
+                    if !isYou {
+                        Spacer()
+                    }
+                    ChatMessageCellView(message: chat, isYou: isYou, messageType: .image)
+                    if isYou {
+                        Spacer()
+                    }
                 }
+                
+                // system 메시지
+            case .notice:
+                Text(chat.message)
+                    .foregroundStyle(Color.pointColor)
+                    .padding(10)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.lightPointColor)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
             }
-            
-            // 내용이 이미지 일때
-        case .image:
-            HStack {
-                if !isYou {
-                    Spacer()
-                }
-                ChatMessageCellView(message: chat, isYou: isYou, messageType: .image)
-                if isYou {
-                    Spacer()
-                }
-            }
-            // TODO: 날짜 넘어갈때 처리해야합니다.
-        case .notice:
-            Text(chat.message)
-                .foregroundStyle(Color.pointColor)
-                .padding(10)
-                .frame(maxWidth: .infinity)
-                .background(Color.lightPointColor)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }
     
@@ -246,14 +405,26 @@ struct ChatView: View {
         Task {
             do {
                 let downloadURL = try await storageService.imageUpload(topDir: .chatting, dirs: ["\(uid)", "chatting"], image: imageData)
-                //                image = Image(uiImage: selectedImage)
                 try chattingService.sendMessage(uid: uid, message: downloadURL, type: .image)
                 
-                print("업로드 완료: \(downloadURL)")
+                DispatchQueue.main.async {
+                    isSending.toggle()
+                }
             } catch {
                 print("에러: \(error)")
             }
         }
+    }
+    
+    // 맨 위로 스크롤뷰 당겼을때 실행되는 함수
+    func scrollEvent(_ offset: CGPoint) {
+        if offset.y > 0 {
+            if prevValue <= 0.01 {
+                fetchChatting()
+                isLoadNew.toggle()
+            }
+        }
+        prevValue = offset.y
     }
 }
 

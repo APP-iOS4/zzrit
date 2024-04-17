@@ -129,6 +129,7 @@
 		FCADAA342BC4EB7700364272 /* CompleteSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCADAA332BC4EB7700364272 /* CompleteSignUpView.swift */; };
 		FCAF4A1A2BC40C8400603C2D /* AppSlogan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAF4A192BC40C8400603C2D /* AppSlogan.swift */; };
 		FCAF4A1C2BC40CBA00603C2D /* SignUpAgreeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAF4A1B2BC40CBA00603C2D /* SignUpAgreeButton.swift */; };
+		FCBA9B7B2BCE0774001E948B /* ForScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBA9B7A2BCE0774001E948B /* ForScrollView.swift */; };
 		FCCCEEB52BC3B56600DABCA6 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCCEEB32BC3B56600DABCA6 /* LogInView.swift */; };
 		FCCCEEB62BC3B56600DABCA6 /* UserInputCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCCEEB42BC3B56600DABCA6 /* UserInputCellView.swift */; };
 /* End PBXBuildFile section */
@@ -255,6 +256,7 @@
 		FCADAA332BC4EB7700364272 /* CompleteSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpView.swift; sourceTree = "<group>"; };
 		FCAF4A192BC40C8400603C2D /* AppSlogan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSlogan.swift; sourceTree = "<group>"; };
 		FCAF4A1B2BC40CBA00603C2D /* SignUpAgreeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAgreeButton.swift; sourceTree = "<group>"; };
+		FCBA9B7A2BCE0774001E948B /* ForScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForScrollView.swift; sourceTree = "<group>"; };
 		FCBCB3192BC3D2A90048B86F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		FCBCB31D2BC3DC090048B86F /* ServiceAgreeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAgreeSheet.swift; sourceTree = "<group>"; };
 		FCCCEEB32BC3B56600DABCA6 /* LogInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				FC0A793E2BC8C9B30012F85D /* ChatRoomNoticeView.swift */,
 				FC4314692BCD600B003D35FB /* ImagePicker.swift */,
 				FC43146B2BCD765E003D35FB /* ChatMessageName.swift */,
+				FCBA9B7A2BCE0774001E948B /* ForScrollView.swift */,
 			);
 			path = Chats;
 			sourceTree = "<group>";
@@ -816,6 +819,7 @@
 				FC2DDC132BC5231200A51E64 /* ProfileInfoView.swift in Sources */,
 				1F4566E82BCDFCEC001EC0E7 /* RCNavigationBar.swift in Sources */,
 				1F0603582BC6611D003808F4 /* RCProcedurePicker.swift in Sources */,
+				FCBA9B7B2BCE0774001E948B /* ForScrollView.swift in Sources */,
 				FC628F2E2BC42F1A007F5E5C /* SetProfileView.swift in Sources */,
 				1F4566EA2BCDFCEC001EC0E7 /* PointSelectionButton.swift in Sources */,
 				309688032BC64E44007064A3 /* ChatDeactiveListView.swift in Sources */,
