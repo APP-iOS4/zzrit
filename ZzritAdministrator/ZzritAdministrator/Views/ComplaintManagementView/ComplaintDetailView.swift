@@ -18,15 +18,35 @@ struct ComplaintDetailView: View {
     @Binding var isShowingModalView: Bool
     @State private var contactAnswerText: String = ""
     @State private var isContactAlert = false
-    @State private var isShowingGroupInfo = false
+    // @State private var isShowingGroupInfo = true
     @State private var selectInfoOrContent: InfoOrContent = .groupInfo
+    
+    var targetUserString: String? {
+        var users: String = ""
+        
+        guard let contact else {
+            return nil
+        }
+        
+        if let targetUser = contact.targetUser {
+            for idx in targetUser.indices {
+                users += "\(targetUser[idx])"
+                
+                if idx < targetUser.count - 1 {
+                    users += ", "
+                }
+            }
+        }
+        
+        return users
+    }
     
     var body: some View {
         VStack {
             ContactManageUserInfoView()
             HStack {
                 VStack {
-                    ContactManagerContentView(isShowingGroupInfo: $isShowingGroupInfo, contact: $contact)
+                    ContactManagerContentView(contact: $contact)
                     ContactManagerAnswerView(contactAnswerText: $contactAnswerText)
                     HStack {
                         Button {
@@ -46,48 +66,6 @@ struct ComplaintDetailView: View {
                         }
                     }
                 }
-                if isShowingGroupInfo{
-                    VStack {
-                        Picker("InfoOrContent", selection: $selectInfoOrContent){
-                            ForEach(InfoOrContent.allCases) { chooseOne in
-                                Text(chooseOne.rawValue)
-                            }
-                        }
-                        .pickerStyle(.segmented)
-                        .onTapGesture {
-                            switch selectInfoOrContent {
-                            case .groupInfo:
-                                selectInfoOrContent = .groupChat
-                            case .groupChat:
-                                selectInfoOrContent = .groupInfo
-                            }
-                        }
-                        switch selectInfoOrContent {
-                        case .groupInfo:
-                            VStack {
-                                // TODO: NewPlaygroundModalView
-                                Spacer()
-                            }
-                            .padding(20)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.staticGray3, lineWidth: 1.0)
-                            }
-                        case .groupChat:
-                            VStack {
-                                // TODO: ChattingRoomView 참고해서
-                                Spacer()
-                            }
-                            .padding(20)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.staticGray3, lineWidth: 1.0)
-                            }
-                        }
-                    }
-                    .padding()
-                    .frame(width: 400)
-                }
             }
         }
         .padding()
@@ -106,9 +84,9 @@ struct ComplaintDetailView: View {
             }
         }
         .onTapGesture {
-            #if canImport(UIKit)
+#if canImport(UIKit)
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-            #endif
+#endif
         }
     }
 }

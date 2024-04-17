@@ -36,7 +36,7 @@ struct ContactManageUserInfoView: View {
                     .stroke(Color.staticGray3, lineWidth: 1.0)
             }
             
-            StaticTextView(title: "\(contactViewModel.userModel.staticGauge)W", width: 100, isActive: .constant(true))
+            StaticTextView(title: "\(String(format: "%.1f", contactViewModel.userModel.staticGauge))W", width: 100, isActive: .constant(true))
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
         }
