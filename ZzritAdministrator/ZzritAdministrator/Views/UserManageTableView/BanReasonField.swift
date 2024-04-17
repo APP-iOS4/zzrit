@@ -52,10 +52,11 @@ struct BanReasonField: View {
             }
             Button("제재하기", role: .destructive){
                 if let id = user.id {
-                    // userViewModel.startRestriction(userID: id, type: banReason, period: banPeriod, content: banMemo)
+                    userViewModel.startRestriction(userID: id, type: banReason, period: banPeriod, content: banMemo)
+                    userViewModel.editScore(userID: id, score: Int(indexAfterPenalty))
                 }
-                
                 print("제재하기")
+                banMemo = ""
                 banAlert.toggle()
                 // isUserModal.toggle()
             }

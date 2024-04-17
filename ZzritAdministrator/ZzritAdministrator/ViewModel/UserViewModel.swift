@@ -34,15 +34,8 @@ class UserViewModel: ObservableObject {
     func loadBannedHistory(userID: String) {
         Task {
             do {
-                print(userID)
                 restrictionHistory = []
-                if let bannedHistory = try await userService.getUserInfo(uid: userID)?.bannedHistory {
-                    restrictionHistory = bannedHistory
-                    print(restrictionHistory)
-                } else {
-                    print("정보 없음")
-                }
-                
+                restrictionHistory = try await userManageService.loadRestrictions(userID: userID)
             } catch {
                 print("에러: \(error)")
             }
@@ -53,6 +46,12 @@ class UserViewModel: ObservableObject {
         Task {
             do {
                 try userManageService.adjustUserScore(userID: userID, score: score)
+                
+                loadUsers()
+                
+                if let index = users.firstIndex(where: { $0.id == userID }) {
+                    users[index].staticGauge = Double(score)
+                }
             } catch {
                 print("에러: \(error)")
             }
@@ -66,6 +65,36 @@ class UserViewModel: ObservableObject {
                     try userManageService.registerUserRestriction(userID: userID, adminID: adminID, bannedType: type, period: Date().addingTimeInterval(TimeInterval(period) * 86400), content: content)
                     
                     loadBannedHistory(userID: userID)
+                    
+                    if let index = users.firstIndex(where: { $0.id == userID }) {
+                        if let bannedHistory = users[index].bannedHistory {
+                            var tempRestriction: [BannedModel] = bannedHistory
+                            tempRestriction.append(BannedModel(date: Date(), period: Date().addingTimeInterval(TimeInterval(period) * 86400), type: type, adminID: adminID, content: content))
+                        }
+                    }
+                }
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    
+    func deleteRestriction(userID: String, restrictionID ban: String) {
+        Task {
+            do {
+                if (try await userService.loginedAdminInfo()?.id) != nil {
+                    userManageService.deleteUserRestriction(userID: userID, bannedHistoryId: ban)
+                }
+                
+                loadBannedHistory(userID: userID)
+                
+                if let index = users.firstIndex(where: { $0.id == userID }) {
+                    if let bannedHistory = users[index].bannedHistory {
+                        var tempRestriction: [BannedModel] = bannedHistory
+                        if let banIndex = tempRestriction.firstIndex(where: { $0.id == ban }) {
+                            tempRestriction.remove(at: banIndex)
+                        }
+                    }
                 }
             } catch {
                 print("에러: \(error)")
