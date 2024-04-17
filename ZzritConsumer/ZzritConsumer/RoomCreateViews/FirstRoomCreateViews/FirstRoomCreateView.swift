@@ -33,23 +33,25 @@ struct FirstRoomCreateView: View {
     // MARK: - body
     
     var body: some View {
-        /// 커스텀 네비게이션 바
-        RCNavigationBar(page: .page1) {
-            // 모임 카테고리 선택 부분 소제목
-            RCSubTitle("모임 주제를 선택해주세요.")
-            
-            // 스크롤 뷰
-            ScrollView(.vertical) {
-                // 모임 카테고리 그리드
-                LazyVGrid(columns: columns) {
-                    ForEach(CategoryType.allCases, id: \.self) { category in
-                        PointSelectionButton(
-                            category.rawValue,
-                            data: category,
-                            selection: $selection) {
-                                checkButtonEnable()
-                            }
-                            .lineLimit(1)
+        NavigationStack {
+            /// 커스텀 네비게이션 바
+            RCNavigationBar(page: .page1) {
+                // 모임 카테고리 선택 부분 소제목
+                RCSubTitle("모임 주제를 선택해주세요.")
+                
+                // 스크롤 뷰
+                ScrollView(.vertical) {
+                    // 모임 카테고리 그리드
+                    LazyVGrid(columns: columns) {
+                        ForEach(CategoryType.allCases, id: \.self) { category in
+                            PointSelectionButton(
+                                category.rawValue,
+                                data: category,
+                                selection: $selection) {
+                                    checkButtonEnable()
+                                }
+                                .lineLimit(1)
+                        }
                     }
                 }
                 // 다음 화면으로 넘어갈 버튼
@@ -61,9 +63,9 @@ struct FirstRoomCreateView: View {
                     // coordinator.push(.newRoom(.page2))
                     isShowingNextButton.toggle()
                 }
-                .navigationDestination(isPresented: $isShowingNextButton, destination: {
+                .navigationDestination(isPresented: $isShowingNextButton) {
                     SecondRoomCreateView(VM: VM)
-                })
+                }
             }
         }
     }
