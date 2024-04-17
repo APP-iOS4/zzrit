@@ -7,15 +7,30 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct RoomInfoView: View {
-    // FIXME: 모델에 성별 제한은 nil값으로 설정되어있음 -> 모델 받은 걸 토대로 연산프로퍼티로 변경
-    // 성별 제한이 있는가?
-    var isGenderLimit: Bool
-    // FIXME: 모델에 정전기 제한도는 nil값으로 설정되어있음 -> 모델 받은 걸 토대로 연산프로퍼티로 변경
-    // 정전기 제한이 있는가?
-    var isScoreLimit: Bool
+    let room: RoomModel
+    
+    let participantsCount: Int
     // 그리드 뷰에 나타낼 열의 개수
     let columns: [GridItem] = [GridItem(.flexible(minimum: 85, maximum: 85)), GridItem(.flexible())]
+    
+    private var isGenderLimit: Bool {
+        if room.genderLimitation != nil { return true }
+        else { return false }
+    }
+    
+    private var isScoreLimit: Bool {
+        if room.scoreLimitation != nil { return true }
+        else { return false }
+    }
+    
+    private var timeSet: String {
+        DateService.shared.formattedString(date: room.dateTime, format: "HH:mm")
+    }
+
+    // MARK: - body
     
     var body: some View {
         LazyVGrid(columns: columns, alignment: .leading) {
@@ -25,7 +40,6 @@ struct RoomInfoView: View {
                 .padding(.bottom, 5)
                 .padding(.top, 13)
             
-            // TODO: 모델 연동 시, 이곳에 위치 값을 넣기
             Text("서울시 종로구 (약 1.2km)")
                 .foregroundStyle(Color.staticGray1)
                 .padding(.bottom, 5)
@@ -36,18 +50,20 @@ struct RoomInfoView: View {
                 .foregroundStyle(Color.pointColor)
                 .padding(.bottom, 5)
             
-            // TODO: 모델 연동 시, 이곳에 시간 값을 넣기
-            Text("12월 11일 목요일 16:30 ~ 18:30")
-                .foregroundStyle(Color.staticGray1)
-                .padding(.bottom, 5)
+            HStack {
+                Text("\(DateService.shared.formattedString(date: room.dateTime, format: "M월 dd일 E요일"))")
+                
+                Text(timeSet)
+            }
+            .foregroundStyle(Color.staticGray1)
+            .padding(.bottom, 5)
             
             Text("참여인원")
                 .fontWeight(.bold)
                 .foregroundStyle(Color.pointColor)
                 .padding(.bottom, 5)
             
-            // TODO: 모델 연동 시, 이곳에 참여인원, 제한인원 값 넣기
-            Text("4 / 8")
+            Text("\(participantsCount) / \(room.limitPeople)")
                 .foregroundStyle(Color.staticGray1)
                 .padding(.bottom, 5)
             
@@ -58,8 +74,7 @@ struct RoomInfoView: View {
                     .foregroundStyle(Color.pointColor)
                     .padding(.bottom, 5)
                 
-                // TODO: 모델 연동 시, 이곳에 정전기 제한 값 넣기
-                Text("남자만")
+                Text(room.genderLimitation!.rawValue)
                     .foregroundStyle(Color.staticGray1)
                     .padding(.bottom, 5)
             }
@@ -70,8 +85,7 @@ struct RoomInfoView: View {
                     .fontWeight(.bold)
                     .foregroundStyle(Color.pointColor)
                 
-                // TODO: 모델 연동 시, 이곳에 정전기 제한 값 넣기
-                Text("50W")
+                Text("\(room.scoreLimitation!)W")
                     .foregroundStyle(Color.staticGray1)
             }
         }
@@ -87,5 +101,5 @@ struct RoomInfoView: View {
 }
 
 #Preview {
-    RoomInfoView(isGenderLimit: true, isScoreLimit: true)
+    RoomInfoView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), participantsCount: 0)
 }
