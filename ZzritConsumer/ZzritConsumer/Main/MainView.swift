@@ -17,7 +17,7 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
-                ScrollView(.vertical, showsIndicators: false) {
+                ScrollView(.vertical) {
                     MainLocationView(isOnline: $isOnline)
                         .padding(.horizontal, 20)
                         .padding(.bottom, 40)

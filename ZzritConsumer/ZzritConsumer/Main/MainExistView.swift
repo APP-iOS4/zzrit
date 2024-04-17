@@ -30,19 +30,23 @@ struct MainExistView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 10)
+                
+                // 아래로 내렸을 때, 새로 불러오는 함수
+                Rectangle()
+                    .frame(height: 1)
+                    .foregroundStyle(.clear)
+                    .onAppear {
+                        Task {
+                            do {
+                                try await loadRoomViewModel.consumerLoadRoom()
+                                loadRoomViewModel.getFilter(isOnline: isOnline)
+                            } catch {
+                                print("\(error)")
+                            }
+                        }
+                    }
             }
             .padding(.bottom, 80)
-            .onAppear {
-                Task {
-                    do {
-                        try await loadRoomViewModel.consumerLoadRoom()
-                        loadRoomViewModel.getFilter(isOnline: isOnline)
-                    } catch {
-                        print("\(error)")
-                    }
-                }
-                
-            }
             .onChange(of: isOnline) {
                 loadRoomViewModel.getFilter(isOnline: isOnline)
             }

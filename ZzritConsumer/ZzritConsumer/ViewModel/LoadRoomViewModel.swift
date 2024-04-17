@@ -32,9 +32,9 @@ class LoadRoomViewModel: ObservableObject {
     }
     
     func getFilter(status: ActiveType = .activation, category: CategoryType? = nil, isOnline: Bool? = nil) {
-        // FIXME: 현재 필터링 기능 작동 안함
-        // 이거 어떻게 해야 쉽게 짤 수 있을까.......
-        // 뭔가 필터 전용 enum이나 구조체를 만들어서 switch 문이나 filter함수를 간편히 사용할 수 있을 거 같은데...여기까지밖에 안떠오른다....
+        // FIXME: 리펙토링 필요!
+        // 이거 어떻게 해야 쉽게 짤 수 있을까...
+        // 뭔가 필터 전용 enum이나 구조체를 만들어서 switch 문이나 filter함수를 간편히 사용할 수 있을 거 같은데...여기까지밖에 안떠오른다.
         if category == nil && isOnline == nil {
             filterRooms = rooms.filter { element in
                 return element.status == status
