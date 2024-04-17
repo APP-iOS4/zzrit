@@ -22,11 +22,17 @@ struct ProfileInfoView: View {
                     .resizable()
                     .frame(width: 50, height: 50)
             } placeholder: {
-                Image("DummyImage")
+                Image("noProfile")
+                    .resizable()
+                    .aspectRatio(1.0, contentMode: .fit)
                     .frame(width: 50, height: 50)
             }
             .aspectRatio(1.0, contentMode: .fill)
             .clipShape(.circle)
+            .overlay {
+                Circle()
+                    .strokeBorder(Color.staticGray5, lineWidth: 1)
+            }
             
             VStack {
                 Text(loginedInfo.userName)
