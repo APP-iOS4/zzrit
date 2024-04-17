@@ -30,9 +30,7 @@ struct ThirdRoomCreateView: View {
     // 날짜 선택 변수
     @State private var dateSelection: DateType?
     // 시간 선택 변수
-    @State private var hourSelection: Int = Int(DateType.today.date.toStringHour()) ?? 0
-    // 분 선택 변수
-    @State private var minuteSelection: Int = Int(DateType.today.date.toStringMinute()) ?? 0
+    @State private var timeSelection: Date = Date()
     // 참여자 수 제한 변수
     @State private var limitPeople: Int = 2
     // 성별 제한 선택 변수
@@ -41,30 +39,13 @@ struct ThirdRoomCreateView: View {
     @State private var hasScoreLimit: Bool = false
     // 정전기지수 제한 값 - slider는 int 없음
     @State private var staticGuageLimit: Double = 20.0
+    
     // 버튼 활성화 여부를 결정할 변수
-    @State var isButtonEnabled: Bool = false
-    
-    // MARK: - 연산 프로퍼티
-    
-    var hourText: String {
-        if 0 <= hourSelection && hourSelection < 12 {
-            return "오전 \(hourSelection)"
-        } else if 12 <= hourSelection && hourSelection < 24 {
-            return "오후 \(hourSelection - 12)"
-        } else {
-            return ""
-        }
-    }
-    
-    var minuteText: String {
-        if 0 <= minuteSelection && minuteSelection < 10 {
-            return "0\(minuteSelection)"
-        } else if 10 <= minuteSelection && minuteSelection < 60 {
-            return "\(minuteSelection)"
-        } else {
-            return ""
-        }
-    }
+    @State private var isButtonEnabled: Bool = false
+    // 지도 시트 활성화 여부
+    @State private var isShowingMapSheet: Bool = false
+    // 시간 시트 활성화 여부
+    @State private var isShowingTimeSheet: Bool = false
     
     // MARK: - body
     
@@ -103,8 +84,7 @@ struct ThirdRoomCreateView: View {
                 
                 VM.saveDateTime(
                     dateSelection: dateSelection,
-                    hourSelection: hourSelection,
-                    minuteSelection: minuteSelection
+                    timeSelection: timeSelection
                 )
                 
                 VM.saveGenderLimitation(genderLimitation: genderSelection)
@@ -173,9 +153,10 @@ extension ThirdRoomCreateView {
             // 시간, 분 선택 버튼
             Button {
 //                coordinator.present(sheet: .timeSetting)
+                isShowingTimeSheet.toggle()
             } label: {
                 HStack {
-                    Label(hourText + ":" + minuteText, systemImage: "alarm")
+                    Label(timeSelection.toStringTimeLine(), systemImage: "alarm")
                     Spacer()
                 }
                 .foregroundStyle(.black)
@@ -184,6 +165,12 @@ extension ThirdRoomCreateView {
                     RoundedRectangle(cornerRadius: Configs.cornerRadius)
                         .stroke(Color.staticGray6, lineWidth: 1.0)
                 }
+            }
+            .sheet(isPresented: $isShowingTimeSheet) {
+                RCTimeSettingView(timeSelection: $timeSelection)
+                    .presentationDetents([
+                        .fraction(0.4), // 임의 비율
+                    ])
             }
         }
     }

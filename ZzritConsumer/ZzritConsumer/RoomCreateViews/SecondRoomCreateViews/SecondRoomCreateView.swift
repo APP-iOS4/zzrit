@@ -77,6 +77,8 @@ struct SecondRoomCreateView: View {
                             VM.saveTitle(title: title)
                             // VM에 새 모임의 소개글 저장
                             VM.saveIntroduction(roomIntroduction: roomIntroduction)
+                            // VM에 새 모임의 이미지를 저장
+                            VM.saveUIImage(selectedUIImage: selectedImage)
                             
                             // 다음 화면으로 이동
                             isShowintNextView.toggle()

@@ -8,19 +8,24 @@
 import SwiftUI
 
 struct RCTimeSettingView: View {
-    @State private var date: Date = Date()
+    @Binding var timeSelection: Date
     
     var body: some View {
         DatePicker("시간을 정해주세요.",
-            selection: $date,
+            selection: $timeSelection,
             displayedComponents: .hourAndMinute
         )
         .datePickerStyle(.wheel)
         .labelsHidden()
         .tint(Color.pointColor)
+        
+        GeneralButton("완료") {
+            
+        }
+        .padding(Configs.paddingValue)
     }
 }
 
 #Preview {
-    RCTimeSettingView()
+    RCTimeSettingView(timeSelection: .constant(Date()))
 }

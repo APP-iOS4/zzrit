@@ -24,7 +24,7 @@ struct RCAddPictureView: View {
                         if let selectedImage {
                             Image(uiImage: selectedImage)
                                 .resizable()
-                                .aspectRatio(contentMode: .fill)
+                                .aspectRatio(contentMode: .fit)
                                 .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
                         } else {
                             RoundedRectangle(cornerRadius: Configs.cornerRadius)
@@ -39,7 +39,6 @@ struct RCAddPictureView: View {
                                 }
                         }
                     }
-                    .frame(width: 200, height: 200)
                 }
                 .onChange(of: selectedItem) {
                     Task {
@@ -54,7 +53,7 @@ struct RCAddPictureView: View {
                         if selectedImage != nil {
                             Image(uiImage: selectedImage!)
                                 .resizable()
-                                .aspectRatio(contentMode: .fill)
+                                .aspectRatio(contentMode: .fit)
                                 .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
                         } else {
                             RoundedRectangle(cornerRadius: Configs.cornerRadius)
@@ -69,7 +68,6 @@ struct RCAddPictureView: View {
                                 }
                         }
                     }
-                    .frame(height: 200)
                 }
                 .onChange(of: selectedItem, perform: { value in
                     Task {
