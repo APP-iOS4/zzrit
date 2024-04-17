@@ -7,9 +7,16 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct MoreInfoListView: View {
-    @State var isNoticeShow = false
-    @State var isQuestionShow = false
+    @State private var isNoticeShow = false
+    @State private var isQuestionShow = false
+    @State private var isTermNavigationDestination: Bool = false
+    @State private var selectedTermType: TermType = .service
+    
+    @Binding var loginedInfo: UserModel?
+    
     var isLogined: Bool
     
     var body: some View {
@@ -34,13 +41,16 @@ struct MoreInfoListView: View {
                         Text("최신 버전")
                             .foregroundStyle(Color.staticGray4)
                     }
-                    // 자주 묻는 질문
-                    Button {
-                        
-                    } label: {
-                        HorizontalLabel(string: "자주 묻는 질문")
-                        
-                    }
+                    
+                    // TODO: FAQ 넣을것인가 그것이 문제로다
+                    
+//                    // 자주 묻는 질문
+//                    Button {
+//                        
+//                    } label: {
+//                        HorizontalLabel(string: "자주 묻는 질문")
+//                        
+//                    }
                     // 문의하기
                     Button {
                         isQuestionShow.toggle()
@@ -55,18 +65,15 @@ struct MoreInfoListView: View {
                 FakeDivider()
                 // Section 2
                 VStack(alignment: .leading, spacing: 40) {
-                    // 이용약관
-                    Button {
-                        
-                    } label: {
-                        HorizontalLabel(string: "이용약관")
+                    ForEach(TermType.allCases, id: \.self) { type in
+                        Button {
+                            selectedTermType = type
+                            isTermNavigationDestination.toggle()
+                        } label: {
+                            HorizontalLabel(string: type.title)
+                        }
                     }
-                    // 개인정보처리방침
-                    Button {
-                        
-                    } label: {
-                        HorizontalLabel(string: "개인정보처리방침")
-                    }
+
                 }
                 .padding(Configs.paddingValue)
                 if isLogined {
@@ -75,7 +82,7 @@ struct MoreInfoListView: View {
                     VStack(alignment: .leading, spacing: 40) {
                         // 로그아웃
                         Button {
-                            
+                            logout()
                         } label: {
                             HorizontalLabel(string: "로그아웃")
                                 .foregroundStyle(.red)
@@ -86,9 +93,21 @@ struct MoreInfoListView: View {
             }
             .foregroundStyle(Color.staticGray1)
         }
+        .navigationDestination(isPresented: $isTermNavigationDestination) {
+            TermView(type: selectedTermType)
+        }
+    }
+    
+    private func logout() {
+        do {
+            try AuthenticationService.shared.logout()
+            loginedInfo = nil
+        } catch {
+            print("에러: \(error)")
+        }
     }
 }
 
-#Preview {
-    MoreInfoListView( isLogined: true)
-}
+//#Preview {
+//    MoreInfoListView( isLogined: true)
+//}
