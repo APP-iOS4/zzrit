@@ -17,7 +17,7 @@ struct ContactManagerAnswerView: View {
                 Spacer()
             }
             .padding(.top)
-            TextField("문의에 대한 답변을 입력해 주세요.", text: $contactAnswerText)
+            TextEditor(text: $contactAnswerText)
                 .padding(20)
                 .frame(height: 150, alignment: .topLeading)
                 .overlay {
