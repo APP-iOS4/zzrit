@@ -11,23 +11,7 @@ struct NewSearchView: View {
     @State var searchText: String = ""
     
     var body: some View {
-        HStack {
-            TextField("검색어를 입력하세요.", text: $searchText)
-            
-            if !searchText.isEmpty {
-                Image(systemName: "xmark.circle.fill")
-            }
-            
-            Button {
-                
-            } label: {
-                Image(systemName: "magnifyingglass")
-                    .foregroundStyle(.black)
-            }
-        }
-        .padding(Configs.paddingValue)
-        
-        Divider()
+        SearchFieldView()
         
         HStack(spacing: 10.0) {
             Button {
@@ -108,6 +92,7 @@ struct NewSearchView: View {
             }
         }
         .lineLimit(2)
+        .padding(.vertical, Configs.paddingValue)
     }
 }
 
