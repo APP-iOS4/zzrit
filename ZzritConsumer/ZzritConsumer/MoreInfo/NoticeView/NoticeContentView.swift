@@ -15,8 +15,10 @@ struct NoticeContentView: View {
             Text(content)
                 .foregroundStyle(Color.staticGray1)
                 .padding(Configs.paddingValue)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
         .background(Color.staticGray6)
+        .transition(.slide)
     }
 }
 
