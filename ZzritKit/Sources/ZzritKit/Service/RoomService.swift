@@ -92,10 +92,11 @@ public final class RoomService {
                 
                 temp.append(contentsOf: documents)
                 print("isEqualTo: \(documents)")
+                print(documents)
                 
                 return temp
                 
-            } else if let titleString = title, titleString == "" {
+            } else if let titleString = title, (titleString == "") {
                 
                 if !isInitial, let lastDocument = lastSnapshot {
                     query = query.start(afterDocument: lastDocument)
@@ -110,9 +111,28 @@ public final class RoomService {
                     isFetchEnd = true
     //                throw FirebaseErrorType.noMoreSearching
                 }
+                print(documents)
+                
+                return documents
+            } else if title == nil {
+                if !isInitial, let lastDocument = lastSnapshot {
+                    query = query.start(afterDocument: lastDocument)
+                }
+                
+                let snapshot = try await query.getDocuments()
+                let documents = try snapshot.documents.map { try $0.data(as: RoomModel.self)}
+                
+                lastSnapshot = snapshot.documents.last
+                
+                if lastSnapshot == nil {
+                    isFetchEnd = true
+    //                throw FirebaseErrorType.noMoreSearching
+                }
+                print(documents)
                 
                 return documents
             }
+            
             // 위에서 에러 발생시 맨위에 임의로 만들어놓은 offlineRoomModel이 반환됨.
             return [offlineRoomModel]
         } catch {
