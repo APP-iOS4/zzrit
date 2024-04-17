@@ -44,7 +44,7 @@ final class RoomCreateViewModel {
     let storageService = StorageService()
     
     // FIXME: 현재 계정의 uid로 바꾸어 주기
-    var uid: String = "dPwldldl"
+//    var uid: String = "dPwldldl"
     
     // MARK: - init
     
@@ -156,7 +156,7 @@ final class RoomCreateViewModel {
                 isOnline: isOnline,
                 platform: platform,
                 status: .activation,
-                leaderID: uid,
+                leaderID: leaderID,
                 limitPeople: limitPeople
             )
         } else {
@@ -174,7 +174,7 @@ final class RoomCreateViewModel {
                 coverImage: coverImage,
                 isOnline: isOnline,
                 status: .activation,
-                leaderID: uid,
+                leaderID: leaderID,
                 limitPeople: limitPeople
             )
         }
