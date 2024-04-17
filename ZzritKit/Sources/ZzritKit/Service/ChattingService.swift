@@ -37,7 +37,7 @@ public final class ChattingService: ObservableObject {
     }
     
     /// 채팅 메세지를 불러옵니다.
-    public func fetchChatting() async throws {
+    @MainActor public func fetchChatting() async throws {
         // 기본 검색 쿼리
         let chatQuery = firebaseConst.roomChatCollection(roomID).order(by: "date").limit(toLast: limit)
         
@@ -92,7 +92,7 @@ public final class ChattingService: ObservableObject {
     }
     
     // MARK: - Private Methods
-    private func subscribeListener() {
+    @MainActor private func subscribeListener() {
         // 기본 검색 쿼리
         let chatQuery = firebaseConst.roomChatCollection(roomID).order(by: "date")
         
