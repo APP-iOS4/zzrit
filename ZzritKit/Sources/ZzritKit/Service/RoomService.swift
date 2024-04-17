@@ -14,17 +14,17 @@ public final class RoomService {
     public static let shared = RoomService()
     let fbConstants = FirebaseConstants()
     
-    private var lastSnashot: QueryDocumentSnapshot? = nil
+    private var lastSnapshot: QueryDocumentSnapshot? = nil
     // 쿼리를 아끼기 위해 존재. 검색했을때 나와줄 친구들.
     var tempRooms: [RoomModel] = []
     
     private var isFetchEnd: Bool = false
     
     // 임시 값, 온라인, 이미지URL은 반드시 존재합니다.
-    public static let onlineRoomModel: RoomModel = ZzritKit.RoomModel(title: "9시 옵치고고", category: .game, dateTime: Date(), content: "9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.", coverImage:  "https://picsum.photos/200", isOnline: true, platform: .discord, status: .activation, leaderID: "123123", limitPeople: 5)
+    private let onlineRoomModel: RoomModel = ZzritKit.RoomModel(title: "9시 옵치고고", category: .game, dateTime: Date(), content: "9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.9시에 옵치 궈궈할사람 구해요.", coverImage:  "https://picsum.photos/200", isOnline: true, platform: .discord, status: .activation, leaderID: "123123", limitPeople: 5)
     
     // 임시 값, 오프라인, deactive
-    public static let offlineRoomModel: RoomModel = ZzritKit.RoomModel(title: "저녁 같이 먹을 사람", category: .etc, dateTime: Date(), placeLatitude: 37.4, placeLongitude: 126.4, placeName: "맘스터치", content: "저녁에 같이 밥먹을 사람을 구해요, 근데 이제 술을 곁들인", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "123123", limitPeople: 5)
+    private let offlineRoomModel: RoomModel = ZzritKit.RoomModel(title: "저녁 같이 먹을 사람", category: .etc, dateTime: Date(), placeLatitude: 37.4, placeLongitude: 126.4, placeName: "맘스터치", content: "저녁에 같이 밥먹을 사람을 구해요, 근데 이제 술을 곁들인", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "123123", limitPeople: 5)
     
     /**
      # Description
@@ -53,16 +53,17 @@ public final class RoomService {
      # Parameters
      - isInitial: Bool
      - status: String(all, deactivation, activation / all일땐 아무런 영향없음.)
+     - title: String? = nil
      # Error
      - FirebaseErrorType.failCreateRoom
      */
-    public func loadRoom(isInitial: Bool = true, status: String) async throws -> [RoomModel] {
+    public func loadRoom(isInitial: Bool = true, status: String = "all", title: String? = nil) async throws -> [RoomModel] {
+        var temp: [RoomModel] = []
+        
         do {
-//            if !isInitial {
-//                query = query.start(afterDocument: lastSnashot!)
-//            }
+
             if isInitial {
-                lastSnashot = nil
+                lastSnapshot = nil
                 isFetchEnd = false
             }
             
@@ -70,41 +71,53 @@ public final class RoomService {
                 print("더이상 갖고올 데이터가 없음.")
                 throw FirebaseErrorType.noMoreSearching
             }
+            
             var query = fbConstants.roomCollection.limit(to: 16)
             
             if status == "deactivation" {
                 query = fbConstants.roomCollection
                     .whereField("status", isEqualTo: "deactivation")
-                    .limit(to: 16)
-                
             } else if status == "activation" {
                 query = fbConstants.roomCollection
                     .whereField("status", isEqualTo: "activation")
-                    .limit(to: 16)
             }
             
-            if !isInitial, let lastDocument = lastSnashot {
-                query = query.start(afterDocument: lastDocument)
+            if let titleString = title, titleString != "" {
+                
+                query = query.whereField("title", isGreaterThanOrEqualTo: titleString)
+                            .whereField("title", isLessThan: titleString + "힣")
+                
+                let snapshot = try await query.getDocuments()
+                let documents = try snapshot.documents.map { try $0.data(as: RoomModel.self)}
+                
+                temp.append(contentsOf: documents)
+                print("isEqualTo: \(documents)")
+                
+                return temp
+                
+            } else if let titleString = title, titleString == "" {
+                
+                if !isInitial, let lastDocument = lastSnapshot {
+                    query = query.start(afterDocument: lastDocument)
+                }
+                
+                let snapshot = try await query.getDocuments()
+                let documents = try snapshot.documents.map { try $0.data(as: RoomModel.self)}
+                
+                lastSnapshot = snapshot.documents.last
+                
+                if lastSnapshot == nil {
+                    isFetchEnd = true
+    //                throw FirebaseErrorType.noMoreSearching
+                }
+                
+                return documents
             }
-            
-            let snapshot = try await query.getDocuments()
-            let documents = try snapshot.documents.map { try $0.data(as: RoomModel.self)}
-            
-            lastSnashot = snapshot.documents.last
-            
-            if lastSnashot == nil {
-                isFetchEnd = true
-                throw FirebaseErrorType.noMoreSearching
-            }
-            
-            //쿼리를 아끼기 위한 append
-//            tempRooms.append(contentsOf: documents)
-            // 유저앱에서 데이터를 들고있어야해서 이부분은 추후 수정 필수
-            
-            return documents
-            
+            // 위에서 에러 발생시 맨위에 임의로 만들어놓은 offlineRoomModel이 반환됨.
+            return [offlineRoomModel]
         } catch {
-            throw FirebaseErrorType.failLoadRoom
+//            throw FirebaseErrorType.failLoadRoom
+            throw error
         }
         
         // 필터가 있는 경우
