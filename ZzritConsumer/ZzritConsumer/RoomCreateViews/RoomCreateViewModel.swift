@@ -245,17 +245,9 @@ final class RoomCreateViewModel {
     }
     
     /// 새 모임 시간 저장
-    func saveDateTime(dateSelection: DateType?, hourSelection: Int, minuteSelection: Int) {
+    func saveDateTime(dateSelection: DateType?, timeSelection: Date) {
         guard let dateTime = dateSelection?.date else {
             print("선택한 날짜가 없어 에러가 발생함!")
-            return
-        }
-        guard 0 <= hourSelection && hourSelection < 24 else {
-            print("선택한 시간 범위에 에러가 발생함!")
-            return
-        }
-        guard 0 <= minuteSelection && hourSelection < 60 else {
-            print("선택한 분 범위에 에러가 발생함!")
             return
         }
         
@@ -263,8 +255,8 @@ final class RoomCreateViewModel {
             year: Calendar.current.component(.year, from: dateTime),
             month: Calendar.current.component(.month, from: dateTime),
             day: Calendar.current.component(.day, from: dateTime),
-            hour: hourSelection,
-            minute: minuteSelection
+            hour: Calendar.current.component(.hour, from: timeSelection),
+            minute: Calendar.current.component(.minute, from: timeSelection)
         )
         
         self.dateTime = Calendar.current.date(from: dateComponents)

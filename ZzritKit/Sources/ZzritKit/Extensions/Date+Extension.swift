@@ -65,4 +65,11 @@ extension Date {
         df.timeZone = TimeZone(identifier: "UTC")
         return df.string(from: self)
     }
+    
+    public func toStringTimeLine() -> String {
+        let df = DateFormatter()
+        df.dateFormat = "a hh:mm"
+        df.timeZone = TimeZone(identifier: "UTC")
+        return df.string(from: self)
+    }
 }
