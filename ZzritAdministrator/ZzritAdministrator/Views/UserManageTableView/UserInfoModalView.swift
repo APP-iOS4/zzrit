@@ -61,7 +61,7 @@ struct UserInfoModalView: View {
                 }
             }
 
-            BanList(user: user)
+            BanList(user: $user)
                 .overlay {
                     RoundedRectangle(cornerRadius: Constants.commonRadius)
                         .stroke(Color.staticGray3, lineWidth: 1.0)
@@ -78,7 +78,7 @@ struct UserInfoModalView: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
                 
-                BanReasonField(user: user, isUserModal: $isUserModal)
+                BanReasonField(user: $user, isUserModal: $isUserModal)
             }
         }
         .tint(.pointColor)

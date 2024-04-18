@@ -70,8 +70,7 @@ struct StaticGaugeEditingSubview: View {
                         userViewModel.editScore(userID: id, score: Int(indexAfterEdit))
                     }
                     
-                    userViewModel.loadUsers()
-                    isUserModal.toggle()
+                    user.staticGauge = indexAfterEdit
                 }
             }
         } message: {

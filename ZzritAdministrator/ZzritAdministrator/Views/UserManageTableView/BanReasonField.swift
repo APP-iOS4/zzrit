@@ -12,7 +12,7 @@ import ZzritKit
 struct BanReasonField: View {
     @EnvironmentObject var userViewModel: UserViewModel
     
-    @State var user: UserModel
+    @Binding var user: UserModel
     @State private var banReason: BannedType = .abuse
     @State private var banPeriod = 3
     @State private var banMemo = ""
@@ -54,6 +54,7 @@ struct BanReasonField: View {
                 if let id = user.id {
                     userViewModel.startRestriction(userID: id, type: banReason, period: banPeriod, content: banMemo)
                     userViewModel.editScore(userID: id, score: Int(indexAfterPenalty))
+                    user.staticGauge = indexAfterPenalty
                 }
                 print("제재하기")
                 banMemo = ""

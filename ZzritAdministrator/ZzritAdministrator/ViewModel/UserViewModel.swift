@@ -86,7 +86,7 @@ class UserViewModel: ObservableObject {
                     userManageService.deleteUserRestriction(userID: userID, bannedHistoryId: ban)
                 }
                 
-                loadBannedHistory(userID: userID)
+                // loadBannedHistory(userID: userID)
                 
                 if let index = users.firstIndex(where: { $0.id == userID }) {
                     if let bannedHistory = users[index].bannedHistory {
