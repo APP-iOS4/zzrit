@@ -10,9 +10,23 @@ import SwiftUI
 import ZzritKit
 
 struct MainView: View {
+    @EnvironmentObject private var userService: UserService
+    
     // 우측 상단 알람 버튼 눌렀는지 안눌렀는지 검사
     @State private var isTopTrailingAction: Bool = false
     @State private var isOnline = false
+    // 모임개설 FullScreenCover로 넘어가는지 결정하는 변수
+    @State private var isShowingCreateRoom: Bool = false
+    // 로그인이 안됐다면 로그인 Alert를 위한 변수
+    @State private var alertToLogin: Bool = false
+    // 로그인 FullScreenCover로 넘어가는지 결정하는 변수
+    @State private var isShowingLoginView: Bool = false
+    
+    // 유저모델 변수
+    @State private var userModel: UserModel?
+    private var isLogined: Bool {
+        return userModel != nil
+    }
     
     // MARK: - body
     
@@ -40,19 +54,8 @@ struct MainView: View {
                 }
                 .padding(.vertical, 1)
                 
-                NavigationLink {
-                    FirstRoomCreateView(VM: RoomCreateViewModel())
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.title)
-                        .fontWeight(.semibold)
-                        .padding(10)
-                        .background(Color.pointColor)
-                        .foregroundStyle(.white)
-                        .clipShape(Circle())
-                        .shadow(color: .black.opacity(0.4), radius: 3)
-                }
-                .padding(20)
+                // 모임개설 페이지로 이동하는 버튼
+                createRoomButton
             }
             .toolbar {
                 // 왼쪽 앱 메인 로고
@@ -84,11 +87,66 @@ struct MainView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
         }
+        .onAppear {
+            Task {
+                userModel = try await userService.loginedUserInfo()
+            }
+        }
+    }
+}
+
+extension MainView {
+    private var createRoomButton: some View {
+        Button {
+            if isLogined {
+                isShowingCreateRoom.toggle()
+            } else {
+                alertToLogin.toggle()
+            }
+        } label: {
+            Image(systemName: "plus")
+                .font(.title)
+                .fontWeight(.semibold)
+                .padding(10)
+                .background(Color.pointColor)
+                .foregroundStyle(.white)
+                .clipShape(Circle())
+                .shadow(color: .black.opacity(0.4), radius: 3)
+        }
+        .padding(Configs.paddingValue)
+        .alert("로그인 알림", isPresented: $alertToLogin) {
+            // 로그인 시트 올리는 버튼
+            Button {
+                isShowingLoginView.toggle()
+            } label: {
+                Label("로그인", systemImage: "person.circle")
+                    .labelStyle(.titleOnly)
+            }
+            // 취소 버튼
+            Button{
+                alertToLogin = false
+            } label: {
+                Label("취소", systemImage: "trash")
+                    .labelStyle(.titleOnly)
+            }
+        } message: {
+            Text("모임 개설을 위해서는 로그인이 필요합니다.")
+        }
+        .fullScreenCover(isPresented: $isShowingCreateRoom) {
+            FirstRoomCreateView(VM: RoomCreateViewModel())
+        }
+        .sheet(isPresented: $isShowingLoginView) {
+            LogInView()
+        }
+//        .fullScreenCover(isPresented: $isShowingLoginView) {
+//            LogInView()
+//        }
     }
 }
 
 #Preview {
     NavigationStack {
         MainView()
+            .environmentObject(UserService())
     }
 }

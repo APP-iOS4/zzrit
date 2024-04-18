@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RCNavigationBar<Content>: View where Content: View {
 //    @EnvironmentObject var coordinator: Coordinator
+    @Environment(\.dismiss) var dismiss
     
     let content: () -> Content
     let page: NewRoom
@@ -33,35 +34,19 @@ struct RCNavigationBar<Content>: View where Content: View {
         }
         .padding(Configs.paddingValue)
         .toolbar {
-            // 뒤로 돌아가기 화면
-            ToolbarItem(placement: .cancellationAction) {
-                Button {
-//                    coordinator.pop()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .foregroundStyle(.black)
-                }
-            }
-            
-            // 제목
-            ToolbarItem(placement: .principal) {
-                Text(page.description)
-            }
-            
-            /*
             // 메뉴
             ToolbarItem(placement: .topBarTrailing) {
-                Menu {
-                    
+                Button {
+                    dismiss()
                 } label: {
-                    Image(systemName: "ellipsis.circle")
+                    Image(systemName: "xmark")
                         .foregroundStyle(.black)
                 }
             }
-             */
         }
-        .navigationBarBackButtonHidden()
+        .navigationTitle(page.description)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarRole(.editor)
         
         // 들어올 내용
         content()
