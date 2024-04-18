@@ -109,7 +109,6 @@ struct SignUpView: View {
             if #available(iOS 17.0, *) {
                 GeneralButton("회원가입", isDisabled: !isSignUpButtonActive) {
                     register()
-                    showProfile.toggle()
                 }
                 .onChange(of: selectAgree) {
                     activeSignUpButton()
