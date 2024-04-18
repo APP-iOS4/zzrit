@@ -75,7 +75,7 @@ struct ChatListView: View {
     }
     
     func isLogined() async throws {
-        userModel = try await userService.getUserInfo(uid: "tMecHWbZuyYapCJmmiN9AnP9TeQ2")
+        userModel = try await userService.loginedUserInfo()
     }
     
     func fetchRoom() async throws {
@@ -87,10 +87,10 @@ struct ChatListView: View {
                     rooms.append(room)
                 }
             } else {
-                print("방을 참여하시라요.")
+                print("방을 참여해주세요")
             }
         } else {
-            print("로그인을 하시라요.")
+            print("로그인을 해주세요.")
         }
     }
 }

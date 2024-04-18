@@ -10,14 +10,26 @@ import SwiftUI
 import ZzritKit
 
 struct RoomDetailView: View {
+    @EnvironmentObject private var userService: UserService
+    
     let room: RoomModel
     let roomService = RoomService.shared
     // 참석 버튼 눌렀는 지 확인
     @State private var isParticipant: Bool = false
     
+    @State private var alertToLogin: Bool = false
+    
+    @State private var isShowingLoginView: Bool = false
+    
     @State private var participants: [JoinedUserModel] = []
     
     @State private var participantsCount: Int = 0
+    // 유저모델 변수
+    @State private var userModel: UserModel?
+    
+    private var isLogined: Bool {
+        return userModel != nil
+    }
     
     // MARK: - body
     
@@ -67,20 +79,13 @@ struct RoomDetailView: View {
             .padding(.vertical, 1)
             .padding(.bottom, 85)
             
-            VStack {
-                GeneralButton("참여하기") {
-                    isParticipant.toggle()
-                }
-                .padding(20)
-                .navigationDestination(isPresented: $isParticipant) {
-                    ParticipantNoticeView(room: room)
-                }
-            }
+            participateRoomButton
         }
         .toolbarRole(.editor)
         .onAppear {
             Task {
                 do {
+                    userModel = try await userService.loginedUserInfo()
                     participants = try await roomService.joinedUsers(roomID: room.id ?? "")
                     participantsCount = participants.count
                 } catch {
@@ -91,6 +96,46 @@ struct RoomDetailView: View {
     }
 }
 
+extension RoomDetailView {
+    private var participateRoomButton: some View {
+        VStack {
+            GeneralButton("참여하기") {
+                if isLogined {
+                    isParticipant.toggle()
+                } else {
+                    alertToLogin.toggle()
+                }
+            }
+            .padding(20)
+            .navigationDestination(isPresented: $isParticipant) {
+                ParticipantNoticeView(room: room)
+            }
+            .alert("로그인 알림", isPresented: $alertToLogin) {
+                // 로그인 시트 올리는 버튼
+                Button {
+                    isShowingLoginView.toggle()
+                } label: {
+                    Label("로그인", systemImage: "person.circle")
+                        .labelStyle(.titleOnly)
+                }
+                // 취소 버튼
+                Button{
+                    alertToLogin = false
+                } label: {
+                    Label("취소", systemImage: "trash")
+                        .labelStyle(.titleOnly)
+                }
+            } message: {
+                Text("모임에 참가하기 위해서는 로그인이 필요합니다.")
+            }
+            .fullScreenCover(isPresented: $isShowingLoginView) {
+                LogInView()
+            }
+        }
+    }
+}
+
 #Preview {
-    RoomDetailView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+    RoomDetailView( room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+        .environmentObject(UserService())
 }
