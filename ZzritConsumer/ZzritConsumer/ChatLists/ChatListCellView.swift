@@ -81,7 +81,9 @@ struct ChatListCellView: View {
         .onAppear {
             Task {
                 do {
-                    participants = try await roomService.joinedUsers(roomID: room.id ?? "")
+                    if let roomId = room.id {
+                        participants = try await roomService.joinedUsers(roomID: roomId)
+                    }
                     participantsCount = participants.count
                     fetchChatting()
                 } catch {

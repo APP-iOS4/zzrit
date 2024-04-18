@@ -100,7 +100,9 @@ struct RoomDetailView: View {
                 Task {
                     do {
                         userModel = try await userService.loginedUserInfo()
-                        participants = try await roomService.joinedUsers(roomID: room.id ?? "")
+                        if let roomId = room.id {
+                            participants = try await roomService.joinedUsers(roomID: roomId)
+                        }
                         participantsCount = participants.count
                     } catch {
                         print("\(error)")
@@ -111,7 +113,9 @@ struct RoomDetailView: View {
                 if isLogined  {
                     Task {
                         do {
-                            isJoined = try await roomService.isJoined(roomID: room.id ?? "", userUID: userModel?.id ?? "")
+                            if let roomId = room.id, let userModel = userModel?.id {
+                                isJoined = try await roomService.isJoined(roomID: roomId, userUID: userModel)
+                            }
                         } catch {
                             print("참여한 방인지 여부의 error: \(error)")
                         }
@@ -182,7 +186,9 @@ struct RoomDetailView: View {
                 Task {
                     do {
                         userModel = try await userService.loginedUserInfo()
-                        participants = try await roomService.joinedUsers(roomID: room.id ?? "")
+                        if let roomId = room.id {
+                            participants = try await roomService.joinedUsers(roomID: roomId)
+                        }
                         participantsCount = participants.count
                     } catch {
                         print("\(error)")
@@ -193,7 +199,9 @@ struct RoomDetailView: View {
                 if isLogined  {
                     Task {
                         do {
-                            isJoined = try await roomService.isJoined(roomID: room.id ?? "", userUID: userModel?.id ?? "")
+                            if let roomId = room.id, let userModel = userModel?.id {
+                                isJoined = try await roomService.isJoined(roomID: roomId, userUID: userModel)
+                            }
                         } catch {
                             print("참여한 방인지 여부의 error: \(error)")
                         }

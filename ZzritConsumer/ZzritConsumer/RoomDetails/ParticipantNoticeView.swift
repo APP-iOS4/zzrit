@@ -107,7 +107,9 @@ struct ParticipantNoticeView: View {
                 joinedRoom()
             }
             .navigationDestination(isPresented: $isPressedChat) {
-                ChatView(roomID: room.id ?? "", room: room, isActive: true)
+                if let roomId = room.id {
+                    ChatView(roomID: roomId, room: room, isActive: true)
+                }
             }
         }
         .padding(.horizontal, 20)
