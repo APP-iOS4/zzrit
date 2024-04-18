@@ -54,6 +54,11 @@ struct RoomManageView: View {
                         }
                     }
                 }
+                .refreshable {
+                    print("리프레셔블 작동")
+                    // TODO: 파베 사용량을 아끼기 위해 주석처리...
+                    // roomViewModel.loadRooms()
+                }
                 .overlay {
                     RoundedRectangle(cornerRadius: Constants.commonRadius)
                         .stroke(Color.staticGray3, lineWidth: 1.0)
