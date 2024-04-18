@@ -215,4 +215,5 @@ struct UserManageTableView: View {
 
 #Preview {
     UserManageTableView()
+        .environmentObject(UserViewModel())
 }

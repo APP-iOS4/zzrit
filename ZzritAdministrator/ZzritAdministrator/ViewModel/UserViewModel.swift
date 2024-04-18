@@ -62,16 +62,11 @@ class UserViewModel: ObservableObject {
         Task {
             do {
                 if let adminID = try await userService.loginedAdminInfo()?.id {
-                    try userManageService.registerUserRestriction(userID: userID, adminID: adminID, bannedType: type, period: Date().addingTimeInterval(TimeInterval(period) * 86400), content: content)
+                    try userManageService.registerUserRestriction(userID: userID, adminID: adminID, bannedType: type, period: Date().addingTimeInterval(TimeInterval(period) * 86401), content: content)
                     
                     loadBannedHistory(userID: userID)
                     
-                    if let index = users.firstIndex(where: { $0.id == userID }) {
-                        if let bannedHistory = users[index].bannedHistory {
-                            var tempRestriction: [BannedModel] = bannedHistory
-                            tempRestriction.append(BannedModel(date: Date(), period: Date().addingTimeInterval(TimeInterval(period) * 86400), type: type, adminID: adminID, content: content))
-                        }
-                    }
+                    restrictionHistory.append(BannedModel(date: Date(), period: Date().addingTimeInterval(TimeInterval(period) * 86401), type: type, adminID: adminID, content: content))
                 }
             } catch {
                 print("에러: \(error)")
@@ -84,16 +79,11 @@ class UserViewModel: ObservableObject {
             do {
                 if (try await userService.loginedAdminInfo()?.id) != nil {
                     userManageService.deleteUserRestriction(userID: userID, bannedHistoryId: ban)
-                }
-                
-                // loadBannedHistory(userID: userID)
-                
-                if let index = users.firstIndex(where: { $0.id == userID }) {
-                    if let bannedHistory = users[index].bannedHistory {
-                        var tempRestriction: [BannedModel] = bannedHistory
-                        if let banIndex = tempRestriction.firstIndex(where: { $0.id == ban }) {
-                            tempRestriction.remove(at: banIndex)
-                        }
+                    
+                    if let index = restrictionHistory.firstIndex(where: { $0.id == ban }) {
+                        restrictionHistory.remove(at: index)
+                    } else {
+                        print("제재항목 ID 비유효!")
                     }
                 }
             } catch {

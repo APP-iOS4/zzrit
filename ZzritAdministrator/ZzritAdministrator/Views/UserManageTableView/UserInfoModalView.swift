@@ -61,7 +61,7 @@ struct UserInfoModalView: View {
                 }
             }
 
-            BanList(user: $user)
+            BanList(userViewModel: userViewModel, user: $user)
                 .overlay {
                     RoundedRectangle(cornerRadius: Constants.commonRadius)
                         .stroke(Color.staticGray3, lineWidth: 1.0)

@@ -11,7 +11,7 @@ import ZzritKit
 
 
 struct BanList: View {
-    @EnvironmentObject var userViewModel: UserViewModel
+    @ObservedObject var userViewModel: UserViewModel
     @Binding var user: UserModel
     
     private let dateService = DateService.shared
@@ -49,16 +49,12 @@ struct BanList: View {
                 banDeleteAlert.toggle()
             }
             Button("제재 삭제", role: .destructive){
-                
                 if let id = user.id {
                     if let banID = selectedBan?.id {
+                        print("\(id) \(banID)")
                         userViewModel.deleteRestriction(userID: id, restrictionID: banID)
                     }
-                    
-                    print(userViewModel.restrictionHistory.count)
-                    // userViewModel.loadBannedHistory(userID: id)
                 }
-                
             }
         } message: {
             Text("""
@@ -100,7 +96,7 @@ struct BanListCell: View {
                     selectedBan = bannedModel
                     banDeleteAlert.toggle()
                 } label: {
-                    Text("제재 해제")
+                    Text("제재 삭제")
                 }
             }
             .padding(10)
