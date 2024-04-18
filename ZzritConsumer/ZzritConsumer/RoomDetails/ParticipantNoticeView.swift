@@ -10,6 +10,10 @@ import SwiftUI
 import ZzritKit
 
 struct ParticipantNoticeView: View {
+    @EnvironmentObject private var userService: UserService
+    
+    private let roomService = RoomService.shared
+    
     let room: RoomModel
     // 동의사항 체크했는지
     @State private var isCheck: Bool = false
@@ -24,7 +28,7 @@ struct ParticipantNoticeView: View {
                 Image(systemName: "exclamationmark.bubble.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 31)
+                    .frame(width: 25)
                     .foregroundStyle(.red)
                 
                 Text("잠깐만요!")
@@ -54,7 +58,7 @@ struct ParticipantNoticeView: View {
                 Spacer()
             }
             .frame(height: 43)
-            .padding(.bottom, 20)
+            .padding(.bottom, 10)
             
             HStack {
                 VStack {
@@ -68,7 +72,7 @@ struct ParticipantNoticeView: View {
                 Spacer()
             }
             .frame(height: 43)
-            .padding(.bottom, 20)
+            .padding(.bottom, 10)
             
             HStack {
                 VStack {
@@ -100,21 +104,30 @@ struct ParticipantNoticeView: View {
             .padding(.bottom, 10)
             
             GeneralButton("채팅방 입장", isDisabled: !isCheck) {
-                isPressedChat.toggle()
+                joinedRoom()
             }
             .navigationDestination(isPresented: $isPressedChat) {
-                // TODO: 여기에 나중에 채팅 뷰 만들어 지면 넣기
-                ChatView(isActive: true)
+                if let roomId = room.id {
+                    ChatView(roomID: roomId, room: room, isActive: true)
+                }
             }
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 20)
         .toolbarRole(.editor)
     }
+    
+    func joinedRoom() {
+        Task {
+            try await roomService.joinRoom(room.id ?? "")
+            isPressedChat.toggle()
+        }
+    }
 }
 
 #Preview {
     NavigationStack {
         ParticipantNoticeView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+            .environmentObject(UserService())
     }
 }

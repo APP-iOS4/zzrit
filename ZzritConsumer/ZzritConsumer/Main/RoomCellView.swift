@@ -82,7 +82,9 @@ struct RoomCellView: View {
         .onAppear {
             Task {
                 do {
-                    participantsCount = try await roomService.joinedUsers(roomID: room.id ?? "").count
+                    if let roomId = room.id {
+                        participantsCount = try await roomService.joinedUsers(roomID: roomId).count
+                    }
                 } catch {
                     print("error: \(error)")
                 }

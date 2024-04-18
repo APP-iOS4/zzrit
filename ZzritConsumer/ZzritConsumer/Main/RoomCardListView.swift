@@ -24,7 +24,7 @@ struct RoomCardListView: View {
         if #available(iOS 17.0, *) {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach (loadRoomViewModel.rooms) { room in
+                    ForEach (loadRoomViewModel.rooms.prefix(5)) { room in
                         // 네비게이션 링크를 통한 카드 뷰 상세 페이지 이동
                         NavigationLink {
                             // 상세페이지 뷰 연결

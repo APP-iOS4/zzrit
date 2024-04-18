@@ -10,8 +10,9 @@ import SwiftUI
 import ZzritKit
 
 struct ChatView: View {
+    let room: RoomModel
     // TODO: 모임방의 ID
-    @StateObject private var chattingService = ChattingService(roomID: "1Ab05L2UJXVpbYD7qxNc")
+    @StateObject private var chattingService: ChattingService
     var storageService = StorageService()
     
     // FIXME: 현재 계정의 uid로 바꾸어 주기
@@ -58,10 +59,16 @@ struct ChatView: View {
     // 스크롤뷰 맨 위로 올렸을때
     @State var prevValue: Double = 0
     
+    init(roomID: String, room: RoomModel, isActive: Bool) {
+        self._chattingService = StateObject(wrappedValue: ChattingService(roomID: roomID))
+        self.room = room
+        self.isActive = isActive
+    }
+    
     var body: some View {
         
         // FIXME: 모임의 장소, 시간 정보 View 한번 들어가서 고쳐주세요.
-        ChatRoomNoticeView()
+        ChatRoomNoticeView(room: room)
         Divider()
         
         VStack {
@@ -274,7 +281,7 @@ struct ChatView: View {
         .padding(.horizontal, Configs.paddingValue)
         
         // FIXME: 채팅방 제목으로
-        .navigationTitle("수요일에 맥주 한잔 찌그려요~")
+        .navigationTitle(room.title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             // 오른쪽 메뉴창
@@ -430,6 +437,6 @@ struct ChatView: View {
 
 #Preview {
     NavigationStack {
-        ChatView(isActive: true)
+        ChatView(roomID: "1Ab05L2UJXVpbYD7qxNc", room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), isActive: true)
     }
 }

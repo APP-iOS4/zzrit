@@ -10,11 +10,22 @@ import SwiftUI
 import ZzritKit
 
 struct ChatListCellView: View {
+    @StateObject private var chattingService: ChattingService
+    
     let roomService = RoomService.shared
     let room: RoomModel
     
     @State private var participants: [JoinedUserModel] = []
     @State private var participantsCount: Int = 0
+    
+    private var messageDateString: String {
+        return relativeString(chattingService.messages.last?.date ?? Date())
+    }
+    
+    init(roomID: String, room: RoomModel) {
+        self._chattingService = StateObject(wrappedValue: ChattingService(roomID: roomID))
+        self.room = room
+    }
     
     var body: some View {
         HStack {
@@ -42,7 +53,7 @@ struct ChatListCellView: View {
                 }
                 
                 // 모임 채팅방 제일 최근 글
-                Text("최근 채팅 내용입니다asdfasdfasdfasdfasdfasdfasdfasd")
+                Text(chattingService.messages.last?.message ?? "메세지가 없습니다.")
                     .lineLimit(2)
                     .font(.footnote)
                     .foregroundStyle(Color.staticGray3)
@@ -51,16 +62,18 @@ struct ChatListCellView: View {
             
             Spacer()
             
-            VStack {
+            VStack(alignment: .trailing) {
                 // 최근 채팅 상대시간으로 표시
-                Text("방금")
-                    .font(.caption2)
-                    .foregroundStyle(Color.staticGray3)
-                    .padding(.bottom, 15)
-                
-                // 아직 메세지를 안봤다면 위 이미지 띄우기
-                Image(systemName: "n.circle.fill")
-                    .foregroundStyle(Color.pointColor)
+                if chattingService.messages.last != nil {
+                    Text(messageDateString)
+                        .font(.caption2)
+                        .foregroundStyle(Color.staticGray3)
+                        .padding(.bottom, 15)
+                    
+                    // 아직 메세지를 안봤다면 위 이미지 띄우기
+                    Image(systemName: "n.circle.fill")
+                        .foregroundStyle(Color.pointColor)
+                }
             }
             .padding(.leading, 20)
         }
@@ -68,16 +81,38 @@ struct ChatListCellView: View {
         .onAppear {
             Task {
                 do {
-                    participants = try await roomService.joinedUsers(roomID: room.id ?? "")
+                    if let roomId = room.id {
+                        participants = try await roomService.joinedUsers(roomID: roomId)
+                    }
                     participantsCount = participants.count
+                    fetchChatting()
                 } catch {
                     print("\(error)")
                 }
             }
         }
     }
+    
+    private func fetchChatting() {
+        Task {
+            do {
+                try await chattingService.fetchChatting()
+            } catch {
+                print("메세지 셀 에러: \(error)")
+            }
+        }
+    }
+    
+    private func relativeString(_ date: Date) -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateTimeStyle = .named
+        formatter.unitsStyle = .short
+        let dateToString = formatter.localizedString(for: date, relativeTo: .now)
+        return dateToString.hasSuffix("초 전") ? "방금" : dateToString
+    }
 }
 
 #Preview {
-    ChatListCellView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+    ChatListCellView(roomID: "1Ab05L2UJXVpbYD7qxNc", room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
 }
