@@ -20,7 +20,6 @@ struct ChatRoomNoticeView: View {
                 .fontWeight(.bold)
                 .foregroundStyle(Color.pointColor)
                 .padding(.bottom, 5)
-            // FIXME: RoomModel.dateTime
             Text(DateService.shared.formattedString(date: room.dateTime))
                 .padding(.bottom, 5)
             
@@ -32,6 +31,7 @@ struct ChatRoomNoticeView: View {
         }
         .font(.footnote)
         .padding(.horizontal, Configs.paddingValue)
+        .padding(.vertical, Configs.paddingValue)
     }
 }
 

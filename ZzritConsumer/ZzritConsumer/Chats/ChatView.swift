@@ -13,6 +13,9 @@ struct ChatView: View {
     let room: RoomModel
     // TODO: 모임방의 ID
     @StateObject private var chattingService: ChattingService
+    // 모임방 나가기 기능을 위한 것
+    private let roomService = RoomService.shared
+    // 채팅의 이미지 저장을 위한 것
     var storageService = StorageService()
     
     // FIXME: 현재 계정의 uid로 바꾸어 주기
@@ -41,6 +44,9 @@ struct ChatView: View {
     // 새로 로딩됨을 판별
     // 새 메시지가 왔을 때
     @State private var isLoadNew = false
+    // (내가) 이미지를 보냈을때
+    @State private var isSendImage = false
+    // 채팅로드했을때 위치 조정을 위한 아이디 저장 변수
     @State private var loadingNewID: String?
     @State private var loadingMiddleID: String?
     
@@ -59,6 +65,11 @@ struct ChatView: View {
     // 스크롤뷰 맨 위로 올렸을때
     @State var prevValue: Double = 0
     
+    // 모임 나가기 알럿
+    @State private var isGoOutRoomAlert = false
+    // 신고하기 시트
+    @State private var isContactShow = false
+    
     init(roomID: String, room: RoomModel, isActive: Bool) {
         self._chattingService = StateObject(wrappedValue: ChattingService(roomID: roomID))
         self.room = room
@@ -66,12 +77,16 @@ struct ChatView: View {
     }
     
     var body: some View {
-        
-        // FIXME: 모임의 장소, 시간 정보 View 한번 들어가서 고쳐주세요.
+        // ChatRoomNoticeView 에 색을 줬을때 맨위 safeArea까지 색 변경 안되도록 막아주는 경계
+        Rectangle()
+            .frame(maxWidth: .infinity)
+            .frame(height: 1)
+            .foregroundStyle(.clear)
+        VStack(spacing: 0) {
+            // 채팅 상단의 모임 간단 정보
         ChatRoomNoticeView(room: room)
-        Divider()
+                .background(Color.lightPointColor)
         
-        VStack {
             ScrollViewWithOffset(onScroll: scrollEvent) {
                 ScrollViewReader { proxy in
                     LazyVStack {
@@ -111,7 +126,27 @@ struct ChatView: View {
                                 }
                             }
                         }
+                        
+                        VStack {
+                            // 내가 이미지 보냈을때 (보내기 + 받기) 시간이 너무 오래걸려서 중간에 보여주는 FakeView
+                            if isSendImage {
+                                HStack(alignment: .top) {
+                                    HStack(alignment: .bottom) {
+                                        Spacer()
+                                        Text("전송 중...")
+                                            .font(.caption2)
+                                            .foregroundStyle(Color.staticGray2)
+                                        ProgressView()
+                                            .frame(width: 100, height: 100)
+                                            .onAppear {
+                                                proxy.scrollTo(bottomID, anchor: .bottom)
+                                            }
+                                    }
+                                }
+                            }
+                        }
                     }
+                    .padding(.horizontal, 10)
                     
                     //스크롤 뷰의 맨밑 자리 담당
                     if #available(iOS 17.0, *) {
@@ -121,6 +156,11 @@ struct ChatView: View {
                             .frame(maxWidth: .infinity)
                             .foregroundStyle(.clear)
                             .onChange(of: messages.count) {
+                                // 고치면 else문에도 고쳐주기
+                                if isSendImage {
+                                    // 내가 보낸 사진임을 깨닫고, 다시 닫음
+                                    isSendImage.toggle()
+                                }
                                 sortedChat = sortChat(chat: messages)
                                 sortedDay = sortedChat!.keys.sorted(by: { prev, next in
                                     return prev < next
@@ -147,12 +187,12 @@ struct ChatView: View {
                             .frame(height: 5)
                             .frame(maxWidth: .infinity)
                             .foregroundStyle(.clear)
-                            .onChange(of: isSending) { newValue in
-                                proxy.scrollTo(bottomID, anchor: .bottom)
-                                isSending.toggle()
-                            }
                             .onChange(of: messages.count) { newValue in
-                                // TODO: 위에서 바뀐 조건과 같은지 확인하기
+                                // TODO: if문에서의 조건과 같은지 꼭 확인하기
+                                if isSendImage {
+                                    // 내가 보낸 사진임을 깨닫고, 다시 닫음
+                                    isSendImage.toggle()
+                                }
                                 sortedChat = sortChat(chat: messages)
                                 sortedDay = sortedChat!.keys.sorted(by: { prev, next in
                                     return prev < next
@@ -286,16 +326,60 @@ struct ChatView: View {
         .toolbar {
             // 오른쪽 메뉴창
             ToolbarItem(placement: .topBarTrailing) {
-                HStack {
-                    Button {
+                Menu {
+                    Button  {
+                        // 신고하기
+                        isContactShow.toggle()
                     } label: {
-                        Image(systemName: "ellipsis")
-                            .foregroundStyle(.black)
+                        Label("모임 신고하기", systemImage: "light.beacon.max.fill")
                     }
+                    Button  {
+                        // 모임 나가기
+                        isGoOutRoomAlert.toggle()
+                    } label: {
+                        // TODO: 시스템 이미지 바꾸기
+                        Label("모임 나가기", systemImage: "door.right.hand.open")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundStyle(.black)
+                    
                 }
+                .alert(Text("모임 나가기"), isPresented: $isGoOutRoomAlert) {
+                    // 모임나가기 alert
+                    Button(role: .cancel) {
+                        isGoOutRoomAlert.toggle()
+                    } label: {
+                        Text("취소하기")
+                    }
+                    Button(role: .destructive) {
+                        isGoOutRoomAlert.toggle()
+                        goOutRoom(roomID: room.id!)
+                    } label: {
+                        Text("나가기")
+                    }
+                } message: {
+                    Text("정말 이 모임을 나가시겠습니까?")
+                        .fontWeight(.bold)
+                }
+                .sheet(isPresented: $isContactShow, content: {
+                    // 신고하기 sheet
+                    ContactInputView()
+                })
             }
         }
         .toolbarRole(.editor)
+    } 
+    
+    // 모임 나가기
+    private func goOutRoom(roomID: String) {
+        Task {
+            do {
+                try await roomService.leaveRoom(roomID: roomID)
+            } catch {
+                print("error: \(error)")
+            }
+        }
     }
     
     // 채팅 불러오는 함수
@@ -331,6 +415,7 @@ struct ChatView: View {
     }
     
     // 채팅에 날짜 보여주는 텍스트 함수
+    // FIXME: 텍스트 함수 변경해야함..
     private func toStringChatDay(chat: ChattingModel) -> String {
         return chat.date.toStringYear() + "년 " + chat.date.toStringMonth() + "월 " + chat.date.toStringDate() + "일 "
     }
@@ -407,11 +492,15 @@ struct ChatView: View {
     
     // 이미지를 보내는 함수
     func loadImage() {
+        // 현재 내가 보낸 이미지가 있음을 알려줌
+        isSendImage.toggle()
+        
         guard let selectedImage = selectedUIImage else { return }
         guard let imageData = selectedImage.pngData() else { return }
         Task {
             do {
-                let downloadURL = try await storageService.imageUpload(topDir: .chatting, dirs: ["\(uid)", "chatting"], image: imageData)
+                // 이미지의 이름은 유저아이디와 현재 시간을 이용해 지정
+                let downloadURL = try await storageService.imageUpload(topDir: .chatting, dirs: ["\(uid)", Date().toString()], image: imageData)
                 try chattingService.sendMessage(uid: uid, message: downloadURL, type: .image)
                 
                 DispatchQueue.main.async {
