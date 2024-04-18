@@ -20,12 +20,12 @@ struct ChatActiveListView: View {
             if room.status == .activation {
                 ZStack {
                     // 리스트로 보여줄 셀을 ZStack으로 감싼다.
-                    ChatListCellView(room: room)
+                    ChatListCellView(roomID: room.id ?? "", room: room)
                     
                     NavigationLink {
                         // 상세 페이지
                         // FIXME: 아직 채팅창 뷰는 미구현, 구현 되는 대로 뷰와 모델 연동
-                        ChatView(isActive: true)
+                        ChatView(roomID: room.id ?? "", room: room, isActive: true)
                     } label: {
                         // 여기는 쓰이지 않는다
                     }

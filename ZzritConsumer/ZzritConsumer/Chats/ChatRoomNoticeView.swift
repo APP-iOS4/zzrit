@@ -7,7 +7,11 @@
 
 import SwiftUI
 
+import ZzritKit
+
 struct ChatRoomNoticeView: View {
+    let room: RoomModel
+    
     let columns: [GridItem] = [GridItem(.flexible(minimum: 85, maximum: 85)), GridItem(.flexible())]
     
     var body: some View {
@@ -17,7 +21,7 @@ struct ChatRoomNoticeView: View {
                 .foregroundStyle(Color.pointColor)
                 .padding(.bottom, 5)
             // FIXME: RoomModel.dateTime
-            Text("2024년 05월 04일 19:00")
+            Text(DateService.shared.formattedString(date: room.dateTime))
                 .padding(.bottom, 5)
             
             Text("모임 장소")
@@ -32,5 +36,5 @@ struct ChatRoomNoticeView: View {
 }
 
 #Preview {
-    ChatRoomNoticeView()
+    ChatRoomNoticeView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
 }
