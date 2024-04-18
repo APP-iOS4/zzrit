@@ -5,7 +5,7 @@
 //  Created by Healthy on 4/8/24.
 //
 
-// TODO: Complaint가 들어간 기존 뷰 파일 및 구조체 이름 모델에 맞추어 Contact로 변경, ContentView 목록의 신고도 문의로 변경 필요
+// TODO: Complaint가 들어간 기존 뷰 파일 및 구조체 이름 모델에 맞추어 Contact로 변경 필요
 
 import SwiftUI
 
@@ -23,7 +23,7 @@ struct ComplaintManagementView: View {
     @State private var prevValue: Double = 0
     
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             HStack {
                 ContactReasonPickerView(selectReason: $contactSearchCategory)
                     .frame(minWidth: 130, alignment: .leading)
