@@ -183,7 +183,6 @@ struct UserManageTableView: View {
     }
     
     func searchUserData(searchText: String) -> [UserModel] {
-        print(searchText)
         return searchText.isEmpty ? userData : userData.filter { $0.userID.contains(searchText) }
     }
 }
