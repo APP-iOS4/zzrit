@@ -48,17 +48,25 @@ struct RoomDetailView: View {
                     }
                     
                     // 썸네일 이미지
-                    AsyncImage(url: room.roomImage) { image in
-                            image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(maxHeight: 200)
-                            .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                            .padding(.bottom, 20)
-                        } placeholder: {
-                            ProgressView()
-                                .frame(maxWidth: .infinity, alignment: .center)
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundStyle(.clear)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxHeight: 200)
+                        .background {
+                            AsyncImage(url: room.roomImage) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(maxHeight: 200)
+                                    .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
+                                    
+                            } placeholder: {
+                                ProgressView()
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                            }
                         }
+                        .padding(.bottom, 20)
+    
                     // 세부 내용
                     Text(room.content)
                         .foregroundStyle(Color.staticGray1)
