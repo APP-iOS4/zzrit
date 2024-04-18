@@ -10,7 +10,9 @@ import SwiftUI
 import ZzritKit
 
 struct StaticGaugeEditingSubview: View {
-    var user: UserModel
+    @EnvironmentObject var userViewModel: UserViewModel
+    @Binding var user: UserModel
+    
     @State private var editAlert = false
     @State var indexAfterEdit: Double
     @Binding var isUserModal: Bool
@@ -63,9 +65,13 @@ struct StaticGaugeEditingSubview: View {
                 editAlert.toggle()
             }
             Button("수정하기", role: .destructive){
-                print("수정하기")
-                editAlert.toggle()
-                isUserModal.toggle()
+                DispatchQueue.main.async {
+                    if let id = user.id {
+                        userViewModel.editScore(userID: id, score: Int(indexAfterEdit))
+                    }
+                    
+                    user.staticGauge = indexAfterEdit
+                }
             }
         } message: {
             Text("대상자: \(user.userID)\n수정 전: \(String(format: "%.1f", user.staticGauge))W\n수정 후: \(String(format: "%.1f", indexAfterEdit))W")

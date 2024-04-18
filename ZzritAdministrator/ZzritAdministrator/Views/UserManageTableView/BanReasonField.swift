@@ -10,7 +10,9 @@ import SwiftUI
 import ZzritKit
 
 struct BanReasonField: View {
-    var user: UserModel
+    @EnvironmentObject var userViewModel: UserViewModel
+    
+    @Binding var user: UserModel
     @State private var banReason: BannedType = .abuse
     @State private var banPeriod = 3
     @State private var banMemo = ""
@@ -49,9 +51,15 @@ struct BanReasonField: View {
                 banAlert.toggle()
             }
             Button("제재하기", role: .destructive){
-                print("제재하기")                
+                if let id = user.id {
+                    userViewModel.startRestriction(userID: id, type: banReason, period: banPeriod, content: banMemo)
+                    userViewModel.editScore(userID: id, score: Int(indexAfterPenalty))
+                    user.staticGauge = indexAfterPenalty
+                }
+                print("제재하기")
+                banMemo = ""
                 banAlert.toggle()
-                isUserModal.toggle()
+                // isUserModal.toggle()
             }
         } message: {
             Text("\"\(String(describing: user.userID))\"를 \(banReason.rawValue)(으)로 \(banPeriod)일 제재\n제재 후 정전기 지수: \(String(format: "%.1f", indexAfterPenalty))W \n사유 : \(banMemo)")
@@ -75,7 +83,7 @@ struct BanReasonField: View {
             20
         case 365:
             30
-        case 3649635:
+        case 730000:
             100
         default:
             0
@@ -116,7 +124,7 @@ struct banPeriodPickerView: View {
             Text("30일 (-10W)").tag(30)
             Text("180일 (-20W)").tag(180)
             Text("1년 (-30W)").tag(365)
-            Text("영구 (-100W)").tag(3649635)
+            Text("영구 (-100W)").tag(730000)
         }
         .pickerStyle(.menu)
         .foregroundStyle(Color.accentColor)

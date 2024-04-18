@@ -54,7 +54,6 @@ struct ComplaintManagementView: View {
                             print("modal .toggle     pickUserId = list.id")
                         } label: {
                             ContactListCell(contactTitle: list.title, contactCategory: list.category, contactDateString: dateService.dateString(date: list.requestedDate))
-                                .padding(5)
                         }
                         Divider()
                     }
@@ -73,6 +72,9 @@ struct ComplaintManagementView: View {
             .overlay {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.staticGray3, lineWidth: 1.0)
+            }
+            .refreshable {
+                contactViewModel.loadContacts()
             }
         }
         .padding(20)
@@ -100,19 +102,23 @@ struct ContactListCell: View {
     var contactDateString: String
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("\(contactTitle)")
-                .foregroundStyle(Color.primary)
-                .fontWeight(.bold)
-            HStack {
-                Text("\(contactCategory.rawValue)")
+        HStack {
+            VStack(alignment: .leading, spacing: 10) {
+                Text("\(contactTitle)")
+                    .foregroundStyle(Color.primary)
                     .fontWeight(.bold)
-                    .foregroundStyle(Color.pointColor)
-                Text("\(contactDateString)")
-                    .foregroundStyle(Color.staticGray2)
+                HStack {
+                    Text("\(contactCategory.rawValue)")
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.pointColor)
+                    Text("\(contactDateString)")
+                        .foregroundStyle(Color.staticGray2)
+                }
             }
+            
+            Spacer()
         }
-        .padding(5)
+        .padding(10)
     }
 }
 
