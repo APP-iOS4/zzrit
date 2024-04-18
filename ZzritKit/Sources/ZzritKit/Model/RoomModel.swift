@@ -10,7 +10,7 @@ import Foundation
 import FirebaseFirestore
 
 /// 모임 모델
-public struct RoomModel: Identifiable, Codable {
+public struct RoomModel: Identifiable, Codable, Hashable {
     /// 모임 ID
     @DocumentID public var id: String? = UUID().uuidString
     /// 모임 제목
