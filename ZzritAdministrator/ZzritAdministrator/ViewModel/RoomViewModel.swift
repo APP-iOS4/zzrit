@@ -25,6 +25,8 @@ final class RoomViewModel: ObservableObject {
             do {
                 rooms += try await roomService.loadRoom(isInitial: initialFetch, status: "all", title: "")
                 initialFetch = false
+                // 중복제거
+                rooms = Array(Set(rooms))
                 print("로드 완료")
             } catch {
                 print("에러: \(error)")
@@ -37,6 +39,8 @@ final class RoomViewModel: ObservableObject {
         Task {
             do {
                 rooms += try await roomService.loadRoom(isInitial: initialFetch, status: "all", title: searchText)
+                // 중복제거
+                rooms = Array(Set(rooms))
                 initialFetch = false
                 print("로드 완료")
             } catch {

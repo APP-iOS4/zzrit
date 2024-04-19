@@ -48,8 +48,7 @@ struct RoomManageView: View {
                             // 패치를 위한 버튼
                             Button("") { }
                                 .onAppear {
-                                    // TODO: 파베 사용량을 아끼기 위해 주석처리...
-                                    // roomViewModel.loadRooms()
+                                    roomViewModel.loadRooms()
                                 }
                         }
                     }

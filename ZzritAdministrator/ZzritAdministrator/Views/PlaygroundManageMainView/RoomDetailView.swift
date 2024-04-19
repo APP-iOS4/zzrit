@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ZzritKit
+import CoreLocation
 
 struct RoomDetailView: View {
     // 모임 뷰모델
@@ -107,7 +108,6 @@ struct RoomDetailView: View {
         joinedUsers = await roomViewModel.loadJoinedUsers(roomID: room.id!)
     }
     
-    // TODO: 로직 수정해야 함
     /// 모임 비활성화 얼럿
     func getInactiveAlert() -> Alert {
         return Alert(
@@ -142,8 +142,10 @@ struct RoomDetailView: View {
 
 struct RoomInfoView: View {
     @State var room: RoomModel
-    var dateService = DateService.shared
+    @State var address: String?
     
+    var dateService = DateService.shared
+ 
     var body: some View {
         List {
             Section {
@@ -158,7 +160,7 @@ struct RoomInfoView: View {
                 LabeledContent("플랫폼", value: room.platform?.rawValue ?? "플랫폼 정보없음")
             } else {
                 // TODO: 위치 정보 표시 논의하기
-                LabeledContent("위치 정보", value: "위치 정보")
+                LabeledContent("위치 정보", value: address ?? "위치정보 없음")
             }
             
             LabeledContent("카테고리", value: room.category.rawValue)
@@ -172,6 +174,32 @@ struct RoomInfoView: View {
             RoundedRectangle(cornerRadius: Constants.commonRadius)
                 .stroke(Color.staticGray3, lineWidth: 1.0)
         )
+        .onAppear {
+            print("주소 로딩 시작")
+            if let latitude = room.placeLatitude, let longitude = room.placeLongitude {
+                getAddress(latitude: latitude, longitude: longitude)
+            } else {
+                print("좌표 정보 없음")
+            }
+        }
+    }
+    
+    func getAddress(latitude: Double, longitude: Double) {
+        let geocoder = CLGeocoder()
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+
+        geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            if let error {
+                print(error)
+                return
+            }
+            
+            if let placemark = placemarks?.first {
+                print("\(String(describing: placemark.locality))\(String(describing: placemark.country))\(String(describing: placemark.thoroughfare))\(String(describing: placemark.subThoroughfare))")
+                
+                address = "\(String(describing: placemark.locality))\(String(describing: placemark.country))\(String(describing: placemark.thoroughfare))\(String(describing: placemark.subThoroughfare))"
+            }
+        }
     }
 }
 
