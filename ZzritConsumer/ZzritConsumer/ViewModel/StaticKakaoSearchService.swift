@@ -7,7 +7,7 @@
 
 import Foundation
 
-class StaticKakaoSearchService.swift: ObservableObject {
+class StaticKakaoSearchService: ObservableObject {
     @Published var results: [KakaoSearchDocumentModel] = []
     @Published private var recentKeyword: String = ""
     @Published var isEnd: Bool = false
