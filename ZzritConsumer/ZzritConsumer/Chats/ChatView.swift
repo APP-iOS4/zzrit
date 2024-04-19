@@ -386,7 +386,6 @@ struct ChatView: View {
                 }
                 .sheet(isPresented: $isRoomDetailShow) {
                     // 모임 상세보기 sheet
-                    // FIXME: 또 모임들어가기 버튼있음.
                     RoomDetailView(room: room)
                         .padding(.top, Configs.paddingValue)
                 }
