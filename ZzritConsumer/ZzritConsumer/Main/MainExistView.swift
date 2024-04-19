@@ -41,7 +41,7 @@ struct MainExistView: View {
                             #if DEBUG
                             print("\(fetchCount)")
                             #endif
-                            if fetchCount <= 3 {
+                            if fetchCount < 3 {
                                 do {
                                     try await loadRoomViewModel.consumerLoadRoom()
                                     loadRoomViewModel.getFilter(isOnline: isOnline)
