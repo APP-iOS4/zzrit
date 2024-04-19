@@ -106,9 +106,15 @@ struct ContactInputView: View {
                             Picker("Choose member", selection: $selectedUserContact) {
                                 Text("신고할 회원을 선택하세요.")
                                     .tag("")
-                                ForEach(users) { user in
-                                    Text(user.userName)
-                                        .tag(user.id!)
+                                if users.isEmpty {
+                                    Text("참가한 회원이 없습니다.")
+                                        .tag("")
+                                        .foregroundStyle(.red)
+                                } else {
+                                    ForEach(users) { user in
+                                        Text(user.userName)
+                                            .tag(user.id!)
+                                    }
                                 }
                             }
                         }
@@ -119,25 +125,23 @@ struct ContactInputView: View {
                 }
                 
                 // 문의 내용을 작성하는 곳
-                TextField("문의 내용을 입력해주세요", text: $contactContent)
+                TextEditor(text: $contactContent)
                     .foregroundStyle(Color.staticGray1)
-                    .frame(height: 300, alignment: .top)
+                    .frame(height: 250, alignment: .top)
                     .roundedBorder()
                     .padding(.bottom, Configs.paddingValue)
-                
-                Spacer()
-                
-                GeneralButton("문의하기", isDisabled: contactTitle.isEmpty) {
-                    writeContact()
-                }
-                .navigationDestination(isPresented: $isPressContactButton) {
-                    ContactInputCompleteView()
-                }
             }
-            .padding(.vertical, Configs.paddingValue)
-            .padding(.horizontal, Configs.paddingValue)
-            .navigationTitle("문의하기")
+            
+            GeneralButton("문의하기", isDisabled: contactTitle.isEmpty) {
+                writeContact()
+            }
+            .navigationDestination(isPresented: $isPressContactButton) {
+                ContactInputCompleteView()
+            }
         }
+        .padding(.vertical, Configs.paddingValue)
+        .padding(.horizontal, Configs.paddingValue)
+        .navigationTitle("문의하기")
         .toolbarRole(.editor)
         .onTapGesture {
             self.endTextEditing()
@@ -167,10 +171,13 @@ struct ContactInputView: View {
         
         Task {
             do {
+                let userUID = try await userService.loginedUserInfo()?.id
                 let joinedUsers = try await roomService.joinedUsers(roomID: selectedRoomContact)
                 for user in joinedUsers {
                     if let userModel = try await userService.getUserInfo(uid: user.userID) {
-                        users.append(userModel)
+                        if userUID != userModel.id {
+                            users.append(userModel)
+                        }
                     }
                 }
             } catch {

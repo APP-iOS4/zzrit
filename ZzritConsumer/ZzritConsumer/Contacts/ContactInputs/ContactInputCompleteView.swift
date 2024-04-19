@@ -30,6 +30,7 @@ struct ContactInputCompleteView: View {
             Spacer()
             
             GeneralButton("확인") {
+                // FIXME: 화면 내리기
                 isPressConfirmButton.toggle()
             }
             .padding(Configs.paddingValue)
