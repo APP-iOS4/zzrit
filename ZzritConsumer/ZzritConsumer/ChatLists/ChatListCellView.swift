@@ -34,11 +34,11 @@ struct ChatListCellView: View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 56, height: 56)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             } placeholder: {
                 ProgressView()
             }
+            .frame(width: 56, height: 56)
             
             VStack(alignment: .leading) {
                 HStack {
