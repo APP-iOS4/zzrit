@@ -10,27 +10,35 @@ import SwiftUI
 import ZzritKit
 
 struct ChatView: View {
-    let room: RoomModel
-    // TODO: 모임방의 ID
+    // 채팅 서비스 불러옴
     @StateObject private var chattingService: ChattingService
+    
+    // 모임 정보
+    let room: RoomModel
+    // 모임방 활성화 여부
+    var isActive: Bool
+    
+    // 유저 정보 불러옴
+    @EnvironmentObject private var userService: UserService
+    // 유저모델 변수
+    @State private var userModel: UserModel?
+    
+    // FIXME: 현재 계정의 uid로 바꾸어 주기
+    @State private var uid = ""
+    
     // 모임방 나가기 기능을 위한 것
     private let roomService = RoomService.shared
     // 채팅의 이미지 저장을 위한 것
     var storageService = StorageService()
     
-    // FIXME: 현재 계정의 uid로 바꾸어 주기
-    var uid: String = "예삐이"
-    
     // 입력 메세지 변수
     @State private var messageText: String = ""
-    
-    // FIXME: 모임방 활성화 여부
-    var isActive: Bool
     
     // 메시지 모델
     var messages: [ChattingModel] {
         chattingService.messages
     }
+    // 정렬된 메시지 저장할 곳
     @State private var sortedChat: [Int: [ChattingModel]]?
     @State private var sortedDay = [0]
     
@@ -65,11 +73,14 @@ struct ChatView: View {
     // 스크롤뷰 맨 위로 올렸을때
     @State var prevValue: Double = 0
     
+    // 모임 상세보기 시트
+    @State private var isRoomDetailShow = false
     // 모임 나가기 알럿
     @State private var isGoOutRoomAlert = false
     // 신고하기 시트
     @State private var isContactShow = false
     
+    // 모임 정보 init
     init(roomID: String, room: RoomModel, isActive: Bool) {
         self._chattingService = StateObject(wrappedValue: ChattingService(roomID: roomID))
         self.room = room
@@ -82,11 +93,12 @@ struct ChatView: View {
             .frame(maxWidth: .infinity)
             .frame(height: 1)
             .foregroundStyle(.clear)
+        
         VStack(spacing: 0) {
             // 채팅 상단의 모임 간단 정보
-        ChatRoomNoticeView(room: room)
+            ChatRoomNoticeView(room: room)
                 .background(Color.lightPointColor)
-        
+            
             ScrollViewWithOffset(onScroll: scrollEvent) {
                 ScrollViewReader { proxy in
                     LazyVStack {
@@ -101,10 +113,13 @@ struct ChatView: View {
                         }
                         ForEach(sortedDay, id: \.self) { day in
                             // 바뀐 날짜 표시
-                            Text(toStringChatDay(chat: sortedChat?[day]!.first ?? ChattingModel(userID: "실패", message: "실패", type: .text)))
-                                .font(.caption)
-                                .foregroundStyle(Color.staticGray3)
-                                .frame(maxWidth: .infinity)
+                            VStack {
+                                Text(toStringChatDay(chat: sortedChat?[day]!.first ?? ChattingModel(userID: "실패", message: "실패", type: .text)))
+                                    .font(.caption)
+                                    .foregroundStyle(Color.staticGray3)
+                                    .frame(maxWidth: .infinity)
+                            }
+                            .padding(.vertical, 3)
                             
                             // 메시지
                             if let sortedChat = sortedChat?[day]! {
@@ -328,6 +343,13 @@ struct ChatView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
                     Button  {
+                        // 모임 디테일뷰
+                        isRoomDetailShow.toggle()
+                    } label: {
+                        // TODO: 시스템 이미지 바꾸기
+                        Label("모임 상세보기", systemImage: "")
+                    }
+                    Button  {
                         // 신고하기
                         isContactShow.toggle()
                     } label: {
@@ -362,14 +384,21 @@ struct ChatView: View {
                     Text("정말 이 모임을 나가시겠습니까?")
                         .fontWeight(.bold)
                 }
-                .sheet(isPresented: $isContactShow, content: {
+                .sheet(isPresented: $isRoomDetailShow) {
+                    // 모임 상세보기 sheet
+                    RoomDetailView(room: room)
+                        .padding(.top, Configs.paddingValue)
+                }
+                .sheet(isPresented: $isContactShow) {
                     // 신고하기 sheet
+                    // FIXME: 신고가 안올라감. 뭐를 더 넣어줘야하는지
                     ContactInputView()
-                })
+                        .padding(.top, Configs.paddingValue)
+                }
             }
         }
         .toolbarRole(.editor)
-    } 
+    }
     
     // 모임 나가기
     private func goOutRoom(roomID: String) {
@@ -387,6 +416,10 @@ struct ChatView: View {
         if !isfetchFinish {
             Task {
                 do {
+                    // 유저 정보 불러옴
+                    let tempuid = try await userService.loginedUserInfo()?.id
+                    uid = tempuid!
+                    // 채팅 불러옴
                     try await chattingService.fetchChatting()
                     DispatchQueue.main.async {
                         // 처음 채팅 로드시에 필요한 정보 저장
@@ -417,7 +450,7 @@ struct ChatView: View {
     // 채팅에 날짜 보여주는 텍스트 함수
     // FIXME: 텍스트 함수 변경해야함..
     private func toStringChatDay(chat: ChattingModel) -> String {
-        return chat.date.toStringYear() + "년 " + chat.date.toStringMonth() + "월 " + chat.date.toStringDate() + "일 "
+        return DateService.shared.formattedString(date: chat.date, format: "yyyy년 MM월 dd일")
     }
     
     // chat 날짜별 정렬 함수
@@ -527,5 +560,6 @@ struct ChatView: View {
 #Preview {
     NavigationStack {
         ChatView(roomID: "1Ab05L2UJXVpbYD7qxNc", room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), isActive: true)
+            .environmentObject(UserService())
     }
 }

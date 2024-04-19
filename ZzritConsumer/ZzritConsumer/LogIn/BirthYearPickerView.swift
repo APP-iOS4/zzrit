@@ -14,7 +14,7 @@ struct BirthYearPickerView: View {
     var body: some View {
         VStack {
             Picker("출생년도를 선택해주세요.", selection: $selectedYear) {
-                ForEach(1800...Calendar.current.component(.year, from: Date()), id: \.self) { year in
+                ForEach(1900...Calendar.current.component(.year, from: Date()), id: \.self) { year in
                     Text(String(year))
                 }
             }

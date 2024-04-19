@@ -10,6 +10,9 @@ import SwiftUI
 import ZzritKit
 
 struct SetProfileView: View {
+    // 채팅의 이미지 저장을 위한 것
+    var storageService = StorageService()
+    
     @State var selectedImage: UIImage?
     
     @State var nickName = ""
@@ -128,13 +131,18 @@ struct SetProfileView: View {
     }
     
     private func setUserInfo() {
+        guard let selectedImage = selectedImage else { return }
+        guard let imageData = selectedImage.pngData() else { return }
         Task {
             do {
                 let serviceTerm = try await userService.term(type: .service)
                 let privacyTerm = try await userService.term(type: .privacy)
                 let locationTerm = try await userService.term(type: .location)
                 
-                let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: "", gender: isMan ? .male : .female, birthYear: birthYear, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
+                // 이미지 올리고 url 받아오기
+                let downloadURL = try await storageService.imageUpload(topDir: .profile, dirs: ["\(registeredUID)", Date().toString()], image: imageData)
+                
+                let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: downloadURL, gender: isMan ? .male : .female, birthYear: birthYear, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
                 try userService.setUserInfo(uid: registeredUID, info: userInfo)
             } catch {
                 print("에러: \(error)")
