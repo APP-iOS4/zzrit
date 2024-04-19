@@ -53,13 +53,15 @@ struct MoreInfoListView: View {
 //                        
 //                    }
                     // 문의하기
-                    Button {
-                        isQuestionShow.toggle()
-                    } label: {
-                        HorizontalLabel(string: "문의하기")
-                    }
-                    .navigationDestination(isPresented: $isQuestionShow){
-                        QuestionView()
+                    if isLogined {
+                        Button {
+                            isQuestionShow.toggle()
+                        } label: {
+                            HorizontalLabel(string: "문의하기")
+                        }
+                        .navigationDestination(isPresented: $isQuestionShow){
+                            QuestionView()
+                        }
                     }
                 }
                 .padding(Configs.paddingValue)

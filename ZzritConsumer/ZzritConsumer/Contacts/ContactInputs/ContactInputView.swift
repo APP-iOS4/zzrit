@@ -189,10 +189,11 @@ struct ContactInputView: View {
     private func writeContact() {
         Task {
             do {
-                let userUID = try await userService.loginedUserInfo()?.id
-                let contact = ContactModel(category: selectedContactCategory, title: contactTitle, content: contactContent, requestedDated: .now, requestedUser: userUID!, targetRoom: selectedRoomContact, targetUser: [selectedUserContact])
-                try contactService.writeContact(contact)
-                isPressContactButton.toggle()
+                if let userUID = try await userService.loginedUserInfo()?.id {
+                    let contact = ContactModel(category: selectedContactCategory, title: contactTitle, content: contactContent, requestedDated: .now, requestedUser: userUID, targetRoom: selectedRoomContact, targetUser: [selectedUserContact])
+                    try contactService.writeContact(contact)
+                    isPressContactButton.toggle()
+                }
             } catch {
                 print("에러: \(error)")
             }
