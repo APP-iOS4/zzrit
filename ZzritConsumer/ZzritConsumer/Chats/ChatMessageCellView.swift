@@ -30,7 +30,7 @@ struct ChatMessageCellView: View {
                 
                 HStack(alignment: .bottom) {
                     VStack(alignment: .leading) {
-                        // FIXME: 메시지를 보낸 유저의 닉네임으로 변경
+                        // FIXME: 메시지를 보낸 유저의 닉네임으로 변경 -> 참가 리스트로 비교해서 맞는 얘 닉넴으로 연결하면 될까욥?
                         // FIXME: roomModel의 leaderID와 message.userID 비교해서 isleaderID에 넣기
                         ChatMessageName(userID: message.userID, isleaderID: true)
                         
@@ -56,7 +56,7 @@ struct ChatMessageCellView: View {
                                 Text("nothing")
                             }
                             // 메시지 보낸 날짜 - 상대방
-                            Text(DateService.shared.timeString(time: message.date.toStringHour() + ":" + message.date.toStringMinute()))
+                            Text(DateService.shared.timeString(time: DateService.shared.formattedString(date: message.date, format: "HH") + ":" + message.date.toStringMinute()))
                                 .font(.caption2)
                                 .foregroundStyle(Color.staticGray2)
                         }
@@ -68,7 +68,7 @@ struct ChatMessageCellView: View {
             } else {
                 HStack(alignment: .bottom) {
                     // 메시지 보낸 날짜 - 나
-                    Text(DateService.shared.timeString(time: message.date.toStringHour() + ":" + message.date.toStringMinute()))
+                    Text(DateService.shared.timeString(time: DateService.shared.formattedString(date: message.date, format: "HH") + ":" + message.date.toStringMinute()))
                         .font(.caption2)
                         .foregroundStyle(Color.staticGray2)
                     
@@ -113,6 +113,9 @@ struct ChatMessageCellView: View {
     }
 }
 
-//#Preview {
-//    ChatMessageCellView(message: MessageViewModel.dummyMessage, isYou: <#Bool#>)
-//}
+#Preview {
+    NavigationStack {
+        ChatView(roomID: "1Ab05L2UJXVpbYD7qxNc", room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), isActive: true)
+            .environmentObject(UserService())
+    }
+}
