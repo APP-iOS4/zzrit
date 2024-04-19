@@ -43,11 +43,16 @@ struct ChatMessageCellView: View {
                                     .padding(10)
                                     .background(Color.staticGray6)
                                     .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                                // TODO: 이미지 button으로 바꾸기
+                                // TODO: 이미지 button으로 바꾸기 -> 이미지 크게 띄워주기
                             case .image:
-                                fetchImage(url: message.message)
-                                    .padding(10)
+                                Button {
+                                    print("사진 크게 보여주기")
+                                } label: {
+                                    fetchImage(url: message.message)
+                                        .padding(10)
+                                }
                             case .notice:
+                                // 여기선 아무것도 안함
                                 Text("nothing")
                             }
                             // 메시지 보낸 날짜 - 상대방
@@ -77,11 +82,12 @@ struct ChatMessageCellView: View {
                                 .padding(10)
                                 .background(Color.pointColor)
                                 .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                            // TODO: 이미지 button으로 바꾸기
+                            // TODO: 이미지 button으로 바꾸기  -> 이미지 크게 띄워주기
                         case .image:
                                 fetchImage(url: message.message)
                                 .padding(10)
                         case .notice:
+                            // 여기선 아무것도 안함
                             Text("nothing")
                         }
                     }
@@ -97,6 +103,7 @@ struct ChatMessageCellView: View {
                 image
                     .resizable()
                     .scaledToFit()
+                    .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
             } placeholder: {
                 ProgressView()
                     .frame(width: 100, height: 100)
