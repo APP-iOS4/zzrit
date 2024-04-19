@@ -10,7 +10,7 @@ import ZzritKit
 
 struct SearchField: View {
     var placeHolder: String = "모임 이름을 입력하세요"
-    @State var text: String = ""
+    @Binding var text: String
     let action: () -> ()
     
     var body: some View {
@@ -36,7 +36,7 @@ struct SearchField: View {
 }
 
 #Preview {
-    SearchField(action: {
+    SearchField(text: .constant(""), action: {
         
     })
 }

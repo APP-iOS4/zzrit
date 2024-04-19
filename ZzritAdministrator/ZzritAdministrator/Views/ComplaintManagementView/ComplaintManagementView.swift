@@ -5,7 +5,7 @@
 //  Created by Healthy on 4/8/24.
 //
 
-// TODO: Complaint가 들어간 기존 뷰 파일 및 구조체 이름 모델에 맞추어 Contact로 변경, ContentView 목록의 신고도 문의로 변경 필요
+// TODO: Complaint가 들어간 기존 뷰 파일 및 구조체 이름 모델에 맞추어 Contact로 변경 필요
 
 import SwiftUI
 
@@ -14,7 +14,7 @@ import ZzritKit
 struct ComplaintManagementView: View {
     @EnvironmentObject private var contactViewModel: ContactViewModel
     
-    @State private var contactCategory: ContactCategory = .app
+    @State private var contactSearchCategory: ContactSearchCategory = .all
     @State private var contactSearchText: String = ""
     @State private var pickedContact: ContactModel?
     @State private var isShowingModalView = false
@@ -23,10 +23,11 @@ struct ComplaintManagementView: View {
     @State private var prevValue: Double = 0
     
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             HStack {
-                ContactReasonPickerView(selectReason: $contactCategory)
-                TextField("문의 내용을 입력해주세요.", text: $contactSearchText)
+                ContactReasonPickerView(selectReason: $contactSearchCategory)
+                    .frame(minWidth: 130, alignment: .leading)
+                TextField("문의 제목이나 내용을 입력해주세요.", text: $contactSearchText)
                     .padding(10.0)
                     .padding(.leading)
                 Button {
@@ -47,7 +48,7 @@ struct ComplaintManagementView: View {
             
             ScrollView {
                 LazyVStack(alignment: .leading) {
-                    ForEach(contactViewModel.contacts){ list in
+                    ForEach(searchContact(searchCategory: contactSearchCategory, searchText: contactSearchText)){ list in
                         Button {
                             pickedContact = list
                             isShowingModalView.toggle()
@@ -82,14 +83,32 @@ struct ComplaintManagementView: View {
             ComplaintDetailView(contact: $pickedContact, isShowingModalView: $isShowingModalView)
         }
     }
+    
+    func searchContact(searchCategory: ContactSearchCategory, searchText: String) -> [ContactModel] {
+        switch searchCategory {
+        case .all:
+            return contactSearchText.isEmpty ? contactViewModel.contacts : contactViewModel.contacts.filter {
+                $0.title.contains(searchText) || $0.content.contains(searchText)
+            }
+        case .app:
+            return contactSearchText.isEmpty ? contactViewModel.contacts.filter { $0.category == .app } : contactViewModel.contacts.filter {
+                $0.category == .app && ( $0.title.contains(searchText) || $0.content.contains(searchText))
+            }
+        case .room:
+            return contactSearchText.isEmpty ? contactViewModel.contacts.filter { $0.category == .room } : contactViewModel.contacts.filter {
+                $0.category == .room && ( $0.title.contains(searchText) || $0.content.contains(searchText))
+            }
+        }
+    }
 }
 
 struct ContactReasonPickerView: View {
-    @Binding var selectReason: ContactCategory
+    @Binding var selectReason: ContactSearchCategory
     var body: some View {
         Picker("\(selectReason)", selection: $selectReason){
-            Text("앱 이용 문의").tag(ContactCategory.app)
-            Text("모임 신고").tag(ContactCategory.room)
+            Text("전체").tag(ContactSearchCategory.all)
+            Text("앱 이용 문의").tag(ContactSearchCategory.app)
+            Text("모임 신고").tag(ContactSearchCategory.room)
         }
         .pickerStyle(.menu)
         .tint(Color.pointColor)
@@ -121,6 +140,13 @@ struct ContactListCell: View {
         .padding(10)
     }
 }
+
+enum ContactSearchCategory: String {
+    case all = "전체"
+    case app = "앱 이용 문의"
+    case room = "모임 신고"
+}
+
 
 #Preview {
     ComplaintManagementView()

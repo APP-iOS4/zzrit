@@ -27,12 +27,14 @@ struct UserManageTableView: View {
     var body: some View {
         VStack {
             HStack(spacing: 20.0) {
-                SearchField(placeHolder: "유저 이메일을 입력하세요.", text: searchText, action: {
+                SearchField(placeHolder: "유저 이메일을 입력하세요.", text: $searchText, action: {
                     print("검색")
                     #if canImport(UIKit)
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     #endif
                 })
+                .textInputAutocapitalization(.never)
+                
                 Button {
                     print("필터 버튼 눌림")
                     isFilterActive.toggle()
@@ -106,44 +108,12 @@ struct UserManageTableView: View {
                 LazyVStack(pinnedViews: [.sectionHeaders]) {
                     Section(header: UserSectionHeader())
                     {
-                        ForEach(userData) { user in
-                            
+                        ForEach(searchUserData(searchText: searchText)) { user in
                             Button {
                                 selection = user
                             } label: {
-                                HStack {
-                                    Text("\(user.userID)")
-                                        .minimumScaleFactor(0.5)
-                                        .frame(minWidth: 200, alignment: .leading)
-                                        .multilineTextAlignment(.leading)
-                                    Spacer()
-                                    
-                                    Divider()
-                                    
-                                    Text("\(String(format: "%.1f", user.staticGauge))W")
-                                        .minimumScaleFactor(0.5)
-                                        .frame(width: 100, alignment: .leading)
-                                        .multilineTextAlignment(.leading)
-                                    
-                                    Divider()
-                                    
-                                    Text(verbatim: "\(user.birthYear)년")
-                                        .minimumScaleFactor(0.5)
-                                        .frame(width: 120, alignment: .leading)
-                                        .multilineTextAlignment(.leading)
-                                    
-                                    Divider()
-                                    
-                                    Text("\(user.gender.rawValue)")
-                                        .minimumScaleFactor(0.5)
-                                        .frame(width: 100, alignment: .leading)
-                                        .multilineTextAlignment(.leading)
-                                }
-                                .font(.title3)
-                                .foregroundStyle(user.id == selection?.id ? Color.pointColor : Color.primary)
-                                .padding(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
+                                UserTableSubView(user: user, selection: $selection)
                             }
-                            
                         }
                     }
                 }
@@ -154,16 +124,16 @@ struct UserManageTableView: View {
                         userData = userViewModel.users
                         return
                     }
+                    
                     userData = userViewModel.users.filter{ $0.gender == genderSelection }
                     
                     if isSortedByStatic {
-                        userData = userViewModel.users.sorted{ $0.staticGauge > $1.staticGauge }
+                        userData = userData.sorted{ $0.staticGauge > $1.staticGauge }
                     } else if isSortedByYear {
-                        userData = userViewModel.users.sorted{ $0.birthYear < $1.birthYear }
+                        userData = userData.sorted{ $0.birthYear < $1.birthYear }
                     }
                 }
             }
-            .listStyle(.plain)
             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
             .overlay {
                 RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
@@ -210,6 +180,10 @@ struct UserManageTableView: View {
             #endif
         }
         // .padding()
+    }
+    
+    func searchUserData(searchText: String) -> [UserModel] {
+        return searchText.isEmpty ? userData : userData.filter { $0.userID.contains(searchText) }
     }
 }
 

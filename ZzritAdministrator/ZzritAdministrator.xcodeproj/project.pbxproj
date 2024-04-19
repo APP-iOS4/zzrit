@@ -34,6 +34,7 @@
 		9B7574922BC7D19800A247C1 /* BanReasonField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7574912BC7D19800A247C1 /* BanReasonField.swift */; };
 		9B7574942BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7574932BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift */; };
 		9B90CBC22BCCAFD60005B0BD /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B90CBC12BCCAFD60005B0BD /* TermsView.swift */; };
+		9BA514462BD1111B00F9749D /* UserTableSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA514452BD1111B00F9749D /* UserTableSubView.swift */; };
 		9BA976632BC3D615008B1CD5 /* ComplaintDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA976622BC3D615008B1CD5 /* ComplaintDetailView.swift */; };
 		9BE9A3A02BCCDFFF00272065 /* TermsAddingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A39F2BCCDFFF00272065 /* TermsAddingView.swift */; };
 		9BE9A3A22BCCE28500272065 /* MyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE9A3A12BCCE28500272065 /* MyButton.swift */; };
@@ -75,6 +76,7 @@
 		9B7574912BC7D19800A247C1 /* BanReasonField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BanReasonField.swift; sourceTree = "<group>"; };
 		9B7574932BC7D34A00A247C1 /* StaticGaugeEditingSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticGaugeEditingSubview.swift; sourceTree = "<group>"; };
 		9B90CBC12BCCAFD60005B0BD /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
+		9BA514452BD1111B00F9749D /* UserTableSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableSubView.swift; sourceTree = "<group>"; };
 		9BA976622BC3D615008B1CD5 /* ComplaintDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintDetailView.swift; sourceTree = "<group>"; };
 		9BE9A39F2BCCDFFF00272065 /* TermsAddingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAddingView.swift; sourceTree = "<group>"; };
 		9BE9A3A12BCCE28500272065 /* MyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyButton.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				3B09C1F52BC37E9100EA9D54 /* UserManageTableView.swift */,
+				9BA514452BD1111B00F9749D /* UserTableSubView.swift */,
 				9B75748F2BC7BC0600A247C1 /* UserSectionHeader.swift */,
 				9BEB2FBC2BC3A6D3009C398F /* UserInfoModalView.swift */,
 				9B43D3672BCFC6D100566E60 /* BanList.swift */,
@@ -340,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B6C2F022BCE09190092DE4D /* ContactViewModel.swift in Sources */,
+				9BA514462BD1111B00F9749D /* UserTableSubView.swift in Sources */,
 				3B8662E82BC51D0300BB8E00 /* NoticeHeader.swift in Sources */,
 				3B8662EA2BC538F000BB8E00 /* NoticeDetailView.swift in Sources */,
 				9BEB2FBD2BC3A6D3009C398F /* UserInfoModalView.swift in Sources */,
