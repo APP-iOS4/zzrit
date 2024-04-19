@@ -61,8 +61,7 @@ struct NoticeManageView: View {
                                 Text("")
                             }
                             .onAppear {
-                                // TODO: 파베 사용량을 아끼기 위해 주석처리...
-                                // noticeViewModel.loadNotices()
+                                noticeViewModel.loadNotices()
                             }
                         }
                     }
