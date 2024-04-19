@@ -38,6 +38,7 @@ struct ChatListCellView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             } placeholder: {
                 ProgressView()
+                    .frame(width: 56, height: 56)
             }
             
             VStack(alignment: .leading) {
