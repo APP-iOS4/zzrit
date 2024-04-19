@@ -21,7 +21,7 @@ struct SignUpView: View {
     @State var equlText = false
     @State var isSignUpButtonActive: Bool = false
     @State private var registeredUID: String = ""
-
+    
     @Environment (\.dismiss) private var dismiss
     
     var body: some View {
@@ -37,10 +37,14 @@ struct SignUpView: View {
                         })
                     
                     // MARK: 이메일 형식 체크 오류 메시지
-                    if checkEmail(signUpId){
-                        SpaceErrorTextView()
+                    if !signUpId.isEmpty {
+                        if checkEmail(signUpId){
+                            SpaceErrorTextView()
+                        } else {
+                            ErrorTextView(title: "이메일 형식이 올바르지 않습니다.")
+                        }
                     } else {
-                        ErrorTextView(title: "이메일 형식이 올바르지 않습니다.")
+                        ErrorTextView(title: "이메일 형식에 맞게 입력해주세요.")
                     }
                     UserInputCellView(text: $signUpPw1, title: "비밀번호", symbol: "lock", isPassword: true)
                         .onChange(of: signUpPw1, {
@@ -58,18 +62,26 @@ struct SignUpView: View {
                         } else {
                             ErrorTextView(title: "비밀번호가 일치하지 않습니다.")
                         }
-                    }else {
-                        SpaceErrorTextView()
+                    } else {
+                        if signUpPw1.count < 8 || signUpPw2.count < 8 {
+                            ErrorTextView(title: "8글자 이상의 영어, 숫자, 문자로 입력해주세요.")
+                        }else {
+                            ErrorTextView(title: " ")
+                        }
                     }
                 } else {
                     UserInputCellView(text: $signUpId, title: "이메일", symbol: "envelope")
                         .onChange(of: signUpId, perform: { value in
                             activeSignUpButton()
                         })
-                    if checkEmail(signUpId){
-                        SpaceErrorTextView()
+                    if !signUpId.isEmpty {
+                        if checkEmail(signUpId){
+                            SpaceErrorTextView()
+                        } else {
+                            ErrorTextView(title: "이메일 형식이 올바르지 않습니다.")
+                        }
                     } else {
-                        ErrorTextView(title: "이메일 형식이 올바르지 않습니다.")
+                        ErrorTextView(title: "이메일 형식에 맞게 입력해주세요.")
                     }
                     UserInputCellView(text: $signUpPw1, title: "비밀번호", symbol: "lock", isPassword: true)
                         .onChange(of: signUpPw1, perform: { value in
@@ -81,12 +93,17 @@ struct SignUpView: View {
                         })
                     if !equlText {
                         if signUpPw1.isEmpty || signUpPw2.isEmpty {
-                            ErrorTextView(title: "비밀번호 입력란을 모두 채워주세요.")
+                            ErrorTextView(title: "비밀번호 입력란은 모두 채워주세요.")
                         } else {
                             ErrorTextView(title: "비밀번호가 일치하지 않습니다.")
                         }
                     } else {
-                        SpaceErrorTextView()
+                        
+                        if signUpPw1.count < 8 || signUpPw2.count < 8 {
+                            ErrorTextView(title: "8글자 이상의 영어, 숫자, 문자로 입력해주세요.")
+                        }else {
+                            ErrorTextView(title: " ")
+                        }
                     }
                 }
             }
@@ -151,7 +168,11 @@ struct SignUpView: View {
                 equlText = true
                 if selectAgree {
                     if checkEmail(signUpId) {
-                        isSignUpButtonActive = true
+                        if checkPassword(signUpPw1) {
+                            isSignUpButtonActive = true
+                        } else {
+                            isSignUpButtonActive = false
+                        }
                     } else {
                         isSignUpButtonActive = false
                     }
