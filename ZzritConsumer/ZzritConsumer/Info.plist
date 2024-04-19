@@ -15,5 +15,7 @@
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>Kakao Rest API Key</key>
+	<string>$(KAKAO_REST_API_KEY)</string>
 </dict>
 </plist>
