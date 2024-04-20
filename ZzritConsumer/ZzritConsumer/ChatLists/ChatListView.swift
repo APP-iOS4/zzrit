@@ -30,6 +30,7 @@ struct ChatListView: View {
                 ChatCategoryView(selection: $selection)
                 // FIXME: 현재 뷰가 Active뷰, Deactive뷰 따로 있지만 모델 연동 시, 하나의 뷰로 이용할 것, 지금은 더미로 뷰를 두 개 생성
                 if isLogined {
+                    // TODO: 가장 최근에 메시지가 온 모임이 상단에 뜨도록 정렬
                     if selection == "참여 중인 모임" {
                         ChatActiveListView(rooms: rooms)
                     } else {
@@ -67,9 +68,7 @@ struct ChatListView: View {
         .onAppear {
             Task {
                 try await isLogined()
-                if rooms.isEmpty {
-                    try await fetchRoom()
-                }
+                try await fetchRoom()
             }
         }
     }
@@ -79,11 +78,11 @@ struct ChatListView: View {
     }
     
     func fetchRoom() async throws {
+        rooms.removeAll()
         if let userModel {
             if let joinedRooms = userModel.joinedRooms {
                 for roomID in joinedRooms {
                     let room: RoomModel = try await loadRoomViewModel.roomInfo(roomID)
-                    
                     rooms.append(room)
                 }
             } else {
@@ -94,7 +93,6 @@ struct ChatListView: View {
         }
     }
 }
-
 
 #Preview {
     NavigationStack {

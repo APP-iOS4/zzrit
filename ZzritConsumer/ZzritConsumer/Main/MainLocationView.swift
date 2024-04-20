@@ -5,6 +5,7 @@
 //  Created by 하윤호 on 4/11/24.
 //
 
+import CoreLocation
 import SwiftUI
 
 struct MainLocationView: View {
@@ -14,6 +15,8 @@ struct MainLocationView: View {
     @Binding  var isOnline: Bool
     // 현재 위치 이름값
     @State private var offlineLocationString: String = "서울특별시 종로구"
+    // 현재 위치 좌표값
+    @State private var currentCoordinate: CLLocationCoordinate2D? = nil
     
     //MARK: - body
     
@@ -40,7 +43,8 @@ struct MainLocationView: View {
         .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
         // 오프라인 위치 검색 시트 토글
         .sheet(isPresented: $isSheetOn, content: {
-            OfflineLocationSearchView(offlineLocationString: $offlineLocationString)
+            OfflineLocationSearchView(locationCoordinate: $currentCoordinate, offlineLocationString: $offlineLocationString)
+                .presentationDragIndicator(.visible)
         })
     }
 }

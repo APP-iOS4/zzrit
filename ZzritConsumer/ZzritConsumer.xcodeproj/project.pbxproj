@@ -97,6 +97,11 @@
 		DF54D2232BC36C4800D72491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D2222BC36C4800D72491 /* Assets.xcassets */; };
 		DF54D2262BC36C4800D72491 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D2252BC36C4800D72491 /* Preview Assets.xcassets */; };
 		DF63090C2BD0F3930077B94F /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63090B2BD0F3930077B94F /* LocationService.swift */; };
+		DF63090E2BD29F9F0077B94F /* StaticKakaoSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63090D2BD29F9F0077B94F /* StaticKakaoSearchService.swift */; };
+		DF6309102BD29FE70077B94F /* KakaoSearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63090F2BD29FE70077B94F /* KakaoSearchError.swift */; };
+		DF6309132BD2A01A0077B94F /* KakaoKeywordSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6309122BD2A01A0077B94F /* KakaoKeywordSearchModel.swift */; };
+		DF63091B2BD2A4DA0077B94F /* KakaoSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63091A2BD2A4DA0077B94F /* KakaoSearchService.swift */; };
+		DF63091D2BD2A93F0077B94F /* KakaoConverAddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63091C2BD2A93F0077B94F /* KakaoConverAddressModel.swift */; };
 		DF9674B92BCCF4C800322382 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B82BCCF4C800322382 /* SocialLoginType.swift */; };
 		DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */; };
 		DF9674BD2BCCFC9700322382 /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */; };
@@ -225,6 +230,12 @@
 		DF54D2222BC36C4800D72491 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF54D2252BC36C4800D72491 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DF63090B2BD0F3930077B94F /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		DF63090D2BD29F9F0077B94F /* StaticKakaoSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticKakaoSearchService.swift; sourceTree = "<group>"; };
+		DF63090F2BD29FE70077B94F /* KakaoSearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSearchError.swift; sourceTree = "<group>"; };
+		DF6309122BD2A01A0077B94F /* KakaoKeywordSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoKeywordSearchModel.swift; sourceTree = "<group>"; };
+		DF6309162BD2A0E60077B94F /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		DF63091A2BD2A4DA0077B94F /* KakaoSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSearchService.swift; sourceTree = "<group>"; };
+		DF63091C2BD2A93F0077B94F /* KakaoConverAddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoConverAddressModel.swift; sourceTree = "<group>"; };
 		DF9674B82BCCF4C800322382 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
 		DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
@@ -470,6 +481,8 @@
 			children = (
 				305E27DA2BCF55D4007352ED /* LoadRoomViewModel.swift */,
 				DF63090B2BD0F3930077B94F /* LocationService.swift */,
+				DF63090D2BD29F9F0077B94F /* StaticKakaoSearchService.swift */,
+				DF63091A2BD2A4DA0077B94F /* KakaoSearchService.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -560,6 +573,8 @@
 		DF54D21D2BC36C4500D72491 /* ZzritConsumer */ = {
 			isa = PBXGroup;
 			children = (
+				DF6309142BD2A0CB0077B94F /* Resource */,
+				DF6309112BD2A00D0077B94F /* Model */,
 				DFB59ED12BCE2FF200D7DD8A /* Room */,
 				DF9674C22BCD211B00322382 /* Info.plist */,
 				305E27D92BCF55C3007352ED /* ViewModel */,
@@ -593,6 +608,23 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		DF6309112BD2A00D0077B94F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DF6309122BD2A01A0077B94F /* KakaoKeywordSearchModel.swift */,
+				DF63091C2BD2A93F0077B94F /* KakaoConverAddressModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DF6309142BD2A0CB0077B94F /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				DF6309162BD2A0E60077B94F /* Secrets.xcconfig */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		DF9674B72BCCF4B400322382 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
@@ -605,6 +637,7 @@
 				1F4566EE2BCDFE25001EC0E7 /* PageType.swift */,
 				1F4566F02BCDFE2E001EC0E7 /* Sheet.swift */,
 				1F4566F22BCDFE3C001EC0E7 /* FullScreenCover.swift */,
+				DF63090F2BD29FE70077B94F /* KakaoSearchError.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -792,6 +825,7 @@
 				1F5038D92BC4E67B00381EE5 /* SearchViewVM.swift in Sources */,
 				1F6454F42BC8B96000C9D235 /* GenderButton.swift in Sources */,
 				30F80C402BC7D9B200B432DA /* OfflineLocationSearchTextFieldView.swift in Sources */,
+				DF63090E2BD29F9F0077B94F /* StaticKakaoSearchService.swift in Sources */,
 				1F4566EF2BCDFE25001EC0E7 /* PageType.swift in Sources */,
 				3007E8AF2BC40E6E00B9F7B3 /* MainView.swift in Sources */,
 				30F80C442BC7E38F00B432DA /* OfflineLocationSearchView.swift in Sources */,
@@ -805,6 +839,7 @@
 				30C1BACA2BC3F50A00827BD1 /* MainExistView.swift in Sources */,
 				1F3859B82BC3D29500C753BD /* Configs.swift in Sources */,
 				FC2DDC232BC5921000A51E64 /* HorizontalLabel.swift in Sources */,
+				DF6309102BD29FE70077B94F /* KakaoSearchError.swift in Sources */,
 				1F4566F12BCDFE2E001EC0E7 /* Sheet.swift in Sources */,
 				1F06034C2BC58EAE003808F4 /* ThirdRoomCreateView.swift in Sources */,
 				FCAF4A1C2BC40CBA00603C2D /* SignUpAgreeButton.swift in Sources */,
@@ -850,6 +885,7 @@
 				30F80C3E2BC7C23A00B432DA /* MainLocationView.swift in Sources */,
 				1F4566F52BCDFE64001EC0E7 /* RoomProcessType.swift in Sources */,
 				DF9674BF2BCCFCC300322382 /* AuthenticationType.swift in Sources */,
+				DF6309132BD2A01A0077B94F /* KakaoKeywordSearchModel.swift in Sources */,
 				1F0603472BC576D5003808F4 /* RCAddPictureView.swift in Sources */,
 				FCAF4A1A2BC40C8400603C2D /* AppSlogan.swift in Sources */,
 				1F4566F92BCDFF94001EC0E7 /* TypeAlias.swift in Sources */,
@@ -858,6 +894,7 @@
 				FC2DDC1D2BC577D400A51E64 /* NoticeContentView.swift in Sources */,
 				1F4566F32BCDFE3C001EC0E7 /* FullScreenCover.swift in Sources */,
 				FC2DDC172BC52FBA00A51E64 /* MoreInfoListView.swift in Sources */,
+				DF63091B2BD2A4DA0077B94F /* KakaoSearchService.swift in Sources */,
 				30BE7EA32BC516EB00A5A178 /* ParticipantNoticeView.swift in Sources */,
 				309688052BC64FC2007064A3 /* ChatListView.swift in Sources */,
 				303EDA752BC503EF0023FC09 /* RoomInfoView.swift in Sources */,
@@ -895,6 +932,7 @@
 				1FF17E572BC509E400B505FA /* SelectionButtonView.swift in Sources */,
 				1F0603412BC53503003808F4 /* CategoryCellView.swift in Sources */,
 				1FF17E522BC5079700B505FA /* ArchieveRCIndicator.swift in Sources */,
+				DF63091D2BD2A93F0077B94F /* KakaoConverAddressModel.swift in Sources */,
 				DFB59ED52BCE358900D7DD8A /* VoteProfileView.swift in Sources */,
 				1F0603502BC5A5FE003808F4 /* ArchieveRCNaviBar.swift in Sources */,
 				1FF17E522BC5079700B505FA /* ArchieveRCIndicator.swift in Sources */,
@@ -912,6 +950,7 @@
 /* Begin XCBuildConfiguration section */
 		DF54D2272BC36C4800D72491 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF6309162BD2A0E60077B94F /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -975,6 +1014,7 @@
 		};
 		DF54D2282BC36C4800D72491 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF6309162BD2A0E60077B94F /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1031,6 +1071,7 @@
 		};
 		DF54D22A2BC36C4800D72491 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF6309162BD2A0E60077B94F /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1068,6 +1109,7 @@
 		};
 		DF54D22B2BC36C4800D72491 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF6309162BD2A0E60077B94F /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
