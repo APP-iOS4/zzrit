@@ -28,8 +28,6 @@ struct ParticipantListView: View {
             LazyVGrid(columns: columns, alignment: .leading) {
                 // TODO: 참가자 카운트로 변경 필요
                 ForEach(getUserModels) { userModel in
-                    // 참가자 셀 뷰
-                    let _ = print("\(userModel)")
                     ParticipantListCellView(room: room, participant: userModel)
                         .padding(.leading, 15)
                         .padding(.top, 15)
@@ -50,8 +48,6 @@ struct ParticipantListView: View {
             LazyVGrid(columns: columns, alignment: .leading) {
                 // TODO: 참가자 카운트로 변경 필요
                 ForEach(getUserModels) { userModel in
-                    // 참가자 셀 뷰
-                    let _ = print("\(userModel)")
                     ParticipantListCellView(room: room, participant: userModel)
                         .padding(.leading, 15)
                         .padding(.top, 15)
