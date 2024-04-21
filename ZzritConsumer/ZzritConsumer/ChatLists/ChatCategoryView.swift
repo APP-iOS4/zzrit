@@ -20,7 +20,7 @@ struct ChatCategoryView: View {
         HStack {
             ForEach(chatCategory, id: \.self) { category in
                 ZStack(alignment: .center) {
-                    Text("\(category)")
+                    Text(category)
                         .font(.subheadline)
                         .fontWeight(.semibold)
                         .foregroundStyle(selection == category ? Color.pointColor : Color.staticGray1 )
