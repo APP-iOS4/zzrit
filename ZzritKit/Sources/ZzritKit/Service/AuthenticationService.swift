@@ -19,7 +19,7 @@ public final class AuthenticationService: ObservableObject {
     
     var handle: AuthStateDidChangeListenerHandle?
     
-    var currentUID: String? = nil
+    public private(set) var currentUID: String? = nil
     
     init() {
         handle = Auth.auth().addStateDidChangeListener { auth, user in
