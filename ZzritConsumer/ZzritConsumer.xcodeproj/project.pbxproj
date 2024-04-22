@@ -132,6 +132,8 @@
 		FC628F302BC4328A007F5E5C /* ErrorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC628F2F2BC4328A007F5E5C /* ErrorTextView.swift */; };
 		FC628F322BC440DF007F5E5C /* SetProfilePhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC628F312BC440DF007F5E5C /* SetProfilePhotoView.swift */; };
 		FC628F342BC4D115007F5E5C /* BirthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC628F332BC4D114007F5E5C /* BirthYearPickerView.swift */; };
+		FC715E912BD61994001B67CF /* ImageResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC715E902BD61994001B67CF /* ImageResize.swift */; };
+		FC715E932BD626C7001B67CF /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC715E922BD626C7001B67CF /* ImageCacheManager.swift */; };
 		FCADAA342BC4EB7700364272 /* CompleteSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCADAA332BC4EB7700364272 /* CompleteSignUpView.swift */; };
 		FCAF4A1A2BC40C8400603C2D /* AppSlogan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAF4A192BC40C8400603C2D /* AppSlogan.swift */; };
 		FCAF4A1C2BC40CBA00603C2D /* SignUpAgreeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAF4A1B2BC40CBA00603C2D /* SignUpAgreeButton.swift */; };
@@ -141,7 +143,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		092876CF2BC6C56500AFCA1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ZzritConsumer/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		092876CF2BC6C56500AFCA1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1F0603402BC53503003808F4 /* CategoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellView.swift; sourceTree = "<group>"; };
 		1F0603422BC53AC9003808F4 /* SecondRoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondRoomCreateView.swift; sourceTree = "<group>"; };
 		1F0603442BC53F36003808F4 /* RCTitleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCTitleTextField.swift; sourceTree = "<group>"; };
@@ -266,6 +268,8 @@
 		FC628F2F2BC4328A007F5E5C /* ErrorTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextView.swift; sourceTree = "<group>"; };
 		FC628F312BC440DF007F5E5C /* SetProfilePhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfilePhotoView.swift; sourceTree = "<group>"; };
 		FC628F332BC4D114007F5E5C /* BirthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthYearPickerView.swift; sourceTree = "<group>"; };
+		FC715E902BD61994001B67CF /* ImageResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResize.swift; sourceTree = "<group>"; };
+		FC715E922BD626C7001B67CF /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		FCADAA332BC4EB7700364272 /* CompleteSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpView.swift; sourceTree = "<group>"; };
 		FCAF4A192BC40C8400603C2D /* AppSlogan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSlogan.swift; sourceTree = "<group>"; };
 		FCAF4A1B2BC40CBA00603C2D /* SignUpAgreeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAgreeButton.swift; sourceTree = "<group>"; };
@@ -573,6 +577,7 @@
 		DF54D21D2BC36C4500D72491 /* ZzritConsumer */ = {
 			isa = PBXGroup;
 			children = (
+				FC715E8C2BD618D9001B67CF /* DealwithImage */,
 				DF6309142BD2A0CB0077B94F /* Resource */,
 				DF6309112BD2A00D0077B94F /* Model */,
 				DFB59ED12BCE2FF200D7DD8A /* Room */,
@@ -719,6 +724,15 @@
 			path = LittleUseView;
 			sourceTree = "<group>";
 		};
+		FC715E8C2BD618D9001B67CF /* DealwithImage */ = {
+			isa = PBXGroup;
+			children = (
+				FC715E902BD61994001B67CF /* ImageResize.swift */,
+				FC715E922BD626C7001B67CF /* ImageCacheManager.swift */,
+			);
+			path = DealwithImage;
+			sourceTree = "<group>";
+		};
 		FCCCEEB22BC3B55400DABCA6 /* LogIn */ = {
 			isa = PBXGroup;
 			children = (
@@ -850,6 +864,7 @@
 				1F0603432BC53AC9003808F4 /* SecondRoomCreateView.swift in Sources */,
 				1F3859BC2BC3D2A800C753BD /* RecentSearchCellView.swift in Sources */,
 				FC2DDC1B2BC5767E00A51E64 /* NoticeTitleView.swift in Sources */,
+				FC715E932BD626C7001B67CF /* ImageCacheManager.swift in Sources */,
 				FC2DDC0D2BC5070A00A51E64 /* MoreInfoView.swift in Sources */,
 				FC2DDC152BC528F900A51E64 /* RecentWatchRoomView.swift in Sources */,
 				1F4566FB2BCDFFA8001EC0E7 /* Coordinator.swift in Sources */,
@@ -938,6 +953,7 @@
 				1FF17E522BC5079700B505FA /* ArchieveRCIndicator.swift in Sources */,
 				1F0603502BC5A5FE003808F4 /* ArchieveRCNaviBar.swift in Sources */,
 				305137012BC3D0AA00BA41EE /* RoomCardView.swift in Sources */,
+				FC715E912BD61994001B67CF /* ImageResize.swift in Sources */,
 				FC628F322BC440DF007F5E5C /* SetProfilePhotoView.swift in Sources */,
 				FC2DDC192BC539B700A51E64 /* NoticeListView.swift in Sources */,
 				30C1BAC82BC3ED2400827BD1 /* RoomCellView.swift in Sources */,

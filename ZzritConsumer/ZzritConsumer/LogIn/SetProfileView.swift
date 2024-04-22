@@ -131,7 +131,8 @@ struct SetProfileView: View {
     }
     
     private func setUserInfo() {
-        guard let selectedImage = selectedImage else { return }
+        // 유저 프로필은 width: 300 크기로 리사이징해서 올라감
+        guard let selectedImage = (selectedImage?.size.width)! < 300 ? selectedImage : selectedImage?.resizeWithWidth(width: 300) else { return }
         guard let imageData = selectedImage.pngData() else { return }
         Task {
             do {
@@ -142,8 +143,14 @@ struct SetProfileView: View {
                 // 이미지 올리고 url 받아오기
                 let downloadURL = try await storageService.imageUpload(topDir: .profile, dirs: ["\(registeredUID)", Date().toString()], image: imageData)
                 
+                // 유저 정보 모델에 저장
                 let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: downloadURL, gender: isMan ? .male : .female, birthYear: birthYear, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
+                
+                // 유저 프로필 서버에 올리기
                 try userService.setUserInfo(uid: registeredUID, info: userInfo)
+                
+                // 이미지 캐시 저장
+                ImageCacheManager.shared.updateToCache(name: downloadURL, image: selectedImage)
             } catch {
                 print("에러: \(error)")
             }
