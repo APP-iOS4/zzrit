@@ -12,7 +12,8 @@ import ZzritKit
 struct ChatView: View {
     // 채팅 서비스 불러옴
     @StateObject private var chattingService: ChattingService
-    
+    // 채팅 나가기 했을때
+    @Environment(\.dismiss) private var dismiss
     // 모임 정보
     let room: RoomModel
     // 모임방 활성화 여부
@@ -416,6 +417,7 @@ struct ChatView: View {
         Task {
             do {
                 try await roomService.leaveRoom(roomID: roomID)
+                dismiss()
             } catch {
                 print("error: \(error)")
             }
