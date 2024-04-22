@@ -19,6 +19,7 @@ struct ChatMessageCellView: View {
     var messageType: ChattingType
     
     @State private var userName = ""
+    @State private var loadImage: UIImage?
     
     var body: some View {
         HStack(alignment: .top) {
@@ -53,8 +54,7 @@ struct ChatMessageCellView: View {
                                 Button {
                                     print("사진 크게 보여주기")
                                 } label: {
-                                    fetchImage(url: message.message)
-                                        .padding(10)
+                                    fetchImage(image: loadImage)
                                 }
                             case .notice:
                                 // 여기선 아무것도 안함
@@ -89,8 +89,7 @@ struct ChatMessageCellView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
                             // TODO: 이미지 button으로 바꾸기  -> 이미지 크게 띄워주기
                         case .image:
-                            fetchImage(url: message.message)
-                                .padding(10)
+                            fetchImage(image: loadImage)
                         case .notice:
                             // 여기선 아무것도 안함
                             Text("nothing")
@@ -102,19 +101,22 @@ struct ChatMessageCellView: View {
         .onAppear {
             Task {
                 userName = await findUserName(userID: message.userID)
+                if messageType == .image {
+                    loadImage = await ImageCacheManager.shared.findImageFromCache(imageURL: message.message)
+                }
             }
         }
     }
-    //    fetchImage(url: chat.message)
+    
     // 채팅의 이미지 불러오는 함수
-    func fetchImage(url: String) -> some View {
+    func fetchImage(image: UIImage?) -> some View {
         HStack {
-            AsyncImage(url: URL(string: url)) { image in
-                image
+            if image != nil {
+                Image(uiImage: image!)
                     .resizable()
                     .scaledToFit()
                     .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-            } placeholder: {
+            } else {
                 ProgressView()
                     .frame(width: 100, height: 100)
             }

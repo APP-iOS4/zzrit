@@ -44,14 +44,11 @@ final class ImageCacheManager {
             return image
         } else {
             // 캐시에 이미지가 없을 때 파베로부터 다운받아오기
-            print("캐시에 없음")
             if let data = try? Data(contentsOf: URL(string: imageURL)!) {
                 // url로 부터 이미지 받아오기
                 guard let loadImageFromFB = UIImage(data: data) else { return nil }
-                print("파베에서 불러오기 성공")
                 // 불러온 이미지 캐시에 저장
                 updateToCache(name: imageURL, image: loadImageFromFB)
-                print("파베에서 캐시로 저장 성공")
                 return loadImageFromFB
             }
         }
