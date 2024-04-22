@@ -24,6 +24,9 @@ struct LogInView: View {
     @State private var isShowingRegisterView: Bool = false
     @State private var failLogIn = false
     @State private var errorMessage: String = ""
+    @State private var showProfile = false
+    @State private var googleEmailID = ""
+    @State private var registerdID = ""
     
     var body: some View {
         NavigationStack {
@@ -88,7 +91,12 @@ struct LogInView: View {
                 }
                 
                 SocialLoginButton(type: .google) {
-                    googleSignIn()
+                    Task {
+                        googleSignIn()
+                    }
+                }
+                .navigationDestination(isPresented: $showProfile) {
+                    SetProfileView(emailField: googleEmailID, registeredUID: $registerdID)
                 }
                 
                 Spacer(minLength: 50)
@@ -139,9 +147,14 @@ struct LogInView: View {
         Task {
             do {
                 try await authService.loginWithGoogle()
+                let result = try await userService.getUserInfo(uid: (userService.loginedUserInfo()?.id)!)
                 dismiss()
-            } catch {
+            } catch AuthError.noUserInfo {
                 errorMessage = "오류가 발생했습니다.\n잠시 후 다시 시도해주시기 바랍니다."
+                // TODO: 회원가입
+                registerdID = authService.currentUID!
+                print("id는 이거 : \(registerdID)")
+                showProfile.toggle()
             }
         }
     }

@@ -16,7 +16,7 @@ struct SetProfileView: View {
     @State var selectedImage: UIImage?
     
     @State var nickName = ""
-    @State var isduplicate = false
+    @State var isDuplicate = false
     
     @State var isMan = true
     @State var isWoman = false
@@ -52,7 +52,7 @@ struct SetProfileView: View {
             }
             
             // MARK: isduplicate - nickname 보내고 중복 확인후 (중복이면 true로 반환) -> 수시로 하나요?
-            if isduplicate {
+            if isDuplicate {
                 ErrorTextView(title: "이미 존재하는 별명입니다.")
             } else {
                 ErrorTextView(title: "")
@@ -123,7 +123,7 @@ struct SetProfileView: View {
     
     // MARK: 일단 별명만 채워도 넘어가게 하도록 설정.
     func ProfileSettingDone() {
-        if !isduplicate {
+        if !isDuplicate {
             finishProfile = true
         } else {
             finishProfile = false
