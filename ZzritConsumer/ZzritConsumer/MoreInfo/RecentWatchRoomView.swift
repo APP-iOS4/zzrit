@@ -38,6 +38,7 @@ struct RecentWatchRoomView: View {
                             }
                             .tag(index)
                         }
+                        .frame(height: 150)
                         .padding(.horizontal, 20)
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
