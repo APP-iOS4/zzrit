@@ -39,7 +39,7 @@ final class RoomCreateViewModel {
     /// 모임 성별  제한
     private var genderLimitation: GenderType?
     /// 정전기 지수 제한
-    private var scoreLimitation: StaticScore?
+    private var scoreLimitation: Int?
     
     let storageService = StorageService()
     
@@ -311,7 +311,7 @@ final class RoomCreateViewModel {
             print("선택한 모임 제한 참여자 수에 에러가 발생함!")
             return
         }
-        self.scoreLimitation = StaticScore(scoreLimitation)
+        self.scoreLimitation = Int(scoreLimitation)
     }
     
     /// 새 모임 리더 아이디 저장

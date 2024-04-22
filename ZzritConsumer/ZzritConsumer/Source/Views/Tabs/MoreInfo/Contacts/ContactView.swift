@@ -1,5 +1,5 @@
 //
-//  QuestionView.swift
+//  ContactView.swift
 //  ZzritConsumer
 //
 //  Created by 하윤호 on 4/9/24.
@@ -9,7 +9,7 @@ import SwiftUI
 
 import ZzritKit
 
-struct QuestionView: View {
+struct ContactView: View {
     @EnvironmentObject private var userService: UserService
     private let contactService = ContactService()
     
@@ -23,7 +23,7 @@ struct QuestionView: View {
     var body: some View {
         VStack {
             // 문의 목록 리스트 뷰
-            QuestionListView(contacts: contacts)
+            ContactListView(contacts: contacts)
         }
         .toolbarRole(.editor)
         .toolbar {
@@ -62,7 +62,7 @@ struct QuestionView: View {
 
 #Preview {
     NavigationStack {
-        QuestionView()
+        ContactView()
             .environmentObject(UserService())
     }
 }

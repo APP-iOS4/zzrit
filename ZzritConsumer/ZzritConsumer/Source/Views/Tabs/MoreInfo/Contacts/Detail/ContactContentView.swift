@@ -1,5 +1,5 @@
 //
-//  QuestionDetailView.swift
+//  ContactContentView.swift
 //  ZzritConsumer
 //
 //  Created by 하윤호 on 4/9/24.
@@ -9,7 +9,7 @@ import SwiftUI
 
 import ZzritKit
 
-struct ContactQuestionDetailView: View {
+struct ContactContentView: View {
     @EnvironmentObject private var userService: UserService
     
     let contact: ContactModel
@@ -120,5 +120,5 @@ struct ContactQuestionDetailView: View {
 }
 
 //#Preview {
-//    ContactQuestionDetailView(isAnswered: true)
+//    ContactContentView(isAnswered: true)
 //}

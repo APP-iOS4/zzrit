@@ -1,5 +1,5 @@
 //
-//  ContactReplyDetailView.swift
+//  ContactReplyView.swift
 //  ZzritConsumer
 //
 //  Created by 하윤호 on 4/9/24.
@@ -9,7 +9,7 @@ import SwiftUI
 
 import ZzritKit
 
-struct ContactReplyDetailView: View {
+struct ContactReplyView: View {
     let reply: ContactReplyModel
     
     // MARK: - body
@@ -37,5 +37,5 @@ struct ContactReplyDetailView: View {
 }
 
 //#Preview {
-//    ContactReplyDetailView()
+//    ContactReplyView()
 //}

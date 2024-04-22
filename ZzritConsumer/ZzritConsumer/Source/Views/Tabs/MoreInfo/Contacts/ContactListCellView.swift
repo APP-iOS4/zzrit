@@ -1,5 +1,5 @@
 //
-//  QuestionListCellView.swift
+//  ContactListCellView.swift
 //  ZzritConsumer
 //
 //  Created by 하윤호 on 4/9/24.
@@ -9,7 +9,7 @@ import SwiftUI
 
 import ZzritKit
 
-struct QuestionListCellView: View {
+struct ContactListCellView: View {
     let contact: ContactModel
     
     private var isAnswered: Bool {

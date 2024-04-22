@@ -1,5 +1,5 @@
 //
-//  QuestionListView.swift
+//  ContactListView.swift
 //  ZzritConsumer
 //
 //  Created by 하윤호 on 4/9/24.
@@ -9,7 +9,7 @@ import SwiftUI
 
 import ZzritKit
 
-struct QuestionListView: View {
+struct ContactListView: View {
     
     let contacts: [ContactModel]
     
@@ -20,11 +20,11 @@ struct QuestionListView: View {
             NavigationLink {
                 // 상세 페이지
                 // FIXME: 모델 받는 것으로 수정해야 함
-                QuestionDetailView(contact: contact)
+                ContactDetailView(contact: contact)
             } label: {
                 // 리스트에 보여줄 셀들
                 // FIXME: 모델 연동 시 isAnswered가 아닌 모델 받는 것으로 수정해야 함
-                QuestionListCellView(contact: contact)
+                ContactListCellView(contact: contact)
             }
         }
         .listStyle(.plain)
@@ -33,5 +33,5 @@ struct QuestionListView: View {
 }
 
 #Preview {
-    QuestionListView(contacts: [])
+    ContactListView(contacts: [])
 }

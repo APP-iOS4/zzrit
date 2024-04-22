@@ -1,5 +1,5 @@
 //
-//  QuestionDetailView.swift
+//  ContactDetailView.swift
 //  ZzritConsumer
 //
 //  Created by 하윤호 on 4/9/24.
@@ -9,7 +9,7 @@ import SwiftUI
 
 import ZzritKit
 
-struct QuestionDetailView: View {
+struct ContactDetailView: View {
     @EnvironmentObject private var contactService: ContactService
     
     let contact: ContactModel
@@ -21,7 +21,7 @@ struct QuestionDetailView: View {
             LazyVStack {
                 // 문의내역 질문 뷰
                 // FIXME: 모델 연동 시 isAnswered가 아닌 모델 받는 것으로 수정해야 함
-                ContactQuestionDetailView(contact: contact)
+                ContactContentView(contact: contact)
                     .padding(.bottom, 40)
                 
                 Divider()
@@ -47,7 +47,7 @@ struct QuestionDetailView: View {
         } else {
             // 문의내역 답변 뷰
             ForEach(replies) { reply in
-                ContactReplyDetailView(reply: reply)
+                ContactReplyView(reply: reply)
                     .padding(.top, Configs.paddingValue)
             }
         }

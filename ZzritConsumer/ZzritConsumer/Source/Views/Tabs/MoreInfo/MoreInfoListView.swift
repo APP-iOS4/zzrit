@@ -60,7 +60,7 @@ struct MoreInfoListView: View {
                             HorizontalLabel(string: "문의하기")
                         }
                         .navigationDestination(isPresented: $isQuestionShow){
-                            QuestionView()
+                            ContactView()
                         }
                     }
                 }
