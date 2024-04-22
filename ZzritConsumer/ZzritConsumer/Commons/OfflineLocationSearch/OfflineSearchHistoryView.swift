@@ -11,6 +11,8 @@ struct OfflineSearchHistoryView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var histories: [OfflineLocationModel] = []
+
+    @Binding var offlineLocation: OfflineLocationModel?
     
     var body: some View {
         ZStack {
@@ -71,10 +73,12 @@ struct OfflineSearchHistoryView: View {
     }
     
     private func selectHistory(_ history: OfflineLocationModel) {
+        LocalStorage.shared.setCurrentLocation(location: history)
+        offlineLocation = history
         dismiss()
     }
 }
 
 #Preview {
-    OfflineSearchHistoryView()
+    OfflineSearchHistoryView(offlineLocation: .constant(nil))
 }

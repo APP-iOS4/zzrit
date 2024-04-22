@@ -21,6 +21,8 @@ struct MainView: View {
     @State private var alertToLogin: Bool = false
     // 로그인 FullScreenCover로 넘어가는지 결정하는 변수
     @State private var isShowingLoginView: Bool = false
+    // 오프라인 위치
+    @State private var offlineLocation: OfflineLocationModel? = nil
     
     // 유저모델 변수
     @State private var userModel: UserModel?
@@ -34,7 +36,7 @@ struct MainView: View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
                 ScrollView(.vertical) {
-                    MainLocationView(isOnline: $isOnline)
+                    MainLocationView(isOnline: $isOnline, offlineLocation: $offlineLocation)
                         .padding(.horizontal, 20)
                         .padding(.bottom, 40)
 
@@ -91,6 +93,7 @@ struct MainView: View {
             Task {
                 userModel = try await userService.loginedUserInfo()
             }
+            offlineLocation = LocalStorage.shared.latestSettedLocation()
         }
     }
 }

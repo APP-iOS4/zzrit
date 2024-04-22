@@ -13,6 +13,8 @@ struct OfflineLocationListCell: View {
     
     @Environment(\.dismiss) private var dismiss
     
+    @Binding var offlineLocation: OfflineLocationModel?
+    
     private var address: String {
         if locationModel.roadAddressName != "" {
             return locationModel.roadAddressName
@@ -67,6 +69,8 @@ struct OfflineLocationListCell: View {
     
     private func selectLocation(location: OfflineLocationModel) {
         LocalStorage.shared.addLocationHistory(location: location)
+        LocalStorage.shared.setCurrentLocation(location: location)
+        offlineLocation = location
         dismiss()
     }
 }

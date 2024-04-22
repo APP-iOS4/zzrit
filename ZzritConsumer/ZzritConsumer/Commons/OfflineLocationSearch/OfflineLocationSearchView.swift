@@ -19,8 +19,7 @@ struct OfflineLocationSearchView: View {
     @FocusState private var keywordFocus
     
     
-    @Binding var locationCoordinate: CLLocationCoordinate2D?
-    @Binding var offlineLocationString: String
+    @Binding var offlineLocation: OfflineLocationModel?
     
     var body: some View {
         NavigationStack {
@@ -79,9 +78,9 @@ struct OfflineLocationSearchView: View {
                 }
                 
                 TabView(selection: $selectedTabIndex) {
-                    OfflineSearchHistoryView()
+                    OfflineSearchHistoryView(offlineLocation: $offlineLocation)
                         .tag(0)
-                    KakaoSearchResultView(keyword: $keyword)
+                    KakaoSearchResultView(keyword: $keyword, offlineLocation: $offlineLocation)
                         .tag(1)
                 }
             }
@@ -108,16 +107,21 @@ struct OfflineLocationSearchView: View {
         Task {
             do {
                 guard let currentCoordinate = locationService.currentLocation() else { return }
-                locationCoordinate = currentCoordinate
                 let result = try await kakaoService.convertAddress(from: currentCoordinate)
-                if let address = result.first {
-                    if let roadAddress = address.roadAddress {
-                        offlineLocationString = "\(roadAddress.region2DepthName) \(roadAddress.roadName)"
+                var tempOfflineLocation: OfflineLocationModel = .init(placeName: "", address: "", latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude)
+                if let result = result.first {
+                    if let roadAddress = result.roadAddress {
+                        let address = "\(roadAddress.region2DepthName) \(roadAddress.roadName)"
+                        tempOfflineLocation.placeName = address
+                        tempOfflineLocation.address = address
                     } else {
-                        let address = address.address
-                        offlineLocationString = "\(address.region2DepthName) \(address.region3DepthName)"
+                        let tempAddress = result.address
+                        let address = "\(tempAddress.region2DepthName) \(tempAddress.region3DepthName)"
+                        tempOfflineLocation.placeName = address
+                        tempOfflineLocation.address = address
                     }
-                    
+                    LocalStorage.shared.setCurrentLocation(location: tempOfflineLocation)
+                    offlineLocation = tempOfflineLocation
                     dismiss()
                 }
             } catch {
@@ -125,8 +129,4 @@ struct OfflineLocationSearchView: View {
             }
         }
     }
-}
-
-#Preview {
-    OfflineLocationSearchView(locationCoordinate: .constant(nil), offlineLocationString: .constant("서울특별시 종로구"))
 }

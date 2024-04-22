@@ -13,10 +13,8 @@ struct MainLocationView: View {
     @State private var isSheetOn: Bool = false
     // 온라인 선택한 건지 불리언 변수
     @Binding  var isOnline: Bool
-    // 현재 위치 이름값
-    @State private var offlineLocationString: String = "서울특별시 종로구"
-    // 현재 위치 좌표값
-    @State private var currentCoordinate: CLLocationCoordinate2D? = nil
+    // 설정한 주소
+    @Binding var offlineLocation: OfflineLocationModel?
     
     //MARK: - body
     
@@ -32,7 +30,7 @@ struct MainLocationView: View {
                     isSheetOn.toggle()
                 }
             } label: {
-                Label(isOnline ? "온라인" : offlineLocationString, systemImage: isOnline ? "wifi" : "location.circle")
+                Label(isOnline ? "온라인" : offlineLocation?.address ?? "위치설정이 필요합니다.", systemImage: isOnline ? "wifi" : "location.circle")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(Color.pointColor)
             }
@@ -43,12 +41,12 @@ struct MainLocationView: View {
         .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
         // 오프라인 위치 검색 시트 토글
         .sheet(isPresented: $isSheetOn, content: {
-            OfflineLocationSearchView(locationCoordinate: $currentCoordinate, offlineLocationString: $offlineLocationString)
+            OfflineLocationSearchView(offlineLocation: $offlineLocation)
                 .presentationDragIndicator(.visible)
         })
     }
 }
 
 #Preview {
-    MainLocationView(isOnline: .constant(false))
+    MainLocationView(isOnline: .constant(false), offlineLocation: .constant(nil))
 }
