@@ -77,7 +77,7 @@ struct RoomCardView: View {
             }
         )
         .clipShape(.rect(cornerRadius: 10))
-        .frame(minWidth: 300,maxWidth: 350)
+        .frame(minWidth: 350,maxWidth: 350)
         .onAppear {
             Task {
                 do {
