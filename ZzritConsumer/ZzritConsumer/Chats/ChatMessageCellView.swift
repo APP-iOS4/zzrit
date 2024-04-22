@@ -51,11 +51,7 @@ struct ChatMessageCellView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
                                 // TODO: 이미지 button으로 바꾸기 -> 이미지 크게 띄워주기
                             case .image:
-                                Button {
-                                    print("사진 크게 보여주기")
-                                } label: {
-                                    fetchImage(image: loadImage)
-                                }
+                                fetchImage(image: loadImage)
                             case .notice:
                                 // 여기선 아무것도 안함
                                 Text("nothing")
@@ -111,8 +107,8 @@ struct ChatMessageCellView: View {
     // 채팅의 이미지 불러오는 함수
     func fetchImage(image: UIImage?) -> some View {
         HStack {
-            if image != nil {
-                Image(uiImage: image!)
+            if let image = image {
+                Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
                     .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))

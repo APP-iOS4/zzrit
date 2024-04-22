@@ -13,6 +13,9 @@ struct ParticipantNoticeView: View {
     @EnvironmentObject private var userService: UserService
     @Environment(\.dismiss) private var dismiss
     
+    // 입장 메시지 입력을 위한 채팅
+    @StateObject private var chattingService: ChattingService
+    
     private let roomService = RoomService.shared
     
     let room: RoomModel
@@ -22,6 +25,12 @@ struct ParticipantNoticeView: View {
     @State private var isCheck: Bool = false
     // 채팅방 입장 버튼을 눌렀는지
     @State private var isPressedChat: Bool = false
+    
+    init(room: RoomModel, confirmParticipation: Binding<Bool>) {
+        self._chattingService = StateObject(wrappedValue: ChattingService(roomID: room.id!))
+        self._confirmParticipation = confirmParticipation
+        self.room = room
+    }
     
     // MARK: - body
     
@@ -131,6 +140,8 @@ struct ParticipantNoticeView: View {
         Task {
             do {
                 try await roomService.joinRoom(room.id ?? "")
+                guard let username = try await userService.loginedUserInfo()?.userName else { return }
+                try chattingService.sendMessage(message: "\(username)님께서 입장하셨습니다.")
                 isPressedChat.toggle()
             } catch {
                 print("참여하기 에러: \(error)")
@@ -139,9 +150,3 @@ struct ParticipantNoticeView: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        ParticipantNoticeView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), confirmParticipation: .constant(false))
-            .environmentObject(UserService())
-    }
-}

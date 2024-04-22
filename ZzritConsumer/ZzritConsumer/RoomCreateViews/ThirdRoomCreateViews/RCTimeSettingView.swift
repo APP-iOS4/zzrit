@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RCTimeSettingView: View {
+    @Binding var isShowingTimeSheet: Bool
     @Binding var timeSelection: Date
     
     var body: some View {
@@ -20,12 +21,12 @@ struct RCTimeSettingView: View {
         .tint(Color.pointColor)
         
         GeneralButton("완료") {
-            
+            isShowingTimeSheet.toggle()
         }
         .padding(Configs.paddingValue)
     }
 }
 
 #Preview {
-    RCTimeSettingView(timeSelection: .constant(Date()))
+    RCTimeSettingView(isShowingTimeSheet: .constant(true), timeSelection: .constant(Date()))
 }

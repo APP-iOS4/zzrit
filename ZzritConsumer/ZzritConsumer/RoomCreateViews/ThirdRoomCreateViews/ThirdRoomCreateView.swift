@@ -100,6 +100,9 @@ struct ThirdRoomCreateView: View {
                     let result = try await VM.createRoom(userModel: userService.loginedUserInfo())
                     if result {
                         print("모임 추가 성공!")
+                        // TODO: roomID 찾아서 입장 메시지 삽입해주세요.
+//                        guard let username = try await userService.loginedUserInfo()?.userName else { return }
+//                        try chattingService.sendMessage(message: "\(username)님께서 입장하셨습니다.")
                     }
                 }
             }
@@ -167,7 +170,7 @@ extension ThirdRoomCreateView {
                 }
             }
             .sheet(isPresented: $isShowingTimeSheet) {
-                RCTimeSettingView(timeSelection: $timeSelection)
+                RCTimeSettingView(isShowingTimeSheet: $isShowingTimeSheet, timeSelection: $timeSelection)
                     .presentationDetents([
                         .fraction(0.4), // 임의 비율
                     ])
