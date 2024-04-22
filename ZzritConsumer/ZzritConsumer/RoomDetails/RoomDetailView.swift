@@ -28,6 +28,8 @@ struct RoomDetailView: View {
     
     @State private var isJoined: Bool = false
     
+    @State private var confirmParticipation: Bool = false
+    
     @State private var participants: [JoinedUserModel] = []
     
     @State private var participantsCount: Int = 0
@@ -58,6 +60,7 @@ struct RoomDetailView: View {
         
         if #available(iOS 17.0, *) {
             ZStack(alignment: .bottom) {
+                let _ = print("\(confirmParticipation)")
                 ScrollView {
                     LazyVStack(alignment: .leading) {
                         // 상단 타이틀 Stack
@@ -328,8 +331,10 @@ extension RoomDetailView {
                     }
                 }
                 .padding(20)
-                .navigationDestination(isPresented: $isParticipant) {
-                    ParticipantNoticeView(room: room)
+                .navigationDestination(isPresented: $confirmParticipation) {
+                    if let roomID = room.id {
+                        ChatView(roomID: roomID, room: room, isActive: true)
+                    }
                 }
                 .alert("로그인 알림", isPresented: $alertToLogin) {
                     // 로그인 시트 올리는 버튼
@@ -348,6 +353,9 @@ extension RoomDetailView {
                     }
                 } message: {
                     Text("모임에 참가하기 위해서는 로그인이 필요합니다.")
+                }
+                .fullScreenCover(isPresented: $isParticipant) {
+                    ParticipantNoticeView(room: room, confirmParticipation: $confirmParticipation)
                 }
                 .fullScreenCover(isPresented: $isShowingLoginView) {
                     LogInView()
