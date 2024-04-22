@@ -14,7 +14,7 @@ struct MoreInfoView: View {
     
     @State private var isShowingLoginView: Bool = false
     @State private var loginedInfo: UserModel? = nil
-    @State var userEmail: String?
+    @State private var userEmail: String?
     
     // 로그인 상태 일때 true
     private var isLogined: Bool {

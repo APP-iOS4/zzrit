@@ -23,7 +23,7 @@ let recentSearch: [String] = [
 
 struct SearchingView: View {
     // 필터 열기 여부
-    @State var isFilterShowing: Bool = false
+    @State private var isFilterShowing: Bool = false
     
     var body: some View {
         // 필터가 최근 검색어를 가렸을 경우, 필터가 눌려야 하므로 ZStack 사용

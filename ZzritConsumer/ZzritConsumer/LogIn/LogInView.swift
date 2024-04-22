@@ -17,7 +17,7 @@ struct LogInView: View {
     private let authService = AuthenticationService.shared
     
     @State private var id: String = ""
-    @State var pw: String = ""
+    @State private var pw: String = ""
     
     @State private var pressSignUpButton: Bool = false
     @State private var isLoginButtonActive: Bool = false
