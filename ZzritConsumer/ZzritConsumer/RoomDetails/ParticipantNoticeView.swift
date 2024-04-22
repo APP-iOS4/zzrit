@@ -119,8 +119,12 @@ struct ParticipantNoticeView: View {
     
     func joinedRoom() {
         Task {
-            try await roomService.joinRoom(room.id ?? "")
-            isPressedChat.toggle()
+            do {
+                try await roomService.joinRoom(room.id ?? "")
+                isPressedChat.toggle()
+            } catch {
+                print("참여하기 에러: \(error)")
+            }
         }
     }
 }
