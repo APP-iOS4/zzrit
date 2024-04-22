@@ -12,14 +12,14 @@ import ZzritKit
 struct SignUpView: View {
     private let authService = AuthenticationService.shared
     
-    @State private var signUpId: String = ""
-    @State private var signUpPw1: String = ""
-    @State private var signUpPw2: String = ""
-    @State private var agreeSheet = false
-    @State private var showProfile = false
-    @State private var selectAgree = false
-    @State private var equlText = false
-    @State private var isSignUpButtonActive: Bool = false
+    @State var signUpId: String = ""
+    @State var signUpPw1: String = ""
+    @State var signUpPw2: String = ""
+    @State var agreeSheet = false
+    @State var showProfile = false
+    @State var selectAgree = false
+    @State var equlText = false
+    @State var isSignUpButtonActive: Bool = false
     @State private var registeredUID: String = ""
     
     @Environment (\.dismiss) private var dismiss

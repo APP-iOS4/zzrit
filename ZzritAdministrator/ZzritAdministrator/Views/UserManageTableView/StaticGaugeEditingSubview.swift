@@ -14,7 +14,7 @@ struct StaticGaugeEditingSubview: View {
     @Binding var user: UserModel
     
     @State private var editAlert = false
-    @State private var indexAfterEdit: Double
+    @State var indexAfterEdit: Double
     @Binding var isUserModal: Bool
     
     var body: some View {

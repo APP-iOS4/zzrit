@@ -11,8 +11,8 @@ import ZzritKit
 
 struct RoomCreateView: View {
     let rs = RoomService.shared
-    @State private var title: String = ""
-    @State private var category: CategoryType = .art
+    @State var title: String = ""
+    @State var category: CategoryType = .art
     private var categories: [CategoryType] = CategoryType.allCases.map { $0 }
     private var dateTime = Date()
     private var latitude = 37.8
@@ -20,7 +20,7 @@ struct RoomCreateView: View {
     @State private var content: String = ""
     @State private var imageURLString: String = "https://picsum.photos/200"
     @State private var isOnline: Bool = false
-    @State private var platform: PlatformType = .etc
+    @State var platform: PlatformType = .etc
     private var platforms: [PlatformType] = PlatformType.allCases.map { $0 }
     @State private var leaderID: String = ""
     @State private var isActive: Bool = true
@@ -28,7 +28,7 @@ struct RoomCreateView: View {
     @State private var limitPeople: String = ""
     @State private var gender: Bool = false
     @State private var genderLimitation: GenderType = .female
-    @State private var score: Double = 0.0
+    @State var score: Double = 0.0
     @State private var alertUp: Bool = false
     
     var body: some View {

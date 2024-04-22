@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchFieldView: View {
     // 검색 텍스트
-    @State private var searchText: String = ""
+    @State var searchText: String = ""
     
     var body: some View {
         HStack(spacing: 15.0) {

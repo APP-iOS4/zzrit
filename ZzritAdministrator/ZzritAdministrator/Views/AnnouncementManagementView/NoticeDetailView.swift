@@ -21,7 +21,7 @@ struct NoticeDetailView: View {
     @State private var content: String = ""
     @State private var warning: Bool = false
     
-    @State private var notice: NoticeModel? = nil
+    @State var notice: NoticeModel? = nil
     
     // 데이트 서비스
     private let dateService = DateService.shared

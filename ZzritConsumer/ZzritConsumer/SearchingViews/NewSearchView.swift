@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewSearchView: View {
-    @State private var searchText: String = ""
+    @State var searchText: String = ""
     
     var body: some View {
         SearchFieldView()

@@ -12,10 +12,10 @@ struct LoginView: View {
     private let authService = AuthenticationService.shared
     private let userService = UserService()
     
-    @State private var id: String = ""
-    @State private var pw: String = ""
-    @State private var isLoginButtonActive: Bool = false
-    @State private var isCanLogin: Bool = false
+    @State var id: String = ""
+    @State var pw: String = ""
+    @State var isLoginButtonActive: Bool = false
+    @State var isCanLogin: Bool = false
     
     @Binding var isLogin: Bool
     @State private var showError = false

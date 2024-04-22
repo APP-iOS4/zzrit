@@ -14,7 +14,7 @@ let tempCount = 5
 struct RecentWatchRoomView: View {
     @EnvironmentObject private var recentRoomViewModel: RecentRoomViewModel
     
-    @State private var selectedIndex = 0
+    @State var selectedIndex = 0
     
     // 최근 본 모임 전체 뷰
     var body: some View {

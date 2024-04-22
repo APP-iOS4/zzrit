@@ -11,7 +11,7 @@ import ZzritKit
 
 struct RoomLoadView: View {
     let rs: RoomService = RoomService.shared
-    @State private var allRooms: [RoomModel] = []
+    @State var allRooms: [RoomModel] = []
     @State private var roomID = ""
     @State private var title = ""
     @State private var isInitial = true

@@ -20,11 +20,11 @@ struct FirstRoomCreateView: View {
     let VM: RoomCreateViewModel
     
     // 카테고리 선택 변수
-    @State private var selection: CategoryType? = nil
+    @State var selection: CategoryType? = nil
     // 버튼 활성화 여부를 결정할 변수
-    @State private var isButtonEnabled: Bool = false
+    @State var isButtonEnabled: Bool = false
     // 다음으로 넘어가기 변수
-    @State private var isShowingNextButton: Bool = false
+    @State var isShowingNextButton: Bool = false
     // 그리드 열 상수 -> 두 줄
     let columns: [GridItem] = [
         GridItem(.flexible()), GridItem(.flexible())

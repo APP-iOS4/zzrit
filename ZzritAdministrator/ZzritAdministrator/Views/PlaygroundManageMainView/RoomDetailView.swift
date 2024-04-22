@@ -14,10 +14,10 @@ struct RoomDetailView: View {
     @EnvironmentObject private var roomViewModel: RoomViewModel
     @Environment(\.dismiss) private var dismiss
 
-    @State private var room: RoomModel
-    @State private var joinedUsers: [JoinedUserModel] = []
-    @State private var selectedUserIndex: Int? = nil
-    @State private var showActiveAlert: Bool = false
+    @State var room: RoomModel
+    @State var joinedUsers: [JoinedUserModel] = []
+    @State var selectedUserIndex: Int? = nil
+    @State var showActiveAlert: Bool = false
     
     // 데이트 서비스
     var dateService = DateService.shared
@@ -141,8 +141,8 @@ struct RoomDetailView: View {
 }
 
 struct RoomInfoView: View {
-    @State private var room: RoomModel
-    @State private var address: String?
+    @State var room: RoomModel
+    @State var address: String?
     
     var dateService = DateService.shared
  
