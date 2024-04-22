@@ -25,6 +25,7 @@ struct ZzritConsumerApp: App {
     
     @StateObject private var userService = UserService()
     @StateObject private var contactService = ContactService()
+    @StateObject private var recentRoomViewModel = RecentRoomViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -42,6 +43,7 @@ struct ZzritConsumerApp: App {
                 .preferredColorScheme(.light)
                 .environmentObject(userService)
                 .environmentObject(contactService)
+                .environmentObject(recentRoomViewModel)
         }
     }
 }

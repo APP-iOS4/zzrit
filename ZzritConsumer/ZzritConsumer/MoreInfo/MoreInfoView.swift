@@ -47,14 +47,6 @@ struct MoreInfoView: View {
                     // 최근 본 모임
                     RecentWatchRoomView()
                     
-                    VStack(spacing: 10) {
-                        Text("최근 둘러본 모임")
-                            .modifier(SubTitleModifier())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        RoomCardListView()
-                    }
-                    .padding(.top, 10)
-                    
                     // 그외 더보기 List
                     MoreInfoListView(loginedInfo: $loginedInfo, isLogined: isLogined)
                 }
@@ -96,5 +88,6 @@ struct MoreInfoView: View {
     NavigationStack {
         MoreInfoView()
             .environmentObject(UserService())
+            .environmentObject(RecentRoomViewModel())
     }
 }

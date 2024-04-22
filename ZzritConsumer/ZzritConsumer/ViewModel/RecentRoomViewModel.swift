@@ -9,6 +9,7 @@ import Foundation
 
 import ZzritKit
 
+@MainActor
 class RecentRoomViewModel: ObservableObject {
     @Published var recentViewedRooms: [RoomModel] = []
     
@@ -84,7 +85,6 @@ class RecentRoomViewModel: ObservableObject {
             
             do {
                 try await recentViewedRooms.append(roomInfo(roomID))
-                print("recentViewedRoomFetch fetch 완 - \(recentViewedRooms)")
             } catch {
                 print("DEBUG: recentViewedRoomFetch error: \(error)")
             }
