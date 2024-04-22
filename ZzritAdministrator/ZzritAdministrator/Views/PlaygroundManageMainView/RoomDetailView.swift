@@ -149,7 +149,7 @@ struct RoomInfoView: View {
     var body: some View {
         List {
             Section {
-                Text("\(room.content)")
+                Text(room.content)
             } header: {
                 Text("소개")
             }

@@ -43,11 +43,7 @@ struct RoomCardListView: View {
             .padding(.bottom, 20)
             .onAppear {
                 Task {
-                    do {
-                        try await loadRoomViewModel.consumerLoadRoom()
-                    } catch {
-                        print("\(error)")
-                    }
+                    loadRoomViewModel.consumerLoadRoom()
                 }
             }
             
@@ -85,11 +81,7 @@ struct RoomCardListView: View {
             .padding(.bottom, 10)
             .onAppear {
                 Task {
-                    do {
-                        try await loadRoomViewModel.consumerLoadRoom()
-                    } catch {
-                        print("\(error)")
-                    }
+                    loadRoomViewModel.consumerLoadRoom()
                 }
             }
             

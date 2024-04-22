@@ -42,7 +42,7 @@ struct ContentView: View {
                     Text("\(adminName) 님")
                         .font(.subheadline)
                         .foregroundStyle(Color.staticGray)
-                    Text("\(adminID)")
+                    Text(adminID)
                         .foregroundStyle(Color.staticGray3)
                         .font(.caption)
                         .lineLimit(1)
@@ -53,7 +53,7 @@ struct ContentView: View {
                     NavigationLink(destination: {
                         selectView(named: category)
                     }, label: {
-                        Text("\(category.rawValue)")
+                        Text(category.rawValue)
                     })
                 }
                 .listStyle(.inset)

@@ -25,7 +25,7 @@ struct ParticipantListView: View {
     var body: some View {
         // 그리드 뷰: 열 2개
         if #available(iOS 17.0, *) {
-            LazyVGrid(columns: columns, alignment: .leading) {
+            VStack(alignment: .leading) {
                 // TODO: 참가자 카운트로 변경 필요
                 ForEach(getUserModels) { userModel in
                     ParticipantListCellView(room: room, participant: userModel)
@@ -33,6 +33,7 @@ struct ParticipantListView: View {
                         .padding(.top, 15)
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 15)
             .overlay {
                 RoundedRectangle(cornerRadius: Configs.cornerRadius)
@@ -44,7 +45,7 @@ struct ParticipantListView: View {
                 }
             }
         } else {
-            LazyVGrid(columns: columns, alignment: .leading) {
+            VStack(alignment: .leading) {
                 // TODO: 참가자 카운트로 변경 필요
                 ForEach(getUserModels) { userModel in
                     ParticipantListCellView(room: room, participant: userModel)
@@ -52,6 +53,7 @@ struct ParticipantListView: View {
                         .padding(.top, 15)
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 15)
             .overlay {
                 RoundedRectangle(cornerRadius: Configs.cornerRadius)

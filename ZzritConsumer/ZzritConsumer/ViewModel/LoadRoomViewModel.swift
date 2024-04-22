@@ -44,6 +44,32 @@ class LoadRoomViewModel: ObservableObject {
         }
     }
     
+    func deactivateRooms() {
+        var tempRooms: [RoomModel] = []
+        
+        for room in rooms {
+            let tempRoom = deactivateOneRoom(room: room)
+            
+            tempRooms.append(tempRoom)
+        }
+        
+        rooms = tempRooms
+    }
+    
+    func deactivateOneRoom(room: RoomModel) -> RoomModel{
+        var tempRoom: RoomModel = room
+        let confirmDate: Date = Calendar.current.date(byAdding: .day, value: 1, to: tempRoom.dateTime) ?? Date()
+        
+        if confirmDate < Date() {
+            tempRoom.status = .deactivation
+            if let roomID = tempRoom.id {
+                roomService.changeStatus(roomID: roomID, status: .deactivation)
+            }
+        }
+        
+        return tempRoom
+    }
+    
     func getFilter(status: ActiveType = .activation, category: CategoryType? = nil, isOnline: Bool? = nil) {
         if prevIsOnline != isOnline {
             fetchCount = 0

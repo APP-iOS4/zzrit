@@ -15,7 +15,7 @@ struct UserTableSubView: View {
     
     var body: some View {
         HStack {
-            Text("\(user.userID)")
+            Text(user.userID)
                 .minimumScaleFactor(0.5)
                 .frame(minWidth: 200, alignment: .leading)
                 .multilineTextAlignment(.leading)
@@ -37,7 +37,7 @@ struct UserTableSubView: View {
             
             Divider()
             
-            Text("\(user.gender.rawValue)")
+            Text(user.gender.rawValue)
                 .minimumScaleFactor(0.5)
                 .frame(width: 100, alignment: .leading)
                 .multilineTextAlignment(.leading)

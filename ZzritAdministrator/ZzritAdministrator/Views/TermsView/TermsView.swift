@@ -94,13 +94,13 @@ struct TermsListCell: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("\(termURLString)")
+            Text(termURLString)
                 .fontWeight(.bold)
             HStack {
-                Text("\(termType.title)")
+                Text(termType.title)
                     .fontWeight(.bold)
                     .foregroundStyle(Color.pointColor)
-                Text("\(termDateString)")
+                Text(termDateString)
                     .foregroundStyle(Color.staticGray2)
             }
         }

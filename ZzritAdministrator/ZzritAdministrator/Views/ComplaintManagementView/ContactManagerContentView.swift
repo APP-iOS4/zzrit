@@ -35,15 +35,15 @@ struct ContactManagerContentView: View {
                     ScrollView {
                         LazyVStack(alignment: .leading, spacing: 30) {
                             VStack(alignment: .leading, spacing: 10) {
-                                Text("\(contact?.category.rawValue ?? "")")
+                                Text(contact?.category.rawValue ?? "")
                                     .foregroundStyle(Color.pointColor)
                                     .fontWeight(.bold)
                                 HStack {
-                                    Text("\(contact?.title ?? "")")
+                                    Text(contact?.title ?? "")
                                         .font(.title2)
                                         .fontWeight(.bold)
                                     Spacer()
-                                    Text("\(dateService.formattedString(date: contact?.requestedDate ?? Date(), format: "yyyy/MM/dd HH:mm:ss"))")
+                                    Text(dateService.formattedString(date: contact?.requestedDate ?? Date(), format: "yyyy/MM/dd HH:mm:ss"))
                                         .foregroundStyle(Color.staticGray3)
                                 }
                                 Divider()
@@ -72,7 +72,7 @@ struct ContactManagerContentView: View {
                                 }
                             }
                             
-                            Text("\(contact?.content ?? "")")
+                            Text(contact?.content ?? "")
                             
                             Spacer(minLength: 10)
                             

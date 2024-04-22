@@ -123,14 +123,14 @@ struct ContactListCell: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 10) {
-                Text("\(contactTitle)")
+                Text(contactTitle)
                     .foregroundStyle(Color.primary)
                     .fontWeight(.bold)
                 HStack {
-                    Text("\(contactCategory.rawValue)")
+                    Text(contactCategory.rawValue)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.pointColor)
-                    Text("\(contactDateString)")
+                    Text(contactDateString)
                         .foregroundStyle(Color.staticGray2)
                 }
             }

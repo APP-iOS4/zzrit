@@ -38,6 +38,7 @@ struct MainExistView: View {
                     .foregroundStyle(.clear)
                     .onAppear {
                         loadRoomViewModel.consumerLoadRoom()
+                        loadRoomViewModel.deactivateRooms()
                         loadRoomViewModel.getFilter(isOnline: isOnline)
                     }
             }
@@ -70,6 +71,7 @@ struct MainExistView: View {
                     .onAppear {
                         Task {
                             loadRoomViewModel.consumerLoadRoom()
+                            loadRoomViewModel.deactivateRooms()
                             loadRoomViewModel.getFilter(isOnline: isOnline)
                         }
                     }

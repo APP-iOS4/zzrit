@@ -11,6 +11,7 @@ import ZzritKit
 
 struct ParticipantNoticeView: View {
     @EnvironmentObject private var userService: UserService
+    @Environment(\.dismiss) private var dismiss
     
     // 입장 메시지 입력을 위한 채팅
     @StateObject private var chattingService: ChattingService
@@ -18,6 +19,8 @@ struct ParticipantNoticeView: View {
     private let roomService = RoomService.shared
     
     let room: RoomModel
+    
+    @Binding var confirmParticipation: Bool
     // 동의사항 체크했는지
     @State private var isCheck: Bool = false
     // 채팅방 입장 버튼을 눌렀는지
@@ -32,6 +35,17 @@ struct ParticipantNoticeView: View {
     
     var body: some View {
         VStack {
+            VStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .foregroundStyle(.primary)
+                }
+            }
+            .foregroundStyle(.primary)
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            
             HStack {
                 Image(systemName: "exclamationmark.bubble.fill")
                     .resizable()
@@ -113,25 +127,22 @@ struct ParticipantNoticeView: View {
             
             GeneralButton("채팅방 입장", isDisabled: !isCheck) {
                 joinedRoom()
-            }
-            .navigationDestination(isPresented: $isPressedChat) {
-                if let roomId = room.id {
-                    ChatView(roomID: roomId, room: room, isActive: true)
-                }
+                confirmParticipation = true
+                dismiss()
             }
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 20)
-        .toolbarRole(.editor)
     }
     
     func joinedRoom() {
         Task {
-            try await roomService.joinRoom(room.id ?? "")
-            guard let username = try await userService.loginedUserInfo()?.userName else { return }
-            try chattingService.sendMessage(message: "\(username)님께서 입장하셨습니다.")
-            print("입장하기")
-            isPressedChat.toggle()
+            do {
+                try await roomService.joinRoom(room.id ?? "")
+                isPressedChat.toggle()
+            } catch {
+                print("참여하기 에러: \(error)")
+            }
         }
     }
 }

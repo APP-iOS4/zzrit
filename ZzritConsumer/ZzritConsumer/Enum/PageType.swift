@@ -69,7 +69,7 @@ enum PageType: Hashable {
                 RoomDetailView(room: RoomModel(title: "", category: .art, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
             // 모임 참여 시 안내사항 페이지
             case .notice:
-                ParticipantNoticeView(room: RoomModel(title: "", category: .art, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+                ParticipantNoticeView(room: RoomModel(title: "", category: .art, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), confirmParticipation: .constant(false))
             // 채팅 페이지
             case .chatting:
                 EmptyView()
