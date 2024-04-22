@@ -46,6 +46,10 @@ struct RoomDetailView: View {
         return userModel != nil
     }
     
+    private var overParticipants: Bool {
+        return room.limitPeople <= participantsCount
+    }
+    
     // MARK: - body
     
     var body: some View {
@@ -312,37 +316,42 @@ struct RoomDetailView: View {
 extension RoomDetailView {
     private var participateRoomButton: some View {
         VStack {
-            GeneralButton(isJoined ? "이미 참여한 방 입니다" : "참여하기", isDisabled: isJoined) {
-                if isLogined {
-                    isParticipant.toggle()
-                } else {
-                    alertToLogin.toggle()
+            if isJoined {
+                GeneralButton("이미 참여한 방 입니다", isDisabled: isJoined, tapAction: {})
+                    .padding(20)
+            } else {
+                GeneralButton(overParticipants ? "인원이 가득 찼습니다" : "참여하기", isDisabled: overParticipants) {
+                    if isLogined {
+                        isParticipant.toggle()
+                    } else {
+                        alertToLogin.toggle()
+                    }
                 }
-            }
-            .padding(20)
-            .navigationDestination(isPresented: $isParticipant) {
-                ParticipantNoticeView(room: room)
-            }
-            .alert("로그인 알림", isPresented: $alertToLogin) {
-                // 로그인 시트 올리는 버튼
-                Button {
-                    isShowingLoginView.toggle()
-                } label: {
-                    Label("로그인", systemImage: "person.circle")
-                        .labelStyle(.titleOnly)
+                .padding(20)
+                .navigationDestination(isPresented: $isParticipant) {
+                    ParticipantNoticeView(room: room)
                 }
-                // 취소 버튼
-                Button{
-                    alertToLogin = false
-                } label: {
-                    Label("취소", systemImage: "trash")
-                        .labelStyle(.titleOnly)
+                .alert("로그인 알림", isPresented: $alertToLogin) {
+                    // 로그인 시트 올리는 버튼
+                    Button {
+                        isShowingLoginView.toggle()
+                    } label: {
+                        Label("로그인", systemImage: "person.circle")
+                            .labelStyle(.titleOnly)
+                    }
+                    // 취소 버튼
+                    Button{
+                        alertToLogin = false
+                    } label: {
+                        Label("취소", systemImage: "trash")
+                            .labelStyle(.titleOnly)
+                    }
+                } message: {
+                    Text("모임에 참가하기 위해서는 로그인이 필요합니다.")
                 }
-            } message: {
-                Text("모임에 참가하기 위해서는 로그인이 필요합니다.")
-            }
-            .fullScreenCover(isPresented: $isShowingLoginView) {
-                LogInView()
+                .fullScreenCover(isPresented: $isShowingLoginView) {
+                    LogInView()
+                }
             }
         }
     }

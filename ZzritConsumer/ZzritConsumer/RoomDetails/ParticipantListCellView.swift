@@ -40,6 +40,7 @@ struct ParticipantListCellView: View {
                     }
                     // 사용자의 닉네임
                     Text(participant.userName)
+                        .lineLimit(1)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.staticGray1)
                 }
