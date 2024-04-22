@@ -99,7 +99,7 @@ struct InfoLabelView: View {
             Text("\(title) : ")
                 .fontWeight(.bold)
                 .foregroundStyle(Color.pointColor)
-            Text("\(contents)")
+            Text(contents)
         }
     }
 }

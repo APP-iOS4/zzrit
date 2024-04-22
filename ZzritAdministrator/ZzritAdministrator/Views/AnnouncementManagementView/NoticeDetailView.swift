@@ -95,7 +95,7 @@ struct NoticeDetailView: View {
                     
                     Spacer()
                     
-                    Text("\(notice.id ?? "")")
+                    Text(notice.id ?? "")
                 }
                 .foregroundStyle(Color.staticGray3)
                 
