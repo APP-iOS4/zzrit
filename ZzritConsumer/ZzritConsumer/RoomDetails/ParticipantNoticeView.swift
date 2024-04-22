@@ -26,8 +26,9 @@ struct ParticipantNoticeView: View {
     // 채팅방 입장 버튼을 눌렀는지
     @State private var isPressedChat: Bool = false
     
-    init(room: RoomModel) {
+    init(room: RoomModel, confirmParticipation: Binding<Bool>) {
         self._chattingService = StateObject(wrappedValue: ChattingService(roomID: room.id!))
+        self._confirmParticipation = confirmParticipation
         self.room = room
     }
     
@@ -149,9 +150,3 @@ struct ParticipantNoticeView: View {
     }
 }
 
-//#Preview {
-//    NavigationStack {
-//        ParticipantNoticeView(chattingService: ChattingService(roomID: <#T##String#>), room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
-//            .environmentObject(UserService())
-//    }
-//}
