@@ -183,6 +183,8 @@ struct RoomDetailView: View {
             }
             .toolbarRole(.editor)
             .onAppear {
+                saveRecentViewdRoom()
+                
                 Task {
                     do {
                         userModel = try await userService.loginedUserInfo()
@@ -208,6 +210,30 @@ struct RoomDetailView: View {
                     }
                 }
             }
+        }
+    }
+    
+    /// 최근 본 모임에 모임 ID저장하는 함수
+    func saveRecentViewdRoom() {
+        guard let roomID = room.id else { return }
+        
+        // TODO: 나중에 Constant 등 저장하면 좋을듯
+        let recentViewdRoomKey = "recentViewedRoom"
+        
+        // 기존에 저장된 최근 방이 있는 경우
+        if var savedRooms = UserDefaults.standard.stringArray(forKey: recentViewdRoomKey) {
+            
+            // 5개가 넘는 경우 -> 제일 처음꺼 삭제
+            if savedRooms.count >= 5 {
+                savedRooms.removeFirst()
+            }
+            
+            savedRooms.append(roomID)
+            UserDefaults.standard.set(savedRooms, forKey: recentViewdRoomKey)
+        }
+        // 기존에 저장된 최근 방이 없는 경우
+        else {
+            UserDefaults.standard.set([roomID], forKey: recentViewdRoomKey)
         }
     }
 }
