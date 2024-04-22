@@ -13,7 +13,7 @@ struct RoomDetailView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var recentRoomViewModel: RecentRoomViewModel
     
-    let room: RoomModel
+    @State var room: RoomModel
     let roomService = RoomService.shared
     // 참석 버튼 눌렀는 지 확인
     @State private var isParticipant: Bool = false
@@ -33,6 +33,14 @@ struct RoomDetailView: View {
     @State private var participantsCount: Int = 0
     // 유저모델 변수
     @State private var userModel: UserModel?
+    
+    private var confirmDate: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: room.dateTime) ?? Date()
+    }
+    
+    private var isDeactivation: Bool {
+        return confirmDate < Date()
+    }
     
     private var isLogined: Bool {
         return userModel != nil
@@ -135,6 +143,7 @@ struct RoomDetailView: View {
                 }
             })
             .onAppear {
+                modifyRoomStatus()
                 Task {
                     do {
                         await updateRecentRoom()
@@ -250,6 +259,8 @@ struct RoomDetailView: View {
                 Text("해당 모임을 신고하시겠습니까?")
             }
             .onAppear {
+                modifyRoomStatus()
+
                 Task {
                     do {
                         await updateRecentRoom()
@@ -284,8 +295,20 @@ struct RoomDetailView: View {
             await recentRoomViewModel.updateRecentViewedRoom(roomID: roomID)
         }
     }
+    
+    func modifyRoomStatus() {
+        print("\(confirmDate)")
+        if isDeactivation {
+            if let roomID = room.id {
+                roomService.changeStatus(roomID: roomID, status: .deactivation)
+            }
+            print("상태: 비활성화")
+        } else {
+            print("상태: 아직 활성화")
+        }
+    }
 }
-
+    
 extension RoomDetailView {
     private var participateRoomButton: some View {
         VStack {
