@@ -20,18 +20,36 @@ class LoadRoomViewModel: ObservableObject {
     
     private var isInit: Bool = true
     private var status: ActiveType = .activation
+    private var fetchCount: Int = 0
+    private var prevIsOnline: Bool? = nil
     
     @MainActor
-    func consumerLoadRoom(_ title: String = "") async throws {
-        do {
-            rooms += try await roomService.loadRoom(isInitial: isInit, status: status.rawValue, title: title)
-            isInit = false
-        } catch {
-            print("\(error)")
+    func consumerLoadRoom(_ title: String = "") {
+        Task {
+            do {
+                if fetchCount < 3 {
+                    let newRooms = try await roomService.loadRoom(isInitial: isInit, status: status.rawValue, title: title)
+                    
+                    if !newRooms.isEmpty {
+                        rooms += newRooms
+                        fetchCount += 1
+                        print("\(fetchCount)회 불러오기")
+                    }
+                }
+                
+                isInit = false
+            } catch {
+                print("\(error)")
+            }
         }
     }
     
     func getFilter(status: ActiveType = .activation, category: CategoryType? = nil, isOnline: Bool? = nil) {
+        if prevIsOnline != isOnline {
+            fetchCount = 0
+            print("카운터 초기화")
+        }
+        
         // FIXME: 리펙토링 필요!
         // 이거 어떻게 해야 쉽게 짤 수 있을까...
         // 뭔가 필터 전용 enum이나 구조체를 만들어서 switch 문이나 filter함수를 간편히 사용할 수 있을 거 같은데...여기까지밖에 안떠오른다.
@@ -52,6 +70,8 @@ class LoadRoomViewModel: ObservableObject {
                 return element.status == status && element.category == category! && element.isOnline == isOnline!
             }
         }
+        
+        prevIsOnline = isOnline
     }
     
     func roomInfo(_ roomID: String) async throws -> RoomModel {
