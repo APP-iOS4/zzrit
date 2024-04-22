@@ -21,12 +21,12 @@ struct ThirdRoomCreateView: View {
     
     let VM: RoomCreateViewModel
 
-    @State private var placeLongitude: Double?
-    @State private var placeLatitude: Double?
     // FIXME: 모임 위치 변수 -
     
     // 플랫폼 선택 변수
     @State private var platformSelection: PlatformType?
+    // 오프라인 장소 변수
+    @State private var offlineLocation: OfflineLocationModel?
     // 날짜 선택 변수
     @State private var dateSelection: DateType?
     // 시간 선택 변수
@@ -53,7 +53,7 @@ struct ThirdRoomCreateView: View {
         RCNavigationBar(page: .page3) {
             ScrollView {
                 // 진행방식을 입력 받는 뷰
-                RCProcedurePicker(processSelection: $processSelection, platformSelection: $platformSelection) {
+                RCProcedurePicker(processSelection: $processSelection, platformSelection: $platformSelection, offlineLocation: $offlineLocation) {
                     // 피커 버튼 눌렀을 때 사용할 함수
                     checkButtonEnable()
                 }
@@ -77,8 +77,8 @@ struct ThirdRoomCreateView: View {
             GeneralButton("완료", isDisabled: !isButtonEnabled) {
                 VM.saveRoomProcess(
                     processSelection: processSelection,
-                    placeLatitude: placeLatitude,
-                    placeLongitude: placeLongitude,
+                    placeLatitude: offlineLocation?.latitude ?? 0.0,
+                    placeLongitude: offlineLocation?.longitude ?? 0.0,
                     platform: platformSelection
                 )
                 
