@@ -74,9 +74,8 @@ class LoadRoomViewModel: ObservableObject {
         prevIsOnline = isOnline
     }
     
-    func roomInfo(_ roomID: String) async throws -> RoomModel {
+    func roomInfo(_ roomID: String) async throws -> RoomModel? {
         let room = try await roomService.roomInfo(roomID)
-        
         return room
     }
 }

@@ -93,7 +93,7 @@ struct ContactQuestionDetailView: View {
         if let targetRoom = contact.targetRoom, targetRoom != "" {
             Task {
                 do {
-                    targetRoomName = try await RoomService.shared.roomInfo(targetRoom).title
+                    targetRoomName = try await RoomService.shared.roomInfo(targetRoom)?.title ?? "(unknown)"
                 } catch {
                     print("에러: \(error)")
                 }

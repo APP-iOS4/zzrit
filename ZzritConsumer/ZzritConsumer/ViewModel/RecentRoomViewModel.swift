@@ -22,7 +22,7 @@ class RecentRoomViewModel: ObservableObject {
         }
     }
     
-    func roomInfo(_ roomID: String) async throws -> RoomModel {
+    func roomInfo(_ roomID: String) async throws -> RoomModel? {
         let room = try await roomService.roomInfo(roomID)
         
         return room
@@ -63,8 +63,10 @@ class RecentRoomViewModel: ObservableObject {
             if let roomIDs = UserDefaults.standard.stringArray(forKey: recentViewdRoomKey) {
                 for roomID in roomIDs {
                     do {
-                        try await recentViewedRooms.append(roomInfo(roomID))
-                        isRecentRoomInit = false
+                        if let room = try await roomInfo(roomID) {
+                            recentViewedRooms.append(room)
+                            isRecentRoomInit = false
+                        }
                     } catch {
                         print("DEBUG: initalRecentViewedRoomFetch error: \(error)")
                     }
@@ -84,7 +86,9 @@ class RecentRoomViewModel: ObservableObject {
             }
             
             do {
-                try await recentViewedRooms.append(roomInfo(roomID))
+                if let room = try await roomInfo(roomID) {
+                    recentViewedRooms.append(room)
+                }
             } catch {
                 print("DEBUG: recentViewedRoomFetch error: \(error)")
             }
