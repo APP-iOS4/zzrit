@@ -13,10 +13,10 @@ struct ChatMessageCellView: View {
     // 유저 정보 불러옴
     @EnvironmentObject private var userService: UserService
     
-    var leaderID: String
-    var message: ChattingModel
-    var isYou: Bool
-    var messageType: ChattingType
+    let leaderID: String
+    let message: ChattingModel
+    let isYou: Bool
+    let messageType: ChattingType
     
     @State private var userName = ""
     @State private var loadImage: UIImage?

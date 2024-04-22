@@ -17,7 +17,7 @@ struct ChatView: View {
     // 모임 정보
     let room: RoomModel
     // 모임방 활성화 여부
-    var isActive: Bool
+    let isActive: Bool
     
     // 유저 정보 불러옴
     @EnvironmentObject private var userService: UserService
@@ -30,7 +30,7 @@ struct ChatView: View {
     // 모임방 나가기 기능을 위한 것
     private let roomService = RoomService.shared
     // 채팅의 이미지 저장을 위한 것
-    var storageService = StorageService()
+    let storageService = StorageService()
     
     // 입력 메세지 변수
     @State private var messageText: String = ""
@@ -72,7 +72,7 @@ struct ChatView: View {
     // 스크롤뷰의 중간 담당
     @Namespace private var middleID
     // 스크롤뷰 맨 위로 올렸을때
-    @State var prevValue: Double = 0
+    @State private var prevValue: Double = 0
     
     // 모임 상세보기 시트
     @State private var isRoomDetailShow = false
