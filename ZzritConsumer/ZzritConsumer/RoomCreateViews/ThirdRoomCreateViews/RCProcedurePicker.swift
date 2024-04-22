@@ -12,7 +12,11 @@ import ZzritKit
 struct RCProcedurePicker: View {
     @Binding var processSelection: RoomProcessType?
     @Binding var platformSelection: PlatformType?
+    @Binding var offlineLocation: OfflineLocationModel?
+    
     let onPressButton: () -> Void
+    
+    @State private var isShowingLocationSearchView: Bool = false
     
     var body: some View {
         VStack(spacing: 10.0) {
@@ -38,6 +42,10 @@ struct RCProcedurePicker: View {
         }
         .padding(.bottom, Configs.paddingValue)
         .lineLimit(3)
+        .sheet(isPresented: $isShowingLocationSearchView) {
+            OfflineLocationSearchView(offlineLocation: $offlineLocation)
+                .presentationDragIndicator(.visible)
+        }
         
         if let processSelection {
             DetailView(processType: processSelection)
@@ -79,7 +87,7 @@ struct RCProcedurePicker: View {
             Button {
                 // TODO: 위치 찾는 화면 띄우기
 
-                print("위치 찾기 버튼 눌림")
+                isShowingLocationSearchView.toggle()
                 
             } label: {
                 // TODO: 위치에 따라 설명 텍스트 변경
@@ -87,16 +95,22 @@ struct RCProcedurePicker: View {
                 VStack(alignment: .leading, spacing: 10.0) {
                     // 한 줄
                     HStack {
-                        Text("멋쟁이사자처럼")
+                        Text(offlineLocation?.placeName ?? "주소를 검색하세요.")
                         Spacer()
-                        Image(systemName: "magnifyingglass")
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "magnifyingglass")
+                        }
                     }
                     .font(.title3)
                     .fontWeight(.bold)
                     .foregroundStyle(.black)
                     
-                    Text("서울 종로구 종로 3길 17 D타워 D1동 16, 17층")
-                        .foregroundStyle(Color.staticGray2)
+                    if let address = offlineLocation?.address {
+                        Text(address)
+                            .foregroundStyle(Color.staticGray2)
+                    }
                 }
                 .padding()
                 .overlay {
@@ -110,7 +124,7 @@ struct RCProcedurePicker: View {
 }
 
 #Preview {
-    RCProcedurePicker(processSelection: .constant(.offline), platformSelection: .constant(.discord)) {
+    RCProcedurePicker(processSelection: .constant(.offline), platformSelection: .constant(.discord), offlineLocation: .constant(nil)) {
         
     }
 }
