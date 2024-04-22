@@ -10,7 +10,7 @@ import SwiftUI
 struct MainExistView: View {
     @StateObject private var loadRoomViewModel: LoadRoomViewModel = LoadRoomViewModel()
     @Binding var isOnline: Bool
-    @State private var fetchCount: Int = 0
+    // @State private var fetchCount: Int = 0
     
     var body: some View {
         if #available(iOS 17.0, *) {
@@ -37,33 +37,13 @@ struct MainExistView: View {
                     .frame(height: 1)
                     .foregroundStyle(.clear)
                     .onAppear {
-                        Task {
-                            #if DEBUG
-                            print("\(fetchCount)")
-                            #endif
-                            if fetchCount < 3 {
-                                do {
-                                    try await loadRoomViewModel.consumerLoadRoom()
-                                    loadRoomViewModel.getFilter(isOnline: isOnline)
-                                    fetchCount += 1
-                                } catch {
-                                    print("\(error)")
-                                }
-                            } else {
-                                #if DEBUG
-                                print("fetch 횟수 초과")
-                                #endif
-                            }
-                        }
+                        loadRoomViewModel.consumerLoadRoom()
+                        loadRoomViewModel.getFilter(isOnline: isOnline)
                     }
             }
             .padding(.bottom, 80)
             .onChange(of: isOnline) {
                 loadRoomViewModel.getFilter(isOnline: isOnline)
-                fetchCount = 0
-                #if DEBUG
-                print("fetchCount 리셋")
-                #endif
             }
         } else {
             LazyVStack(alignment: .leading) {
@@ -89,32 +69,14 @@ struct MainExistView: View {
                     .foregroundStyle(.clear)
                     .onAppear {
                         Task {
-                            #if DEBUG
-                            print("\(fetchCount)")
-                            #endif
-                            if fetchCount <= 3 {
-                                do {
-                                    try await loadRoomViewModel.consumerLoadRoom()
-                                    loadRoomViewModel.getFilter(isOnline: isOnline)
-                                } catch {
-                                    print("\(error)")
-                                }
-                            } else {
-                                #if DEBUG
-                                print("fetch 횟수 초과")
-                                #endif
-                            }
-                            
+                            loadRoomViewModel.consumerLoadRoom()
+                            loadRoomViewModel.getFilter(isOnline: isOnline)
                         }
                     }
             }
             .padding(.bottom, 80)
             .onChange(of: isOnline) { newValue in
                 loadRoomViewModel.getFilter(isOnline: isOnline)
-                fetchCount = 0
-                #if DEBUG
-                print("fetchCount 리셋")
-                #endif
             }
         }
     }
