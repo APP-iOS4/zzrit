@@ -20,17 +20,23 @@ struct ContactInputView: View {
     // 문의 내용 스트링 변수
     @State private var contactContent: String = ""
     // 문의 카테고리 변수
-    @State private var selectedContactCategory: ContactCategory = .app
+    @State private var selectedContactCategory: ContactCategory
     // 문의할 모임 변수
-    @State private var selectedRoomContact: String = ""
+    @State private var selectedRoomContact: String
     // 문의할 모임 내 회원 변수
-    @State private var selectedUserContact: String = ""
+    @State private var selectedUserContact: String
     // '문의하기'버튼을 눌렀을 시
     @State private var isPressContactButton: Bool = false
     // 모임 배열 변수
     @State private var rooms: [RoomModel] = []
     // 모임 내 회원 변수
     @State private var users: [UserModel] = []
+    
+    init(selectedContactCategory: ContactCategory = .app, selectedRoomContact: String = "", selectedUserContact: String = ""){
+        self.selectedContactCategory = selectedContactCategory
+        self.selectedRoomContact = selectedRoomContact
+        self.selectedUserContact = selectedUserContact
+    }
     
     //MARK: - body
     
