@@ -51,8 +51,7 @@ struct GenderButton: View {
             }
             .overlay {
                 RoundedRectangle(cornerRadius: 8.0)
-                    .stroke(lineWidth: 1.0)
-                    .foregroundStyle(borderColor)
+                    .strokeBorder(borderColor, lineWidth: 1.0)
             }
             .background(backGroundColor)
         }
