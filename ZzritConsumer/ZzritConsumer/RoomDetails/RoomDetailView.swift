@@ -11,6 +11,7 @@ import ZzritKit
 
 struct RoomDetailView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var recentRoomViewModel: RecentRoomViewModel
     
     let room: RoomModel
     let roomService = RoomService.shared
@@ -136,6 +137,7 @@ struct RoomDetailView: View {
             .onAppear {
                 Task {
                     do {
+                        await updateRecentRoom()
                         userModel = try await userService.loginedUserInfo()
                         if let roomId = room.id {
                             participants = try await roomService.joinedUsers(roomID: roomId)
@@ -248,10 +250,9 @@ struct RoomDetailView: View {
                 Text("해당 모임을 신고하시겠습니까?")
             }
             .onAppear {
-                saveRecentViewdRoom()
-                
                 Task {
                     do {
+                        await updateRecentRoom()
                         userModel = try await userService.loginedUserInfo()
                         if let roomId = room.id {
                             participants = try await roomService.joinedUsers(roomID: roomId)
@@ -278,31 +279,9 @@ struct RoomDetailView: View {
         }
     }
     
-    /// 최근 본 모임에 모임 ID저장하는 함수
-    func saveRecentViewdRoom() {
-        guard let roomID = room.id else { return }
-        
-        // TODO: 나중에 Constant 등으로 키 값 저장하면 좋을듯
-        let recentViewdRoomKey = "recentViewedRoom"
-        
-        // 기존에 저장된 최근 방이 있는 경우
-        if var savedRooms = UserDefaults.standard.stringArray(forKey: recentViewdRoomKey) {
-            // 중복 저장 방지
-            if savedRooms.contains(roomID) {
-                return
-            }
-            
-            // 5개가 넘는 경우 -> 제일 처음꺼 삭제
-            if savedRooms.count >= 5 {
-                savedRooms.removeFirst()
-            }
-            
-            savedRooms.append(roomID)
-            UserDefaults.standard.set(savedRooms, forKey: recentViewdRoomKey)
-        }
-        // 기존에 저장된 최근 방이 없는 경우
-        else {
-            UserDefaults.standard.set([roomID], forKey: recentViewdRoomKey)
+    func updateRecentRoom() async {
+        if let roomID = room.id {
+            await recentRoomViewModel.updateRecentViewedRoom(roomID: roomID)
         }
     }
 }
@@ -350,5 +329,6 @@ extension RoomDetailView {
     NavigationStack {
         RoomDetailView( room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
             .environmentObject(UserService())
+            .environmentObject(RecentRoomViewModel())
     }
 }

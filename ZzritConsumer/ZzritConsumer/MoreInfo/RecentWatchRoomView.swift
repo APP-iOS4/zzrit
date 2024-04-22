@@ -12,7 +12,7 @@ import ZzritKit
 let tempCount = 5
 
 struct RecentWatchRoomView: View {
-    private let loadRoomViewModel: LoadRoomViewModel = LoadRoomViewModel()
+    @EnvironmentObject private var recentRoomViewModel: RecentRoomViewModel
     
     @State var selectedIndex = 0
     
@@ -23,31 +23,52 @@ struct RecentWatchRoomView: View {
                 .font(.title3)
                 .fontWeight(.bold)
                 .offset(y: 30)
+                .padding(.leading, 20)
+            
+            if !recentRoomViewModel.recentViewedRooms.isEmpty {
             // 최근 본 모임 슬라이드
             VStack {
-                TabView(selection: $selectedIndex) {
-                    ForEach(loadRoomViewModel.rooms) { room in
-                        NavigationLink {
-                            // 모임 상세 페이지 넘기기
-                            RoomDetailView(room: room)
-                        } label: {
-                            RoomCardView(room: room, titleToHStackPadding: 25)
+                    TabView(selection: $selectedIndex) {
+                        ForEach(recentRoomViewModel.recentViewedRooms.indices, id: \.self) { index in
+                            NavigationLink {
+                                // 모임 상세 페이지 넘기기
+                                RoomDetailView(room: recentRoomViewModel.recentViewedRooms[index])
+                            } label: {
+                                RoomCardView(room: recentRoomViewModel.recentViewedRooms[index], titleToHStackPadding: 25)
+                            }
+                            .tag(index)
+                        }
+                        .padding(.horizontal, 20)
+                    }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .indexViewStyle(.page(backgroundDisplayMode: .interactive))
+                    .frame(maxWidth: .infinity, minHeight: 200)
+                    // TabView Indicator
+                    HStack {
+                        ForEach(recentRoomViewModel.recentViewedRooms.indices, id: \.self) { index in
+                            Circle()
+                                .frame(width: 8, height: 8)
+                                .foregroundStyle(index == selectedIndex ? .black : Color.staticGray3)
+                                .padding(.horizontal, 3)
                         }
                     }
+                }
+            } else {
+                RoundedRectangle(cornerRadius: Configs.cornerRadius)
+                    .fill(Color.clear)
+                    .frame(height: 150)
                     .padding(.horizontal, 20)
-                }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .indexViewStyle(.page(backgroundDisplayMode: .interactive))
-                .frame(maxWidth: .infinity, minHeight: 200)
-                // TabView Indicator
-                HStack {
-                    ForEach(0..<tempCount, id: \.self) { index in
-                        Circle()
-                            .frame(width: 8, height: 8)
-                            .foregroundStyle(index == selectedIndex ? .black : Color.staticGray3)
-                            .padding(.horizontal, 3)
+                    .padding(.top, 25)
+                    .overlay {
+                        VStack(spacing: 0) {
+                            Image(.zziritLogo)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 100)
+                            
+                            Text("최근 본 모임이 없어요")
+                        }
                     }
-                }
             }
         }
     }
@@ -55,4 +76,5 @@ struct RecentWatchRoomView: View {
 
 #Preview {
     RecentWatchRoomView()
+        .environmentObject(RecentRoomViewModel())
 }
