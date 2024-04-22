@@ -167,7 +167,7 @@ extension ThirdRoomCreateView {
                 }
             }
             .sheet(isPresented: $isShowingTimeSheet) {
-                RCTimeSettingView(timeSelection: $timeSelection)
+                RCTimeSettingView(isShowingTimeSheet: $isShowingTimeSheet, timeSelection: $timeSelection)
                     .presentationDetents([
                         .fraction(0.4), // 임의 비율
                     ])
