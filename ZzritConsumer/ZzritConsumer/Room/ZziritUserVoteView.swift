@@ -97,7 +97,7 @@ struct ZziritUserVoteView: View {
     private func fetchVote() {
         Task {
             do {
-                roomTitle = try await roomService.roomInfo(roomID).title
+                roomTitle = try await roomService.roomInfo(roomID)?.title ?? "(unknown)"
                 
                 if let myUID = try await userService.loginedUserInfo()?.id {
                     print(myUID)

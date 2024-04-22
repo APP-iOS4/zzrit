@@ -162,8 +162,9 @@ struct ContactInputView: View {
             do {
                 if let joinedRooms = try await userService.loginedUserInfo()?.joinedRooms {
                     for roomID in joinedRooms {
-                        let room = try await roomService.roomInfo(roomID)
-                        rooms.append(room)
+                        if let room = try await roomService.roomInfo(roomID) {
+                            rooms.append(room)
+                        }
                     }
                 }
             } catch {
