@@ -108,6 +108,7 @@
 		DF6F4B472BD5E6FD00DDBF96 /* OfflineLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B462BD5E6FD00DDBF96 /* OfflineLocationModel.swift */; };
 		DF6F4B492BD5E8A000DDBF96 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B482BD5E8A000DDBF96 /* LocalStorage.swift */; };
 		DF6F4B4B2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B4A2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift */; };
+		DF6F4B4D2BD6395B00DDBF96 /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B4C2BD6395B00DDBF96 /* PurchaseService.swift */; };
 		DF9674B92BCCF4C800322382 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B82BCCF4C800322382 /* SocialLoginType.swift */; };
 		DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */; };
 		DF9674BD2BCCFC9700322382 /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */; };
@@ -248,6 +249,8 @@
 		DF6F4B462BD5E6FD00DDBF96 /* OfflineLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationModel.swift; sourceTree = "<group>"; };
 		DF6F4B482BD5E8A000DDBF96 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		DF6F4B4A2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationHistoryCell.swift; sourceTree = "<group>"; };
+		DF6F4B4C2BD6395B00DDBF96 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
+		DF6F4B4E2BD63AB800DDBF96 /* ProductsConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = ProductsConfiguration.storekit; sourceTree = "<group>"; };
 		DF9674B82BCCF4C800322382 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
 		DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
@@ -496,6 +499,7 @@
 				DF63090B2BD0F3930077B94F /* LocationService.swift */,
 				DF63091A2BD2A4DA0077B94F /* KakaoSearchService.swift */,
 				DF6F4B482BD5E8A000DDBF96 /* LocalStorage.swift */,
+				DF6F4B4C2BD6395B00DDBF96 /* PurchaseService.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -633,6 +637,7 @@
 			isa = PBXGroup;
 			children = (
 				DF6309162BD2A0E60077B94F /* Secrets.xcconfig */,
+				DF6F4B4E2BD63AB800DDBF96 /* ProductsConfiguration.storekit */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -859,6 +864,7 @@
 				1F5038E82BC4EB0E00381EE5 /* ProcedureSelectButton.swift in Sources */,
 				30064DC72BC8079200FD04A2 /* ChatMessageCellView.swift in Sources */,
 				FC628F302BC4328A007F5E5C /* ErrorTextView.swift in Sources */,
+				DF6F4B4D2BD6395B00DDBF96 /* PurchaseService.swift in Sources */,
 				DF6F4B432BD5116A00DDBF96 /* SearchInfoView.swift in Sources */,
 				30BE7EC32BC57C7E00A5A178 /* QuestionDetailView.swift in Sources */,
 				3007E8B22BC4143700B9F7B3 /* SubTitleModifier.swift in Sources */,
