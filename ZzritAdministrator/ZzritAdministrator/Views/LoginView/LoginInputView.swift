@@ -64,7 +64,7 @@ struct LoginInputView: View {
                     .foregroundStyle(symbolColor)
                 
                 ZStack {
-                    Text("\(title)")
+                    Text(title)
                         .font(titleFont)
                         .fontWeight(.bold)
                         .foregroundStyle(symbolColor)

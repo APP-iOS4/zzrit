@@ -20,7 +20,7 @@ struct MyButton: View {
         Button {
             features()
         } label: {
-            Text("\(named)")
+            Text(named)
                 .foregroundStyle(.white)
                 .font(.title2)
                 .frame(idealWidth: width, maxWidth: .infinity)

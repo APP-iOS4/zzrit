@@ -51,6 +51,7 @@ struct LoginView: View {
                     
                     VStack(spacing: 50.0) {
                         VStack {
+                            
                             LoginInputView(text: $id, title: "이메일", symbol: "envelope")
                                 .padding(10.0)
                                 .onChange(of: id) { newValue in
@@ -91,6 +92,15 @@ struct LoginView: View {
             .background(Color.staticGray6.ignoresSafeArea(.all))
             .onTapGesture {
                 // hideKeyboard()
+            }
+            .onAppear {
+                #if DEBUG
+                id = "test1@example.com"
+                pw = "example"
+                #else
+                id = ""
+                pw = ""
+                #endif
             }
         }
     }

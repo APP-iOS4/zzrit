@@ -84,8 +84,8 @@ struct BanListCell: View {
                         Text("\(Calendar.current.dateComponents([.day], from: bannedModel.date, to: bannedModel.period).day ?? 0)일 제재")
                             .fontWeight(.bold)
                             .foregroundStyle(Color.pointColor)
-                        Text("\(bannedModel.type.rawValue)")
-                        Text("\(bannedModel.content)")
+                        Text(bannedModel.type.rawValue)
+                        Text(bannedModel.content)
                             .foregroundStyle(Color.staticGray3)
                     }
                 }
