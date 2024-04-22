@@ -92,6 +92,6 @@ struct Triangle: Shape {
 
 #Preview {
     NavigationStack {
-        MoreInfoView(userEmail: "hpns1379@naver.com")
+        MoreInfoView()
     }
 }

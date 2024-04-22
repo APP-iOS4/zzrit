@@ -13,19 +13,19 @@ struct SetProfileView: View {
     // 채팅의 이미지 저장을 위한 것
     var storageService = StorageService()
     
-    @State var selectedImage: UIImage?
+    @State private var selectedImage: UIImage?
     
-    @State var nickName = ""
-    @State var isDuplicate = false
+    @State private var nickName = ""
+    @State private var isDuplicate = false
     
-    @State var isMan = true
-    @State var isWoman = false
+    @State private var isMan = true
+    @State private var isWoman = false
     
-    @State var birthYear =  Calendar.current.component(.year, from: Date()) - 19
-    @State var birthYearPickerShow = false
+    @State private var birthYear =  Calendar.current.component(.year, from: Date()) - 19
+    @State private var birthYearPickerShow = false
     
-    @State var finishProfile = false
-    @State var completeSignUp = false
+    @State private var finishProfile = false
+    @State private var completeSignUp = false
     
     private let userService = UserService()
     
