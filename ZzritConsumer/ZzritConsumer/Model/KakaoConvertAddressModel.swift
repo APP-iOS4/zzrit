@@ -1,5 +1,5 @@
 //
-//  KakaoConverAddressModel.swift
+//  KakaoConvertAddressModel.swift
 //  ZzritConsumer
 //
 //  Created by Sanghyeon Park on 4/19/24.
@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - KakaoConverAddressModel
-struct KakaoConverAddressModel: Codable {
+struct KakaoConvertAddressModel: Codable {
     let meta: KakaoConverAddressMeta
     let documents: [ConvertAddressDocument]
 }
