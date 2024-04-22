@@ -11,10 +11,13 @@ import ZzritKit
 
 struct ParticipantNoticeView: View {
     @EnvironmentObject private var userService: UserService
+    @Environment(\.dismiss) private var dismiss
     
     private let roomService = RoomService.shared
     
     let room: RoomModel
+    
+    @Binding var confirmParticipation: Bool
     // 동의사항 체크했는지
     @State private var isCheck: Bool = false
     // 채팅방 입장 버튼을 눌렀는지
@@ -24,6 +27,17 @@ struct ParticipantNoticeView: View {
     
     var body: some View {
         VStack {
+            VStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .foregroundStyle(.primary)
+                }
+            }
+            .foregroundStyle(.primary)
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            
             HStack {
                 Image(systemName: "exclamationmark.bubble.fill")
                     .resizable()
@@ -105,16 +119,12 @@ struct ParticipantNoticeView: View {
             
             GeneralButton("채팅방 입장", isDisabled: !isCheck) {
                 joinedRoom()
-            }
-            .navigationDestination(isPresented: $isPressedChat) {
-                if let roomId = room.id {
-                    ChatView(roomID: roomId, room: room, isActive: true)
-                }
+                confirmParticipation = true
+                dismiss()
             }
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 20)
-        .toolbarRole(.editor)
     }
     
     func joinedRoom() {
@@ -131,7 +141,7 @@ struct ParticipantNoticeView: View {
 
 #Preview {
     NavigationStack {
-        ParticipantNoticeView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+        ParticipantNoticeView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), confirmParticipation: .constant(false))
             .environmentObject(UserService())
     }
 }
