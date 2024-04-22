@@ -8,24 +8,23 @@
 import SwiftUI
 
 struct ChatMessageName: View {
-    var userID: String
+    var userName: String
     var isleaderID: Bool
     
     var body: some View {
         HStack(alignment: .top) {
-            // TODO: if userId가 방장 일때
-            // if message.userID == RoomModel.leaderID
+            // userId가 방장 일때
             if isleaderID {
                 Image(systemName: "crown.fill")
                     .font(.callout)
                     .foregroundStyle(Color.yellow)
             }
-            Text(userID)
+            Text(userName)
                 .foregroundStyle(Color.staticGray1)
         }
     }
 }
 
 #Preview {
-    ChatMessageName(userID: "민닯팽이", isleaderID: true)
+    ChatMessageName(userName: "민닯팽이", isleaderID: true)
 }

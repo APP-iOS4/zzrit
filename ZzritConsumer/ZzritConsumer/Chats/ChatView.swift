@@ -283,13 +283,24 @@ struct ChatView: View {
                         .padding(Configs.paddingValue)
                         Spacer()
                         if let image = image {
+                            // 사진첩에서 사진 불러오기 성공
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: .infinity, height: .infinity)
+                                .frame(maxHeight: .infinity)
+                                .frame(maxWidth: .infinity)
                         } else {
-                            Rectangle()
-                                .frame(width: .infinity, height: .infinity)
+                            // 이미지를 불러올 수 없을때
+                            ZStack {
+                                Rectangle()
+                                    .foregroundStyle(.clear)
+                                    .frame(maxHeight: .infinity)
+                                    .frame(maxWidth: .infinity)
+                                Text("이미지를 불러올 수 없습니다.")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(Color.pointColor)
+                            }
                         }
                         Spacer()
                     }
@@ -485,7 +496,7 @@ struct ChatView: View {
                     if !isYou {
                         Spacer()
                     }
-                    ChatMessageCellView(message: chat, isYou: isYou, messageType: .text)
+                    ChatMessageCellView(leaderID: room.leaderID, message: chat, isYou: isYou, messageType: .text)
                     if isYou {
                         Spacer()
                     }
@@ -497,7 +508,7 @@ struct ChatView: View {
                     if !isYou {
                         Spacer()
                     }
-                    ChatMessageCellView(message: chat, isYou: isYou, messageType: .image)
+                    ChatMessageCellView(leaderID: room.leaderID, message: chat, isYou: isYou, messageType: .image)
                     if isYou {
                         Spacer()
                     }
@@ -528,14 +539,19 @@ struct ChatView: View {
         // 현재 내가 보낸 이미지가 있음을 알려줌
         isSendImage.toggle()
         
-        guard let selectedImage = selectedUIImage else { return }
+        // 이미지 사이즈 조절 채팅방 최대 이미지 가로 길이 1024
+        guard let selectedImage = (selectedUIImage?.size.width)! < 1024 ? selectedUIImage : selectedUIImage?.resizeWithWidth(width: 1024) else { return }
+        // 무손실 png파일로 변경
         guard let imageData = selectedImage.pngData() else { return }
         Task {
             do {
                 // 이미지의 이름은 유저아이디와 현재 시간을 이용해 지정
                 let downloadURL = try await storageService.imageUpload(topDir: .chatting, dirs: ["\(uid)", Date().toString()], image: imageData)
+                // 파베 메시지로 올림
                 try chattingService.sendMessage(uid: uid, message: downloadURL, type: .image)
-                
+                // 캐시에 올림
+                ImageCacheManager.shared.updateToCache(name: downloadURL, image: selectedImage)
+                // 이미지 전송 끝냄
                 DispatchQueue.main.async {
                     isSending.toggle()
                 }
@@ -557,9 +573,9 @@ struct ChatView: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        ChatView(roomID: "1Ab05L2UJXVpbYD7qxNc", room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), isActive: true)
-            .environmentObject(UserService())
-    }
-}
+//#Preview {
+//    NavigationStack {
+//        ChatView(roomID: "9XnfdhSeiuSfqlNeZNM5", room: RoomModel(title: "우리 ㅇ카테고리버튼도 피드백저굥않함??", category: .hobby, dateTime: Date(), content: "저거저거 빠져있자나요 보더라인 라라라인", coverImage: "https://firebasestorage.googleapis.com:443/v0/b/zzirit-4b0a3.appspot.com/o/RoomCoverImage%2FFBBE1800-F3C4-4D07-8239-6342C23B86C2?alt=media&token=beb1549a-c680-48a3-bd0c-18773de9dd7d", isOnline: true, status: .activation, leaderID: "bCw58qthxIbxTu4j2kl36dCmj8A3", limitPeople: 2), isActive: true)
+//            .environmentObject(UserService())
+//    }
+//}

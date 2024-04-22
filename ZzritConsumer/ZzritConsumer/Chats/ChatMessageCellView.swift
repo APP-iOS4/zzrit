@@ -10,10 +10,15 @@ import SwiftUI
 import ZzritKit
 
 struct ChatMessageCellView: View {
+    // 유저 정보 불러옴
+    @EnvironmentObject private var userService: UserService
     
+    var leaderID: String
     var message: ChattingModel
     var isYou: Bool
     var messageType: ChattingType
+    
+    @State private var userName = ""
     
     var body: some View {
         HStack(alignment: .top) {
@@ -32,7 +37,7 @@ struct ChatMessageCellView: View {
                     VStack(alignment: .leading) {
                         // FIXME: 메시지를 보낸 유저의 닉네임으로 변경 -> 참가 리스트로 비교해서 맞는 얘 닉넴으로 연결하면 될까욥?
                         // FIXME: roomModel의 leaderID와 message.userID 비교해서 isleaderID에 넣기
-                        ChatMessageName(userID: message.userID, isleaderID: true)
+                        ChatMessageName(userName: userName, isleaderID: leaderID ==  message.userID)
                         
                         // 상대방 메시지 내용
                         HStack(alignment: .bottom) {
@@ -63,7 +68,7 @@ struct ChatMessageCellView: View {
                     }
                 }
                 
-            //MARK: - 자신 메세지 뷰 구현
+                //MARK: - 자신 메세지 뷰 구현
                 
             } else {
                 HStack(alignment: .bottom) {
@@ -84,7 +89,7 @@ struct ChatMessageCellView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
                             // TODO: 이미지 button으로 바꾸기  -> 이미지 크게 띄워주기
                         case .image:
-                                fetchImage(url: message.message)
+                            fetchImage(url: message.message)
                                 .padding(10)
                         case .notice:
                             // 여기선 아무것도 안함
@@ -94,8 +99,13 @@ struct ChatMessageCellView: View {
                 }
             }
         }
-    }    
-//    fetchImage(url: chat.message)
+        .onAppear {
+            Task {
+                userName = await findUserName(userID: message.userID)
+            }
+        }
+    }
+    //    fetchImage(url: chat.message)
     // 채팅의 이미지 불러오는 함수
     func fetchImage(url: String) -> some View {
         HStack {
@@ -110,6 +120,17 @@ struct ChatMessageCellView: View {
             }
         }
         .frame(height: 100)
+    }
+    
+    // 유저 닉네임 불러오기
+    // FIXME: 채팅마다 불러오는게 너무 낭비같다 다음에 다른 방법 고안
+    func findUserName(userID: String) async -> String {
+        do {
+            let username = (try await userService.getUserInfo(uid: userID)?.userName)!
+            return username
+        } catch {
+            return "x"
+        }
     }
 }
 
