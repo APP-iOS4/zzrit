@@ -120,7 +120,7 @@ struct ChatView: View {
                                     .foregroundStyle(Color.staticGray3)
                                     .frame(maxWidth: .infinity)
                             }
-                            .padding(.vertical, 3)
+                            .padding(.vertical, 10)
                             
                             // 메시지
                             if let sortedChat = sortedChat?[day]! {
@@ -133,6 +133,7 @@ struct ChatView: View {
                                             .foregroundStyle(.clear)
                                     }
                                     chatView(chat: chat)
+                                        .padding(.vertical, 5)
                                 }
                                 .onAppear {
                                     // 처음 들어갔을때 가장 최근 메시지부터 보이도록
