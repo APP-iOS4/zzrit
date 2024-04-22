@@ -163,7 +163,7 @@ extension ThirdRoomCreateView {
                 .padding()
                 .overlay {
                     RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                        .stroke(Color.staticGray6, lineWidth: 1.0)
+                        .strokeBorder(Color.staticGray6, lineWidth: 1.0)
                 }
             }
             .sheet(isPresented: $isShowingTimeSheet) {

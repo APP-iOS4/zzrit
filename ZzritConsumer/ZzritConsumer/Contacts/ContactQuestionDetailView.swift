@@ -54,7 +54,7 @@ struct ContactQuestionDetailView: View {
                     .font(.footnote)
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: 2.0)
+                            .strokeBorder(lineWidth: 2.0)
                     }
                     .foregroundStyle(contact.isAnswered ? Color.pointColor : Color.staticGray3)
                     .background(contact.isAnswered ? Color.lightPointColor : .white)

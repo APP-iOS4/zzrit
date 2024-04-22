@@ -24,7 +24,7 @@ extension View {
             .padding(.vertical, 15)
             .background {
                 RoundedRectangle(cornerRadius: radius, style: .continuous)
-                    .stroke(color, lineWidth: width)
+                    .strokeBorder(color, lineWidth: width)
             }
         
     }

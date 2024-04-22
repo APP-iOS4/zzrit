@@ -32,7 +32,7 @@ struct QuestionListCellView: View {
                     .font(.footnote)
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: 2.0)
+                            .strokeBorder(lineWidth: 2.0)
                     }
                     .foregroundStyle(isAnswered ? Color.pointColor : Color.staticGray3)
                     .background(isAnswered ? Color.lightPointColor : .white)

@@ -58,7 +58,7 @@ struct NewSearchView: View {
                         .padding(.horizontal, 10.0)
                         .overlay {
                             RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                                .stroke(Color.staticGray4, lineWidth: 1.0)
+                                .strokeBorder(Color.staticGray4, lineWidth: 1.0)
                         }
                 }
             }

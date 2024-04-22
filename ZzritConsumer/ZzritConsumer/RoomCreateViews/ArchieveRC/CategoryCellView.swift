@@ -47,8 +47,7 @@ struct CategoryCellView: View {
             }
             .overlay {
                 RoundedRectangle(cornerRadius: 8.0)
-                    .stroke(lineWidth: 1.0)
-                    .foregroundStyle(borderColor)
+                    .strokeBorder(Color.staticGray4, lineWidth: 1.0)
             }
             .background(backGroundColor)
         }

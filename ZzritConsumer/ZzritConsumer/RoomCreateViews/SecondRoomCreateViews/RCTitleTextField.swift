@@ -27,7 +27,7 @@ struct RCTitleTextField: View {
             .padding()
             .overlay {
                 RoundedRectangle(cornerRadius: 8.0)
-                    .stroke(Color.staticGray5, lineWidth: 1.0)
+                    .strokeBorder(Color.staticGray5, lineWidth: 1.0)
             }
         } else {
             // iOS 17.0 미만이라면
@@ -43,7 +43,7 @@ struct RCTitleTextField: View {
             .padding()
             .overlay {
                 RoundedRectangle(cornerRadius: 8.0)
-                    .stroke(Color.staticGray5, lineWidth: 1.0)
+                    .strokeBorder(Color.staticGray5, lineWidth: 1.0)
             }
         }
     }
