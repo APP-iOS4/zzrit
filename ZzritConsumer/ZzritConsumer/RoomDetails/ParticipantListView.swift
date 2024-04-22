@@ -36,8 +36,7 @@ struct ParticipantListView: View {
             .padding(.bottom, 15)
             .overlay {
                 RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                    .stroke(lineWidth: 1.0)
-                    .foregroundStyle(Color.staticGray4)
+                    .strokeBorder(Color.staticGray4, lineWidth: 1.0)
             }
             .onChange(of: participants.count) {
                 Task {
@@ -56,8 +55,7 @@ struct ParticipantListView: View {
             .padding(.bottom, 15)
             .overlay {
                 RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                    .stroke(lineWidth: 1.0)
-                    .foregroundStyle(Color.staticGray4)
+                    .strokeBorder(Color.staticGray4, lineWidth: 1.0)
             }
             .onChange(of: participants.count) { newValue in
                 Task {

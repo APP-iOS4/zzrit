@@ -46,7 +46,7 @@ struct SocialLoginButton: View {
                 .clipShape(.rect(cornerRadius: 10))
                 .overlay {
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(borderColor, lineWidth: 1)
+                        .strokeBorder(borderColor, lineWidth: 1)
                     HStack {
                         Image(type.symbol)
                         Spacer()

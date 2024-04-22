@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		092876D02BC6C56500AFCA1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 092876CF2BC6C56500AFCA1D /* GoogleService-Info.plist */; };
+		09C567192BD533B700B5139D /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 09C567182BD533B700B5139D /* Secrets.xcconfig */; };
 		1F0603412BC53503003808F4 /* CategoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0603402BC53503003808F4 /* CategoryCellView.swift */; };
 		1F0603432BC53AC9003808F4 /* SecondRoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0603422BC53AC9003808F4 /* SecondRoomCreateView.swift */; };
 		1F0603452BC53F36003808F4 /* RCTitleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0603442BC53F36003808F4 /* RCTitleTextField.swift */; };
@@ -152,6 +153,9 @@
 
 /* Begin PBXFileReference section */
 		092876CF2BC6C56500AFCA1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		092876CF2BC6C56500AFCA1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ZzritConsumer/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		092876CF2BC6C56500AFCA1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		09C567182BD533B700B5139D /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		1F0603402BC53503003808F4 /* CategoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellView.swift; sourceTree = "<group>"; };
 		1F0603422BC53AC9003808F4 /* SecondRoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondRoomCreateView.swift; sourceTree = "<group>"; };
 		1F0603442BC53F36003808F4 /* RCTitleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCTitleTextField.swift; sourceTree = "<group>"; };
@@ -242,7 +246,6 @@
 		DF63090B2BD0F3930077B94F /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		DF63090F2BD29FE70077B94F /* KakaoSearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSearchError.swift; sourceTree = "<group>"; };
 		DF6309122BD2A01A0077B94F /* KakaoKeywordSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoKeywordSearchModel.swift; sourceTree = "<group>"; };
-		DF6309162BD2A0E60077B94F /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		DF63091A2BD2A4DA0077B94F /* KakaoSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSearchService.swift; sourceTree = "<group>"; };
 		DF63091C2BD2A93F0077B94F /* KakaoConvertAddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoConvertAddressModel.swift; sourceTree = "<group>"; };
 		DF6F4B3B2BD399D300DDBF96 /* KakaoLocalSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLocalSearchView.swift; sourceTree = "<group>"; };
@@ -646,6 +649,7 @@
 			children = (
 				DF6309162BD2A0E60077B94F /* Secrets.xcconfig */,
 				DF6F4B4E2BD63AB800DDBF96 /* ProductsConfiguration.storekit */,
+				09C567182BD533B700B5139D /* Secrets.xcconfig */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -848,6 +852,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09C567192BD533B700B5139D /* Secrets.xcconfig in Resources */,
 				DF54D2262BC36C4800D72491 /* Preview Assets.xcassets in Resources */,
 				DF54D2232BC36C4800D72491 /* Assets.xcassets in Resources */,
 				092876D02BC6C56500AFCA1D /* GoogleService-Info.plist in Resources */,
@@ -1008,7 +1013,6 @@
 /* Begin XCBuildConfiguration section */
 		DF54D2272BC36C4800D72491 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF6309162BD2A0E60077B94F /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1072,7 +1076,6 @@
 		};
 		DF54D2282BC36C4800D72491 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF6309162BD2A0E60077B94F /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1129,7 +1132,6 @@
 		};
 		DF54D22A2BC36C4800D72491 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF6309162BD2A0E60077B94F /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1167,7 +1169,6 @@
 		};
 		DF54D22B2BC36C4800D72491 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF6309162BD2A0E60077B94F /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

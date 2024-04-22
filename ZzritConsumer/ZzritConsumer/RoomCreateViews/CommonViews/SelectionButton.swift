@@ -67,8 +67,7 @@ struct SelectionButton<Data>: View where Data: Equatable {
             .foregroundStyle(fontColor)
             .overlay {
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(lineWidth: 1.0)
-                    .foregroundStyle(borderColor)
+                    .strokeBorder(borderColor, lineWidth: 1.0)
             }
             .background(backGroundColor)
         }

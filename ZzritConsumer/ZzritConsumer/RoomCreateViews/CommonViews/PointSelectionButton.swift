@@ -76,10 +76,10 @@ struct PointSelectionButton<Data>: View where Data: Equatable {
             }
             .overlay {
                 RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                    .stroke(lineWidth: 1.0)
-                    .foregroundStyle(borderColor)
+                    .strokeBorder(borderColor, lineWidth: 1.0)
             }
             .background(backGroundColor)
+            .clipShape(.rect(cornerRadius: 10))
         }
     }
     

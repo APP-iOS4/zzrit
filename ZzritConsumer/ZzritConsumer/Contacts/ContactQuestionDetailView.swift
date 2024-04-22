@@ -54,7 +54,7 @@ struct ContactQuestionDetailView: View {
                     .font(.footnote)
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(lineWidth: 2.0)
+                            .strokeBorder(lineWidth: 2.0)
                     }
                     .foregroundStyle(contact.isAnswered ? Color.pointColor : Color.staticGray3)
                     .background(contact.isAnswered ? Color.lightPointColor : .white)
@@ -93,7 +93,7 @@ struct ContactQuestionDetailView: View {
         if let targetRoom = contact.targetRoom, targetRoom != "" {
             Task {
                 do {
-                    targetRoomName = try await RoomService.shared.roomInfo(targetRoom).title
+                    targetRoomName = try await RoomService.shared.roomInfo(targetRoom)?.title ?? "(unknown)"
                 } catch {
                     print("에러: \(error)")
                 }

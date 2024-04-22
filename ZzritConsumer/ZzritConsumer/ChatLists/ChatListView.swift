@@ -67,8 +67,14 @@ struct ChatListView: View {
         }
         .onAppear {
             Task {
-                try await isLogined()
-                try await fetchRoom()
+                do {
+                    try await isLogined()
+                    try await fetchRoom()
+                    
+                    print("rooms: \(rooms)")
+                } catch {
+                    print("에러 \(error)")
+                }
             }
         }
     }
@@ -82,8 +88,9 @@ struct ChatListView: View {
         if let userModel {
             if let joinedRooms = userModel.joinedRooms {
                 for roomID in joinedRooms {
-                    let room: RoomModel = try await loadRoomViewModel.roomInfo(roomID)
-                    rooms.append(room)
+                    if let room = try await loadRoomViewModel.roomInfo(roomID) {
+                        rooms.append(room)
+                    }
                 }
             } else {
                 print("방을 참여해주세요")
