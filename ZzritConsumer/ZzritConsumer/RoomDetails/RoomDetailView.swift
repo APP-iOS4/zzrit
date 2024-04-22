@@ -21,6 +21,10 @@ struct RoomDetailView: View {
     
     @State private var isShowingLoginView: Bool = false
     
+    @State private var alertToReport: Bool = false
+    
+    @State private var isShowingContactInputView: Bool = false
+    
     @State private var isJoined: Bool = false
     
     @State private var participants: [JoinedUserModel] = []
@@ -96,6 +100,39 @@ struct RoomDetailView: View {
                 participateRoomButton
             }
             .toolbarRole(.editor)
+            .toolbar {
+                if isLogined {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            alertToReport.toggle()
+                        } label: {
+                            Image(systemName: "light.beacon.max")
+                        }
+                    }
+                }
+            }
+            .alert("신고하기", isPresented: $alertToReport) {
+                Button {
+                    isShowingContactInputView.toggle()
+                } label: {
+                    Label("신고하기", systemImage: "person.circle")
+                        .labelStyle(.titleOnly)
+                }
+                // 취소 버튼
+                Button{
+                    alertToReport = false
+                } label: {
+                    Label("취소", systemImage: "trash")
+                        .labelStyle(.titleOnly)
+                }
+            } message: {
+                Text("해당 모임을 신고하시겠습니까?")
+            }
+            .navigationDestination(isPresented: $isShowingContactInputView, destination: {
+                if let roomid = room.id {
+                    ContactInputView(selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "")
+                }
+            })
             .onAppear {
                 Task {
                     do {
@@ -182,6 +219,34 @@ struct RoomDetailView: View {
                 participateRoomButton
             }
             .toolbarRole(.editor)
+            .toolbar {
+                if isLogined {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            alertToReport.toggle()
+                        } label: {
+                            Image(systemName: "light.beacon.max")
+                        }
+                    }
+                }
+            }
+            .alert("신고하기", isPresented: $alertToReport) {
+                Button {
+                    isShowingContactInputView.toggle()
+                } label: {
+                    Label("신고하기", systemImage: "person.circle")
+                        .labelStyle(.titleOnly)
+                }
+                // 취소 버튼
+                Button{
+                    alertToReport = false
+                } label: {
+                    Label("취소", systemImage: "trash")
+                        .labelStyle(.titleOnly)
+                }
+            } message: {
+                Text("해당 모임을 신고하시겠습니까?")
+            }
             .onAppear {
                 saveRecentViewdRoom()
                 
@@ -217,11 +282,15 @@ struct RoomDetailView: View {
     func saveRecentViewdRoom() {
         guard let roomID = room.id else { return }
         
-        // TODO: 나중에 Constant 등 저장하면 좋을듯
+        // TODO: 나중에 Constant 등으로 키 값 저장하면 좋을듯
         let recentViewdRoomKey = "recentViewedRoom"
         
         // 기존에 저장된 최근 방이 있는 경우
         if var savedRooms = UserDefaults.standard.stringArray(forKey: recentViewdRoomKey) {
+            // 중복 저장 방지
+            if savedRooms.contains(roomID) {
+                return
+            }
             
             // 5개가 넘는 경우 -> 제일 처음꺼 삭제
             if savedRooms.count >= 5 {
@@ -278,6 +347,8 @@ extension RoomDetailView {
 }
 
 #Preview {
-    RoomDetailView( room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
-        .environmentObject(UserService())
+    NavigationStack {
+        RoomDetailView( room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+            .environmentObject(UserService())
+    }
 }

@@ -15,7 +15,7 @@ struct ParticipantListCellView: View {
     let participant: UserModel
     
     private var isLeader: Bool {
-        room.leaderID == participant.userID ? true : false
+        room.leaderID == participant.id ? true : false
     }
     
     // MARK: - body
