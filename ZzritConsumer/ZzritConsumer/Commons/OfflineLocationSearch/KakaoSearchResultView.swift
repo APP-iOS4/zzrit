@@ -12,25 +12,44 @@ struct KakaoSearchResultView: View {
     
     @Binding var keyword: String
     
-    @State private var results = ""
+    @State private var results: [KakaoSearchDocumentModel] = []
     
     var body: some View {
         if keyword == "" {
             SearchInfoView()
+                .toolbar(.hidden, for: .tabBar)
         } else {
-            Text("검색중")
+            ScrollView {
+                LazyVStack(spacing: 0) {
+                    ForEach(results) { result in
+                        OfflineLocationListCell(locationModel: result, keyword: keyword)
+                    }
+                }
+            }
+            .toolbar(.hidden, for: .tabBar)
+            
+            if #available(iOS 17.0, *) {
+                Rectangle()
+                    .foregroundStyle(.clear)
+                    .frame(height: 1)
+                    .onChange(of: keyword) { _, newValue in
+                        keywordSearch()
+                    }
+            } else {
+                Rectangle()
+                    .foregroundStyle(.clear)
+                    .frame(height: 1)
+                    .onChange(of: keyword) { newValue in
+                        keywordSearch()
+                    }
+            }
         }
-    }
-    
-    init(keyword: Binding<String>) {
-        self._keyword = keyword
-        keywordSearch()
     }
     
     private func keywordSearch() {
         Task {
             do {
-                try await kakaoService.keywordSearch(keyword: keyword)
+                results = try await kakaoService.keywordSearch(keyword: keyword)
             } catch {
                 print("에러: \(error)")
             }

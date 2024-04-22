@@ -90,7 +90,6 @@
 		30C1BACA2BC3F50A00827BD1 /* MainExistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C1BAC92BC3F50A00827BD1 /* MainExistView.swift */; };
 		30F80C3E2BC7C23A00B432DA /* MainLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F80C3D2BC7C23A00B432DA /* MainLocationView.swift */; };
 		30F80C402BC7D9B200B432DA /* OfflineLocationSearchTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F80C3F2BC7D9B200B432DA /* OfflineLocationSearchTextFieldView.swift */; };
-		30F80C422BC7E37300B432DA /* OfflineLocationResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F80C412BC7E37300B432DA /* OfflineLocationResultView.swift */; };
 		30F80C442BC7E38F00B432DA /* OfflineLocationSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F80C432BC7E38F00B432DA /* OfflineLocationSearchView.swift */; };
 		DF54D21F2BC36C4500D72491 /* ZzritConsumerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */; };
 		DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D2202BC36C4500D72491 /* ContentView.swift */; };
@@ -101,11 +100,15 @@
 		DF6309102BD29FE70077B94F /* KakaoSearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63090F2BD29FE70077B94F /* KakaoSearchError.swift */; };
 		DF6309132BD2A01A0077B94F /* KakaoKeywordSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6309122BD2A01A0077B94F /* KakaoKeywordSearchModel.swift */; };
 		DF63091B2BD2A4DA0077B94F /* KakaoSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63091A2BD2A4DA0077B94F /* KakaoSearchService.swift */; };
-		DF63091D2BD2A93F0077B94F /* KakaoConverAddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63091C2BD2A93F0077B94F /* KakaoConverAddressModel.swift */; };
+		DF63091D2BD2A93F0077B94F /* KakaoConvertAddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63091C2BD2A93F0077B94F /* KakaoConvertAddressModel.swift */; };
 		DF6F4B3C2BD399D300DDBF96 /* KakaoLocalSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B3B2BD399D300DDBF96 /* KakaoLocalSearchView.swift */; };
 		DF6F4B3F2BD4D6FA00DDBF96 /* KakaoSearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B3E2BD4D6FA00DDBF96 /* KakaoSearchResultView.swift */; };
 		DF6F4B412BD4D87100DDBF96 /* OfflineSearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B402BD4D87100DDBF96 /* OfflineSearchHistoryView.swift */; };
 		DF6F4B432BD5116A00DDBF96 /* SearchInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B422BD5116A00DDBF96 /* SearchInfoView.swift */; };
+		DF6F4B452BD557DE00DDBF96 /* OfflineLocationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B442BD557DE00DDBF96 /* OfflineLocationListCell.swift */; };
+		DF6F4B472BD5E6FD00DDBF96 /* OfflineLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B462BD5E6FD00DDBF96 /* OfflineLocationModel.swift */; };
+		DF6F4B492BD5E8A000DDBF96 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B482BD5E8A000DDBF96 /* LocalStorage.swift */; };
+		DF6F4B4B2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B4A2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift */; };
 		DF9674B92BCCF4C800322382 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B82BCCF4C800322382 /* SocialLoginType.swift */; };
 		DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */; };
 		DF9674BD2BCCFC9700322382 /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */; };
@@ -226,7 +229,6 @@
 		30C1BAC92BC3F50A00827BD1 /* MainExistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainExistView.swift; sourceTree = "<group>"; };
 		30F80C3D2BC7C23A00B432DA /* MainLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLocationView.swift; sourceTree = "<group>"; };
 		30F80C3F2BC7D9B200B432DA /* OfflineLocationSearchTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationSearchTextFieldView.swift; sourceTree = "<group>"; };
-		30F80C412BC7E37300B432DA /* OfflineLocationResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationResultView.swift; sourceTree = "<group>"; };
 		30F80C432BC7E38F00B432DA /* OfflineLocationSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationSearchView.swift; sourceTree = "<group>"; };
 		DF54D21B2BC36C4500D72491 /* ZzritConsumer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritConsumer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzritConsumerApp.swift; sourceTree = "<group>"; };
@@ -239,11 +241,15 @@
 		DF6309122BD2A01A0077B94F /* KakaoKeywordSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoKeywordSearchModel.swift; sourceTree = "<group>"; };
 		DF6309162BD2A0E60077B94F /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		DF63091A2BD2A4DA0077B94F /* KakaoSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSearchService.swift; sourceTree = "<group>"; };
-		DF63091C2BD2A93F0077B94F /* KakaoConverAddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoConverAddressModel.swift; sourceTree = "<group>"; };
+		DF63091C2BD2A93F0077B94F /* KakaoConvertAddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoConvertAddressModel.swift; sourceTree = "<group>"; };
 		DF6F4B3B2BD399D300DDBF96 /* KakaoLocalSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLocalSearchView.swift; sourceTree = "<group>"; };
 		DF6F4B3E2BD4D6FA00DDBF96 /* KakaoSearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSearchResultView.swift; sourceTree = "<group>"; };
 		DF6F4B402BD4D87100DDBF96 /* OfflineSearchHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineSearchHistoryView.swift; sourceTree = "<group>"; };
 		DF6F4B422BD5116A00DDBF96 /* SearchInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInfoView.swift; sourceTree = "<group>"; };
+		DF6F4B442BD557DE00DDBF96 /* OfflineLocationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationListCell.swift; sourceTree = "<group>"; };
+		DF6F4B462BD5E6FD00DDBF96 /* OfflineLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationModel.swift; sourceTree = "<group>"; };
+		DF6F4B482BD5E8A000DDBF96 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		DF6F4B4A2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationHistoryCell.swift; sourceTree = "<group>"; };
 		DF9674B82BCCF4C800322382 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
 		DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
@@ -492,6 +498,7 @@
 				DF63090B2BD0F3930077B94F /* LocationService.swift */,
 				DF63090D2BD29F9F0077B94F /* StaticKakaoSearchService.swift */,
 				DF63091A2BD2A4DA0077B94F /* KakaoSearchService.swift */,
+				DF6F4B482BD5E8A000DDBF96 /* LocalStorage.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -619,7 +626,8 @@
 			isa = PBXGroup;
 			children = (
 				DF6309122BD2A01A0077B94F /* KakaoKeywordSearchModel.swift */,
-				DF63091C2BD2A93F0077B94F /* KakaoConverAddressModel.swift */,
+				DF63091C2BD2A93F0077B94F /* KakaoConvertAddressModel.swift */,
+				DF6F4B462BD5E6FD00DDBF96 /* OfflineLocationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -635,12 +643,13 @@
 		DF6F4B3D2BD4D6C800DDBF96 /* OfflineLocationSearch */ = {
 			isa = PBXGroup;
 			children = (
-				30F80C412BC7E37300B432DA /* OfflineLocationResultView.swift */,
 				30F80C432BC7E38F00B432DA /* OfflineLocationSearchView.swift */,
 				DF6F4B3B2BD399D300DDBF96 /* KakaoLocalSearchView.swift */,
 				DF6F4B3E2BD4D6FA00DDBF96 /* KakaoSearchResultView.swift */,
 				DF6F4B402BD4D87100DDBF96 /* OfflineSearchHistoryView.swift */,
 				DF6F4B422BD5116A00DDBF96 /* SearchInfoView.swift */,
+				DF6F4B442BD557DE00DDBF96 /* OfflineLocationListCell.swift */,
+				DF6F4B4A2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift */,
 			);
 			path = OfflineLocationSearch;
 			sourceTree = "<group>";
@@ -836,7 +845,6 @@
 				1F6454F62BC8C61E00C9D235 /* ServiceAgreeSheet.swift in Sources */,
 				1F4566ED2BCDFDFB001EC0E7 /* DateType.swift in Sources */,
 				1F6454F52BC8C5E300C9D235 /* SignUpView.swift in Sources */,
-				30F80C422BC7E37300B432DA /* OfflineLocationResultView.swift in Sources */,
 				FC43146C2BCD765E003D35FB /* ChatMessageName.swift in Sources */,
 				1FF17E552BC509C500B505FA /* FirstRoomCreateView.swift in Sources */,
 				309F8ABA2BC3A8570045C6D8 /* GeneralButton.swift in Sources */,
@@ -845,6 +853,8 @@
 				1F5038D92BC4E67B00381EE5 /* SearchViewVM.swift in Sources */,
 				1F6454F42BC8B96000C9D235 /* GenderButton.swift in Sources */,
 				30F80C402BC7D9B200B432DA /* OfflineLocationSearchTextFieldView.swift in Sources */,
+				DF6F4B452BD557DE00DDBF96 /* OfflineLocationListCell.swift in Sources */,
+				DF6F4B472BD5E6FD00DDBF96 /* OfflineLocationModel.swift in Sources */,
 				DF63090E2BD29F9F0077B94F /* StaticKakaoSearchService.swift in Sources */,
 				1F4566EF2BCDFE25001EC0E7 /* PageType.swift in Sources */,
 				3007E8AF2BC40E6E00B9F7B3 /* MainView.swift in Sources */,
@@ -860,6 +870,7 @@
 				1F5038E12BC4E69E00381EE5 /* SearchingFilterView.swift in Sources */,
 				30C1BACA2BC3F50A00827BD1 /* MainExistView.swift in Sources */,
 				1F3859B82BC3D29500C753BD /* Configs.swift in Sources */,
+				DF6F4B492BD5E8A000DDBF96 /* LocalStorage.swift in Sources */,
 				FC2DDC232BC5921000A51E64 /* HorizontalLabel.swift in Sources */,
 				DF6309102BD29FE70077B94F /* KakaoSearchError.swift in Sources */,
 				1F4566F12BCDFE2E001EC0E7 /* Sheet.swift in Sources */,
@@ -937,6 +948,7 @@
 				DFB57BCE2BCF667C0070A923 /* TermView.swift in Sources */,
 				1F5038DF2BC4E69E00381EE5 /* SearchFieldView.swift in Sources */,
 				1F5038EA2BC4EC3600381EE5 /* SearchFilterPicker.swift in Sources */,
+				DF6F4B4B2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift in Sources */,
 				FC628F342BC4D115007F5E5C /* BirthYearPickerView.swift in Sources */,
 				1F0603452BC53F36003808F4 /* RCTitleTextField.swift in Sources */,
 				30BE7EA12BC50A1100A5A178 /* ParticipantListView.swift in Sources */,
@@ -955,7 +967,7 @@
 				1FF17E572BC509E400B505FA /* SelectionButtonView.swift in Sources */,
 				1F0603412BC53503003808F4 /* CategoryCellView.swift in Sources */,
 				1FF17E522BC5079700B505FA /* ArchieveRCIndicator.swift in Sources */,
-				DF63091D2BD2A93F0077B94F /* KakaoConverAddressModel.swift in Sources */,
+				DF63091D2BD2A93F0077B94F /* KakaoConvertAddressModel.swift in Sources */,
 				DFB59ED52BCE358900D7DD8A /* VoteProfileView.swift in Sources */,
 				1F0603502BC5A5FE003808F4 /* ArchieveRCNaviBar.swift in Sources */,
 				DF6F4B3F2BD4D6FA00DDBF96 /* KakaoSearchResultView.swift in Sources */,

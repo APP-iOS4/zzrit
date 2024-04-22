@@ -18,6 +18,7 @@ struct OfflineLocationSearchView: View {
     @State private var selectedTabIndex: Int = 0
     @FocusState private var keywordFocus
     
+    
     @Binding var locationCoordinate: CLLocationCoordinate2D?
     @Binding var offlineLocationString: String
     
@@ -60,9 +61,22 @@ struct OfflineLocationSearchView: View {
                 Rectangle()
                     .frame(height: 1)
                     .foregroundStyle(Color.staticGray5)
-                Rectangle()
-                    .frame(height: 5)
-                    .foregroundStyle(Color.staticGray6)
+                
+                if #available(iOS 17.0, *) {
+                    Rectangle()
+                        .foregroundStyle(Color.staticGray6)
+                        .frame(height: 5)
+                        .onChange(of: keywordFocus) { _, newValue in
+                            detectTabIndex(newValue: newValue)
+                        }
+                } else {
+                    Rectangle()
+                        .foregroundStyle(Color.staticGray6)
+                        .frame(height: 5)
+                        .onChange(of: keywordFocus) { newValue in
+                            detectTabIndex(newValue: newValue)
+                        }
+                }
                 
                 TabView(selection: $selectedTabIndex) {
                     OfflineSearchHistoryView()
@@ -70,10 +84,23 @@ struct OfflineLocationSearchView: View {
                     KakaoSearchResultView(keyword: $keyword)
                         .tag(1)
                 }
-                .modifier(CustonOnChange(value: _keywordFocus, selectedTabIndex: $selectedTabIndex, keyword: keyword))
             }
             .navigationTitle("위치 설정")
             .navigationBarTitleDisplayMode(.inline)
+        }
+        .toolbar(.hidden, for: .tabBar)
+        .onAppear {
+            UITextField.appearance().clearButtonMode = .whileEditing
+        }
+    }
+    
+    private func detectTabIndex(newValue: Bool) {
+        if newValue {
+            selectedTabIndex = 1
+        } else {
+            if keyword == "" {
+                selectedTabIndex = 0
+            }
         }
     }
     
@@ -102,39 +129,4 @@ struct OfflineLocationSearchView: View {
 
 #Preview {
     OfflineLocationSearchView(locationCoordinate: .constant(nil), offlineLocationString: .constant("서울특별시 종로구"))
-}
-
-// FIXME: 적절한 이름으로 변경 필요
-
-struct CustonOnChange: ViewModifier {
-    @FocusState var value
-    @Binding var selectedTabIndex: Int
-    var keyword: String
-    func body(content: Content) -> some View {
-        if #available(iOS 17.0, *) {
-            content
-                .onChange(of: value) { [value] newValue in
-                    print("newValue: \(newValue)")
-                    if newValue {
-                        selectedTabIndex = 1
-                    } else {
-                        if keyword == "" {
-                            selectedTabIndex = 0
-                        }
-                    }
-                }
-        } else {
-            content
-                .onChange(of: value) { newValue in
-                    print("newValue: \(newValue)")
-                    if newValue {
-                        selectedTabIndex = 1
-                    } else {
-                        if keyword == "" {
-                            selectedTabIndex = 0
-                        }
-                    }
-                }
-        }
-    }
 }
