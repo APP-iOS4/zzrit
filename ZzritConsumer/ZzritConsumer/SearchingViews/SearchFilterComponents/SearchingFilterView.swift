@@ -39,9 +39,9 @@ enum CategoryPickerEnum: String, CaseIterable, Hashable {
 
 struct SearchingFilterView: View {
     
-    @State var selectedMethod: RoomProcedureMethod = .all
-    @State var selectedDate: DatePickerEnum = .today
-    @State var selectedCategory: CategoryPickerEnum = .all
+    @State private var selectedMethod: RoomProcedureMethod = .all
+    @State private var selectedDate: DatePickerEnum = .today
+    @State private var selectedCategory: CategoryPickerEnum = .all
     
     var body: some View {
         VStack {

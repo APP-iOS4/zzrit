@@ -19,10 +19,10 @@ struct ContentView: View {
         case settings = "설정"
     }
     
-    @State var selection: Category = .userManagement
-    @State var isLogin: Bool = false
-    @State var adminName: String = ""
-    @State var adminID: String = ""
+    @State private var selection: Category = .userManagement
+    @State private var isLogin: Bool = false
+    @State private var adminName: String = ""
+    @State private var adminID: String = ""
     
     var body: some View {
         

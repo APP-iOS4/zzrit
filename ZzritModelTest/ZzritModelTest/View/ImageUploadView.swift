@@ -14,8 +14,8 @@ struct ImageUploadView: View {
     
     @State private var isShowingSheet: Bool = false
     
-    @State var selectedUIImage: UIImage?
-    @State var image: Image?
+    @State private var selectedUIImage: UIImage?
+    @State private var image: Image?
     
     var body: some View {
         if let image = image {

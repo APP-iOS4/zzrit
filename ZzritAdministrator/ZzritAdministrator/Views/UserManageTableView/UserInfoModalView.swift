@@ -15,7 +15,7 @@ struct UserInfoModalView: View {
     @Binding var isUserModal: Bool
     @State private var isEditingIndex: Bool = false
     
-    @State var user: UserModel
+    @State private var user: UserModel
     
     var body: some View {
         VStack(spacing: 20) {
