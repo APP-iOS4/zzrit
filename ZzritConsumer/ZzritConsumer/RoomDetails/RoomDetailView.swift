@@ -11,6 +11,7 @@ import ZzritKit
 
 struct RoomDetailView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     
     let room: RoomModel
     let roomService = RoomService.shared
@@ -248,10 +249,10 @@ struct RoomDetailView: View {
                 Text("해당 모임을 신고하시겠습니까?")
             }
             .onAppear {
-                saveRecentViewdRoom()
-                
                 Task {
                     do {
+                        await saveRecentViewdRoom()
+                        
                         userModel = try await userService.loginedUserInfo()
                         if let roomId = room.id {
                             participants = try await roomService.joinedUsers(roomID: roomId)
@@ -279,7 +280,7 @@ struct RoomDetailView: View {
     }
     
     /// 최근 본 모임에 모임 ID저장하는 함수
-    func saveRecentViewdRoom() {
+    func saveRecentViewdRoom() async {
         guard let roomID = room.id else { return }
         
         // TODO: 나중에 Constant 등으로 키 값 저장하면 좋을듯
@@ -299,10 +300,12 @@ struct RoomDetailView: View {
             
             savedRooms.append(roomID)
             UserDefaults.standard.set(savedRooms, forKey: recentViewdRoomKey)
+            await loadRoomViewModel.recentViewedRoomFetch()
         }
         // 기존에 저장된 최근 방이 없는 경우
         else {
             UserDefaults.standard.set([roomID], forKey: recentViewdRoomKey)
+            await loadRoomViewModel.recentViewedRoomFetch()
         }
     }
 }
