@@ -147,14 +147,17 @@ struct LogInView: View {
         Task {
             do {
                 try await authService.loginWithGoogle()
-                let result = try await userService.getUserInfo(uid: (userService.loginedUserInfo()?.id)!)
+                
+                if let userId = try await userService.loginedUserInfo()?.id {
+                    _ = try await userService.getUserInfo(uid: userId)
+                }
                 dismiss()
             } catch AuthError.noUserInfo {
-                errorMessage = "오류가 발생했습니다.\n잠시 후 다시 시도해주시기 바랍니다."
-                // TODO: 회원가입
                 registerdID = authService.currentUID!
                 print("id는 이거 : \(registerdID)")
                 showProfile.toggle()
+            } catch {
+                errorMessage = "오류가 발생했습니다.\n잠시 후 다시 시도해주시기 바랍니다."
             }
         }
     }
