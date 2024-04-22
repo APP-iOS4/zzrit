@@ -66,6 +66,10 @@ struct ChatView: View {
     @State private var selectedUIImage: UIImage?
     @State private var image: Image?
     
+    // 사진 크게 보기 View
+    @State private var isImageDetail = false
+    @State private var showImageDetail: UIImage?
+    
     // 스크롤뷰용
     // 스크롤뷰의 맨밑 담당
     @Namespace private var bottomID
@@ -282,7 +286,7 @@ struct ChatView: View {
                                 Text("보내기")
                             }
                         }
-                        .padding(Configs.paddingValue)
+                        .padding(.horizontal, 10)
                         Spacer()
                         if let image = image {
                             // 사진첩에서 사진 불러오기 성공
@@ -298,10 +302,13 @@ struct ChatView: View {
                                     .foregroundStyle(.clear)
                                     .frame(maxHeight: .infinity)
                                     .frame(maxWidth: .infinity)
-                                Text("이미지를 불러올 수 없습니다.")
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(Color.pointColor)
+                                VStack(alignment: .center) {
+                                    Text("이미지를 불러올 수 없습니다.")
+                                    Text("\n다시 시도해주세요.")
+                                }
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundStyle(Color.pointColor)
                             }
                         }
                         Spacer()
@@ -408,6 +415,48 @@ struct ChatView: View {
                     ContactInputView()
                         .padding(.top, Configs.paddingValue)
                 }
+                .fullScreenCover(isPresented: $isImageDetail) {
+                    // 채팅 이미지 상세
+                    VStack {
+                        HStack(alignment: .top) {
+                            Spacer()
+                            Button {
+                                isImageDetail.toggle()
+                            } label: {
+                                Text("닫기")
+                                    .font(.title3)
+                            }
+                        }
+                        .padding(.horizontal, 10)
+                        VStack {
+                            Spacer()
+                            if let image = showImageDetail {
+                                // 채팅 이미지 로드 성공
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(maxHeight: .infinity)
+                                    .frame(maxWidth: .infinity)
+                            } else {
+                                // 이미지 로드 실패
+                                ZStack {
+                                    Rectangle()
+                                        .foregroundStyle(.clear)
+                                        .frame(maxHeight: .infinity)
+                                        .frame(maxWidth: .infinity)
+                                    VStack(alignment: .center) {
+                                        Text("이미지를 불러올 수 없습니다.")
+                                        Text("\n다시 시도해주세요.")
+                                    }
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(Color.pointColor)
+                                }
+                            }
+                            Spacer()
+                        }
+                    }
+                }
             }
         }
         .toolbarRole(.editor)
@@ -511,7 +560,15 @@ struct ChatView: View {
                     if !isYou {
                         Spacer()
                     }
-                    ChatMessageCellView(leaderID: room.leaderID, message: chat, isYou: isYou, messageType: .image)
+                    Button {
+                        Task {
+                            // 이미지 로드
+                            showImageDetail = await ImageCacheManager.shared.findImageFromCache(imageURL: chat.message)
+                        }
+                        isImageDetail.toggle()
+                    } label: {
+                        ChatMessageCellView(leaderID: room.leaderID, message: chat, isYou: isYou, messageType: .image)
+                    }
                     if isYou {
                         Spacer()
                     }
