@@ -96,7 +96,6 @@
 		DF54D2232BC36C4800D72491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D2222BC36C4800D72491 /* Assets.xcassets */; };
 		DF54D2262BC36C4800D72491 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D2252BC36C4800D72491 /* Preview Assets.xcassets */; };
 		DF63090C2BD0F3930077B94F /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63090B2BD0F3930077B94F /* LocationService.swift */; };
-		DF63090E2BD29F9F0077B94F /* StaticKakaoSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63090D2BD29F9F0077B94F /* StaticKakaoSearchService.swift */; };
 		DF6309102BD29FE70077B94F /* KakaoSearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63090F2BD29FE70077B94F /* KakaoSearchError.swift */; };
 		DF6309132BD2A01A0077B94F /* KakaoKeywordSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6309122BD2A01A0077B94F /* KakaoKeywordSearchModel.swift */; };
 		DF63091B2BD2A4DA0077B94F /* KakaoSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63091A2BD2A4DA0077B94F /* KakaoSearchService.swift */; };
@@ -236,7 +235,6 @@
 		DF54D2222BC36C4800D72491 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF54D2252BC36C4800D72491 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DF63090B2BD0F3930077B94F /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
-		DF63090D2BD29F9F0077B94F /* StaticKakaoSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticKakaoSearchService.swift; sourceTree = "<group>"; };
 		DF63090F2BD29FE70077B94F /* KakaoSearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoSearchError.swift; sourceTree = "<group>"; };
 		DF6309122BD2A01A0077B94F /* KakaoKeywordSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoKeywordSearchModel.swift; sourceTree = "<group>"; };
 		DF6309162BD2A0E60077B94F /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
@@ -496,7 +494,6 @@
 			children = (
 				305E27DA2BCF55D4007352ED /* LoadRoomViewModel.swift */,
 				DF63090B2BD0F3930077B94F /* LocationService.swift */,
-				DF63090D2BD29F9F0077B94F /* StaticKakaoSearchService.swift */,
 				DF63091A2BD2A4DA0077B94F /* KakaoSearchService.swift */,
 				DF6F4B482BD5E8A000DDBF96 /* LocalStorage.swift */,
 			);
@@ -855,7 +852,6 @@
 				30F80C402BC7D9B200B432DA /* OfflineLocationSearchTextFieldView.swift in Sources */,
 				DF6F4B452BD557DE00DDBF96 /* OfflineLocationListCell.swift in Sources */,
 				DF6F4B472BD5E6FD00DDBF96 /* OfflineLocationModel.swift in Sources */,
-				DF63090E2BD29F9F0077B94F /* StaticKakaoSearchService.swift in Sources */,
 				1F4566EF2BCDFE25001EC0E7 /* PageType.swift in Sources */,
 				3007E8AF2BC40E6E00B9F7B3 /* MainView.swift in Sources */,
 				DF6F4B412BD4D87100DDBF96 /* OfflineSearchHistoryView.swift in Sources */,
