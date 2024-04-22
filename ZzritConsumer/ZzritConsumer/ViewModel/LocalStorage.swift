@@ -43,4 +43,21 @@ class LocalStorage {
     func clearHistory() {
         UserDefaults.standard.removeObject(forKey: "OfflineSearchHistories")
     }
+    
+    func setCurrentLocation(location: OfflineLocationModel) {
+        let data = try? jsonEncoder.encode(location)
+        UserDefaults.standard.set(data, forKey: "LatestOfflineLocation")
+    }
+    
+    func latestSettedLocation() -> OfflineLocationModel? {
+        do {
+            if let data = UserDefaults.standard.data(forKey: "LatestOfflineLocation") {
+                let decodedData: OfflineLocationModel = try jsonDecoder.decode(OfflineLocationModel.self, from: data)
+                return decodedData
+            }
+        } catch {
+            print("에러 \(error)")
+        }
+        return nil
+    }
 }
