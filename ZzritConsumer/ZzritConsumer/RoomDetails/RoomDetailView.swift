@@ -11,7 +11,6 @@ import ZzritKit
 
 struct RoomDetailView: View {
     @EnvironmentObject private var userService: UserService
-    @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     
     let room: RoomModel
     let roomService = RoomService.shared
@@ -251,8 +250,6 @@ struct RoomDetailView: View {
             .onAppear {
                 Task {
                     do {
-                        await saveRecentViewdRoom()
-                        
                         userModel = try await userService.loginedUserInfo()
                         if let roomId = room.id {
                             participants = try await roomService.joinedUsers(roomID: roomId)
@@ -300,12 +297,12 @@ struct RoomDetailView: View {
             
             savedRooms.append(roomID)
             UserDefaults.standard.set(savedRooms, forKey: recentViewdRoomKey)
-            await loadRoomViewModel.recentViewedRoomFetch()
+            // await loadRoomViewModel.recentViewedRoomFetch()
         }
         // 기존에 저장된 최근 방이 없는 경우
         else {
             UserDefaults.standard.set([roomID], forKey: recentViewdRoomKey)
-            await loadRoomViewModel.recentViewedRoomFetch()
+            // await loadRoomViewModel.recentViewedRoomFetch()
         }
     }
 }

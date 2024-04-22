@@ -45,7 +45,7 @@ struct MoreInfoView: View {
                     }
                     
                     // 최근 본 모임
-//                    RecentWatchRoomView()
+                    RecentWatchRoomView()
                     
                     VStack(spacing: 10) {
                         Text("최근 둘러본 모임")

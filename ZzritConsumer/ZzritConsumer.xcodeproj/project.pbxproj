@@ -91,6 +91,7 @@
 		30F80C3E2BC7C23A00B432DA /* MainLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F80C3D2BC7C23A00B432DA /* MainLocationView.swift */; };
 		30F80C402BC7D9B200B432DA /* OfflineLocationSearchTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F80C3F2BC7D9B200B432DA /* OfflineLocationSearchTextFieldView.swift */; };
 		30F80C442BC7E38F00B432DA /* OfflineLocationSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F80C432BC7E38F00B432DA /* OfflineLocationSearchView.swift */; };
+		3B883B8F2BD629820061D61F /* RecentRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B883B8E2BD629820061D61F /* RecentRoomViewModel.swift */; };
 		DF54D21F2BC36C4500D72491 /* ZzritConsumerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */; };
 		DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D2202BC36C4500D72491 /* ContentView.swift */; };
 		DF54D2232BC36C4800D72491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D2222BC36C4800D72491 /* Assets.xcassets */; };
@@ -232,6 +233,7 @@
 		30F80C3D2BC7C23A00B432DA /* MainLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLocationView.swift; sourceTree = "<group>"; };
 		30F80C3F2BC7D9B200B432DA /* OfflineLocationSearchTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationSearchTextFieldView.swift; sourceTree = "<group>"; };
 		30F80C432BC7E38F00B432DA /* OfflineLocationSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationSearchView.swift; sourceTree = "<group>"; };
+		3B883B8E2BD629820061D61F /* RecentRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRoomViewModel.swift; sourceTree = "<group>"; };
 		DF54D21B2BC36C4500D72491 /* ZzritConsumer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritConsumer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzritConsumerApp.swift; sourceTree = "<group>"; };
 		DF54D2202BC36C4500D72491 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 				DF63091A2BD2A4DA0077B94F /* KakaoSearchService.swift */,
 				DF6F4B482BD5E8A000DDBF96 /* LocalStorage.swift */,
 				DF6F4B4C2BD6395B00DDBF96 /* PurchaseService.swift */,
+				3B883B8E2BD629820061D61F /* RecentRoomViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -914,6 +917,7 @@
 				309688032BC64E44007064A3 /* ChatDeactiveListView.swift in Sources */,
 				1FF17E5B2BC512A000B505FA /* ArchieveRCSubtitle.swift in Sources */,
 				FC0A793F2BC8C9B30012F85D /* ChatRoomNoticeView.swift in Sources */,
+				3B883B8F2BD629820061D61F /* RecentRoomViewModel.swift in Sources */,
 				3007E8B82BC43D8900B9F7B3 /* ArchieveRoomCardListView.swift in Sources */,
 				309688012BC6492E007064A3 /* ChatActiveListView.swift in Sources */,
 				1F4566EB2BCDFCEC001EC0E7 /* RCSubTitle.swift in Sources */,
