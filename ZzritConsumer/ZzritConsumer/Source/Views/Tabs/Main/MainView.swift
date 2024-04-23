@@ -11,6 +11,7 @@ import ZzritKit
 
 struct MainView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     
     // 우측 상단 알람 버튼 눌렀는지 안눌렀는지 검사
     @State private var isTopTrailingAction: Bool = false
@@ -55,6 +56,9 @@ struct MainView: View {
                     MainExistView(isOnline: $isOnline)
                 }
                 .padding(.vertical, 1)
+                .refreshable {
+                    loadRoomViewModel.refreshRooms()
+                }
                 
                 // 모임개설 페이지로 이동하는 버튼
                 createRoomButton
@@ -155,5 +159,6 @@ extension MainView {
     NavigationStack {
         MainView()
             .environmentObject(UserService())
+            .environmentObject(LoadRoomViewModel())
     }
 }

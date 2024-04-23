@@ -27,6 +27,7 @@ struct ZzritConsumerApp: App {
     @StateObject private var contactService = ContactService()
     @StateObject private var recentRoomViewModel = RecentRoomViewModel()
     @StateObject private var restrictionViewModel = RestrictionViewModel()
+    @StateObject private var loadRoomViewModel = LoadRoomViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -46,6 +47,7 @@ struct ZzritConsumerApp: App {
                 .environmentObject(contactService)
                 .environmentObject(recentRoomViewModel)
                 .environmentObject(restrictionViewModel)
+                .environmentObject(loadRoomViewModel)
         }
     }
 }

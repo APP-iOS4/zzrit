@@ -9,7 +9,7 @@ import Foundation
 
 import ZzritKit
 
-
+@MainActor
 class LoadRoomViewModel: ObservableObject {
     let roomService: RoomService = RoomService.shared
     
@@ -23,7 +23,10 @@ class LoadRoomViewModel: ObservableObject {
     private var fetchCount: Int = 0
     private var prevIsOnline: Bool? = nil
     
-    @MainActor
+    init() {
+        consumerLoadRoom()
+    }
+    
     func consumerLoadRoom(_ title: String = "") {
         Task {
             do {
@@ -97,11 +100,23 @@ class LoadRoomViewModel: ObservableObject {
             }
         }
         
+        
+        filterRooms = Array(Set(filterRooms))
+        // FIXME: 일단은 dateTime, 근데 생성 일자가 있어야 생성된 날짜 순으로 정렬이 가능할 거 같습니다.
+        filterRooms.sort(by: { $0.dateTime > $1.dateTime })
+        
         prevIsOnline = isOnline
     }
     
     func roomInfo(_ roomID: String) async throws -> RoomModel? {
         let room = try await roomService.roomInfo(roomID)
         return room
+    }
+    
+    func refreshRooms() {
+        fetchCount = 0
+        isInit = true
+        rooms = []
+        consumerLoadRoom()
     }
 }
