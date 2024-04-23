@@ -29,7 +29,7 @@ struct ModifyUserInfoView: View {
     @State private var finishProfile = false
     @State private var completeSignUp = false
     
-    private let userService = UserService()
+    @EnvironmentObject private var userService: UserService
     
     var emailField: String = ""
     @Binding var registeredUID: String
@@ -96,25 +96,13 @@ struct ModifyUserInfoView: View {
         guard let imageData = selectedImage.pngData() else { return }
         Task {
             do {
-                guard let userInfo = try await userService.getUserInfo(uid: registeredUID) else {
-                    #if DEBUG
-                    print("유저정보없음.")
-                    #endif
-                    return
-                }
-                
                 // 이미지 올리고 url 받아오기
                 let downloadURL = try await storageService.imageUpload(topDir: .profile, dirs: ["\(registeredUID)", Date().toString()], image: imageData)
-                
-                // 유저 정보 모델에 저장
-//                let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: downloadURL, gender: isMan ? .male : .female, birthYear: birthYear, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
-                
-                // 유저 프로필 서버에 올리기
-                try userService.setUserInfo(uid: registeredUID, info: userInfo)
                 
                 userService.modifyUserInfo(userID: authService.currentUID!,
                                            userName: nickName,
                                            imageURL: downloadURL)
+                _ = try await userService.loggedInUserInfo()
                 // 이미지 캐시 저장
                 ImageCacheManager.shared.updateToCache(name: downloadURL, image: selectedImage)
             } catch {
