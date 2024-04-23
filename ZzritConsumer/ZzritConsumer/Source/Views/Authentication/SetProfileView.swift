@@ -27,7 +27,7 @@ struct SetProfileView: View {
     @State private var finishProfile = false
     @State private var completeSignUp = false
     
-    private let userService = UserService()
+    @EnvironmentObject private var userService: UserService
     
     var emailField: String = ""
     @Binding var registeredUID: String
