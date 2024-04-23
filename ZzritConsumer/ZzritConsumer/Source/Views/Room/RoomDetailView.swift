@@ -54,6 +54,9 @@ struct RoomDetailView: View {
         return room.limitPeople <= participantsCount
     }
     
+    // 모임 이미지
+    @State private var roomImage: UIImage?
+    
     // MARK: - body
     
     var body: some View {
@@ -80,17 +83,11 @@ struct RoomDetailView: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(maxHeight: 200)
                             .background {
-                                AsyncImage(url: room.roomImage) { image in
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(maxHeight: 200)
-                                        .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                                    
-                                } placeholder: {
-                                    ProgressView()
-                                        .frame(maxWidth: .infinity, alignment: .center)
-                                }
+                                fetchRoomImage(image: roomImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(maxHeight: 200)
+                                    .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
                             }
                             .padding(.bottom, 20)
                         
@@ -160,6 +157,10 @@ struct RoomDetailView: View {
                             participants = try await roomService.joinedUsers(roomID: roomId)
                         }
                         participantsCount = participants.count
+                        // 모임방 사진 가져오기
+                        if room.coverImage != "NONE" {
+                            roomImage = await ImageCacheManager.shared.findImageFromCache(imageURL: room.coverImage)
+                        }
                     } catch {
                         Configs.printDebugMessage("\(error)")
                     }
@@ -179,7 +180,7 @@ struct RoomDetailView: View {
                 }
             }
             
-        //MARK: - iOS16
+            //MARK: - iOS16
             
         } else {
             ZStack(alignment: .bottom) {
@@ -201,17 +202,11 @@ struct RoomDetailView: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(maxHeight: 200)
                             .background {
-                                AsyncImage(url: room.roomImage) { image in
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(maxHeight: 200)
-                                        .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                                    
-                                } placeholder: {
-                                    ProgressView()
-                                        .frame(maxWidth: .infinity, alignment: .center)
-                                }
+                                fetchRoomImage(image: roomImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(maxHeight: 200)
+                                    .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
                             }
                             .padding(.bottom, 20)
                         
@@ -265,7 +260,7 @@ struct RoomDetailView: View {
                 }
             } message: {
                 Text("해당 모임을 신고하시겠습니까?")
-            } 
+            }
             .navigationDestination(isPresented: $isShowingContactInputView, destination: {
                 if let roomid = room.id {
                     ContactInputView(selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "", contactThroughRoomView: true)
@@ -273,7 +268,7 @@ struct RoomDetailView: View {
             })
             .onAppear {
                 modifyRoomStatus()
-
+                
                 Task {
                     do {
                         await updateRecentRoom()
@@ -316,8 +311,18 @@ struct RoomDetailView: View {
             }
         }
     }
-}
     
+    // 이미지 적용
+    func fetchRoomImage(image: UIImage?) -> Image {
+        if let image = image {
+            Image(uiImage: image)
+        } else {
+            // 이미지가 없거나 로드에 실패했을때
+            Image("ZziritLogoImage")
+        }
+    }
+}
+
 extension RoomDetailView {
     private var participateRoomButton: some View {
         VStack {
