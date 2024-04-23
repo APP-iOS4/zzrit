@@ -19,8 +19,15 @@ struct ThirdRoomCreateView: View {
     // 오프라인/온라인 선택 변수
     @State private var processSelection: RoomProcessType?
     
+    // 입장 메시지 입력을 위한 채팅
+    @StateObject private var chattingService: ChattingService
+    
     let VM: RoomCreateViewModel
-
+    
+    init( VM: RoomCreateViewModel) {
+        self._chattingService = StateObject(wrappedValue: ChattingService(roomID: " "))
+        self.VM = VM
+    }
     // FIXME: 모임 위치 변수 -
     
     // 플랫폼 선택 변수
@@ -97,12 +104,11 @@ struct ThirdRoomCreateView: View {
                 VM.saveLimitPeople(limitPeople: limitPeople)
                 
                 Task {
-                    let result = try await VM.createRoom(userModel: userService.loginedUserInfo())
-                    if result {
-                        print("모임 추가 성공!")
-                        // TODO: roomID 찾아서 입장 메시지 삽입해주세요.
-//                        guard let username = try await userService.loginedUserInfo()?.userName else { return }
-//                        try chattingService.sendMessage(message: "\(username)님께서 입장하셨습니다.")
+                    let roomID = try await VM.createRoom(userModel: userService.loginedUserInfo())
+                    if let roomID = roomID {
+                        // 방장 입장 메시지
+                        guard let username = try await userService.loginedUserInfo()?.userName else { return }
+                        try ChattingService(roomID: roomID).sendMessage(message: "\(username)님께서 입장하셨습니다.")
                     }
                 }
             }
