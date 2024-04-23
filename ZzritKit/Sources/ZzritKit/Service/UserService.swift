@@ -201,4 +201,9 @@ public final class UserService: ObservableObject {
         
         return try snapshot.documents.map { try $0.data(as: TermModel.self) }
     }
+    
+    public func modifyUserInfo(userID uid: String, userName: String, imageURL: String) {
+        firebaseConst.userCollection.document(uid).updateData(["userName": userName,
+                                                            "userImage": imageURL])
+    }
 }
