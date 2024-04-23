@@ -303,7 +303,7 @@ struct RoomDetailView: View {
         }
     }
     
-    func modifyRoomStatus() {
+    func modifyRoomStatus() 
         Configs.printDebugMessage("\(confirmDate)")
         if isDeactivation {
             if let roomID = room.id {

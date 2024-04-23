@@ -66,7 +66,7 @@ final class RoomCreateViewModel {
     }
     
     // MARK: - Firebase에 모임 추가
-    func createRoom(userModel: UserModel?) async -> Bool {
+    func createRoom(userModel: UserModel?) async -> String? {
         saveLeaderID(userModel: userModel)
         
         let newRoom = await makeNewRoom()
@@ -76,14 +76,16 @@ final class RoomCreateViewModel {
                 try await roomService.createRoom(newRoom)
                 Configs.printDebugMessage("모임 생성을 성공했습니다.")
                 return true
+                let newRoomID = try await roomService.createRoom(newRoom)
+                return newRoomID
             } catch {
                 Configs.printDebugMessage("모임 생성 중 에러가 발생했습니다!")
             }
         } else {
             Configs.printDebugMessage("모임이 생성되지 않았습니다!")
-            return false
+            return nil
         }
-        return false
+        return nil
     }
     
     // MARK: - RoomModel을 만들어주는 함수
