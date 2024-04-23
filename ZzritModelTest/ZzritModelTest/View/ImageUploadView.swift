@@ -71,7 +71,7 @@ struct ImageUploadView: View {
     func loadImage(path: String) {
         Task {
             do {
-                loadedImage = try await storageService.loadImage(path: path)
+                loadedImage = try await storageService.loadImage(path: path, quality: .low)
             } catch {
                 print("에러: \(error)")
             }
