@@ -146,7 +146,6 @@ struct UserManageTableView: View {
             HStack {
                 MyButton(named: "선택한 유저 제재/관리", features: {
                     if selection != nil {
-                        // print("\(selection ?? UUID())")
                         isUserModal.toggle()
                     }
                 })

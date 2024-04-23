@@ -54,7 +54,6 @@ struct ComplaintManagementView: View {
                         Button {
                             pickedContact = list
                             isShowingModalView.toggle()
-                            print("modal .toggle     pickUserId = list.id")
                         } label: {
                             ContactListCell(contactTitle: list.title, contactCategory: list.category, contactDateString: dateService.dateString(date: list.requestedDate))
                         }
@@ -66,7 +65,9 @@ struct ComplaintManagementView: View {
                         .frame(height: 1)
                         .foregroundStyle(.clear)
                         .onAppear {
+                            #if DEBUG
                             print("불러오기 함수 실행")
+                            #endif
                             contactViewModel.loadContacts()
                         }
                 }
@@ -81,6 +82,11 @@ struct ComplaintManagementView: View {
             }
         }
         .padding(20)
+        .onTapGesture {
+            #if canImport(UIKit)
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            #endif
+        }
         .fullScreenCover(isPresented: $isShowingModalView) {
             ComplaintDetailView(contact: $pickedContact, isShowingModalView: $isShowingModalView)
         }
