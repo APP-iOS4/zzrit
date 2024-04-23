@@ -29,7 +29,11 @@ class ContactViewModel: ObservableObject {
     func loadContacts() {
         Task {
             do {
-                contacts += try await contactService.fetchContact(isInitialFetch: initialFetch)
+                if initialFetch {
+                    contacts = try await contactService.fetchContact(isInitialFetch: initialFetch)
+                } else {
+                    contacts += try await contactService.fetchContact(isInitialFetch: initialFetch)
+                }
                 initialFetch = false
             } catch {
                 print("에러: \(error)")
