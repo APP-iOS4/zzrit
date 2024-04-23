@@ -22,7 +22,6 @@ class TermsViewModel: ObservableObject {
         Task {
             do {
                 termsList = try await userService.terms(type: type)
-                print("\(type) \(termsList.count)")
             } catch {
                 print("에러: \(error)")
             }

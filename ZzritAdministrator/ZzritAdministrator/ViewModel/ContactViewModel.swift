@@ -24,17 +24,27 @@ class ContactViewModel: ObservableObject {
     
     init() {
         loadContacts()
-        initialFetch = false
     }
     
     func loadContacts() {
         Task {
             do {
-                contacts += try await contactService.fetchContact(isInitialFetch: initialFetch)
+                if initialFetch {
+                    contacts = try await contactService.fetchContact(isInitialFetch: initialFetch)
+                } else {
+                    contacts += try await contactService.fetchContact(isInitialFetch: initialFetch)
+                }
+                initialFetch = false
             } catch {
                 print("에러: \(error)")
             }
         }
+    }
+    
+    func refreshContacts() {
+        initialFetch = true
+        contacts = []
+        loadContacts()
     }
     
     func fetchReplies(contact: ContactModel) {
@@ -59,7 +69,6 @@ class ContactViewModel: ObservableObject {
                             if !uid.isEmpty {
                                 targetUserModels?.append(try await userService.getUserInfo(uid: uid) ?? .init(userID: "?", userName: "", userImage: "", gender: .male, birthYear: 1900, staticGauge: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()))
                             }
-                            print(uid)
                         }
                     }
                 }

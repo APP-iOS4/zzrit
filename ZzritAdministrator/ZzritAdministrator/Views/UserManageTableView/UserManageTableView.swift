@@ -28,7 +28,6 @@ struct UserManageTableView: View {
         VStack {
             HStack(spacing: 20.0) {
                 SearchField(placeHolder: "유저 이메일을 입력하세요.", text: $searchText, action: {
-                    print("검색")
                     #if canImport(UIKit)
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     #endif
@@ -36,7 +35,6 @@ struct UserManageTableView: View {
                 .textInputAutocapitalization(.never)
                 
                 Button {
-                    print("필터 버튼 눌림")
                     isFilterActive.toggle()
                     isSortedByStatic = false
                     isSortedByYear = false
@@ -148,7 +146,6 @@ struct UserManageTableView: View {
             HStack {
                 MyButton(named: "선택한 유저 제재/관리", features: {
                     if selection != nil {
-                        // print("\(selection ?? UUID())")
                         isUserModal.toggle()
                     }
                 })
