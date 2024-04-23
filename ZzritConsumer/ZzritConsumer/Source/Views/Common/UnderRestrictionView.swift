@@ -26,9 +26,8 @@ struct UnderRestrictionView: View {
                 if let user = userModel {
                     Text("\(user.userName)님은 현재 이용정지 상태입니다.\n제재 사유가 부적절하다면 아래 버튼을 눌러 문의해 주세요. ")
                         .font(.title2)
-                        .padding(20)
+                        .padding(EdgeInsets(top: 20, leading: 20, bottom: 10, trailing: 20))
                 }
-                
                 
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 20) {
@@ -50,7 +49,7 @@ struct UnderRestrictionView: View {
                                     .foregroundStyle(Color.pointColor)
                                     .padding(.bottom, 5)
                                 
-                                Text("\(dateService.formattedString(date: ban.date, format: "yyyy/MM/dd HH:mm")) ~ \(dateService.formattedString(date: ban.period, format: "yyyy/MM/dd HH:mm"))")
+                                Text("\(dateService.formattedString(date: ban.date, format: "yyyy년 M월 d일"))\n~ \(dateService.formattedString(date: ban.period, format: "yyyy년 M월 d일"))")
                                 .foregroundStyle(Color.staticGray1)
                                 .padding(.bottom, 5)
                                 
