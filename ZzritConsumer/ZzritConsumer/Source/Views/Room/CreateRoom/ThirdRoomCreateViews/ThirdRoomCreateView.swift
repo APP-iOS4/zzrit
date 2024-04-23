@@ -20,15 +20,10 @@ struct ThirdRoomCreateView: View {
     @State private var processSelection: RoomProcessType?
     
     // 입장 메시지 입력을 위한 채팅
-    @StateObject private var chattingService: ChattingService
+    @StateObject private var chattingService = ChattingService(roomID: " ")
     
     let VM: RoomCreateViewModel
     
-    init( VM: RoomCreateViewModel) {
-        print("ThirdRoomCreateView init")
-        self._chattingService = StateObject(wrappedValue: ChattingService(roomID: " "))
-        self.VM = VM
-    }
     // FIXME: 모임 위치 변수 -
     
     // 플랫폼 선택 변수
