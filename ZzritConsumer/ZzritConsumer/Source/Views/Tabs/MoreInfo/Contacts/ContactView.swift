@@ -50,7 +50,7 @@ struct ContactView: View {
     private func fetchContacts() {
         Task {
             do {
-                if let userUID = try await userService.loginedUserInfo()?.id {
+                if let userUID = try await userService.loggedInUserInfo()?.id {
                     contacts = try await contactService.fetchContact(requestedUID: userUID)
                 }
             } catch {

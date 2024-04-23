@@ -140,7 +140,7 @@ struct ParticipantNoticeView: View {
         Task {
             do {
                 try await roomService.joinRoom(room.id ?? "")
-                guard let username = try await userService.loginedUserInfo()?.userName else { return }
+                guard let username = try await userService.loggedInUserInfo()?.userName else { return }
                 try chattingService.sendMessage(message: "\(username)님께서 입장하셨습니다.")
                 isPressedChat.toggle()
             } catch {

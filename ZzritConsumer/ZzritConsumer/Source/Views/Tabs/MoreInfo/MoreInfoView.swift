@@ -26,7 +26,7 @@ struct MoreInfoView: View {
             ScrollView {
                 Section {
                     if isLogined {
-                        ProfileInfoView(loginedInfo: loginedInfo!)
+                        ProfileInfoView()
                             .padding()
                         
                         MyStaticGaugeView(staticPoint: loginedInfo!.staticGauge)
@@ -76,7 +76,7 @@ struct MoreInfoView: View {
     private func fetchLogin() {
         Task {
             do {
-                loginedInfo = try await userService.loginedUserInfo()
+                loginedInfo = try await userService.loggedInUserInfo()
             } catch {
                 Configs.printDebugMessage("에러: \(error)")
             }

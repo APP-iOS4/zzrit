@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		092876D02BC6C56500AFCA1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 092876CF2BC6C56500AFCA1D /* GoogleService-Info.plist */; };
 		09C567192BD533B700B5139D /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 09C567182BD533B700B5139D /* Secrets.xcconfig */; };
+		09E4BE3E2BD7385F002B6925 /* ModifyUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E4BE3D2BD7385F002B6925 /* ModifyUserInfoView.swift */; };
 		1F0603432BC53AC9003808F4 /* SecondRoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0603422BC53AC9003808F4 /* SecondRoomCreateView.swift */; };
 		1F0603452BC53F36003808F4 /* RCTitleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0603442BC53F36003808F4 /* RCTitleTextField.swift */; };
 		1F0603472BC576D5003808F4 /* RCAddPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0603462BC576D5003808F4 /* RCAddPictureView.swift */; };
@@ -147,6 +148,7 @@
 /* Begin PBXFileReference section */
 		092876CF2BC6C56500AFCA1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		09C567182BD533B700B5139D /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		09E4BE3D2BD7385F002B6925 /* ModifyUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyUserInfoView.swift; sourceTree = "<group>"; };
 		1F0603422BC53AC9003808F4 /* SecondRoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondRoomCreateView.swift; sourceTree = "<group>"; };
 		1F0603442BC53F36003808F4 /* RCTitleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCTitleTextField.swift; sourceTree = "<group>"; };
 		1F0603462BC576D5003808F4 /* RCAddPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCAddPictureView.swift; sourceTree = "<group>"; };
@@ -296,6 +298,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09E4BE3C2BD73845002B6925 /* ModifyUserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				09E4BE3D2BD7385F002B6925 /* ModifyUserInfoView.swift */,
+			);
+			path = ModifyUserInfo;
+			sourceTree = "<group>";
+		};
 		1F0603482BC58D63003808F4 /* FirstRoomCreateViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -733,6 +743,7 @@
 		FC2DDC0B2BC506E500A51E64 /* MoreInfo */ = {
 			isa = PBXGroup;
 			children = (
+				09E4BE3C2BD73845002B6925 /* ModifyUserInfo */,
 				30BE7EB82BC57C2A00A5A178 /* Contacts */,
 				DFB57BCA2BCF65350070A923 /* TermView */,
 				FC2DDC242BC5924C00A51E64 /* LittleUseView */,
@@ -890,6 +901,7 @@
 				1F4566F12BCDFE2E001EC0E7 /* Sheet.swift in Sources */,
 				1F06034C2BC58EAE003808F4 /* ThirdRoomCreateView.swift in Sources */,
 				FCAF4A1C2BC40CBA00603C2D /* SignUpAgreeButton.swift in Sources */,
+				09E4BE3E2BD7385F002B6925 /* ModifyUserInfoView.swift in Sources */,
 				FC2DDC0F2BC508B700A51E64 /* MyStaticGaugeView.swift in Sources */,
 				30BE7EC12BC57C7E00A5A178 /* ContactView.swift in Sources */,
 				3056254D2BC6B77000814FBF /* View+Extension.swift in Sources */,
@@ -964,8 +976,6 @@
 				1F70CD2E2BD79FE300869119 /* HistoryViewModel.swift in Sources */,
 				DFB57BCE2BCF667C0070A923 /* TermView.swift in Sources */,
 				DF2209672BD797DC00B9A2C7 /* HiddenRectangle.swift in Sources */,
-				1F5038DF2BC4E69E00381EE5 /* SearchFieldView.swift in Sources */,
-				1F5038EA2BC4EC3600381EE5 /* SearchFilterPicker.swift in Sources */,
 				DF6F4B4B2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift in Sources */,
 				FC628F342BC4D115007F5E5C /* BirthYearPickerView.swift in Sources */,
 				1F0603452BC53F36003808F4 /* RCTitleTextField.swift in Sources */,

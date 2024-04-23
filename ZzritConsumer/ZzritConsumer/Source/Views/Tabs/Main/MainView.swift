@@ -95,7 +95,7 @@ struct MainView: View {
         }
         .onAppear {
             Task {
-                userModel = try await userService.loginedUserInfo()
+                userModel = try await userService.loggedInUserInfo()
             }
             offlineLocation = LocalStorage.shared.latestSettedLocation()
         }
@@ -144,7 +144,7 @@ extension MainView {
         }
         .sheet(isPresented: $isShowingLoginView) {
             Task {
-                userModel = try await userService.loginedUserInfo()
+                userModel = try await userService.loggedInUserInfo()
             }
         } content: {
             LogInView()

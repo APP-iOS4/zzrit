@@ -111,7 +111,7 @@ struct ChatListView: View {
     }
     
     func isLogined() async throws {
-        userModel = try await userService.loginedUserInfo()
+        userModel = try await userService.loggedInUserInfo()
     }
     
     func fetchRoom() async throws {
