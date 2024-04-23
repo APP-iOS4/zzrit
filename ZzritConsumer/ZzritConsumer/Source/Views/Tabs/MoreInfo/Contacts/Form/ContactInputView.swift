@@ -31,11 +31,16 @@ struct ContactInputView: View {
     @State private var rooms: [RoomModel] = []
     // 모임 내 회원 변수
     @State private var users: [UserModel] = []
+    // 방 신고 버튼 눌렀을 시, 방 타이틀
+    @State private var roomTitle: String = ""
     
-    init(selectedContactCategory: ContactCategory = .app, selectedRoomContact: String = "", selectedUserContact: String = ""){
+    let contactThroughRoomView: Bool
+    
+    init(selectedContactCategory: ContactCategory = .app, selectedRoomContact: String = "", selectedUserContact: String = "", contactThroughRoomView: Bool = false){
         self.selectedContactCategory = selectedContactCategory
         self.selectedRoomContact = selectedRoomContact
         self.selectedUserContact = selectedUserContact
+        self.contactThroughRoomView = contactThroughRoomView
     }
     
     //MARK: - body
@@ -74,27 +79,35 @@ struct ContactInputView: View {
                         
                         Spacer()
                         
-                        // Picker를 통해 selectedRoomContact에 값을 바인딩한다.
-                        if #available(iOS 17.0, *) {
-                            Picker("Choose room title", selection: $selectedRoomContact) {
-                                ForEach(rooms) { room in
-                                    Text(room.title)
-                                        .tag(room.id!)
+                        if !contactThroughRoomView {
+                            // Picker를 통해 selectedRoomContact에 값을 바인딩한다.
+                            if #available(iOS 17.0, *) {
+                                Picker("Choose room title", selection: $selectedRoomContact) {
+                                    ForEach(rooms) { room in
+                                        Text(room.title)
+                                            .tag(room.id!)
+                                    }
                                 }
-                            }
-                            .onChange(of: selectedRoomContact) { _, _ in
-                                fetchUsers()
+                                .onChange(of: selectedRoomContact) { _, _ in
+                                    fetchUsers()
+                                }
+                            } else {
+                                Picker("Choose room title", selection: $selectedRoomContact) {
+                                    ForEach(rooms) { room in
+                                        Text(room.title)
+                                            .tag(room.id!)
+                                    }
+                                }
+                                .onChange(of: selectedRoomContact) { _ in
+                                    fetchUsers()
+                                }
                             }
                         } else {
-                            Picker("Choose room title", selection: $selectedRoomContact) {
-                                ForEach(rooms) { room in
-                                    Text(room.title)
-                                        .tag(room.id!)
+                            Text(roomTitle)
+                                .foregroundStyle(Color.pointColor)
+                                .onAppear {
+                                    fetchUsers()
                                 }
-                            }
-                            .onChange(of: selectedRoomContact) { _ in
-                                fetchUsers()
-                            }
                         }
                     }
                     .foregroundStyle(Color.staticGray1)
@@ -153,7 +166,11 @@ struct ContactInputView: View {
             self.endTextEditing()
         }
         .onAppear {
-            fetchRooms()
+            if !contactThroughRoomView {
+                fetchRooms()
+            } else {
+                fetchRoomThroughRoomView()
+            }
         }
     }
     
@@ -169,6 +186,18 @@ struct ContactInputView: View {
                 }
             } catch {
                 Configs.printDebugMessage("에러: \(error)")
+            }
+        }
+    }
+    
+    private func fetchRoomThroughRoomView() {
+        Task {
+            do {
+                if let room = try await roomService.roomInfo(selectedRoomContact) {
+                    roomTitle = room.title
+                }
+            } catch {
+                Configs.printDebugMessage("에러: \(error)_")
             }
         }
     }
