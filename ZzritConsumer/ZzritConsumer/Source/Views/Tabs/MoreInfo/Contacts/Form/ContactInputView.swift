@@ -177,7 +177,7 @@ struct ContactInputView: View {
     private func fetchRooms() {
         Task {
             do {
-                if let joinedRooms = try await userService.loginedUserInfo()?.joinedRooms {
+                if let joinedRooms = try await userService.loggedInUserInfo()?.joinedRooms {
                     for roomID in joinedRooms {
                         if let room = try await roomService.roomInfo(roomID) {
                             rooms.append(room)
@@ -207,10 +207,10 @@ struct ContactInputView: View {
         
         Task {
             do {
-                let userUID = try await userService.loginedUserInfo()?.id
+                let userUID = try await userService.loggedInUserInfo()?.id
                 let joinedUsers = try await roomService.joinedUsers(roomID: selectedRoomContact)
                 for user in joinedUsers {
-                    if let userModel = try await userService.getUserInfo(uid: user.userID) {
+                    if let userModel = try await userService.findUserInfo(uid: user.userID) {
                         if userUID != userModel.id {
                             users.append(userModel)
                         }
@@ -225,7 +225,7 @@ struct ContactInputView: View {
     private func writeContact() {
         Task {
             do {
-                if let userUID = try await userService.loginedUserInfo()?.id {
+                if let userUID = try await userService.loggedInUserInfo()?.id {
                     let contact = ContactModel(category: selectedContactCategory, title: contactTitle, content: contactContent, requestedDated: .now, requestedUser: userUID, targetRoom: selectedRoomContact, targetUser: [selectedUserContact])
                     try contactService.writeContact(contact)
                     isPressContactButton.toggle()

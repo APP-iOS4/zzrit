@@ -90,7 +90,7 @@ struct ChatMessageCellView: View {
                 // 유저 별명 가져오기
                 userName = await findUserName(userID: message.userID)
                 // 유저 프로필사진 가져오기
-                guard let userImageURL = try await userService.getUserInfo(uid: message.userID)?.userImage else { return }
+                guard let userImageURL = try await userService.findUserInfo(uid: message.userID)?.userImage else { return }
                 userProfileImage =  await ImageCacheManager.shared.findImageFromCache(imageURL: userImageURL)
                 if messageType == .image {
                     // 채팅 메시지가 이미지일 경우 불러오기
@@ -139,7 +139,7 @@ struct ChatMessageCellView: View {
     // FIXME: 채팅마다 불러오는게 너무 낭비같다 다음에 다른 방법 고안
     func findUserName(userID: String) async -> String {
         do {
-            let username = (try await userService.getUserInfo(uid: userID)?.userName)!
+            let username = (try await userService.findUserInfo(uid: userID)?.userName)!
             return username
         } catch {
             return "x"

@@ -117,7 +117,7 @@ struct UnderRestrictionView: View {
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 Task {
-                    userModel = try await userService.loginedUserInfo()
+                    userModel = try await userService.loggedInUserInfo()
                 }
             }
         }

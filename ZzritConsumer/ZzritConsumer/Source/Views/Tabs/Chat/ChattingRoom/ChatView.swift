@@ -491,7 +491,7 @@ struct ChatView: View {
     private func goOutRoom(roomID: String) {
         Task {
             do {
-                let username = (try await userService.getUserInfo(uid: uid)?.userName)!
+                let username = (try await userService.findUserInfo(uid: uid)?.userName)!
                 try chattingService.sendMessage(message: "\(username)님께서 퇴장하셨습니다.")
                 try await roomService.leaveRoom(roomID: roomID)
                 dismiss()
@@ -507,7 +507,7 @@ struct ChatView: View {
             Task {
                 do {
                     // 유저 정보 불러옴
-                    let tempuid = try await userService.loginedUserInfo()?.id
+                    let tempuid = try await userService.loggedInUserInfo()?.id
                     uid = tempuid!
                     // 채팅 불러옴
                     try await chattingService.fetchChatting()

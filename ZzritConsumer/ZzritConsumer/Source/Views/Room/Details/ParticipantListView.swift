@@ -71,7 +71,7 @@ struct ParticipantListView: View {
         do {
             for participant in participants {
                 
-                guard let userInfo =  try await userService.getUserInfo(uid: participant.userID)
+                guard let userInfo =  try await userService.findUserInfo(uid: participant.userID)
                 else { return }
 
                 getUserModels.append(userInfo)

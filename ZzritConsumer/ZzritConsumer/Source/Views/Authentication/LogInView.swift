@@ -137,7 +137,7 @@ struct LogInView: View {
         Task {
             do {
                 try await authService.loginUser(email: id, password: pw)
-                if let id = try await userService.loginedUserInfo()?.id {
+                if let id = try await userService.loggedInUserInfo()?.id {
                     restrictionViewModel.loadRestriction(userID: id)
                 }
                
@@ -154,8 +154,8 @@ struct LogInView: View {
             do {
                 try await authService.loginWithGoogle()
                 
-                if let userId = try await userService.loginedUserInfo()?.id {
-                    _ = try await userService.getUserInfo(uid: userId)
+                if let userId = try await userService.loggedInUserInfo()?.id {
+                    _ = try await userService.findUserInfo(uid: userId)
                 }
                 dismiss()
             } catch AuthError.noUserInfo {
