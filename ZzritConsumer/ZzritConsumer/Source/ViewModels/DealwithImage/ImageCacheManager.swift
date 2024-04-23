@@ -13,7 +13,7 @@ final class ImageCacheManager {
     private init() {
         // NSCache 저장 용량 지정
         // 이미지 개수 제한으로 200장
-        self.cache.countLimit = 200
+        self.cache.countLimit = 50
         Configs.printDebugMessage("NSCache init")
         // 이미지 용량 제한으로  약 200장
         //        self.cache.totalCostLimit = 1024 * 1024 * 250
@@ -54,7 +54,6 @@ final class ImageCacheManager {
         do {
             // filemanager에 로드
             try imageData.write(to: imagePath)
-            Configs.printDebugMessage("filemanager에 업데이트")
         } catch {
             Configs.printDebugMessage("Failed to save image to cache: \(error)")
         }
@@ -71,7 +70,6 @@ final class ImageCacheManager {
     
     // NSCache로부터 로드
     func loadFromNSCacheImage(imageURL: String) -> UIImage? {
-        Configs.printDebugMessage("NSCache에서 불러오기")
         return cache.object(forKey: imageURL as NSString)
     }
     
@@ -85,7 +83,6 @@ final class ImageCacheManager {
         guard FileManager.default.fileExists(atPath: imagePath.path) else { return nil }
         
         do {
-            Configs.printDebugMessage("filemanager에서 불러오기")
             // 사진 찾아와서 UIImage로 return
             let imageData = try Data(contentsOf: imagePath)
             return UIImage(data: imageData)
@@ -109,7 +106,6 @@ final class ImageCacheManager {
                 if let data = try? Data(contentsOf: URL(string: imageURL)!) {
                     // url로 부터 이미지 받아오기
                     guard let loadImageFromFB = UIImage(data: data) else { return nil }
-                    Configs.printDebugMessage("파베에서 받아와서 ~")
                     
                     // filemanager 저장
                     updateToFileManager(name: imageURL, image: loadImageFromFB)
@@ -120,7 +116,6 @@ final class ImageCacheManager {
                 }
             }
         }
-        Configs.printDebugMessage("파베에도 없음")
         return nil
     }
 }
