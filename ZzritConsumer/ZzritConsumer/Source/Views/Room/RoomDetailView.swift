@@ -145,7 +145,7 @@ struct RoomDetailView: View {
             }
             .navigationDestination(isPresented: $isShowingContactInputView, destination: {
                 if let roomid = room.id {
-                    ContactInputView(selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "")
+                    ContactInputView(selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "", contactThroughRoomView: true)
                 }
             })
             .onAppear {
@@ -263,7 +263,12 @@ struct RoomDetailView: View {
                 }
             } message: {
                 Text("해당 모임을 신고하시겠습니까?")
-            }
+            } 
+            .navigationDestination(isPresented: $isShowingContactInputView, destination: {
+                if let roomid = room.id {
+                    ContactInputView(selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "", contactThroughRoomView: true)
+                }
+            })
             .onAppear {
                 modifyRoomStatus()
 
