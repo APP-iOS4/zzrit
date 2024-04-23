@@ -34,13 +34,14 @@ public final class RoomService {
      # Error
      - FirebaseErrorType.failCreateRoom
      */
-    public func createRoom(_ room: RoomModel) async throws {
+    public func createRoom(_ room: RoomModel) async throws -> String {
         do {
             // TODO: 빈칸 있으면 에러.(소비자앱과 상의 필.)
             let result = try fbConstants.roomCollection.addDocument(from: room)
             try await joinRoom(result.documentID)
             //쿼리를 아끼기 위한 append
             tempRooms.append(room)
+            return result.documentID
             // TODO: 모임 참여 await
         } catch {
             throw FirebaseErrorType.failCreateRoom
