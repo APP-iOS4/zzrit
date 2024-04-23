@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DateType: String, Equatable {
+enum DateType: String, Equatable, CaseIterable {
     case today = "오늘"
     case tomorrow = "내일"
     case dayAfterTomorrow = "내일 모레"
