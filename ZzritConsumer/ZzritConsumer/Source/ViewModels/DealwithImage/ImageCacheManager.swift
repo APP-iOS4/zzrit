@@ -14,8 +14,7 @@ final class ImageCacheManager {
         // NSCache 저장 용량 지정
         // 이미지 개수 제한으로 200장
         self.cache.countLimit = 50
-        Configs.printDebugMessage("NSCache init")
-        // 이미지 용량 제한으로  약 200장
+        // 이미지 용량 제한으로  약 250장
         //        self.cache.totalCostLimit = 1024 * 1024 * 250
         
         // filemanager 저장 위치 지정
@@ -47,7 +46,6 @@ final class ImageCacheManager {
         guard let urlObject = URL(string: name) else { return }
         let encodedImageName = urlObject.lastPathComponent
         
-        Configs.printDebugMessage(encodedImageName)
         // 넣을 path 지정
         let imagePath = cacheDirectory.appendingPathComponent(encodedImageName)
         guard let imageData = image!.pngData() else { return }
