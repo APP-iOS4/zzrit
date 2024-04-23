@@ -104,12 +104,6 @@ struct ThirdRoomCreateView: View {
                 VM.saveLimitPeople(limitPeople: limitPeople)
                 
                 Task {
-                    let result = try await VM.createRoom(userModel: userService.loginedUserInfo())
-                    if result {
-                        Configs.printDebugMessage("모임 추가 성공!")
-                        // TODO: roomID 찾아서 입장 메시지 삽입해주세요.
-//                        guard let username = try await userService.loginedUserInfo()?.userName else { return }
-//                        try chattingService.sendMessage(message: "\(username)님께서 입장하셨습니다.")
                     let roomID = try await VM.createRoom(userModel: userService.loginedUserInfo())
                     if let roomID = roomID {
                         // 방장 입장 메시지

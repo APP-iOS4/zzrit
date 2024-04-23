@@ -61,21 +61,10 @@ struct ChatListView: View {
                         
                         checkActivation = true
                     } catch {
-                        print("에러 \(error)")
+                        Configs.printDebugMessage("에러 \(error)")
                     }
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
-        }
-        .onAppear {
-            Task {
-                do {
-                    try await isLogined()
-                    try await fetchRoom()
-                    
-                    Configs.printDebugMessage("rooms: \(rooms)")
-                } catch {
-                    Configs.printDebugMessage("에러 \(error)")
             .onChange(of: checkActivation) {
                 deactivateRooms()
             }
@@ -117,7 +106,7 @@ struct ChatListView: View {
                         
                         checkActivation = true
                     } catch {
-                        print("에러 \(error)")
+                        Configs.printDebugMessage("에러 \(error)")
                     }
                 }
             }

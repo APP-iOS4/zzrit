@@ -60,7 +60,6 @@ struct RoomDetailView: View {
         
         if #available(iOS 17.0, *) {
             ZStack(alignment: .bottom) {
-                let _ = Configs.printDebugMessage("\(confirmParticipation)")
                 ScrollView {
                     LazyVStack(alignment: .leading) {
                         // 상단 타이틀 Stack
@@ -303,15 +302,11 @@ struct RoomDetailView: View {
         }
     }
     
-    func modifyRoomStatus() 
-        Configs.printDebugMessage("\(confirmDate)")
+    func modifyRoomStatus() {
         if isDeactivation {
             if let roomID = room.id {
                 roomService.changeStatus(roomID: roomID, status: .deactivation)
             }
-            Configs.printDebugMessage("상태: 비활성화")
-        } else {
-            Configs.printDebugMessage("상태: 아직 활성화")
         }
     }
 }
