@@ -36,11 +36,9 @@ final class ImageCacheManager {
     // MARK: 이미지 저장하기
     
     // NSCache에 업데이트
-    // TODO: updateToNSCache로 변경
-    func updateToCache(name: String, image: UIImage?) {
+    private func updateToNSCache(name: String, image: UIImage?) {
         guard let image = image else { return }
         cache.setObject(image, forKey: name as NSString)
-        Configs.printDebugMessage("NSCache에 업데이트")
     }
     
     // filemanager에 업데이트
@@ -60,21 +58,20 @@ final class ImageCacheManager {
     }
     
     // 사용자가 처음 파베로 올릴때
-    // TODO: 바깥 세상의 updateToNSCache는 모두 updateImageFirst로 변경한다.
     func updateImageFirst(name: String, image: UIImage?) {
-        updateToCache(name: name, image: image)
+        updateToNSCache(name: name, image: image)
         updateToFileManager(name: name, image: image)
     }
     
     // MARK: 이미지 로드 받아오기
     
     // NSCache로부터 로드
-    func loadFromNSCacheImage(imageURL: String) -> UIImage? {
+    private func loadFromNSCacheImage(imageURL: String) -> UIImage? {
         return cache.object(forKey: imageURL as NSString)
     }
     
     // filemanager로부터 로드
-    func loadFromFilemanagerImage(imageURL: String) -> UIImage? {
+    private func loadFromFilemanagerImage(imageURL: String) -> UIImage? {
         // / 있으면 안되서 주소 변경
         let encodedImageName = imageURL.replacingOccurrences(of: "/", with: "_")
         
@@ -113,7 +110,7 @@ final class ImageCacheManager {
                         updateToFileManager(name: imageURL, image: loadImageFromFB)
                         
                         // NSCache 저장
-                        updateToCache(name: imageURL, image: loadImageFromFB)
+                        updateToNSCache(name: imageURL, image: loadImageFromFB)
                         return loadImageFromFB
                     }
                 }

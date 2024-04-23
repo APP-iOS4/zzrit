@@ -155,7 +155,7 @@ struct SetProfileView: View {
                         try userService.setUserInfo(uid: registeredUID, info: userInfo)
                         
                         // 이미지 캐시 저장
-                        ImageCacheManager.shared.updateToCache(name: downloadURL, image: selectedImage)
+                        ImageCacheManager.shared.updateImageFirst(name: downloadURL, image: selectedImage)
                     } catch {
                         Configs.printDebugMessage("에러: \(error)")
                     }

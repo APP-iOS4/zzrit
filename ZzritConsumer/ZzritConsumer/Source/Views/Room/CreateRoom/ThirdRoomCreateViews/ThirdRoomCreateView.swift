@@ -106,6 +106,7 @@ struct ThirdRoomCreateView: View {
                         guard let username = try await userService.loginedUserInfo()?.userName else { return }
                         try ChattingService(roomID: roomID).sendMessage(message: "\(username)님께서 입장하셨습니다.")
                     }
+                    // FIXME: 모임개설 페이지가 안없어져용.
                 }
             }
         }
