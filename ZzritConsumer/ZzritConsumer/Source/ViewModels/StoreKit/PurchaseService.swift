@@ -8,6 +8,8 @@
 import Foundation
 import StoreKit
 
+import ZzritKit
+
 enum ProductType {
     case monthly
     case yearly
@@ -50,12 +52,12 @@ class PurchaseStore: ObservableObject {
         Task {
             try await loadProducts()
             await updatePurchasedProducts()
-            print("All Products ------\n\(products)")
-            print("Localized Price ------\n")
+            Configs.printDebugMessage("All Products ------\n\(products)")
+            Configs.printDebugMessage("Localized Price ------\n")
             products.forEach { product in
-                print(product.displayPrice)
+                Configs.printDebugMessage(product.displayPrice)
             }
-            print("Purchased Products -----\n\(purchasedProductIDs)")
+            Configs.printDebugMessage("Purchased Products -----\n\(purchasedProductIDs)")
         }
     }
     
@@ -69,7 +71,7 @@ class PurchaseStore: ObservableObject {
     func loadPromotionalOffer() {
         products.forEach { product in
             if let discount = product.subscription?.promotionalOffers.first {
-                print("discount: \(discount)")
+                Configs.printDebugMessage("discount: \(discount)")
             }
         }
     }
@@ -89,11 +91,11 @@ class PurchaseStore: ObservableObject {
         case .pending:
             break
         case .userCancelled:
-            print("유저가 결제를 취소함")
+            Configs.printDebugMessage("유저가 결제를 취소함")
             completion(false)
             break
         @unknown default:
-            print("알 수 없는 오류")
+            Configs.printDebugMessage("알 수 없는 오류")
             completion(false)
             break
         }
@@ -138,7 +140,7 @@ class PurchaseStore: ObservableObject {
                 completion(true)
             } catch {
                 completion(false)
-                print("Failed to restore purchases: \(error)")
+                Configs.printDebugMessage("Failed to restore purchases: \(error)")
             }
         }
     }

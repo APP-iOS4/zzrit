@@ -71,9 +71,9 @@ struct ChatListView: View {
                     try await isLogined()
                     try await fetchRoom()
                     
-                    print("rooms: \(rooms)")
+                    Configs.printDebugMessage("rooms: \(rooms)")
                 } catch {
-                    print("에러 \(error)")
+                    Configs.printDebugMessage("에러 \(error)")
                 }
             }
         }
@@ -93,10 +93,10 @@ struct ChatListView: View {
                     }
                 }
             } else {
-                print("방을 참여해주세요")
+                Configs.printDebugMessage("방을 참여해주세요")
             }
         } else {
-            print("로그인을 해주세요.")
+            Configs.printDebugMessage("로그인을 해주세요.")
         }
     }
 }

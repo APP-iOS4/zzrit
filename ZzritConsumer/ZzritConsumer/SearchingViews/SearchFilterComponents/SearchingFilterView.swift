@@ -74,7 +74,7 @@ struct SearchingFilterView: View {
                     
                     Button {
                         // TODO: 위치 검색 뷰 네비게이션 구현 필요
-                        print("위치 검색 뷰 이동 버튼 눌림")
+                        Configs.printDebugMessage("위치 검색 뷰 이동 버튼 눌림")
                     } label: {
                         Label("위치를 설정해주세요", systemImage: "location")
                             .labelStyle(/*@START_MENU_TOKEN@*/DefaultLabelStyle()/*@END_MENU_TOKEN@*/)
@@ -91,7 +91,7 @@ struct SearchingFilterView: View {
                     
                     Button {
                         // TODO: 위치 검색 뷰 네비게이션 구현 필요
-                        print("위치 검색 뷰 이동 버튼 눌림")
+                        Configs.printDebugMessage("위치 검색 뷰 이동 버튼 눌림")
                     } label: {
                         Label("위치를 설정해주세요", systemImage: "location")
                             .labelStyle(/*@START_MENU_TOKEN@*/DefaultLabelStyle()/*@END_MENU_TOKEN@*/)

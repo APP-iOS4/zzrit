@@ -57,7 +57,7 @@ struct KakaoSearchResultView: View {
                     results.removeAll()
                 }
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }

@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 /// Chatting 모델
 public struct ChattingModel: Codable, Identifiable {
-    @DocumentID public var id: String? = UUID().uuidString
+    @DocumentID public var id: String?
     /// 채팅 보낸 유저ID
     public var userID: String
     /// 채팅 보낸 시각(매번 보낸 시각자체 -> 따로 지정X)

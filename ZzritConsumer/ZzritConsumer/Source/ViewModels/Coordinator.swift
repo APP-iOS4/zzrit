@@ -101,43 +101,43 @@ class Coordinator: ObservableObject {
         switch tabSelection {
         case .main:
             if mainPath.isEmpty {
-                print("mainPath: []")
+                Configs.printDebugMessage("mainPath: []")
             } else {
-                print("mainPath: [")
+                Configs.printDebugMessage("mainPath: [")
                 for page in mainPath {
-                    print("\t\(page.description),")
+                    Configs.printDebugMessage("\t\(page.description),")
                 }
-                print("]")
+                Configs.printDebugMessage("]")
             }
         case .search:
             if searchPath.isEmpty {
-                print("searchPath: []")
+                Configs.printDebugMessage("searchPath: []")
             } else {
-                print("searchPath: [")
+                Configs.printDebugMessage("searchPath: [")
                 for page in searchPath {
-                    print("\t\(page.description),")
+                    Configs.printDebugMessage("\t\(page.description),")
                 }
-                print("]")
+                Configs.printDebugMessage("]")
             }
         case .chatting:
             if chattingPath.isEmpty {
-                print("chattingPath: []")
+                Configs.printDebugMessage("chattingPath: []")
             } else {
-                print("chattingPath: [")
+                Configs.printDebugMessage("chattingPath: [")
                 for page in chattingPath {
-                    print("\t\(page.description),")
+                    Configs.printDebugMessage("\t\(page.description),")
                 }
-                print("]")
+                Configs.printDebugMessage("]")
             }
         case .moreInfo:
             if moreInfoPath.isEmpty {
-                print("moreInfoPath: []")
+                Configs.printDebugMessage("moreInfoPath: []")
             } else {
-                print("moreInfoPath: [")
+                Configs.printDebugMessage("moreInfoPath: [")
                 for page in moreInfoPath {
-                    print("\t\(page.description),")
+                    Configs.printDebugMessage("\t\(page.description),")
                 }
-                print("]")
+                Configs.printDebugMessage("]")
             }
         }
     }

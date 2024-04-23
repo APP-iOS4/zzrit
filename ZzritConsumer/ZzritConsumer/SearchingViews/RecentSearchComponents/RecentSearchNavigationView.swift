@@ -24,7 +24,7 @@ struct RecentSearchNavigationView: View {
                     
                     // 최근 검색어 전체삭제 버튼
                     Button {
-                        print("최근 검색어 전체삭제")
+                        Configs.printDebugMessage("최근 검색어 전체삭제")
                     } label: {
                         Text("전체삭제")
                             .foregroundStyle(Color.staticGray2)

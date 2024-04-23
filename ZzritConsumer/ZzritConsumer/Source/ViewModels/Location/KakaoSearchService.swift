@@ -23,7 +23,7 @@ class KakaoSearchService {
     
     /// 좌표를 주소로 변환합니다.
     func convertAddress(from coordinate: CLLocationCoordinate2D) async throws -> [ConvertAddressDocument] {
-        print("\(#function)")
+        Configs.printDebugMessage("\(#function)")
         let apiURL = "https://dapi.kakao.com/v2/local/geo/coord2address"
         
         // 입력받은 좌표를 토대로 API URL을 생성하고 올바르지 않을경우, 에러 throw

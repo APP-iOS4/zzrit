@@ -144,7 +144,7 @@ struct ParticipantNoticeView: View {
                 try chattingService.sendMessage(message: "\(username)님께서 입장하셨습니다.")
                 isPressedChat.toggle()
             } catch {
-                print("참여하기 에러: \(error)")
+                Configs.printDebugMessage("참여하기 에러: \(error)")
             }
         }
     }

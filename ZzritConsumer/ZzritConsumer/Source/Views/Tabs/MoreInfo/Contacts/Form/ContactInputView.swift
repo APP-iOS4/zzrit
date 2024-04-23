@@ -168,7 +168,7 @@ struct ContactInputView: View {
                     }
                 }
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }
@@ -188,7 +188,7 @@ struct ContactInputView: View {
                     }
                 }
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }
@@ -202,7 +202,7 @@ struct ContactInputView: View {
                     isPressContactButton.toggle()
                 }
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }

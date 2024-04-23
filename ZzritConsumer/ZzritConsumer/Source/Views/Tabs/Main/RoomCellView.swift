@@ -86,7 +86,7 @@ struct RoomCellView: View {
                         participantsCount = try await roomService.joinedUsers(roomID: roomId).count
                     }
                 } catch {
-                    print("error: \(error)")
+                    Configs.printDebugMessage("error: \(error)")
                 }
             }
         }

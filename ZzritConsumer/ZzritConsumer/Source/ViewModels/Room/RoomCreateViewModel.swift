@@ -74,13 +74,13 @@ final class RoomCreateViewModel {
         if let newRoom {
             do {
                 try await roomService.createRoom(newRoom)
-                print("모임 생성을 성공했습니다.")
+                Configs.printDebugMessage("모임 생성을 성공했습니다.")
                 return true
             } catch {
-                print("모임 생성 중 에러가 발생했습니다!")
+                Configs.printDebugMessage("모임 생성 중 에러가 발생했습니다!")
             }
         } else {
-            print("모임이 생성되지 않았습니다!")
+            Configs.printDebugMessage("모임이 생성되지 않았습니다!")
             return false
         }
         return false
@@ -92,46 +92,46 @@ final class RoomCreateViewModel {
     private func makeNewRoom() async -> RoomModel? {
         // 유저 UID 확인
         guard let leaderID else {
-            print("유저 UID가 저장되지 않음.")
+            Configs.printDebugMessage("유저 UID가 저장되지 않음.")
             return nil
         }
         // 카테고리 확인
         guard let category else {
-            print("모임 카테고리가 선택되지 않았거나 저장되지 않음.")
+            Configs.printDebugMessage("모임 카테고리가 선택되지 않았거나 저장되지 않음.")
             return nil
         }
         // 모임 제목 확인
         guard let title else {
-            print("모임 제목이 입력되지 않았거나 저장되지 않음.")
+            Configs.printDebugMessage("모임 제목이 입력되지 않았거나 저장되지 않음.")
             return nil
         }
         guard !title.isEmpty else {
-            print("모임 제목이 입력되지 않았거나 저장되지 않음.")
+            Configs.printDebugMessage("모임 제목이 입력되지 않았거나 저장되지 않음.")
             return nil
         }
         // 모임 소개 확인
         guard let roomIntroduction else {
-            print("모임 소개가 입력되지 않았거나 저장되지 않음.")
+            Configs.printDebugMessage("모임 소개가 입력되지 않았거나 저장되지 않음.")
             return nil
         }
         guard !roomIntroduction.isEmpty else {
-            print("모임 소개가 입력되지 않았거나 저장되지 않음.")
+            Configs.printDebugMessage("모임 소개가 입력되지 않았거나 저장되지 않음.")
             return nil
         }
         // 모임 이미지 확인 및 파이어베이스에 저장
         let coverImage = await saveCoverImage(coverUIImage: selectedImage)
         // 모임 시간 확인
         guard let dateTime else {
-            print("모임 시간이 입력되지 않았거나 저장되지 않음.")
+            Configs.printDebugMessage("모임 시간이 입력되지 않았거나 저장되지 않음.")
             return nil
         }
         guard Date() <= dateTime else {
-            print("모임 시간이 짧다")
+            Configs.printDebugMessage("모임 시간이 짧다")
             return nil
         }
         // 모임 참여자수 제한 확인
         guard let limitPeople else {
-            print("모임 참여자수 제한이 입력되지 않았거나 저장되지 않음.")
+            Configs.printDebugMessage("모임 참여자수 제한이 입력되지 않았거나 저장되지 않음.")
             return nil
         }
         // 모임 성별 제한 확인 - 안해도 됨
@@ -139,12 +139,12 @@ final class RoomCreateViewModel {
         
         // 모임 진행 방식 확인
         guard let isOnline else {
-            print("모임 진행 방식이 입력되지 않았거나 저장되지 않음.")
+            Configs.printDebugMessage("모임 진행 방식이 입력되지 않았거나 저장되지 않음.")
             return nil
         }
         if isOnline == true {
             guard let platform else {
-                print("모임 진행 방식은 입력되었지만, 플랫폼은 저장되지 않음.")
+                Configs.printDebugMessage("모임 진행 방식은 입력되었지만, 플랫폼은 저장되지 않음.")
                 return nil
             }
             return RoomModel(
@@ -161,7 +161,7 @@ final class RoomCreateViewModel {
             )
         } else {
             guard let placeLatitude, let placeLongitude else {
-                print("모임 진행 방식은 입력되었지만, 위치는 저장되지 않음.")
+                Configs.printDebugMessage("모임 진행 방식은 입력되었지만, 위치는 저장되지 않음.")
                 return nil
             }
             return RoomModel(
@@ -186,9 +186,9 @@ final class RoomCreateViewModel {
     func saveSelectedCategory(selection: CategoryType?) {
         if let selection {
             self.category = selection
-            print("선택한 카테고리가 저장됨.")
+            Configs.printDebugMessage("선택한 카테고리가 저장됨.")
         } else {
-            print("선택한 카테고리가 없어 에러가 발생함!")
+            Configs.printDebugMessage("선택한 카테고리가 없어 에러가 발생함!")
         }
     }
     
@@ -196,11 +196,11 @@ final class RoomCreateViewModel {
     func saveTitle(title: String) {
         // 저장할 새 모임 제목이 비어있는지 체크해서 비어있다면 리턴, 아니라면 진행
         guard !title.isEmpty else {
-            print("새 모임 제목이 없어 에러가 발생함!")
+            Configs.printDebugMessage("새 모임 제목이 없어 에러가 발생함!")
             return
         }
         self.title = title
-        print("새 모임 제목이 저장됨.")
+        Configs.printDebugMessage("새 모임 제목이 저장됨.")
     }
     
     /// 새 모임의 커버 UIImage를 이 인스턴스에 저장하는 함수
@@ -211,19 +211,19 @@ final class RoomCreateViewModel {
     /// 새 모임의 커버 이미지를 저장하는 함수
     func saveCoverImage(coverUIImage: UIImage?) async -> String {
         guard let coverUIImage = coverUIImage else {
-            print("coverUIImage 정보가 없음")
+            Configs.printDebugMessage("coverUIImage 정보가 없음")
             return ""
         }
         guard let imageData = coverUIImage.pngData() else {
-            print("coverImage의 png 정보가 없음")
+            Configs.printDebugMessage("coverImage의 png 정보가 없음")
             return ""
         }
         do {
             let coverImage: String = try await storageService.imageUpload(topDir: .roomCover, dirs: ["\(UUID().uuidString)"], image: imageData)
-            print("파이어베이스에 새 모임 커버 이미지 저장 성공!")
+            Configs.printDebugMessage("파이어베이스에 새 모임 커버 이미지 저장 성공!")
             return coverImage
         } catch {
-            print("에러: \(error)")
+            Configs.printDebugMessage("에러: \(error)")
         }
         return ""
     }
@@ -232,18 +232,18 @@ final class RoomCreateViewModel {
     func saveIntroduction(roomIntroduction: String) {
         // 저장할 새 모임 제목이 비어있는지 체크해서 비어있다면 리턴, 아니라면 진행
         guard !roomIntroduction.isEmpty else {
-            print("새 모임의 소개글이 없어 에러가 발생함!")
+            Configs.printDebugMessage("새 모임의 소개글이 없어 에러가 발생함!")
             return
         }
         self.roomIntroduction = roomIntroduction
-        print("새 모임의 소개글이 저장됨.")
+        Configs.printDebugMessage("새 모임의 소개글이 저장됨.")
     }
     
     /// 새 모임 진행방식을 저장하는 함수
     func saveRoomProcess(processSelection: RoomProcessType?, placeLatitude: Double?, placeLongitude: Double?, platform: PlatformType?) {
         // 저장할 새 모임의 진행방식을 체크해서 비어있다면 리턴, 아니라면 진행
         guard let processSelection else {
-            print("선택한 모임 진행방식이 없어 에러가 발생함!")
+            Configs.printDebugMessage("선택한 모임 진행방식이 없어 에러가 발생함!")
             return
         }
         switch processSelection {
@@ -252,17 +252,17 @@ final class RoomCreateViewModel {
                 self.isOnline = processSelection.value
                 self.placeLatitude = placeLatitude
                 self.placeLongitude = placeLongitude
-                print("선택한 모임 진행 방식은 오프라인이며, 위치 정보가 저장되었습니다.")
+                Configs.printDebugMessage("선택한 모임 진행 방식은 오프라인이며, 위치 정보가 저장되었습니다.")
             } else {
-                print("오프라인 방식이 선택되었지만, 위치 정보가 없어 에러가 발생함!")
+                Configs.printDebugMessage("오프라인 방식이 선택되었지만, 위치 정보가 없어 에러가 발생함!")
             }
         case .online:
             if let platform {
                 self.isOnline = processSelection.value
                 self.platform = platform
-                print("선택한 모임 진행 방식은 온라인이며, 플랫폼 정보가 저장되었습니다.")
+                Configs.printDebugMessage("선택한 모임 진행 방식은 온라인이며, 플랫폼 정보가 저장되었습니다.")
             } else {
-                print("온라인 방식이 선택되었지만, 플랫폼 정보가 없어 에러가 발생함!")
+                Configs.printDebugMessage("온라인 방식이 선택되었지만, 플랫폼 정보가 없어 에러가 발생함!")
             }
         }
     }
@@ -270,7 +270,7 @@ final class RoomCreateViewModel {
     /// 새 모임 시간 저장
     func saveDateTime(dateSelection: DateType?, timeSelection: Date) {
         guard let dateTime = dateSelection?.date else {
-            print("선택한 날짜가 없어 에러가 발생함!")
+            Configs.printDebugMessage("선택한 날짜가 없어 에러가 발생함!")
             return
         }
         
@@ -283,23 +283,23 @@ final class RoomCreateViewModel {
         )
         
         self.dateTime = Calendar.current.date(from: dateComponents)
-        print("선택한 모임 진행 방식은 온라인이며, 플랫폼 정보가 저장되었습니다.")
+        Configs.printDebugMessage("선택한 모임 진행 방식은 온라인이며, 플랫폼 정보가 저장되었습니다.")
     }
     
     /// 새 모임의 제한 참여자 수 저장
     func saveLimitPeople(limitPeople: Int) {
         guard 2 <= limitPeople && limitPeople <= 10 else {
-            print("선택한 모임 제한 참여자 수에 에러가 발생함!")
+            Configs.printDebugMessage("선택한 모임 제한 참여자 수에 에러가 발생함!")
             return
         }
         self.limitPeople = limitPeople
-        print("모임 참여자 제한 수 저장.")
+        Configs.printDebugMessage("모임 참여자 제한 수 저장.")
     }
     
     /// 새 모임의 성별 제한 저장
     func saveGenderLimitation(genderLimitation: GenderType?) {
         self.genderLimitation = genderLimitation
-        print("모임 성별 제한 저장.")
+        Configs.printDebugMessage("모임 성별 제한 저장.")
     }
     
     /// 새 모임의 정전기 지수 제한 저장
@@ -308,7 +308,7 @@ final class RoomCreateViewModel {
             return
         }
         guard 0 <= scoreLimitation && scoreLimitation <= 100 else {
-            print("선택한 모임 제한 참여자 수에 에러가 발생함!")
+            Configs.printDebugMessage("선택한 모임 제한 참여자 수에 에러가 발생함!")
             return
         }
         self.scoreLimitation = Int(scoreLimitation)
@@ -317,10 +317,10 @@ final class RoomCreateViewModel {
     /// 새 모임 리더 아이디 저장
     func saveLeaderID(userModel: UserModel?) {
         guard let userModel else {
-            print("현재 로그인된 유저 정보가 없어 에러가 발생함!")
+            Configs.printDebugMessage("현재 로그인된 유저 정보가 없어 에러가 발생함!")
             return
         }
         self.leaderID = userModel.id
-        print("로그인된 유저 UID 저장.")
+        Configs.printDebugMessage("로그인된 유저 UID 저장.")
     }
 }

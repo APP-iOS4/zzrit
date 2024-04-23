@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 /// 문의사항 모델
 public struct ContactModel: Codable, Identifiable {
-    @DocumentID public var id: String? = UUID().uuidString
+    @DocumentID public var id: String?
     /// 문의사항 타입
     public var category: ContactCategory
     /// 문의사항 제목

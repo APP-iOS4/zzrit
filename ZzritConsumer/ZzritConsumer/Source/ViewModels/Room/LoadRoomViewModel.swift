@@ -33,13 +33,13 @@ class LoadRoomViewModel: ObservableObject {
                     if !newRooms.isEmpty {
                         rooms += newRooms
                         fetchCount += 1
-                        print("\(fetchCount)회 불러오기")
+                        Configs.printDebugMessage("\(fetchCount)회 불러오기")
                     }
                 }
                 
                 isInit = false
             } catch {
-                print("\(error)")
+                Configs.printDebugMessage("\(error)")
             }
         }
     }
@@ -73,7 +73,7 @@ class LoadRoomViewModel: ObservableObject {
     func getFilter(status: ActiveType = .activation, category: CategoryType? = nil, isOnline: Bool? = nil) {
         if prevIsOnline != isOnline {
             fetchCount = 0
-            print("카운터 초기화")
+            Configs.printDebugMessage("카운터 초기화")
         }
         
         // FIXME: 리펙토링 필요!

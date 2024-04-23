@@ -58,6 +58,6 @@ struct GeneralButton: View {
 
 #Preview {
     GeneralButton("타이틀") {
-        print("눌렸다")
+        Configs.printDebugMessage("눌렸다")
     }
 }

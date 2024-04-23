@@ -60,7 +60,7 @@ struct RoomDetailView: View {
         
         if #available(iOS 17.0, *) {
             ZStack(alignment: .bottom) {
-                let _ = print("\(confirmParticipation)")
+                let _ = Configs.printDebugMessage("\(confirmParticipation)")
                 ScrollView {
                     LazyVStack(alignment: .leading) {
                         // 상단 타이틀 Stack
@@ -160,7 +160,7 @@ struct RoomDetailView: View {
                         }
                         participantsCount = participants.count
                     } catch {
-                        print("\(error)")
+                        Configs.printDebugMessage("\(error)")
                     }
                 }
             }
@@ -172,7 +172,7 @@ struct RoomDetailView: View {
                                 isJoined = try await roomService.isJoined(roomID: roomId, userUID: userModel)
                             }
                         } catch {
-                            print("참여한 방인지 여부의 error: \(error)")
+                            Configs.printDebugMessage("참여한 방인지 여부의 error: \(error)")
                         }
                     }
                 }
@@ -277,7 +277,7 @@ struct RoomDetailView: View {
                         }
                         participantsCount = participants.count
                     } catch {
-                        print("\(error)")
+                        Configs.printDebugMessage("\(error)")
                     }
                 }
             }
@@ -289,7 +289,7 @@ struct RoomDetailView: View {
                                 isJoined = try await roomService.isJoined(roomID: roomId, userUID: userModel)
                             }
                         } catch {
-                            print("참여한 방인지 여부의 error: \(error)")
+                            Configs.printDebugMessage("참여한 방인지 여부의 error: \(error)")
                         }
                     }
                 }
@@ -304,14 +304,14 @@ struct RoomDetailView: View {
     }
     
     func modifyRoomStatus() {
-        print("\(confirmDate)")
+        Configs.printDebugMessage("\(confirmDate)")
         if isDeactivation {
             if let roomID = room.id {
                 roomService.changeStatus(roomID: roomID, status: .deactivation)
             }
-            print("상태: 비활성화")
+            Configs.printDebugMessage("상태: 비활성화")
         } else {
-            print("상태: 아직 활성화")
+            Configs.printDebugMessage("상태: 아직 활성화")
         }
     }
 }
