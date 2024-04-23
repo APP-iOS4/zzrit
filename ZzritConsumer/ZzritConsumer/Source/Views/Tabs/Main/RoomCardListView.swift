@@ -10,7 +10,7 @@ import SwiftUI
 import ZzritKit
 
 struct RoomCardListView: View {
-    @StateObject private var loadRoomViewModel: LoadRoomViewModel = LoadRoomViewModel()
+    @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     // 현재 선택된 카드 인덱스
     @State private var selectedIndex: Int = 0
     //
@@ -41,11 +41,6 @@ struct RoomCardListView: View {
             }
             .scrollTargetBehavior(.viewAligned)
             .padding(.bottom, 20)
-            .onAppear {
-                Task {
-                    loadRoomViewModel.consumerLoadRoom()
-                }
-            }
             
             // 몇 번째 인덱스인지 알려주는 인디케이터
 //            HStack(spacing: 3) {
@@ -79,11 +74,6 @@ struct RoomCardListView: View {
                 .frame(maxWidth: .infinity, minHeight: 200)
             }
             .padding(.bottom, 10)
-            .onAppear {
-                Task {
-                    loadRoomViewModel.consumerLoadRoom()
-                }
-            }
             
             // 몇 번째 인덱스인지 알려주는 인디케이터
             HStack(spacing: 3) {
@@ -101,4 +91,5 @@ struct RoomCardListView: View {
 
 #Preview {
     RoomCardListView()
+        .environmentObject(LoadRoomViewModel())
 }

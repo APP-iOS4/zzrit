@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct MainExistView: View {
-    @StateObject private var loadRoomViewModel: LoadRoomViewModel = LoadRoomViewModel()
+    @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     @Binding var isOnline: Bool
     // @State private var fetchCount: Int = 0
     
     var body: some View {
         if #available(iOS 17.0, *) {
+            //VStack(alignment: .leading) {
             LazyVStack(alignment: .leading) {
                 let _ = Configs.printDebugMessage("\(isOnline)")
                 // 모임 리스트 타이틀
@@ -47,7 +48,8 @@ struct MainExistView: View {
                 loadRoomViewModel.getFilter(isOnline: isOnline)
             }
         } else {
-            LazyVStack(alignment: .leading) {
+             //VStack(alignment: .leading) {
+             LazyVStack(alignment: .leading) {
                 let _ = Configs.printDebugMessage("\(isOnline)")
                 // 모임 리스트 타이틀
                 Text("최근 생성된 모임")
@@ -86,4 +88,5 @@ struct MainExistView: View {
 
 #Preview {
     MainExistView(isOnline: .constant(false))
+        .environmentObject(LoadRoomViewModel())
 }
