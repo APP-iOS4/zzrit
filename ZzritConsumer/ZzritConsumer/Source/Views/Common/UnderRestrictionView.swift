@@ -18,7 +18,7 @@ struct UnderRestrictionView: View {
     
     private let dateService = DateService.shared
     
-    private let columns: [GridItem] = [GridItem(.flexible(minimum: 85, maximum: 85)), GridItem(.flexible())]
+    private let columns: [GridItem] = [GridItem(.flexible(minimum: 120, maximum: 120)), GridItem(.flexible())]
     
     var body: some View {
         NavigationStack {
@@ -31,7 +31,7 @@ struct UnderRestrictionView: View {
                 
                 
                 ScrollView {
-                    LazyVStack(alignment: .leading) {
+                    LazyVStack(alignment: .leading, spacing: 20) {
                         ForEach(restrictionViewModel.currentRestriction) { ban in
                             LazyVGrid(columns: columns, alignment: .leading) {
                                 Text("제재 종류")
@@ -62,6 +62,13 @@ struct UnderRestrictionView: View {
                                 Text(ban.content)
                                     .foregroundStyle(Color.staticGray1)
                                     .padding(.bottom, 5)
+                                
+                                Text("정전기 지수 감소")
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(Color.pointColor)
+                                
+                                Text("\(restrictionViewModel.getPenalty(from: ban.date, to: ban.period))W")
+                                    .foregroundStyle(Color.staticGray1)
                             }
                             .padding(.horizontal, 13)
                             .padding(.bottom, 13)

@@ -31,6 +31,33 @@ class RestrictionViewModel: ObservableObject {
         }
     }
     
+    func getPenalty(from start: Date, to end: Date) -> Int {
+        let banPeriod = Calendar.current.dateComponents([.day], from: start, to: end).day ?? 0
+        
+        let penalty: Int = switch banPeriod {
+        case ...3:
+            -1
+        case 4...5:
+            -2
+        case 6...7:
+            -3
+        case 8...14:
+            -5
+        case 15...30:
+            -10
+        case 31...180:
+            -20
+        case 181...365:
+            -30
+        case 366...:
+            -100
+        default:
+            0
+        }
+        
+        return penalty
+    }
+    
     // 현재 제재중인지 여부
     var isUnderRestriction: Bool {
         if currentRestriction.isEmpty {
