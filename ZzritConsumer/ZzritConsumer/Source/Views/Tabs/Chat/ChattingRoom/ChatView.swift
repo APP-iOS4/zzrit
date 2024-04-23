@@ -637,7 +637,7 @@ struct ChatView: View {
                 // 파베 메시지로 올림
                 try chattingService.sendMessage(uid: uid, message: downloadURL, type: .image)
                 // 캐시에 올림
-                ImageCacheManager.shared.updateToCache(name: downloadURL, image: selectedImage)
+                ImageCacheManager.shared.updateImageFirst(name: downloadURL, image: selectedImage)
                 // 이미지 전송 끝냄
                 DispatchQueue.main.async {
                     isSending.toggle()

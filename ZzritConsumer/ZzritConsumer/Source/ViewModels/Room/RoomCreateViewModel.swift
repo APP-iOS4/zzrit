@@ -77,6 +77,7 @@ final class RoomCreateViewModel {
         if let newRoom {
             do {
                 let newRoomID = try await roomService.createRoom(newRoom)
+                Configs.printDebugMessage("모임 생성 완료")
                 return newRoomID
             } catch {
                 Configs.printDebugMessage("모임 생성 중 에러가 발생했습니다!")
@@ -214,20 +215,22 @@ final class RoomCreateViewModel {
     func saveCoverImage(coverUIImage: UIImage?) async -> String {
         guard let coverUIImage = coverUIImage else {
             Configs.printDebugMessage("coverUIImage 정보가 없음")
-            return ""
+            return "NONE"
         }
         guard let imageData = coverUIImage.pngData() else {
             Configs.printDebugMessage("coverImage의 png 정보가 없음")
-            return ""
+            return "NONE"
         }
         do {
             let coverImage: String = try await storageService.imageUpload(topDir: .roomCover, dirs: ["\(UUID().uuidString)"], image: imageData)
+            // 파베에 저장 하고 캐시에도 저장
+            ImageCacheManager.shared.updateImageFirst(name: coverImage, image: coverUIImage)
             Configs.printDebugMessage("파이어베이스에 새 모임 커버 이미지 저장 성공!")
             return coverImage
         } catch {
             Configs.printDebugMessage("에러: \(error)")
         }
-        return ""
+        return "NONE"
     }
     
     /// 새 모임의 소개글을 저장하는 함수

@@ -14,8 +14,7 @@ final class ImageCacheManager {
         // NSCache 저장 용량 지정
         // 이미지 개수 제한으로 200장
         self.cache.countLimit = 50
-        Configs.printDebugMessage("NSCache init")
-        // 이미지 용량 제한으로  약 200장
+        // 이미지 용량 제한으로  약 250장
         //        self.cache.totalCostLimit = 1024 * 1024 * 250
         
         // filemanager 저장 위치 지정
@@ -34,19 +33,19 @@ final class ImageCacheManager {
     
     
     // MARK: 이미지 저장하기
-
+    
     // NSCache에 업데이트
-    // TODO: updateToNSCache로 변경
-    func updateToCache(name: String, image: UIImage?) {
+    private func updateToNSCache(name: String, image: UIImage?) {
         guard let image = image else { return }
         cache.setObject(image, forKey: name as NSString)
-        Configs.printDebugMessage("NSCache에 업데이트")
     }
     
     // filemanager에 업데이트
     private func updateToFileManager(name: String, image: UIImage?) {
-        // / 있으면 안되서 주소 변경
-        let encodedImageName = name.replacingOccurrences(of: "/", with: "_")
+        // 주소 경로 중 마지막 부분만 잘라서 파일명으로 변경
+        guard let urlObject = URL(string: name) else { return }
+        let encodedImageName = urlObject.lastPathComponent
+        
         // 넣을 path 지정
         let imagePath = cacheDirectory.appendingPathComponent(encodedImageName)
         guard let imageData = image!.pngData() else { return }
@@ -60,23 +59,25 @@ final class ImageCacheManager {
     }
     
     // 사용자가 처음 파베로 올릴때
-    // TODO: 바깥 세상의 updateToNSCache는 모두 updateImageFirst로 변경한다.
     func updateImageFirst(name: String, image: UIImage?) {
-        updateToCache(name: name, image: image)
+        updateToNSCache(name: name, image: image)
         updateToFileManager(name: name, image: image)
     }
     
     // MARK: 이미지 로드 받아오기
     
     // NSCache로부터 로드
-    func loadFromNSCacheImage(imageURL: String) -> UIImage? {
+    private func loadFromNSCacheImage(imageURL: String) -> UIImage? {
         return cache.object(forKey: imageURL as NSString)
     }
     
     // filemanager로부터 로드
-    func loadFromFilemanagerImage(imageURL: String) -> UIImage? {
-        // / 있으면 안되서 주소 변경
-        let encodedImageName = imageURL.replacingOccurrences(of: "/", with: "_")
+    private func loadFromFilemanagerImage(imageURL: String) -> UIImage? {
+        // 주소 경로 중 마지막 부분만 잘라서 파일명으로 변경
+        guard let urlObject = URL(string: imageURL) else {
+            return nil
+        }
+        let encodedImageName = urlObject.lastPathComponent
         
         // 찾을 파일 이름을 갖고 경로 설정
         let imagePath = cacheDirectory.appendingPathComponent(encodedImageName)
@@ -100,23 +101,25 @@ final class ImageCacheManager {
         } else {
             // filemanager에서 찾기
             if let filemanagerImage = loadFromFilemanagerImage(imageURL: imageURL) {
+                // filemanager에 있었으니 찾은 파일 NSCache에 로드
+                updateToNSCache(name: imageURL, image: filemanagerImage)
                 return filemanagerImage
             } else {
                 // 파베로부터 다운받아오기
-                if let data = try? Data(contentsOf: URL(string: imageURL)!) {
-                    // url로 부터 이미지 받아오기
-                    guard let loadImageFromFB = UIImage(data: data) else { return nil }
-                    
-                    // filemanager 저장
-                    updateToFileManager(name: imageURL, image: loadImageFromFB)
-                    
-                    // NSCache 저장
-                    updateToCache(name: imageURL, image: loadImageFromFB)
-                    return loadImageFromFB
+                if let imageFBURL = URL(string: imageURL) {
+                    if let data = try? Data(contentsOf: imageFBURL) {
+                        // url로 부터 이미지 받아오기
+                        guard let loadImageFromFB = UIImage(data: data) else { return nil }
+                        
+                        // filemanager, NSCache 저장
+                        updateImageFirst(name: imageURL, image: loadImageFromFB)
+                        
+                        return loadImageFromFB
+                    }
                 }
             }
+            return nil
         }
-        return nil
     }
 }
 

@@ -12,7 +12,7 @@ import SwiftUI
 struct SecondRoomCreateView: View {
     
     // MARK: - 저장 프로퍼티
-
+    
     // 뷰모델
     let VM: RoomCreateViewModel
     
@@ -75,8 +75,12 @@ struct SecondRoomCreateView: View {
                         // VM에 새 모임의 소개글 저장
                         VM.saveIntroduction(roomIntroduction: roomIntroduction)
                         // VM에 새 모임의 이미지를 저장
-                        VM.saveUIImage(selectedUIImage: selectedImage)
-                        
+                        // 일단 이미지 크기 조절
+                        if let resizeImage = selectedImage?.resizeWithWidth(width: 840) {
+                            VM.saveUIImage(selectedUIImage: resizeImage)
+                        } else {
+                            VM.saveUIImage(selectedUIImage: nil)
+                        }
                         // 다음 화면으로 이동
                         isShowingNextView.toggle()
                     }
