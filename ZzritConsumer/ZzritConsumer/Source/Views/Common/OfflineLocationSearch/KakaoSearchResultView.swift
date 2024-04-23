@@ -50,7 +50,12 @@ struct KakaoSearchResultView: View {
     private func keywordSearch() {
         Task {
             do {
-                results = try await kakaoService.keywordSearch(keyword: keyword)
+                let tempResults = try await kakaoService.keywordSearch(keyword: keyword)
+                if keyword != "", !tempResults.isEmpty {
+                    results = tempResults
+                } else if keyword == "" {
+                    results.removeAll()
+                }
             } catch {
                 print("에러: \(error)")
             }
