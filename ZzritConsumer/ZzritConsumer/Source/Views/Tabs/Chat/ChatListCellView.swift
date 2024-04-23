@@ -17,6 +17,7 @@ struct ChatListCellView: View {
     
     @State private var participants: [JoinedUserModel] = []
     @State private var participantsCount: Int = 0
+    @State private var roomImage: UIImage?
     
     private var messageDateString: String {
         return relativeString(chattingService.messages.last?.date ?? Date())
@@ -26,20 +27,24 @@ struct ChatListCellView: View {
         self._chattingService = StateObject(wrappedValue: ChattingService(roomID: roomID))
         self.room = room
     }
+    var latestMessage: String {
+        if let lastmessage = chattingService.messages.last {
+            switch lastmessage.type {
+            case .text, .notice:
+                return lastmessage.message
+            case .image:
+                return "사진"
+            }
+        } else {
+            return " "
+        }
+    }
     
     var body: some View {
         HStack {
             // 모임 채팅방 썸네일 이미지
-            AsyncImage(url: room.roomImage) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 56, height: 56)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-            } placeholder: {
-                ProgressView()
-                    .frame(width: 56, height: 56)
-            }
+            fetchRoomImage(image: roomImage)
+                .frame(width: 56, height: 56)
             
             VStack(alignment: .leading) {
                 HStack {
@@ -54,7 +59,7 @@ struct ChatListCellView: View {
                 }
                 
                 // 모임 채팅방 제일 최근 글
-                Text(chattingService.messages.last?.message ?? "메세지가 없습니다.")
+                Text(latestMessage)
                     .lineLimit(2)
                     .font(.footnote)
                     .foregroundStyle(Color.staticGray3)
@@ -85,6 +90,12 @@ struct ChatListCellView: View {
                     if let roomId = room.id {
                         participants = try await roomService.joinedUsers(roomID: roomId)
                     }
+                    
+                    // 모임방 사진 가져오기
+                    if room.coverImage != "NONE" {
+                        roomImage = await ImageCacheManager.shared.findImageFromCache(imageURL: room.coverImage)
+                    }
+                    
                     participantsCount = participants.count
                     fetchChatting()
                 } catch {
@@ -111,6 +122,25 @@ struct ChatListCellView: View {
         formatter.unitsStyle = .short
         let dateToString = formatter.localizedString(for: date, relativeTo: .now)
         return dateToString.hasSuffix("초 전") ? "방금" : dateToString
+    }
+    
+    func fetchRoomImage(image: UIImage?) -> some View {
+        HStack {
+            if let image = image {
+                Image(uiImage: image)
+                    .resizable()
+                    .frame(width: 56, height: 56)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .aspectRatio(contentMode: .fill)
+            } else {
+                // 이미지가 없거나 로드에 실패했을때
+                Image("ZziritLogoImage")
+                    .resizable()
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 56, height: 56)
+            }
+        }
     }
 }
 
