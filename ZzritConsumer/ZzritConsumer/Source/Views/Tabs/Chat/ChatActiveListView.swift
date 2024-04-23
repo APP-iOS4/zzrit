@@ -13,6 +13,8 @@ struct ChatActiveListView: View {
     
     let rooms: [RoomModel]
     
+    @State private var isActive: Bool = true
+    
     //MARK: - body
     
     var body: some View {
@@ -25,7 +27,7 @@ struct ChatActiveListView: View {
                         
                         NavigationLink {
                             // 상세 페이지
-                            ChatView(roomID: roomId, room: room, isActive: true)
+                            ChatView(roomID: roomId, room: room, isActive: $isActive)
                         } label: {
                             // 여기는 쓰이지 않는다
                         }

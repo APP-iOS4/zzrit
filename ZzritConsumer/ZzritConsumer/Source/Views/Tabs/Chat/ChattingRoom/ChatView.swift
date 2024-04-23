@@ -17,7 +17,7 @@ struct ChatView: View {
     // 모임 정보
     let room: RoomModel
     // 모임방 활성화 여부
-    let isActive: Bool
+    @Binding var isActive: Bool
     
     // 유저 정보 불러옴
     @EnvironmentObject private var userService: UserService
@@ -85,11 +85,19 @@ struct ChatView: View {
     // 신고하기 시트
     @State private var isContactShow = false
     
+    private var confirmDate: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: room.dateTime) ?? Date()
+    }
+    
+    private var isDeactivation: Bool {
+        return confirmDate < Date()
+    }
+    
     // 모임 정보 init
-    init(roomID: String, room: RoomModel, isActive: Bool) {
+    init(roomID: String, room: RoomModel, isActive: Binding<Bool>) {
         self._chattingService = StateObject(wrappedValue: ChattingService(roomID: roomID))
         self.room = room
-        self.isActive = isActive
+        self._isActive = isActive
     }
     
     var body: some View {
@@ -281,8 +289,15 @@ struct ChatView: View {
                             }
                             Spacer()
                             Button {
-                                loadImage()
-                                isRealSendSheet.toggle()
+                                if isDeactivation {
+                                    if let roomID = room.id {
+                                        roomService.changeStatus(roomID: roomID, status: .deactivation)
+                                    }
+                                    isActive = false
+                                } else {
+                                    loadImage()
+                                    isRealSendSheet.toggle()
+                                }
                             } label: {
                                 Text("보내기")
                             }
@@ -341,7 +356,14 @@ struct ChatView: View {
                     // 메시지 보내기 버튼
                     Button {
                         if !messageText.isEmpty {
-                            sendMessage()
+                            if isDeactivation {
+                                if let roomID = room.id {
+                                    roomService.changeStatus(roomID: roomID, status: .deactivation)
+                                }
+                                isActive = false
+                            } else {
+                                sendMessage()
+                            }
                         }
                     } label: {
                         Image(systemName: "paperplane.circle.fill")

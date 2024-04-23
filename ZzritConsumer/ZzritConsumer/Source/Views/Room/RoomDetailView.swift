@@ -30,6 +30,8 @@ struct RoomDetailView: View {
     
     @State private var confirmParticipation: Bool = false
     
+    @State private var isActive: Bool = true
+    
     @State private var participants: [JoinedUserModel] = []
     
     @State private var participantsCount: Int = 0
@@ -333,7 +335,7 @@ extension RoomDetailView {
                 .padding(20)
                 .navigationDestination(isPresented: $confirmParticipation) {
                     if let roomID = room.id {
-                        ChatView(roomID: roomID, room: room, isActive: true)
+                        ChatView(roomID: roomID, room: room, isActive: $isActive)
                     }
                 }
                 .alert("로그인 알림", isPresented: $alertToLogin) {
