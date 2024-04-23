@@ -15,6 +15,9 @@ final class RoomCreateViewModel {
     /// 모임 불러오는 싱글톤 인스턴스
     private var roomService = RoomService.shared
     
+    /// 최상위 dismiss
+    var topDismiss: DismissAction? = nil
+    
     /// 모임 리더 아이디
     private var leaderID: String?
     /// 선택된 모임 카테고리

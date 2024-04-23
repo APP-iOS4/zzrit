@@ -22,7 +22,7 @@ struct SecondRoomCreateView: View {
     @State private var title: String = ""
     // 사진 선택
     @State private var selectedImage: UIImage?
-    // 이미지 저장s 
+    // 이미지 저장s
     @State private var image: Image?
     // 모임 소개 내용을 입력 받을 변수
     @State private var roomIntroduction: String = ""
@@ -36,7 +36,7 @@ struct SecondRoomCreateView: View {
     var body: some View {
         NavigationStack {
             // 커스텀 네비게이션 바 - 두 번째 페이지
-            RCNavigationBar(page: .page2) {
+            RCNavigationBar(page: .page2, VM: VM) {
                 ZStack {
                     // 스크롤 뷰
                     ScrollView(.vertical) {

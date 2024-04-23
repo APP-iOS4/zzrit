@@ -19,6 +19,8 @@ struct FirstRoomCreateView: View {
     // 뷰모델
     let VM: RoomCreateViewModel
     
+    @Environment(\.dismiss) private var topDismiss
+    
     // 카테고리 선택 변수
     @State private var selection: CategoryType? = nil
     // 버튼 활성화 여부를 결정할 변수
@@ -35,7 +37,7 @@ struct FirstRoomCreateView: View {
     var body: some View {
         NavigationStack {
             /// 커스텀 네비게이션 바
-            RCNavigationBar(page: .page1) {
+            RCNavigationBar(page: .page1, VM: VM) {
                 // 모임 카테고리 선택 부분 소제목
                 RCSubTitle("모임 주제를 선택해주세요.")
                 
@@ -67,6 +69,10 @@ struct FirstRoomCreateView: View {
                     SecondRoomCreateView(VM: VM)
                 }
             }
+            .navigationBarBackButtonHidden(true)
+        }
+        .onAppear {
+            VM.topDismiss = topDismiss
         }
     }
     
