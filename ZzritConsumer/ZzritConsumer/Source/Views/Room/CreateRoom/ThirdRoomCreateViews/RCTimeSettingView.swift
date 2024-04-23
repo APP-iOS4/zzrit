@@ -9,11 +9,18 @@ import SwiftUI
 
 struct RCTimeSettingView: View {
     @Binding var isShowingTimeSheet: Bool
-    @Binding var timeSelection: Date
+    @Binding var timeSelection: Date?
+    
+    var timeSelectionBinding: Binding<Date> {
+        Binding(
+            get: { timeSelection ?? Date() },
+            set: { timeSelection = $0 }
+        )
+    }
     
     var body: some View {
         DatePicker("시간을 정해주세요.",
-            selection: $timeSelection,
+            selection: timeSelectionBinding,
             displayedComponents: .hourAndMinute
         )
         .datePickerStyle(.wheel)

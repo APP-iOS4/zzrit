@@ -35,45 +35,40 @@ struct FirstRoomCreateView: View {
     // MARK: - body
     
     var body: some View {
-        NavigationStack {
-            /// 커스텀 네비게이션 바
-            RCNavigationBar(page: .page1, VM: VM) {
-                // 모임 카테고리 선택 부분 소제목
-                RCSubTitle("모임 주제를 선택해주세요.")
-                
-                // 스크롤 뷰
-                ScrollView(.vertical) {
-                    // 모임 카테고리 그리드
-                    LazyVGrid(columns: columns) {
-                        ForEach(CategoryType.allCases, id: \.self) { category in
-                            PointSelectionButton(
-                                category.rawValue,
-                                data: category,
-                                selection: $selection) {
-                                    checkButtonEnable()
-                                }
-                                .lineLimit(1)
-                        }
+        /// 커스텀 네비게이션 바
+        RCNavigationBar(page: .page1, VM: VM) {
+            // 모임 카테고리 선택 부분 소제목
+            RCSubTitle("모임 주제를 선택해주세요.")
+            
+            // 스크롤 뷰
+            ScrollView(.vertical) {
+                // 모임 카테고리 그리드
+                LazyVGrid(columns: columns) {
+                    ForEach(CategoryType.allCases, id: \.self) { category in
+                        PointSelectionButton(
+                            category.rawValue,
+                            data: category,
+                            selection: $selection) {
+                                checkButtonEnable()
+                            }
+                            .lineLimit(1)
                     }
                 }
-                // 다음 화면으로 넘어갈 버튼
-                GeneralButton("다음", isDisabled: !isButtonEnabled) {
-                    // VM에 선택한 카테고리 저장
-                    VM.saveSelectedCategory(selection: selection)
-                    
-                    // 다음 화면으로 이동
-                    // coordinator.push(.newRoom(.page2))
-                    isShowingNextButton.toggle()
-                }
-                .navigationDestination(isPresented: $isShowingNextButton) {
-                    SecondRoomCreateView(VM: VM)
-                }
             }
-            .navigationBarBackButtonHidden(true)
+            // 다음 화면으로 넘어갈 버튼
+            GeneralButton("다음", isDisabled: !isButtonEnabled) {
+                // VM에 선택한 카테고리 저장
+                VM.saveSelectedCategory(selection: selection)
+                
+                // 다음 화면으로 이동
+                // coordinator.push(.newRoom(.page2))
+                isShowingNextButton.toggle()
+            }
+            .navigationDestination(isPresented: $isShowingNextButton) {
+                SecondRoomCreateView(VM: VM)
+            }
         }
-        .onAppear {
-            VM.topDismiss = topDismiss
-        }
+        .navigationBarBackButtonHidden(true)
     }
     
     func checkButtonEnable() {

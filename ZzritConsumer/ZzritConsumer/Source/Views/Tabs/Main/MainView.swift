@@ -136,7 +136,7 @@ extension MainView {
             Text("모임 개설을 위해서는 로그인이 필요합니다.")
         }
         .fullScreenCover(isPresented: $isShowingCreateRoom) {
-            FirstRoomCreateView(VM: RoomCreateViewModel())
+            RoomCreateView()
         }
         .sheet(isPresented: $isShowingLoginView) {
             LogInView()

@@ -86,6 +86,7 @@
 		3B883B8F2BD629820061D61F /* RecentRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B883B8E2BD629820061D61F /* RecentRoomViewModel.swift */; };
 		9B5403CE2BD73C870066A7EF /* RestrictionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5403CD2BD73C870066A7EF /* RestrictionViewModel.swift */; };
 		9B5403D02BD73CBB0066A7EF /* UnderRestrictionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5403CF2BD73CBB0066A7EF /* UnderRestrictionView.swift */; };
+		DF2209632BD780AE00B9A2C7 /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2209622BD780AE00B9A2C7 /* RoomCreateView.swift */; };
 		DF54D21F2BC36C4500D72491 /* ZzritConsumerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */; };
 		DF54D2212BC36C4500D72491 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54D2202BC36C4500D72491 /* ContentView.swift */; };
 		DF54D2232BC36C4800D72491 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF54D2222BC36C4800D72491 /* Assets.xcassets */; };
@@ -221,6 +222,7 @@
 		3B883B8E2BD629820061D61F /* RecentRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRoomViewModel.swift; sourceTree = "<group>"; };
 		9B5403CD2BD73C870066A7EF /* RestrictionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestrictionViewModel.swift; sourceTree = "<group>"; };
 		9B5403CF2BD73CBB0066A7EF /* UnderRestrictionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderRestrictionView.swift; sourceTree = "<group>"; };
+		DF2209622BD780AE00B9A2C7 /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
 		DF54D21B2BC36C4500D72491 /* ZzritConsumer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZzritConsumer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZzritConsumerApp.swift; sourceTree = "<group>"; };
 		DF54D2202BC36C4500D72491 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -602,6 +604,7 @@
 		DF22095E2BD6AC5300B9A2C7 /* CreateRoom */ = {
 			isa = PBXGroup;
 			children = (
+				DF2209622BD780AE00B9A2C7 /* RoomCreateView.swift */,
 				1F0603482BC58D63003808F4 /* FirstRoomCreateViews */,
 				1F0603492BC58D8D003808F4 /* SecondRoomCreateViews */,
 				1F06034A2BC58E78003808F4 /* ThirdRoomCreateViews */,
@@ -968,6 +971,7 @@
 				FC2DDC112BC50B6900A51E64 /* StaticGaugeProgressView.swift in Sources */,
 				1F6454F22BC8B60B00C9D235 /* RCParticipantsSection.swift in Sources */,
 				1F0603522BC5BF56003808F4 /* FilterCategory.swift in Sources */,
+				DF2209632BD780AE00B9A2C7 /* RoomCreateView.swift in Sources */,
 				DFB59ED02BCE03FA00D7DD8A /* PageControl.swift in Sources */,
 				1F6B75CC2BCF72FA004092EB /* NewSearchView.swift in Sources */,
 				30064DBC2BC802A000FD04A2 /* MessageViewModel.swift in Sources */,
