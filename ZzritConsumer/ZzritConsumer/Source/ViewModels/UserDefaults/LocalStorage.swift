@@ -28,7 +28,7 @@ class LocalStorage {
                 return decodedData
             }
         } catch {
-            print("에러 \(error)")
+            Configs.printDebugMessage("에러 \(error)")
         }
         return []
     }
@@ -56,7 +56,7 @@ class LocalStorage {
                 return decodedData
             }
         } catch {
-            print("에러 \(error)")
+            Configs.printDebugMessage("에러 \(error)")
         }
         return nil
     }

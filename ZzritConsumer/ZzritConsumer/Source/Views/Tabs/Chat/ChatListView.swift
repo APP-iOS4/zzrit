@@ -65,6 +65,17 @@ struct ChatListView: View {
                     }
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
+        }
+        .onAppear {
+            Task {
+                do {
+                    try await isLogined()
+                    try await fetchRoom()
+                    
+                    Configs.printDebugMessage("rooms: \(rooms)")
+                } catch {
+                    Configs.printDebugMessage("에러 \(error)")
             .onChange(of: checkActivation) {
                 deactivateRooms()
             }
@@ -130,10 +141,10 @@ struct ChatListView: View {
                     }
                 }
             } else {
-                print("방을 참여해주세요")
+                Configs.printDebugMessage("방을 참여해주세요")
             }
         } else {
-            print("로그인을 해주세요.")
+            Configs.printDebugMessage("로그인을 해주세요.")
         }
     }
     

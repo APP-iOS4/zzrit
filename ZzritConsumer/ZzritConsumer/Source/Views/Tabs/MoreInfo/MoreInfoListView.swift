@@ -117,7 +117,7 @@ struct MoreInfoListView: View {
             try AuthenticationService.shared.logout()
             loginedInfo = nil
         } catch {
-            print("에러: \(error)")
+            Configs.printDebugMessage("에러: \(error)")
         }
     }
 }

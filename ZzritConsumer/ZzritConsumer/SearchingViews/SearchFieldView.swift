@@ -26,7 +26,7 @@ struct SearchFieldView: View {
             }
             
             Button {
-                print("검색했습니다.")
+                Configs.printDebugMessage("검색했습니다.")
             } label: {
                 Label("검색", systemImage: "magnifyingglass")
                     .labelStyle(.iconOnly)

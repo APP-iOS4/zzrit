@@ -152,7 +152,7 @@ struct SetProfileView: View {
                 // 이미지 캐시 저장
                 ImageCacheManager.shared.updateToCache(name: downloadURL, image: selectedImage)
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }

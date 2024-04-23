@@ -201,11 +201,11 @@ struct SignUpView: View {
         Task {
             do {
                 let register = try await authService.register(email: signUpId, password: signUpPw1)
-                print("회원가입 성공, 생성된 계정 uid: \(register.user.uid)")
+                Configs.printDebugMessage("회원가입 성공, 생성된 계정 uid: \(register.user.uid)")
                 registeredUID = register.user.uid
                 showProfile.toggle()
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }

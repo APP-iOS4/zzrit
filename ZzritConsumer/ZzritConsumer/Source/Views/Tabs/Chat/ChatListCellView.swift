@@ -88,7 +88,7 @@ struct ChatListCellView: View {
                     participantsCount = participants.count
                     fetchChatting()
                 } catch {
-                    print("\(error)")
+                    Configs.printDebugMessage("\(error)")
                 }
             }
         }
@@ -99,7 +99,7 @@ struct ChatListCellView: View {
             do {
                 try await chattingService.fetchChatting()
             } catch {
-                print("메세지 셀 에러: \(error)")
+                Configs.printDebugMessage("메세지 셀 에러: \(error)")
             }
         }
     }

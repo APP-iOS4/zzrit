@@ -48,6 +48,6 @@ struct ArchieveSelectionButtonView: View {
 
 #Preview {
     ArchieveSelectionButtonView("남자") {
-        print("남자")
+        Configs.printDebugMessage("남자")
     }
 }

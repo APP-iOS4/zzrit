@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 /// 문의사항 답변 모델
 public struct ContactReplyModel: Codable, Identifiable {
-    @DocumentID public var id: String? = UUID().uuidString
+    @DocumentID public var id: String?
     /// 문의사항 답변 등록 날짜
     public var date: Date
     /// 문의사항 답변 내용

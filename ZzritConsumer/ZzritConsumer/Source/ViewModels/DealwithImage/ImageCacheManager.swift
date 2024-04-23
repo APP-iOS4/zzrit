@@ -28,7 +28,7 @@ final class ImageCacheManager {
     func updateToCache(name: String, image: UIImage?) {
         guard let image = image else { return }
         cache.setObject(image, forKey: name as NSString)
-        print("캐시에 업데이트 \(name)")
+        Configs.printDebugMessage("캐시에 업데이트 \(name)")
     }
     
     // 캐시로부터 로드
@@ -52,7 +52,7 @@ final class ImageCacheManager {
                 return loadImageFromFB
             }
         }
-        print("파베에도 없음")
+        Configs.printDebugMessage("파베에도 없음")
         return nil
     }
 }

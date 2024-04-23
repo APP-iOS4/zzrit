@@ -16,7 +16,7 @@ struct RecentSearchCellView: View {
     
     var body: some View {
         Button {
-            print("검색 기록 \(context) 검색")
+            Configs.printDebugMessage("검색 기록 \(context) 검색")
         } label: {
             HStack(spacing: 20.0) {
                 Image(systemName: "magnifyingglass.circle.fill")
@@ -28,7 +28,7 @@ struct RecentSearchCellView: View {
                 Spacer()
                 
                 Button {
-                    print("검색 기록 \(context) 삭제")
+                    Configs.printDebugMessage("검색 기록 \(context) 삭제")
                 } label: {
                     Text("X")
                 }

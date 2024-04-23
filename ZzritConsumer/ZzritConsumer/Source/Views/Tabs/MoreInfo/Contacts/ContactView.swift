@@ -54,7 +54,7 @@ struct ContactView: View {
                     contacts = try await contactService.fetchContact(requestedUID: userUID)
                 }
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }

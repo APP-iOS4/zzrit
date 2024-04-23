@@ -15,7 +15,7 @@ struct MainExistView: View {
     var body: some View {
         if #available(iOS 17.0, *) {
             LazyVStack(alignment: .leading) {
-                let _ = print("\(isOnline)")
+                let _ = Configs.printDebugMessage("\(isOnline)")
                 // 모임 리스트 타이틀
                 Text("최근 생성된 모임")
                     .modifier(SubTitleModifier())
@@ -48,7 +48,7 @@ struct MainExistView: View {
             }
         } else {
             LazyVStack(alignment: .leading) {
-                let _ = print("\(isOnline)")
+                let _ = Configs.printDebugMessage("\(isOnline)")
                 // 모임 리스트 타이틀
                 Text("최근 생성된 모임")
                     .modifier(SubTitleModifier())

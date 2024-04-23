@@ -72,7 +72,7 @@ struct NoticeListView: View {
                 notices += try await noticeService.fetchNotice(isInitialFetch: isInitialFetch)
                 isInitialFetch = false
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }

@@ -58,7 +58,7 @@ struct ContactDetailView: View {
             do {
                 replies = try await contactService.fetchReplies(contact.id!)
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }

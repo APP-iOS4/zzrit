@@ -36,7 +36,7 @@ struct TermView: View {
             do {
                 term = try await userService.term(type: type)
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }

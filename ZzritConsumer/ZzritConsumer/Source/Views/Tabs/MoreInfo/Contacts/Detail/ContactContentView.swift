@@ -95,7 +95,7 @@ struct ContactContentView: View {
                 do {
                     targetRoomName = try await RoomService.shared.roomInfo(targetRoom)?.title ?? "(unknown)"
                 } catch {
-                    print("에러: \(error)")
+                    Configs.printDebugMessage("에러: \(error)")
                 }
             }
         }
@@ -112,7 +112,7 @@ struct ContactContentView: View {
                         }
                     }
                 } catch {
-                    print("에러: \(error)")
+                    Configs.printDebugMessage("에러: \(error)")
                 }
             }
         }

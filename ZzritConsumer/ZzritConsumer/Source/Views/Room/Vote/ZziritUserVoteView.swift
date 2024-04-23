@@ -100,7 +100,7 @@ struct ZziritUserVoteView: View {
                 roomTitle = try await roomService.roomInfo(roomID)?.title ?? "(unknown)"
                 
                 if let myUID = try await userService.loginedUserInfo()?.id {
-                    print(myUID)
+                    Configs.printDebugMessage(myUID)
                     let tempJoinedUsers = try await roomService.joinedUsers(roomID: roomID)
                     for joinedUser in tempJoinedUsers {
                         if joinedUser.userID != myUID {
@@ -111,7 +111,7 @@ struct ZziritUserVoteView: View {
                     }
                 }
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }
@@ -122,7 +122,7 @@ struct ZziritUserVoteView: View {
                 try await userService.applyEvaluation(userUIDs: selectedUsers)
                 dismiss()
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }

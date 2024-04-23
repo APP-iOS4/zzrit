@@ -69,7 +69,7 @@ struct MoreInfoView: View {
         }
         .onAppear {
             fetchLogin()
-            print("onAppear")
+            Configs.printDebugMessage("onAppear")
         }
     }
     
@@ -78,7 +78,7 @@ struct MoreInfoView: View {
             do {
                 loginedInfo = try await userService.loginedUserInfo()
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }

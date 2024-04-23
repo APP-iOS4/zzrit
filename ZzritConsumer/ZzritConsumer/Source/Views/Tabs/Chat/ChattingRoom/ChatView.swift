@@ -474,7 +474,7 @@ struct ChatView: View {
                 try await roomService.leaveRoom(roomID: roomID)
                 dismiss()
             } catch {
-                print("error: \(error)")
+                Configs.printDebugMessage("error: \(error)")
             }
         }
     }
@@ -502,7 +502,7 @@ struct ChatView: View {
                     case FetchError.noMoreFetch:
                         isfetchFinish.toggle()
                     default:
-                        print("error: \(error)")
+                        Configs.printDebugMessage("error: \(error)")
                     }
                 }
             }
@@ -536,7 +536,7 @@ struct ChatView: View {
                 messageText = ""
             }
         } catch {
-            print("에러: \(error)")
+            Configs.printDebugMessage("에러: \(error)")
         }
         isSending.toggle()
     }
@@ -621,7 +621,7 @@ struct ChatView: View {
                     isSending.toggle()
                 }
             } catch {
-                print("에러: \(error)")
+                Configs.printDebugMessage("에러: \(error)")
             }
         }
     }

@@ -12,7 +12,7 @@ import FirebaseFirestore
 /// 모임 모델
 public struct RoomModel: Identifiable, Codable, Hashable {
     /// 모임 ID
-    @DocumentID public var id: String? = UUID().uuidString
+    @DocumentID public var id: String?
     /// 모임 제목
     public var title: String
     /// 모임 카테고리

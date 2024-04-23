@@ -68,7 +68,7 @@ class RecentRoomViewModel: ObservableObject {
                             isRecentRoomInit = false
                         }
                     } catch {
-                        print("DEBUG: initalRecentViewedRoomFetch error: \(error)")
+                        Configs.printDebugMessage("DEBUG: initalRecentViewedRoomFetch error: \(error)")
                     }
                 }
             }
@@ -90,7 +90,7 @@ class RecentRoomViewModel: ObservableObject {
                     recentViewedRooms.append(room)
                 }
             } catch {
-                print("DEBUG: recentViewedRoomFetch error: \(error)")
+                Configs.printDebugMessage("DEBUG: recentViewedRoomFetch error: \(error)")
             }
         }
     }
