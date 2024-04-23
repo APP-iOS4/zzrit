@@ -12,6 +12,8 @@ import ZzritKit
 struct ChatDeactiveListView: View {
     let rooms: [RoomModel]
     
+    @State private var isActive: Bool = false
+    
     //MARK: - body
     
     var body: some View {
@@ -24,7 +26,7 @@ struct ChatDeactiveListView: View {
                         
                         NavigationLink {
                             // 상세 페이지
-                            ChatView(roomID: roomId, room: room, isActive: false)
+                            ChatView(roomID: roomId, room: room, isActive: $isActive)
                         } label: {
                             // 여기는 쓰이지 않는다
                         }

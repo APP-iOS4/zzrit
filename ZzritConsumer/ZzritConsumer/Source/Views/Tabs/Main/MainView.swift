@@ -139,6 +139,10 @@ extension MainView {
             RoomCreateView()
         }
         .sheet(isPresented: $isShowingLoginView) {
+            Task {
+                userModel = try await userService.loginedUserInfo()
+            }
+        } content: {
             LogInView()
         }
 //        .fullScreenCover(isPresented: $isShowingLoginView) {
