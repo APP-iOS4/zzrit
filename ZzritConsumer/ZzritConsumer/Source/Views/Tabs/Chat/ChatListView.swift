@@ -29,18 +29,6 @@ struct ChatListView: View {
     
     var body: some View {
         NavigationStack {
-            if #available(iOS 17.0, *) {
-                HiddenRectangle()
-                    .onChange(of: checkActivation) {
-                        deactivateRooms()
-                    }
-            } else {
-                HiddenRectangle()
-                    .onChange(of: checkActivation) { newValue in
-                        deactivateRooms()
-                    }
-            }
-            
             if isLogined {
                 VStack {
                     ChatCategoryView(selection: $selection)
@@ -96,6 +84,9 @@ struct ChatListView: View {
                         }
                     }
                     
+                }
+                .customOnChange(of: checkActivation) { _ in
+                    deactivateRooms()
                 }
                 .sheet(isPresented: $isShowingLoginView) {
                     Task {
