@@ -25,6 +25,7 @@ struct ThirdRoomCreateView: View {
     let VM: RoomCreateViewModel
     
     init( VM: RoomCreateViewModel) {
+        print("ThirdRoomCreateView init")
         self._chattingService = StateObject(wrappedValue: ChattingService(roomID: " "))
         self.VM = VM
     }
@@ -37,7 +38,7 @@ struct ThirdRoomCreateView: View {
     // 날짜 선택 변수
     @State private var dateSelection: DateType?
     // 시간 선택 변수
-    @State private var timeSelection: Date = Date()
+    @State private var timeSelection: Date?
     // 참여자 수 제한 변수
     @State private var limitPeople: Int = 2
     // 성별 제한 선택 변수
@@ -91,7 +92,7 @@ struct ThirdRoomCreateView: View {
                 
                 VM.saveDateTime(
                     dateSelection: dateSelection,
-                    timeSelection: timeSelection
+                    timeSelection: timeSelection ?? .now
                 )
                 
                 VM.saveGenderLimitation(genderLimitation: genderSelection)
@@ -112,6 +113,9 @@ struct ThirdRoomCreateView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            timeSelection = .now
         }
     }
     
@@ -165,7 +169,7 @@ extension ThirdRoomCreateView {
                 isShowingTimeSheet.toggle()
             } label: {
                 HStack {
-                    Label(timeSelection.toStringTimeLine(), systemImage: "alarm")
+                    Label(timeSelection?.toStringTimeLine() ?? "", systemImage: "alarm")
                     Spacer()
                 }
                 .foregroundStyle(.black)

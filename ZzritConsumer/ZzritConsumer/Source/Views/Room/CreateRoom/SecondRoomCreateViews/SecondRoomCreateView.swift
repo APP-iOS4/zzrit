@@ -12,9 +12,7 @@ import SwiftUI
 struct SecondRoomCreateView: View {
     
     // MARK: - 저장 프로퍼티
-    
-    // 코디네이터 객체
-    @EnvironmentObject var coordinator: Coordinator
+
     // 뷰모델
     let VM: RoomCreateViewModel
     
@@ -29,63 +27,61 @@ struct SecondRoomCreateView: View {
     // 버튼 활성화 여부를 결정할 변수
     @State private var isButtonEnabled: Bool = false
     // 다음 화면으로 넘어가기
-    @State private var isShowintNextView: Bool = false
+    @State private var isShowingNextView: Bool = false
     
     // MARK: - body
     
     var body: some View {
-        NavigationStack {
-            // 커스텀 네비게이션 바 - 두 번째 페이지
-            RCNavigationBar(page: .page2, VM: VM) {
-                ZStack {
-                    // 스크롤 뷰
-                    ScrollView(.vertical) {
-                        // 이름을 입력 받는 뷰
-                        VStack(spacing: 10.0) {
-                            RCSubTitle("이름")
-                            RCTitleTextField(text: $title) {
-                                checkButtonDisabled()
-                            }
-                        }
-                        .padding(.bottom, Configs.paddingValue)
-                        
-                        // 커버사진 입력 받는 뷰
-                        VStack(spacing: 10.0) {
-                            RCSubTitle("커버사진",
-                                       clarification: "모임과 관련된 사진일수록 좋습니다.",
-                                       type: .detail
-                            )
-                            RCAddPictureView(selectedImage: $selectedImage)
-                                .frame(height: 180.0)
-                        }
-                        .padding(.bottom, Configs.paddingValue)
-                        
-                        // 모임 소개를 입력 받는 뷰
-                        VStack(spacing: 10.0) {
-                            RCSubTitle("모임 소개")
-                            RCContentTextField(text: $roomIntroduction) {
-                                checkButtonDisabled()
-                            }
+        // 커스텀 네비게이션 바 - 두 번째 페이지
+        RCNavigationBar(page: .page2, VM: VM) {
+            ZStack {
+                // 스크롤 뷰
+                ScrollView(.vertical) {
+                    // 이름을 입력 받는 뷰
+                    VStack(spacing: 10.0) {
+                        RCSubTitle("이름")
+                        RCTitleTextField(text: $title) {
+                            checkButtonDisabled()
                         }
                     }
+                    .padding(.bottom, Configs.paddingValue)
                     
-                    VStack {
-                        Spacer()
-                        
-                        GeneralButton("다음", isDisabled: !isButtonEnabled) {
-                            // VM에 새 모임 제목 저장
-                            VM.saveTitle(title: title)
-                            // VM에 새 모임의 소개글 저장
-                            VM.saveIntroduction(roomIntroduction: roomIntroduction)
-                            // VM에 새 모임의 이미지를 저장
-                            VM.saveUIImage(selectedUIImage: selectedImage)
-                            
-                            // 다음 화면으로 이동
-                            isShowintNextView.toggle()
+                    // 커버사진 입력 받는 뷰
+                    VStack(spacing: 10.0) {
+                        RCSubTitle("커버사진",
+                                   clarification: "모임과 관련된 사진일수록 좋습니다.",
+                                   type: .detail
+                        )
+                        RCAddPictureView(selectedImage: $selectedImage)
+                            .frame(height: 180.0)
+                    }
+                    .padding(.bottom, Configs.paddingValue)
+                    
+                    // 모임 소개를 입력 받는 뷰
+                    VStack(spacing: 10.0) {
+                        RCSubTitle("모임 소개")
+                        RCContentTextField(text: $roomIntroduction) {
+                            checkButtonDisabled()
                         }
-                        .navigationDestination(isPresented: $isShowintNextView, destination: {
-                            ThirdRoomCreateView(VM: VM)
-                        })
+                    }
+                }
+                
+                VStack {
+                    Spacer()
+                    
+                    GeneralButton("다음", isDisabled: !isButtonEnabled) {
+                        // VM에 새 모임 제목 저장
+                        VM.saveTitle(title: title)
+                        // VM에 새 모임의 소개글 저장
+                        VM.saveIntroduction(roomIntroduction: roomIntroduction)
+                        // VM에 새 모임의 이미지를 저장
+                        VM.saveUIImage(selectedUIImage: selectedImage)
+                        
+                        // 다음 화면으로 이동
+                        isShowingNextView.toggle()
+                    }
+                    .navigationDestination(isPresented: $isShowingNextView) {
+                        ThirdRoomCreateView(VM: VM)
                     }
                 }
             }
@@ -105,6 +101,5 @@ struct SecondRoomCreateView: View {
 #Preview {
     NavigationStack {
         SecondRoomCreateView(VM: RoomCreateViewModel())
-            .environmentObject(Coordinator())
     }
 }
