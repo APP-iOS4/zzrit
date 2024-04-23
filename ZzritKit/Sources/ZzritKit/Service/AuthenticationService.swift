@@ -21,6 +21,8 @@ public final class AuthenticationService: ObservableObject {
     
     public private(set) var currentUID: String? = nil
     
+    public private(set) var currentUserEmail: String? = Auth.auth().currentUser?.email
+    
     init() {
         handle = Auth.auth().addStateDidChangeListener { auth, user in
             Task {
@@ -43,7 +45,7 @@ public final class AuthenticationService: ObservableObject {
             // 회원탈퇴 검증
             var userService: UserService? = UserService()
             if
-                let userInfo = try await userService?.loginedUserInfo(),
+                let userInfo = try await userService?.loggedInUserInfo(),
                 let withdrawalDate = userInfo.secessionDate?.addDay(at: 7)
             {
                 if withdrawalDate < Date() {
@@ -90,7 +92,7 @@ public final class AuthenticationService: ObservableObject {
             try await Auth.auth().signIn(with: credential)
             
             var userService: UserService? = UserService()
-            let _ = try await userService?.loginedUserInfo()
+            let _ = try await userService?.loggedInUserInfo()
             userService = nil
         } catch {
             throw error
