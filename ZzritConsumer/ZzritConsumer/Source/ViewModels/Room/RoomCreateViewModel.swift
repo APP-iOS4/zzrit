@@ -73,9 +73,6 @@ final class RoomCreateViewModel {
         
         if let newRoom {
             do {
-                try await roomService.createRoom(newRoom)
-                Configs.printDebugMessage("모임 생성을 성공했습니다.")
-                return true
                 let newRoomID = try await roomService.createRoom(newRoom)
                 return newRoomID
             } catch {
