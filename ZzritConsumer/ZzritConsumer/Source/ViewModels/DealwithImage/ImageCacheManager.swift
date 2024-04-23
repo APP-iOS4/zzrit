@@ -34,7 +34,7 @@ final class ImageCacheManager {
     
     
     // MARK: 이미지 저장하기
-
+    
     // NSCache에 업데이트
     // TODO: updateToNSCache로 변경
     func updateToCache(name: String, image: UIImage?) {
@@ -103,23 +103,26 @@ final class ImageCacheManager {
                 return filemanagerImage
             } else {
                 // 파베로부터 다운받아오기
-                if let data = try? Data(contentsOf: URL(string: imageURL)!) {
-                    // url로 부터 이미지 받아오기
-                    guard let loadImageFromFB = UIImage(data: data) else { return nil }
-                    
-                    // filemanager 저장
-                    updateToFileManager(name: imageURL, image: loadImageFromFB)
-                    
-                    // NSCache 저장
-                    updateToCache(name: imageURL, image: loadImageFromFB)
-                    return loadImageFromFB
+                if let imageFBURL = URL(string: imageURL) {
+                    if let data = try? Data(contentsOf: imageFBURL) {
+                        // url로 부터 이미지 받아오기
+                        guard let loadImageFromFB = UIImage(data: data) else { return nil }
+                        Configs.printDebugMessage("파베에서 받아와서 ~")
+                        
+                        // filemanager 저장
+                        updateToFileManager(name: imageURL, image: loadImageFromFB)
+                        
+                        // NSCache 저장
+                        updateToCache(name: imageURL, image: loadImageFromFB)
+                        return loadImageFromFB
+                    }
                 }
             }
+            return nil
         }
-        return nil
     }
 }
-
-
-// 출처 : https://velog.io/@oasis444/이미지-캐시-처리
-// 출처 : https://nsios.tistory.com/58
+    
+    
+    // 출처 : https://velog.io/@oasis444/이미지-캐시-처리
+    // 출처 : https://nsios.tistory.com/58
