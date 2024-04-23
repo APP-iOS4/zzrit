@@ -57,7 +57,7 @@ struct ThirdRoomCreateView: View {
     // MARK: - body
     
     var body: some View {
-        RCNavigationBar(page: .page3) {
+        RCNavigationBar(page: .page3, VM: VM) {
             ScrollView {
                 // 진행방식을 입력 받는 뷰
                 RCProcedurePicker(processSelection: $processSelection, platformSelection: $platformSelection, offlineLocation: $offlineLocation) {

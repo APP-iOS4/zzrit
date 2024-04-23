@@ -12,12 +12,14 @@ struct RCNavigationBar<Content>: View where Content: View {
     @Environment(\.dismiss) var dismiss
     
     let content: () -> Content
+    let VM: RoomCreateViewModel
     let page: NewRoom
     
     // MARK: - init
     
-    init(page: NewRoom, @ViewBuilder content: @escaping () -> Content) {
+    init(page: NewRoom, VM: RoomCreateViewModel, @ViewBuilder content: @escaping () -> Content) {
         self.page = page
+        self.VM = VM
         self.content = content
     }
     
@@ -37,7 +39,7 @@ struct RCNavigationBar<Content>: View where Content: View {
             // 메뉴
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    dismiss()
+                    VM.topDismiss?.callAsFunction()
                 } label: {
                     Image(systemName: "xmark")
                         .foregroundStyle(.black)
@@ -59,7 +61,7 @@ struct RCNavigationBar<Content>: View where Content: View {
 
 #Preview {
     NavigationStack {
-        RCNavigationBar(page: .page1) {
+        RCNavigationBar(page: .page1, VM: RoomCreateViewModel()) {
             HStack {
                 Spacer()
                 VStack {
