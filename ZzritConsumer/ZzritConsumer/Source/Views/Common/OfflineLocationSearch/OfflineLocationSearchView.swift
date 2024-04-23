@@ -60,22 +60,10 @@ struct OfflineLocationSearchView: View {
                 Rectangle()
                     .frame(height: 1)
                     .foregroundStyle(Color.staticGray5)
-                
-                if #available(iOS 17.0, *) {
-                    Rectangle()
-                        .foregroundStyle(Color.staticGray6)
-                        .frame(height: 5)
-                        .onChange(of: keywordFocus) { _, newValue in
-                            detectTabIndex(newValue: newValue)
-                        }
-                } else {
-                    Rectangle()
-                        .foregroundStyle(Color.staticGray6)
-                        .frame(height: 5)
-                        .onChange(of: keywordFocus) { newValue in
-                            detectTabIndex(newValue: newValue)
-                        }
-                }
+            
+                Rectangle()
+                    .foregroundStyle(Color.staticGray6)
+                    .frame(height: 5)
                 
                 TabView(selection: $selectedTabIndex) {
                     OfflineSearchHistoryView(offlineLocation: $offlineLocation)
@@ -90,6 +78,9 @@ struct OfflineLocationSearchView: View {
         .toolbar(.hidden, for: .tabBar)
         .onAppear {
             UITextField.appearance().clearButtonMode = .whileEditing
+        }
+        .customOnChange(of: keywordFocus) { newValue in
+            detectTabIndex(newValue: newValue)
         }
     }
     
