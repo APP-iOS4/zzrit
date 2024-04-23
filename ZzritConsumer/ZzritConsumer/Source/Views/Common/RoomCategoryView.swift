@@ -19,7 +19,7 @@ struct RoomCategoryView: View {
     // MARK: - body
     
     var body: some View {
-        Text("\(title)")
+        Text(title)
             .padding(10)
             .overlay {
                 Capsule()

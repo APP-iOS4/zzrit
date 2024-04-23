@@ -36,7 +36,7 @@ struct RoomCardView: View {
 
             HStack {
                 // 날짜 및 시간
-                Text("\(DateService.shared.formattedString(date: room.dateTime, format: "M/dd HH:mm"))")
+                Text(DateService.shared.formattedString(date: room.dateTime, format: "M/dd HH:mm"))
                     .font(.subheadline)
                     .fontWeight(.bold)
                     .foregroundStyle(.white)
