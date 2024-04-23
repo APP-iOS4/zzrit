@@ -26,7 +26,7 @@ struct UnderRestrictionView: View {
                 if let user = userModel {
                     Text("\(user.userName)님은 현재 이용정지 상태입니다.\n제재 사유가 부적절하다면 아래 버튼을 눌러 문의해 주세요. ")
                         .font(.title2)
-                        .padding(EdgeInsets(top: 20, leading: 20, bottom: 10, trailing: 20))
+                        .padding(20)
                 }
                 
                 
@@ -50,7 +50,7 @@ struct UnderRestrictionView: View {
                                     .foregroundStyle(Color.pointColor)
                                     .padding(.bottom, 5)
                                 
-                                Text("\(dateService.formattedString(date: ban.date, format: "yyyy/MM/dd")) ~ \(dateService.formattedString(date: ban.period, format: "yyyy/MM/dd"))")
+                                Text("\(dateService.formattedString(date: ban.date, format: "yyyy/MM/dd HH:mm")) ~ \(dateService.formattedString(date: ban.period, format: "yyyy/MM/dd HH:mm"))")
                                 .foregroundStyle(Color.staticGray1)
                                 .padding(.bottom, 5)
                                 
@@ -70,7 +70,7 @@ struct UnderRestrictionView: View {
                                 Text("\(restrictionViewModel.getPenalty(from: ban.date, to: ban.period))W")
                                     .foregroundStyle(Color.staticGray1)
                             }
-                            .padding(.leading, 13)
+                            .padding(.horizontal, 13)
                             .padding(.bottom, 13)
                             .frame(maxWidth: .infinity)
                             .overlay {
