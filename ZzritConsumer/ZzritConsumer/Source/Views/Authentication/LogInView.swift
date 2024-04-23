@@ -14,6 +14,8 @@ struct LogInView: View {
     @Environment(\.dismiss) private var dismiss
     
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var restrictionViewModel: RestrictionViewModel
+    
     private let authService = AuthenticationService.shared
     
     @State private var id: String = ""
@@ -135,6 +137,10 @@ struct LogInView: View {
         Task {
             do {
                 try await authService.loginUser(email: id, password: pw)
+                if let id = try await userService.loginedUserInfo()?.id {
+                    restrictionViewModel.loadRestriction(userID: id)
+                }
+               
                 dismiss()
             } catch {
                 errorMessage = "로그인 정보를 확인해주세요."
