@@ -113,7 +113,7 @@ struct SetProfileView: View {
                     CompleteSignUpView()
                 })
                 .onChange(of: finishProfile, perform: { value in
-                   
+                    
                 })
             }
         }
@@ -131,28 +131,53 @@ struct SetProfileView: View {
     }
     
     private func setUserInfo() {
+        // 이미지가 있을때
         // 유저 프로필은 width: 300 크기로 리사이징해서 올라감
-        guard let selectedImage = (selectedImage?.size.width)! < 300 ? selectedImage : selectedImage?.resizeWithWidth(width: 300) else { return }
-        guard let imageData = selectedImage.pngData() else { return }
-        Task {
-            do {
-                let serviceTerm = try await userService.term(type: .service)
-                let privacyTerm = try await userService.term(type: .privacy)
-                let locationTerm = try await userService.term(type: .location)
-                
-                // 이미지 올리고 url 받아오기
-                let downloadURL = try await storageService.imageUpload(topDir: .profile, dirs: ["\(registeredUID)", Date().toString()], image: imageData)
-                
-                // 유저 정보 모델에 저장
-                let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: downloadURL, gender: isMan ? .male : .female, birthYear: birthYear, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
-                
-                // 유저 프로필 서버에 올리기
-                try userService.setUserInfo(uid: registeredUID, info: userInfo)
-                
-                // 이미지 캐시 저장
-                ImageCacheManager.shared.updateToCache(name: downloadURL, image: selectedImage)
-            } catch {
-                Configs.printDebugMessage("에러: \(error)")
+        if selectedImage != nil {
+            guard let selectedImage = ((selectedImage?.size.width)! < 300 ? selectedImage : selectedImage?.resizeWithWidth(width: 300) ) else { return }
+            Configs.printDebugMessage("이미지 리사이징 완료")
+            if let imageData = selectedImage.pngData() {
+                Configs.printDebugMessage("이미지 확장자 변환 완료")
+                Task {
+                    do {
+                        let serviceTerm = try await userService.term(type: .service)
+                        let privacyTerm = try await userService.term(type: .privacy)
+                        let locationTerm = try await userService.term(type: .location)
+                        
+                        // 이미지 올리고 url 받아오기
+                        let downloadURL = try await storageService.imageUpload(topDir: .profile, dirs: ["\(registeredUID)", Date().toString()], image: imageData)
+                        
+                        Configs.printDebugMessage("이미지 파베에 올림")
+                        // 유저 정보 모델에 저장
+                        let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: downloadURL, gender: isMan ? .male : .female, birthYear: birthYear, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
+                        
+                        // 유저 프로필 서버에 올리기
+                        try userService.setUserInfo(uid: registeredUID, info: userInfo)
+                        
+                        // 이미지 캐시 저장
+                        ImageCacheManager.shared.updateToCache(name: downloadURL, image: selectedImage)
+                    } catch {
+                        Configs.printDebugMessage("에러: \(error)")
+                    }
+                }
+            }
+        } else {
+            // 이미지를 설정하지 않았을때
+            Task {
+                do {
+                    let serviceTerm = try await userService.term(type: .service)
+                    let privacyTerm = try await userService.term(type: .privacy)
+                    let locationTerm = try await userService.term(type: .location)
+                    
+                    // 유저 정보 모델에 저장
+                    let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: "", gender: isMan ? .male : .female, birthYear: birthYear, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
+                    
+                    // 유저 프로필 서버에 올리기
+                    try userService.setUserInfo(uid: registeredUID, info: userInfo)
+                    
+                } catch {
+                    Configs.printDebugMessage("에러: \(error)")
+                }
             }
         }
     }
