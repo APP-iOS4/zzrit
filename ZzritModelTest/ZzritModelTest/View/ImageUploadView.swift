@@ -17,6 +17,9 @@ struct ImageUploadView: View {
     @State var selectedUIImage: UIImage?
     @State var image: Image?
     
+    @State var loadedImage: UIImage? = nil
+    @State var pathField: String = ""
+    
     var body: some View {
         if let image = image {
             image
@@ -37,6 +40,16 @@ struct ImageUploadView: View {
         } content: {
             ImagePicker(image: $selectedUIImage)
         }
+        
+        
+        TextField("이미지 경로 입력", text: $pathField)
+        Button("불러오기") {
+            loadImage(path: pathField)
+        }
+        
+        if let loadedImage {
+            Image(uiImage: loadedImage)
+        }
     }
     
     func loadImage() {
@@ -44,10 +57,21 @@ struct ImageUploadView: View {
         guard let imageData = selectedImage.pngData() else { return }
         Task {
             do {
-                let downloadURL = try await storageService.imageUpload(topDir: .profile, dirs: ["userName", "profile"], image: imageData)
-                image = Image(uiImage: selectedImage)
+                let imageDir: [StorageService.StorageName: [String]] = [.roomCover: ["ADepth", "BDepth", "CDepth"]]
+                let downloadURL = try await storageService.imageUpload(dirs: imageDir, image: imageData)
+                //image = Image(uiImage: selectedImage)
                 
                 print("업로드 완료: \(downloadURL)")
+            } catch {
+                print("에러: \(error)")
+            }
+        }
+    }
+    
+    func loadImage(path: String) {
+        Task {
+            do {
+                loadedImage = try await storageService.loadImage(path: path, quality: .low)
             } catch {
                 print("에러: \(error)")
             }

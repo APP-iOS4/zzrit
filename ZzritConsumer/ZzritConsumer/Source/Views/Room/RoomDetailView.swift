@@ -152,7 +152,7 @@ struct RoomDetailView: View {
                 Task {
                     do {
                         await updateRecentRoom()
-                        userModel = try await userService.loginedUserInfo()
+                        userModel = try await userService.loggedInUserInfo()
                         if let roomId = room.id {
                             participants = try await roomService.joinedUsers(roomID: roomId)
                         }
@@ -272,7 +272,7 @@ struct RoomDetailView: View {
                 Task {
                     do {
                         await updateRecentRoom()
-                        userModel = try await userService.loginedUserInfo()
+                        userModel = try await userService.loggedInUserInfo()
                         if let roomId = room.id {
                             participants = try await roomService.joinedUsers(roomID: roomId)
                         }

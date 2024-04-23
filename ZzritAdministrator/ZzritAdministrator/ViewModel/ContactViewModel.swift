@@ -55,7 +55,7 @@ class ContactViewModel: ObservableObject {
             repliedAdmins = []
             
             do {
-                userModel = try await userService.getUserInfo(uid: contact.requestedUser) ?? .init(userID: "?", userName: "", userImage: "", gender: .male, birthYear: 1900, staticGauge: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date())
+                userModel = try await userService.findUserInfo(uid: contact.requestedUser) ?? .init(userID: "?", userName: "", userImage: "", gender: .male, birthYear: 1900, staticGauge: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date())
                 
                 if let targetRoom = contact.targetRoom {
                     if !targetRoom.isEmpty {
@@ -67,7 +67,7 @@ class ContactViewModel: ObservableObject {
                         
                         for uid in targetUser {
                             if !uid.isEmpty {
-                                targetUserModels?.append(try await userService.getUserInfo(uid: uid) ?? .init(userID: "?", userName: "", userImage: "", gender: .male, birthYear: 1900, staticGauge: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()))
+                                targetUserModels?.append(try await userService.findUserInfo(uid: uid) ?? .init(userID: "?", userName: "", userImage: "", gender: .male, birthYear: 1900, staticGauge: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()))
                             }
                         }
                     }

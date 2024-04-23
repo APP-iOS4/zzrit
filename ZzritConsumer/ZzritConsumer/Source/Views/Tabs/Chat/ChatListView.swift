@@ -11,6 +11,7 @@ import ZzritKit
 
 struct ChatListView: View {
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     
     @State private var selection = "참여 중인 모임"
     @State private var userModel: UserModel?
@@ -18,8 +19,6 @@ struct ChatListView: View {
     @State private var checkActivation: Bool = false
     
     @State private var isShowingLoginView: Bool = false
-    
-    private let loadRoomViewModel: LoadRoomViewModel = LoadRoomViewModel()
     
     private var isLogined: Bool {
         return userModel != nil
@@ -29,18 +28,6 @@ struct ChatListView: View {
     
     var body: some View {
         NavigationStack {
-            if #available(iOS 17.0, *) {
-                HiddenRectangle()
-                    .onChange(of: checkActivation) {
-                        deactivateRooms()
-                    }
-            } else {
-                HiddenRectangle()
-                    .onChange(of: checkActivation) { newValue in
-                        deactivateRooms()
-                    }
-            }
-            
             if isLogined {
                 VStack {
                     ChatCategoryView(selection: $selection)
@@ -97,6 +84,9 @@ struct ChatListView: View {
                     }
                     
                 }
+                .customOnChange(of: checkActivation) { _ in
+                    deactivateRooms()
+                }
                 .sheet(isPresented: $isShowingLoginView) {
                     Task {
                         onAppear()
@@ -121,7 +111,7 @@ struct ChatListView: View {
     }
     
     func isLogined() async throws {
-        userModel = try await userService.loginedUserInfo()
+        userModel = try await userService.loggedInUserInfo()
     }
     
     func fetchRoom() async throws {
@@ -158,5 +148,6 @@ struct ChatListView: View {
     NavigationStack {
         ChatListView()
             .environmentObject(UserService())
+            .environmentObject(LoadRoomViewModel())
     }
 }

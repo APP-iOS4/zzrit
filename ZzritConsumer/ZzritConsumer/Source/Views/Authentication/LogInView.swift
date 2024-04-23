@@ -137,7 +137,7 @@ struct LogInView: View {
         Task {
             do {
                 try await authService.loginUser(email: id, password: pw)
-                if let id = try await userService.loginedUserInfo()?.id {
+                if let id = try await userService.loggedInUserInfo()?.id {
                     restrictionViewModel.loadRestriction(userID: id)
                 }
                
@@ -154,13 +154,15 @@ struct LogInView: View {
             do {
                 try await authService.loginWithGoogle()
                 
-                if let userId = try await userService.loginedUserInfo()?.id {
-                    _ = try await userService.getUserInfo(uid: userId)
+                if let userId = try await userService.loggedInUserInfo()?.id {
+                    _ = try await userService.findUserInfo(uid: userId)
                 }
                 dismiss()
             } catch AuthError.noUserInfo {
                 registerdID = authService.currentUID!
                 Configs.printDebugMessage("id는 이거 : \(registerdID)")
+                print("id는 이거 : \(registerdID)")
+                googleEmailID = authService.currentUserEmail!
                 showProfile.toggle()
             } catch {
                 errorMessage = "오류가 발생했습니다.\n잠시 후 다시 시도해주시기 바랍니다."

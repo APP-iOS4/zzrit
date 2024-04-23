@@ -13,6 +13,7 @@ import FirebaseFirestore
 public final class UserService: ObservableObject {
     private let firebaseConst = FirebaseConstants()
     private let authService = AuthenticationService.shared
+    @Published public var loginedUser: UserModel?
     
     public init() { }
     
@@ -20,9 +21,11 @@ public final class UserService: ObservableObject {
     
     /// 현재 로그인 되어있는 사용자의 정보를 가져옵니다.
     /// - Returns: Optional(UserModel)
-    public func loginedUserInfo() async throws -> UserModel? {
+    @MainActor
+    public func loggedInUserInfo() async throws -> UserModel? {
         if let uid = authService.currentUID {
-            return try await getUserInfo(uid: uid)
+            loginedUser = try await findUserInfo(uid: uid)
+            return loginedUser
         } else {
             return nil
         }
@@ -31,7 +34,7 @@ public final class UserService: ObservableObject {
     /// 사용자의 정보를 가져옵니다.
     /// - Parameter uid(String): FirebaseAuth 로그인정보의 uid
     /// - Returns: Optional(UserModel)
-    public func getUserInfo(uid: String) async throws -> UserModel? {
+    public func findUserInfo(uid: String) async throws -> UserModel? {
         // 유저 정보가 존재하지 않을 경우, 에러 throw
         let document = try await firebaseConst.userCollection.document(uid).getDocument()
         if !document.exists {
@@ -54,7 +57,7 @@ public final class UserService: ObservableObject {
         try await loginedCheck()
         
         do {
-            var tempLoginedUserInfo = try await loginedUserInfo()!
+            var tempLoginedUserInfo = try await loggedInUserInfo()!
             
             // 회원탈퇴가 이미 진행중일 경우 에러 throw
             if let _ = tempLoginedUserInfo.secessionDate {
@@ -77,7 +80,7 @@ public final class UserService: ObservableObject {
         try await loginedCheck()
         
         do {
-            var tempLoginedUserInfo = try await loginedUserInfo()!
+            var tempLoginedUserInfo = try await loggedInUserInfo()!
             
             // 회원탈퇴가 진행중이지 않을때 에러 throw
             guard let _ = tempLoginedUserInfo.secessionDate else {
@@ -134,7 +137,7 @@ public final class UserService: ObservableObject {
     func deleteLoginedUserInfo() async throws {
         try await loginedCheck()
         
-        let loginedUID = try await loginedUserInfo()!.id!
+        let loginedUID = try await loggedInUserInfo()!.id!
         try await firebaseConst.userCollection.document(loginedUID).delete()
     }
     
@@ -144,7 +147,7 @@ public final class UserService: ObservableObject {
             throw AuthError.notLogin
         }
         
-        guard let _ = try await loginedUserInfo() else {
+        guard let _ = try await loggedInUserInfo() else {
             throw AuthError.noUserInfo
         }
     }
@@ -200,5 +203,10 @@ public final class UserService: ObservableObject {
         }
         
         return try snapshot.documents.map { try $0.data(as: TermModel.self) }
+    }
+    
+    public func modifyUserInfo(userID uid: String, userName: String, imageURL: String) {
+        firebaseConst.userCollection.document(uid).updateData(["userName": userName,
+                                                               "userImage": imageURL])
     }
 }

@@ -99,12 +99,12 @@ struct ZziritUserVoteView: View {
             do {
                 roomTitle = try await roomService.roomInfo(roomID)?.title ?? "(unknown)"
                 
-                if let myUID = try await userService.loginedUserInfo()?.id {
+                if let myUID = try await userService.loggedInUserInfo()?.id {
                     Configs.printDebugMessage(myUID)
                     let tempJoinedUsers = try await roomService.joinedUsers(roomID: roomID)
                     for joinedUser in tempJoinedUsers {
                         if joinedUser.userID != myUID {
-                            if let userProfile = try await userService.getUserInfo(uid: joinedUser.userID) {
+                            if let userProfile = try await userService.findUserInfo(uid: joinedUser.userID) {
                                 userProfiles.append(userProfile)
                             }
                         }

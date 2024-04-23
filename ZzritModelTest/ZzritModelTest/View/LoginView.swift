@@ -114,7 +114,7 @@ struct LoginView: View {
     private func currentLoginedUser() {
         Task {
             do {
-                if let loginedUserInfo = try await userService.loginedUserInfo() {
+                if let loginedUserInfo = try await userService.loggedInUserInfo() {
                     print("loginedUserInfo: \(loginedUserInfo)")
                 } else {
                     print("유저 정보가 DB에 없음")

@@ -26,6 +26,24 @@ extension View {
                 RoundedRectangle(cornerRadius: radius, style: .continuous)
                     .strokeBorder(color, lineWidth: width)
             }
-        
+    }
+    
+    /// 버전 분기를 위한 onChange 단순화
+    func customOnChange<T: Equatable>(of target: T, handler: @escaping (T) -> Void) -> AnyView {
+        if #available(iOS 17.0, *) {
+            return AnyView(
+                self
+                    .onChange(of: target) { _, newValue in
+                        handler(newValue)
+                    }
+            )
+        } else {
+            return AnyView(
+                self
+                    .onChange(of: target) { newValue in
+                        handler(newValue)
+                    }
+            )
+        }
     }
 }

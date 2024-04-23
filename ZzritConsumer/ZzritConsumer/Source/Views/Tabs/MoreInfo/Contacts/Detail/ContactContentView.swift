@@ -105,7 +105,7 @@ struct ContactContentView: View {
                 do {
                     for user in targetUser {
                         if user != "" {
-                            let userModel = try await userService.getUserInfo(uid: user)
+                            let userModel = try await userService.findUserInfo(uid: user)
                             if let userName = userModel?.userName {
                                 targetUserName.append(userName)
                             }
