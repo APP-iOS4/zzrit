@@ -5,6 +5,7 @@
 //  Created by woong on 4/8/24.
 //
 
+import CoreLocation
 import Foundation
 
 import FirebaseFirestore
@@ -52,7 +53,7 @@ public final class RoomService {
      # Error
      - FirebaseErrorType.failCreateRoom
      */
-    public func loadRoom(isInitial: Bool = true, status: String = "all", title: String? = nil) async throws -> [RoomModel] {
+    public func loadRoom(isInitial: Bool = true, status: String = "all", title: String? = nil, coordinate: CLLocationCoordinate2D? = nil) async throws -> [RoomModel] {
         var temp: [RoomModel] = []
         
         do {
@@ -75,6 +76,17 @@ public final class RoomService {
             } else if status == "activation" {
                 query = fbConstants.roomCollection
                     .whereField("status", isEqualTo: "activation")
+            }
+            
+            if let coordinate {
+                // 오프라인 모임 검색일 경우
+                // LocationService에 저장되어 있는 위도 경도 범위로 모임 검색
+                SearchLocationService.shared.setLocation(coordinate)
+                let locationRange = SearchLocationService.shared.locationRange
+                query = query.whereField("placeLatitude", isGreaterThanOrEqualTo: locationRange.minLatitude)
+                query = query.whereField("placeLatitude", isLessThanOrEqualTo: locationRange.maxLatitude)
+                query = query.whereField("placeLongitude", isGreaterThanOrEqualTo: locationRange.minLongitude)
+                query = query.whereField("placeLongitude", isLessThanOrEqualTo: locationRange.maxLongitude)
             }
             
             if let titleString = title, titleString != "" {
