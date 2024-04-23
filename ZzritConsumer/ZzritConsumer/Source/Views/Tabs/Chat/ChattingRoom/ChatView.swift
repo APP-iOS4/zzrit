@@ -112,19 +112,20 @@ struct ChatView: View {
                             if isfetchFinish {
                                 Text("- 대화내용의 끝입니다. -")
                                     .foregroundStyle(Color.staticGray1)
-                                    .padding(10)
+                                    .padding(.top, 10)
                                     .frame(maxWidth: .infinity)
                             }
                         }
                         ForEach(sortedDay, id: \.self) { day in
                             // 바뀐 날짜 표시
                             VStack {
+                                Text(" ")
                                 Text(toStringChatDay(chat: sortedChat?[day]!.first ?? ChattingModel(userID: "실패", message: "실패", type: .text)))
                                     .font(.caption)
                                     .foregroundStyle(Color.staticGray3)
                                     .frame(maxWidth: .infinity)
                             }
-                            .padding(.vertical, 10)
+//                            .padding(.bottom, 5)
                             
                             // 메시지
                             if let sortedChat = sortedChat?[day]! {
@@ -137,7 +138,7 @@ struct ChatView: View {
                                             .foregroundStyle(.clear)
                                     }
                                     chatView(chat: chat)
-                                        .padding(.vertical, 5)
+                                        .padding(.vertical, 2)
                                 }
                                 .onAppear {
                                     // 처음 들어갔을때 가장 최근 메시지부터 보이도록
@@ -303,6 +304,7 @@ struct ChatView: View {
                                     .frame(maxHeight: .infinity)
                                     .frame(maxWidth: .infinity)
                                 VStack(alignment: .center) {
+                                    // TODO: 사진이 icloud에서 불러오는거면 로딩이 실패할수가 있음.. 이거 어캄?
                                     Text("이미지를 불러올 수 없습니다.")
                                     Text("\n다시 시도해주세요.")
                                 }
@@ -354,6 +356,7 @@ struct ChatView: View {
             .padding(.top, 5)
         }
         .padding(.horizontal, Configs.paddingValue)
+        .padding(.bottom, 10)
         
         // FIXME: 채팅방 제목으로
         .navigationTitle(room.title)
@@ -466,6 +469,8 @@ struct ChatView: View {
     private func goOutRoom(roomID: String) {
         Task {
             do {
+                let username = (try await userService.getUserInfo(uid: uid)?.userName)!
+                try chattingService.sendMessage(message: "\(username)님께서 퇴장하셨습니다.")
                 try await roomService.leaveRoom(roomID: roomID)
                 dismiss()
             } catch {
