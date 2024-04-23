@@ -33,7 +33,7 @@ extension View {
         if #available(iOS 17.0, *) {
             return AnyView(
                 self
-                    .onChange(of: target) { oldValue, newValue in
+                    .onChange(of: target) { _, newValue in
                         handler(newValue)
                     }
             )
