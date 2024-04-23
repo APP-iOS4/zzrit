@@ -20,6 +20,7 @@ struct ChatMessageCellView: View {
     
     @State private var userName = ""
     @State private var loadImage: UIImage?
+    @State private var userProfileImage: UIImage?
     
     var body: some View {
         HStack(alignment: .top) {
@@ -27,17 +28,11 @@ struct ChatMessageCellView: View {
             //MARK: - 상대방 메세지 뷰 구현
             
             if isYou {
-                // FIXME: 유저 프로필 이미지로 변경
-                Image(systemName: "person.crop.circle.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 50, height: 50)
-                    .foregroundStyle(Color.staticGray3)
+                // 유저 프로필 이미지
+                fetchUserImage(image: userProfileImage)
                 
                 HStack(alignment: .bottom) {
                     VStack(alignment: .leading) {
-                        // FIXME: 메시지를 보낸 유저의 닉네임으로 변경 -> 참가 리스트로 비교해서 맞는 얘 닉넴으로 연결하면 될까욥?
-                        // FIXME: roomModel의 leaderID와 message.userID 비교해서 isleaderID에 넣기
                         ChatMessageName(userName: userName, isleaderID: leaderID ==  message.userID)
                         
                         // 상대방 메시지 내용
@@ -49,11 +44,9 @@ struct ChatMessageCellView: View {
                                     .padding(10)
                                     .background(Color.staticGray6)
                                     .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                                // TODO: 이미지 button으로 바꾸기 -> 이미지 크게 띄워주기
                             case .image:
-                                fetchImage(image: loadImage)
+                                fetchChatImage(image: loadImage)
                             case .notice:
-                                // 여기선 아무것도 안함
                                 Text("nothing")
                             }
                             // 메시지 보낸 날짜 - 상대방
@@ -75,7 +68,6 @@ struct ChatMessageCellView: View {
                     
                     // 나의 메시지 내용
                     VStack(alignment: .leading) {
-                        
                         switch messageType {
                         case .text:
                             Text(message.message)
@@ -83,9 +75,8 @@ struct ChatMessageCellView: View {
                                 .padding(10)
                                 .background(Color.pointColor)
                                 .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                            // TODO: 이미지 button으로 바꾸기  -> 이미지 크게 띄워주기
                         case .image:
-                            fetchImage(image: loadImage)
+                            fetchChatImage(image: loadImage)
                         case .notice:
                             // 여기선 아무것도 안함
                             Text("nothing")
@@ -96,8 +87,13 @@ struct ChatMessageCellView: View {
         }
         .onAppear {
             Task {
+                // 유저 별명 가져오기
                 userName = await findUserName(userID: message.userID)
+                // 유저 프로필사진 가져오기
+                guard let userImageURL = try await userService.getUserInfo(uid: message.userID)?.userImage else { return }
+                userProfileImage =  await ImageCacheManager.shared.findImageFromCache(imageURL: userImageURL)
                 if messageType == .image {
+                    // 채팅 메시지가 이미지일 경우 불러오기
                     loadImage = await ImageCacheManager.shared.findImageFromCache(imageURL: message.message)
                 }
             }
@@ -105,7 +101,7 @@ struct ChatMessageCellView: View {
     }
     
     // 채팅의 이미지 불러오는 함수
-    func fetchImage(image: UIImage?) -> some View {
+    func fetchChatImage(image: UIImage?) -> some View {
         HStack {
             if let image = image {
                 Image(uiImage: image)
@@ -120,6 +116,25 @@ struct ChatMessageCellView: View {
         .frame(height: 100)
     }
     
+    // 유저 이미지
+    func fetchUserImage(image: UIImage?) -> some View {
+        HStack {
+            if let image = image {
+                Image(uiImage: image)
+                    .resizable()
+                    .clipShape(Circle())
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 50, height: 50)
+            } else {
+                // 이미지가 없거나 로드에 실패했을때
+                Image(systemName: "person.crop.circle.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 50, height: 50)
+                    .foregroundStyle(Color.staticGray3)
+            }
+        }
+    }
     // 유저 닉네임 불러오기
     // FIXME: 채팅마다 불러오는게 너무 낭비같다 다음에 다른 방법 고안
     func findUserName(userID: String) async -> String {
