@@ -26,7 +26,7 @@ struct ContentView: View {
                     }
                     .tag(0)
                 
-                SearchingView()
+                SearchView()
                     .tabItem {
                         Label("탐색", image: "search")
                     }
