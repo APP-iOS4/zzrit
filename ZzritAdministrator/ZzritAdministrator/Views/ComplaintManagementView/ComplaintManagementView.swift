@@ -31,7 +31,9 @@ struct ComplaintManagementView: View {
                     .padding(10.0)
                     .padding(.leading)
                 Button {
-                    print("검색!")
+                    #if canImport(UIKit)
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    #endif
                 } label: {
                     Image(systemName: "magnifyingglass")
                         .foregroundStyle(.white)
@@ -75,7 +77,7 @@ struct ComplaintManagementView: View {
                     .stroke(Color.staticGray3, lineWidth: 1.0)
             }
             .refreshable {
-                contactViewModel.loadContacts()
+                contactViewModel.refreshContacts()
             }
         }
         .padding(20)

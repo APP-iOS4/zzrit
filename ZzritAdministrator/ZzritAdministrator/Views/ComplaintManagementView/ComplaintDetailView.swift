@@ -60,6 +60,9 @@ struct ComplaintDetailView: View {
                         Button {
                             if !contactAnswerText.isEmpty {
                                 isContactAlert.toggle()
+                                #if canImport(UIKit)
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                #endif
                             }
                         } label: {
                             StaticTextView(title: "답변 등록", width: 120, isActive: .constant(true))
@@ -74,7 +77,6 @@ struct ComplaintDetailView: View {
                 isContactAlert.toggle()
             }
             Button("등록하기"){
-                print("등록하기")
                 contactViewModel.replyContact(contact: contact ?? .init(category: .app, title: "", content: "", requestedDated: Date(), requestedUser: ""),
                                               replyContent: contactAnswerText)
                 
@@ -84,9 +86,9 @@ struct ComplaintDetailView: View {
             }
         }
         .onTapGesture {
-#if canImport(UIKit)
+            #if canImport(UIKit)
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-#endif
+            #endif
         }
     }
 }

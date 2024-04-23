@@ -95,7 +95,7 @@ struct LoginView: View {
             }
             .onAppear {
                 #if DEBUG
-                id = "test1@example.com"
+                id = "admintest@example.com"
                 pw = "example"
                 #else
                 id = ""
