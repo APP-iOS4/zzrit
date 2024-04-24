@@ -35,6 +35,7 @@ struct RoomCardView: View {
             return "\(simpleAddress) (\(distanceString))"
         }
     }
+    @State private var roomImage: UIImage?
     
     // MARK: - body
     
@@ -80,16 +81,19 @@ struct RoomCardView: View {
             // 배경 이미지
             ZStack {
                 // 이미지 삽입 부분
-                AsyncImage(url: room.roomImage) { image in
-                        image
+                if roomImage != nil {
+                    Image(uiImage: roomImage!)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(maxHeight: 400)
                         .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                    } placeholder: {
-                        ProgressView()
-                    }
-                
+                } else {
+                    Image("ZziritLogoImage")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxHeight: 400)
+                        .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
+                }
                 // 배경 이미지 오퍼시티 값
                 // TODO: 배경 이미지에 오퍼시티 값을 줄 것인지 안 줄 것인지
                 Color.black.opacity(0.6)
@@ -102,6 +106,7 @@ struct RoomCardView: View {
                 do {
                     if let roomId = room.id {
                         participantsCount = try await roomService.joinedUsers(roomID: roomId).count
+                        roomImage = await ImageCacheManager.shared.findImageFromCache(imagePath: room.coverImage)
                     }
                 } catch {
                     Configs.printDebugMessage("\(error)")

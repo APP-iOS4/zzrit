@@ -104,39 +104,7 @@ final class ImageCacheManager {
         }
     }
     
-    // FIXME: 다른 파일들에서 안쓰이면 지워주기
-    // 캐시에서 이미지 찾기
-    func findImageFromCache(imageURL: String) async -> UIImage? {
-        // NSCache에서 찾기
-        if let nsCacheImage = loadFromNSCacheImage(imageURL: imageURL) {
-            return nsCacheImage
-        } else {
-            // filemanager에서 찾기
-            if let filemanagerImage = loadFromFilemanagerImage(imageURL: imageURL) {
-                // filemanager에 있었으니 찾은 파일 NSCache에 로드
-                updateToNSCache(name: imageURL, image: filemanagerImage)
-                return filemanagerImage
-            } else {
-                // 파베로부터 다운받아오기
-                // url이 string형태여서 URL 타입으로 바꿔줌
-                if let imageFBURL = URL(string: imageURL) {
-                    // URL에서 불러옴.
-                    if let data = try? Data(contentsOf: imageFBURL) {
-                        // url로 부터 이미지 받아오기
-                        guard let loadImageFromFB = UIImage(data: data) else { return nil }
-                        
-                        // filemanager, NSCache 저장
-                        updateImageFirst(name: imageURL, image: loadImageFromFB)
-                        
-                        return loadImageFromFB
-                    }
-                }
-            }
-            return nil
-        }
-    }
-    
-    // 캐시에서 이미지 찾기 2 -> 개선된 StorageService 이미지 함수 적용
+    // 캐시에서 이미지 찾기 -> 개선된 StorageService 이미지 함수 적용
     func findImageFromCache(imagePath: String) async -> UIImage? {
         // 1. 이미지가 없을때
         if imagePath == "None" {
