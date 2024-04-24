@@ -14,6 +14,8 @@ struct ParticipantListCellView: View {
     
     let participant: UserModel
     
+    @State private var userImage: UIImage?
+    
     private var isLeader: Bool {
         room.leaderID == participant.id ? true : false
     }
@@ -23,13 +25,23 @@ struct ParticipantListCellView: View {
     var body: some View {
         HStack {
             // 사용자의 프로필
-            Image(systemName: "person.crop.circle.fill")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundStyle(Color.staticGray4)
-                .clipShape(Circle())
-                .frame(maxWidth: 50)
-                
+            if let image = userImage {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundStyle(Color.staticGray4)
+                    .clipShape(Circle())
+                    .frame(maxWidth: 50)
+            } else {
+                Image("ZziritLogoImage")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundStyle(Color.staticGray4)
+                    .clipShape(Circle())
+                    .frame(maxWidth: 50)
+            }
+            
+            
             
             VStack(alignment: .leading) {
                 HStack {
@@ -53,6 +65,13 @@ struct ParticipantListCellView: View {
                     .foregroundStyle(.white)
                     .background(Color.pointColor)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
+            }
+        }
+        .onAppear {
+            Task {
+                if participant.userImage != "NONE" {
+                    userImage = await ImageCacheManager.shared.findImageFromCache(imagePath: participant.userImage)
+                }
             }
         }
     }
