@@ -593,7 +593,7 @@ struct ChatView: View {
                     Button {
                         Task {
                             // 이미지 로드
-                            showImageDetail = await ImageCacheManager.shared.findImageFromCache(imageURL: chat.message)
+                            showImageDetail = await ImageCacheManager.shared.findImageFromCache(imagePath: chat.message)
                         }
                         isImageDetail.toggle()
                     } label: {
