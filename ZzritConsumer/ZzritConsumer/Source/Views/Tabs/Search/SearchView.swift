@@ -17,10 +17,6 @@ struct SearchView: View {
     @Environment(\.offlineLocation) private var sampleOfflineLocation
     
     var body: some View {
-        Button("주소 테스트") {
-            print(sampleOfflineLocation.placeName)
-        }
-        
         SearchTextField(searchViewModel: searchViewModel, filterModel: $filterModel, isTextFieldFocused: $isTextFieldFocused)
             .onTapGesture {
                 self.endTextEditing()

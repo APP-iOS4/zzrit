@@ -37,11 +37,6 @@ struct MainView: View {
     
     var body: some View {
         NavigationStack {
-            Button("위치변경 테스트") {
-                print(sampleOfflineLocation.placeName)
-                sampleOfflineLocation.set(OfflineLocationModel(placeName: "몰라", address: "주소가 어딘데", latitude: 0.5, longitude: 0.1))
-                print(sampleOfflineLocation.placeName)
-            }
             ZStack(alignment: .bottomTrailing) {
                 ScrollView(.vertical) {
                     MainLocationView(isOnline: $isOnline, offlineLocation: $offlineLocation)
