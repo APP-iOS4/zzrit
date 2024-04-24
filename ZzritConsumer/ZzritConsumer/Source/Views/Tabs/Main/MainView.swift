@@ -13,6 +13,8 @@ struct MainView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     
+    @Environment(\.offlineLocation) private var sampleOfflineLocation
+    
     // 우측 상단 알람 버튼 눌렀는지 안눌렀는지 검사
     @State private var isTopTrailingAction: Bool = false
     @State private var isOnline = false
@@ -35,6 +37,11 @@ struct MainView: View {
     
     var body: some View {
         NavigationStack {
+            Button("위치변경 테스트") {
+                print(sampleOfflineLocation.placeName)
+                sampleOfflineLocation.set(OfflineLocationModel(placeName: "몰라", address: "주소가 어딘데", latitude: 0.5, longitude: 0.1))
+                print(sampleOfflineLocation.placeName)
+            }
             ZStack(alignment: .bottomTrailing) {
                 ScrollView(.vertical) {
                     MainLocationView(isOnline: $isOnline, offlineLocation: $offlineLocation)
