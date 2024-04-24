@@ -51,7 +51,7 @@ struct MainLocationView: View {
         .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
         // 오프라인 위치 검색 시트 토글
         .sheet(isPresented: $isSheetOn) {
-            OfflineLocationSearchView()
+            OfflineLocationSearchView(searchType: .currentLocation)
                 .presentationDragIndicator(.visible)
         }
     }

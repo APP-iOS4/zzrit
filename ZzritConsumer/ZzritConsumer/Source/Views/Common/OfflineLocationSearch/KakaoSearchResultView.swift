@@ -11,7 +11,10 @@ struct KakaoSearchResultView: View {
     
     private let kakaoService = KakaoSearchService()
     
+    let searchType: OfflineLocationSearchType
+    
     @Binding var keyword: String
+    @Binding var offlineLocation: OfflineLocationModel?
     
     @State private var results: [KakaoSearchDocumentModel] = []
     
@@ -23,7 +26,7 @@ struct KakaoSearchResultView: View {
             ScrollView {
                 LazyVStack(spacing: 0) {
                     ForEach(results) { result in
-                        OfflineLocationListCell(locationModel: result, keyword: keyword)
+                        OfflineLocationListCell(keyword: keyword, locationModel: result, searchType: searchType, offlineLocation: $offlineLocation)
                     }
                 }
             }
@@ -64,5 +67,5 @@ struct KakaoSearchResultView: View {
 }
 
 #Preview {
-    KakaoSearchResultView(keyword: .constant(""))
+    KakaoSearchResultView(searchType: .currentLocation, keyword: .constant(""), offlineLocation: .constant(nil))
 }

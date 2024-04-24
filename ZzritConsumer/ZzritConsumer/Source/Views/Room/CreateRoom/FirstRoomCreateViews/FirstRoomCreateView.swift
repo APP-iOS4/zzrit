@@ -58,6 +58,7 @@ struct FirstRoomCreateView: View {
             // 다음 화면으로 넘어갈 버튼
             GeneralButton("다음", isDisabled: !isButtonEnabled) {
                 // VM에 선택한 카테고리 저장
+                Configs.printDebugMessage(selection)
                 VM.saveSelectedCategory(selection: selection)
                 
                 // 다음 화면으로 이동

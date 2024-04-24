@@ -12,6 +12,10 @@ struct RoomCreateView: View {
     
     @Environment(\.dismiss) private var topDismiss
     
+    init() {
+        print("RoomCreateView Init")
+    }
+    
     var body: some View {
         NavigationStack {
             FirstRoomCreateView(VM: VM)
