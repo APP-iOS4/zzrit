@@ -144,6 +144,7 @@
 		FCBA9B7B2BCE0774001E948B /* ForScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBA9B7A2BCE0774001E948B /* ForScrollView.swift */; };
 		FCCCEEB52BC3B56600DABCA6 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCCEEB32BC3B56600DABCA6 /* LogInView.swift */; };
 		FCCCEEB62BC3B56600DABCA6 /* UserInputCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCCEEB42BC3B56600DABCA6 /* UserInputCellView.swift */; };
+		FCD6E4DF2BD8C22000A2B84A /* LoadImageEverywhere.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD6E4DE2BD8C22000A2B84A /* LoadImageEverywhere.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -286,6 +287,7 @@
 		FCBCB31D2BC3DC090048B86F /* ServiceAgreeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAgreeSheet.swift; sourceTree = "<group>"; };
 		FCCCEEB32BC3B56600DABCA6 /* LogInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		FCCCEEB42BC3B56600DABCA6 /* UserInputCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInputCellView.swift; sourceTree = "<group>"; };
+		FCD6E4DE2BD8C22000A2B84A /* LoadImageEverywhere.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadImageEverywhere.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -793,6 +795,7 @@
 			children = (
 				FC715E902BD61994001B67CF /* ImageResize.swift */,
 				FC715E922BD626C7001B67CF /* ImageCacheManager.swift */,
+				FCD6E4DE2BD8C22000A2B84A /* LoadImageEverywhere.swift */,
 			);
 			path = DealwithImage;
 			sourceTree = "<group>";
@@ -957,6 +960,7 @@
 				FC2DDC1D2BC577D400A51E64 /* NoticeContentView.swift in Sources */,
 				1F4566F32BCDFE3C001EC0E7 /* FullScreenCover.swift in Sources */,
 				1F70CD2B2BD79F9E00869119 /* SearchView.swift in Sources */,
+				FCD6E4DF2BD8C22000A2B84A /* LoadImageEverywhere.swift in Sources */,
 				FC2DDC172BC52FBA00A51E64 /* MoreInfoListView.swift in Sources */,
 				DF63091B2BD2A4DA0077B94F /* KakaoSearchService.swift in Sources */,
 				30BE7EA32BC516EB00A5A178 /* ParticipantNoticeView.swift in Sources */,
