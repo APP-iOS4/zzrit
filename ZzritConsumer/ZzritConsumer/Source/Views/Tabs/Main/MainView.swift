@@ -28,9 +28,9 @@ struct MainView: View {
     
     
     // 유저모델 변수
-    @State private var userModel: UserModel?
+//    @State private var userModel: UserModel?
     private var isLogined: Bool {
-        return userModel != nil
+        return userService.loginedUser != nil
     }
     
     // MARK: - body
@@ -149,9 +149,6 @@ extension MainView {
             RoomCreateView()
         }
         .sheet(isPresented: $isShowingLoginView) {
-            Task {
-                userModel = try await userService.loggedInUserInfo()
-            }
         } content: {
             LogInView()
         }
