@@ -96,9 +96,6 @@ struct MainView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear {
-            Task {
-                userModel = try await userService.loggedInUserInfo()
-            }
             locationService.setCurrentLocation(LocalStorage.shared.latestSettedLocation() ?? .initialLocation)
         }
         .customOnChange(of: locationService.currentOffineLocation) { _ in
