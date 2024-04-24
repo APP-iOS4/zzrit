@@ -19,7 +19,18 @@ struct ParticipantListView: View {
     let participants: [JoinedUserModel]
     
     @State private var getUserModels: [UserModel] = []
-
+    
+    private var sortedUsers: [UserModel] {
+        return getUserModels.sorted {
+            if $0.id == room.leaderID {
+                return true
+            } else if $1.id == room.leaderID {
+                return false
+            }
+            return $0.userName < $1.userName
+        }
+    }
+    
     // MARK: - body
     
     var body: some View {
@@ -27,7 +38,7 @@ struct ParticipantListView: View {
         if #available(iOS 17.0, *) {
             VStack(alignment: .leading) {
                 // TODO: 참가자 카운트로 변경 필요
-                ForEach(getUserModels) { userModel in
+                ForEach(sortedUsers) { userModel in
                     ParticipantListCellView(room: room, participant: userModel)
                         .padding(.leading, 15)
                         .padding(.top, 15)
@@ -73,7 +84,7 @@ struct ParticipantListView: View {
                 
                 guard let userInfo =  try await userService.findUserInfo(uid: participant.userID)
                 else { return }
-
+                
                 getUserModels.append(userInfo)
             }
         } catch {
