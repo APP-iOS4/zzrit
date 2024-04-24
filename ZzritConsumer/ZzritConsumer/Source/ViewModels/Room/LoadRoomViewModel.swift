@@ -111,7 +111,7 @@ class LoadRoomViewModel: ObservableObject {
         
         filterRooms = Array(Set(filterRooms))
         // FIXME: 일단은 dateTime, 근데 생성 일자가 있어야 생성된 날짜 순으로 정렬이 가능할 거 같습니다.
-        filterRooms.sort(by: { $0.dateTime > $1.dateTime })
+        filterRooms.sort(by: { $0.createTime > $1.createTime })
         
         // prevIsOnline = isOnline
     }
