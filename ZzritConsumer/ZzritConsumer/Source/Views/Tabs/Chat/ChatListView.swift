@@ -16,14 +16,13 @@ struct ChatListView: View {
     @Binding var offlineLocation: OfflineLocationModel?
     
     @State private var selection = "참여 중인 모임"
-    @State private var userModel: UserModel?
     @State private var rooms: [RoomModel] = []
     @State private var checkActivation: Bool = false
     
     @State private var isShowingLoginView: Bool = false
     
     private var isLogined: Bool {
-        return userModel != nil
+        return userService.loginedUser != nil
     }
     
     //MARK: - body
@@ -102,27 +101,26 @@ struct ChatListView: View {
     func onAppear() {
         Task {
             do {
-                try await isLogined()
-                try await fetchRoom()
-                
+                if isLogined {
+                    try await fetchRoom()
+                }
                 checkActivation = true
             } catch {
                 Configs.printDebugMessage("에러 \(error)")
             }
         }
     }
-    
-    func isLogined() async throws {
-        userModel = try await userService.loggedInUserInfo()
-    }
-    
+ 
     func fetchRoom() async throws {
         rooms.removeAll()
-        if let userModel {
+        if let userModel = userService.loginedUser {
+            print("실행되나 플래그1")
             if let joinedRooms = userModel.joinedRooms {
+                print("실행되나 플래그2")
                 for roomID in joinedRooms {
                     if let room = try await loadRoomViewModel.roomInfo(roomID) {
                         rooms.append(room)
+                        print("실행되나 플래그3")
                     }
                 }
             } else {
@@ -138,10 +136,8 @@ struct ChatListView: View {
         
         for room in rooms {
             let tempRoom = loadRoomViewModel.deactivateOneRoom(room: room)
-            
             tempRooms.append(tempRoom)
         }
-        
         rooms = tempRooms
     }
 }

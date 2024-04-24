@@ -13,12 +13,12 @@ struct MoreInfoView: View {
     @EnvironmentObject private var userService: UserService
     
     @State private var isShowingLoginView: Bool = false
-    @State private var loginedInfo: UserModel? = nil
+//    @State private var userService.loginedUser: UserModel? = nil
     @State private var userEmail: String?
     
     // 로그인 상태 일때 true
     private var isLogined: Bool {
-        return loginedInfo != nil
+        return userService.loginedUser != nil
     }
     
     var body: some View {
@@ -29,7 +29,7 @@ struct MoreInfoView: View {
                         ProfileInfoView()
                             .padding()
                         
-                        MyStaticGaugeView(staticPoint: loginedInfo!.staticGauge)
+                        MyStaticGaugeView(staticPoint: userService.loginedUser!.staticGauge)
                             .padding()
                     } else {
                         Button {
@@ -48,7 +48,7 @@ struct MoreInfoView: View {
                     RecentWatchRoomView()
                     
                     // 그외 더보기 List
-                    MoreInfoListView(loginedInfo: $loginedInfo, isLogined: isLogined)
+                    MoreInfoListView(loginedInfo: $userService.loginedUser, isLogined: isLogined)
                 }
                 .padding(.vertical, 10)
             }
@@ -76,7 +76,7 @@ struct MoreInfoView: View {
     private func fetchLogin() {
         Task {
             do {
-                loginedInfo = try await userService.loggedInUserInfo()
+                userService.loginedUser = try await userService.loggedInUserInfo()
             } catch {
                 Configs.printDebugMessage("에러: \(error)")
             }
