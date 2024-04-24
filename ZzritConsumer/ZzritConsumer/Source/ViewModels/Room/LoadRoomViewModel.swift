@@ -48,6 +48,10 @@ class LoadRoomViewModel: ObservableObject {
                     rooms += newRooms
                 }
                 
+                if isInit {
+                    getFilter(isOnline: false)
+                }
+    
                 isInit = false
             } catch {
                 Configs.printDebugMessage("\(error)")
