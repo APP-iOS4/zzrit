@@ -189,7 +189,7 @@ struct RoomDetailView: View {
                         participantsCount = participants.count
                         // 모임방 사진 가져오기
                         if room.coverImage != "NONE" {
-                            roomImage = await ImageCacheManager.shared.findImageFromCache(imageURL: room.coverImage)
+                            roomImage = await ImageCacheManager.shared.findImageFromCache(imagePath: room.coverImage)
                         }
                     } catch {
                         Configs.printDebugMessage("\(error)")
