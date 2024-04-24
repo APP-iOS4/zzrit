@@ -33,7 +33,7 @@ struct RoomCardListView: View {
                             RoomDetailView(offlineLocation: $offlineLocation, room: room)
                         } label: {
                             // 라벨은 카드 뷰
-                            RoomCardView(room: room, titleToHStackPadding: 75, offlineLocation: $offlineLocation)
+                            RoomCardView(room: room, offlineLocation: $offlineLocation, titleToHStackPadding: 75)
 //                                .padding(.leading, 10)
                         }
                     }
@@ -65,7 +65,7 @@ struct RoomCardListView: View {
                             RoomDetailView(offlineLocation: $offlineLocation, room: room)
                         } label: {
                             // 라벨은 카드 뷰
-                            RoomCardView(room: room, titleToHStackPadding: 75, offlineLocation: $offlineLocation)
+                            RoomCardView(room: room, offlineLocation: $offlineLocation, titleToHStackPadding: 75)
                         }
                     }
                     .padding(.trailing, 5)

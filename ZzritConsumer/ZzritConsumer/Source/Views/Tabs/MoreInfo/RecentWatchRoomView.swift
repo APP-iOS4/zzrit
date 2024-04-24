@@ -34,7 +34,7 @@ struct RecentWatchRoomView: View {
                                 // 모임 상세 페이지 넘기기
                                 RoomDetailView(offlineLocation: .constant(nil), room: recentRoomViewModel.recentViewedRooms[index])
                             } label: {
-                                RoomCardView(room: recentRoomViewModel.recentViewedRooms[index], titleToHStackPadding: 25, offlineLocation: .constant(nil))
+                                RoomCardView(room: recentRoomViewModel.recentViewedRooms[index], offlineLocation: .constant(nil), titleToHStackPadding: 25)
                             }
                             .tag(index)
                         }

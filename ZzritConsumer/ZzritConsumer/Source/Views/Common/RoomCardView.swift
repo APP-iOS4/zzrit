@@ -14,13 +14,14 @@ struct RoomCardView: View {
     let room: RoomModel
     let roomService = RoomService.shared
     
-    @State private var participantsCount: Int = 0
-    
-    var titleToHStackPadding: CGFloat
-    
     @Binding var offlineLocation: OfflineLocationModel?
+    
     @State private var simpleAddress: String = "(unknown)"
     @State private var distance: Double = 0.0
+    @State private var participantsCount: Int = 0
+    @State private var userImage: UIImage?
+    
+    var titleToHStackPadding: CGFloat
     
     private var distanceString: String {
         let formattedString = String(format: "%.1f", distance)
@@ -51,7 +52,7 @@ struct RoomCardView: View {
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
-
+            
             HStack {
                 // 날짜 및 시간
                 Text(DateService.shared.formattedString(date: room.dateTime, format: "M/dd HH:mm"))
@@ -79,16 +80,19 @@ struct RoomCardView: View {
             // 배경 이미지
             ZStack {
                 // 이미지 삽입 부분
-                AsyncImage(url: room.roomImage) { image in
-                        image
+                if userImage != nil {
+                    Image(uiImage: userImage!)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(maxHeight: 400)
                         .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                    } placeholder: {
-                        ProgressView()
-                    }
-                
+                } else {
+                    Image("ZziritLogoImage")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxHeight: 400)
+                        .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
+                }
                 // 배경 이미지 오퍼시티 값
                 // TODO: 배경 이미지에 오퍼시티 값을 줄 것인지 안 줄 것인지
                 Color.black.opacity(0.6)
@@ -101,6 +105,7 @@ struct RoomCardView: View {
                 do {
                     if let roomId = room.id {
                         participantsCount = try await roomService.joinedUsers(roomID: roomId).count
+                        userImage = await ImageCacheManager.shared.findImageFromCache(imagePath: room.coverImage)
                     }
                 } catch {
                     Configs.printDebugMessage("\(error)")
@@ -115,7 +120,7 @@ struct RoomCardView: View {
         }
     }
 }
-
-#Preview {
-    RoomCardView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), titleToHStackPadding: 100, offlineLocation: .constant(nil))
-}
+//
+//#Preview {
+//    RoomCardView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), titleToHStackPadding: 100, offlineLocation: .constant(nil))
+//}
