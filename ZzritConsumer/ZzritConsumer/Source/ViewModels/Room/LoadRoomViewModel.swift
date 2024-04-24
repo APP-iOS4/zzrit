@@ -13,7 +13,6 @@ import ZzritKit
 class LoadRoomViewModel: ObservableObject {
     let roomService: RoomService = RoomService.shared
     
-    // FIXME: rooms private화
     @Published private(set) var rooms: [RoomModel] = []
     
     @Published private(set) var filterRooms: [RoomModel] = []
@@ -46,6 +45,7 @@ class LoadRoomViewModel: ObservableObject {
                 
                 if !newRooms.isEmpty {
                     rooms += newRooms
+                    rooms = Array(Set(rooms))
                 }
                 
                 if isInit {
