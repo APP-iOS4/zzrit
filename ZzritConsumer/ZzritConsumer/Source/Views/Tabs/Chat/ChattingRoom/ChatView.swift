@@ -136,7 +136,7 @@ struct ChatView: View {
                                     .foregroundStyle(Color.staticGray3)
                                     .frame(maxWidth: .infinity)
                             }
-//                            .padding(.bottom, 5)
+                            //                            .padding(.bottom, 5)
                             
                             // 메시지
                             if let sortedChat = sortedChat?[day]! {
@@ -633,14 +633,19 @@ struct ChatView: View {
         guard let selectedImage = (selectedUIImage?.size.width)! < 1024 ? selectedUIImage : selectedUIImage?.resizeWithWidth(width: 1024) else { return }
         // 무손실 png파일로 변경
         guard let imageData = selectedImage.pngData() else { return }
+        // 이미지 경로 설정
+        let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMddHHmmss")
+        let roomID = room.id ?? "NONE"
+        let imageDir: [StorageService.StorageName: [String]] = [.chatting: [roomID, uid, dayString]]
+        
         Task {
             do {
                 // 이미지의 이름은 유저아이디와 현재 시간을 이용해 지정
-                let downloadURL = try await storageService.imageUpload(topDir: .chatting, dirs: ["\(uid)", Date().toString()], image: imageData)
+                let imagePath = try await storageService.imageUpload(dirs: imageDir, image: imageData) ?? "NONE"
                 // 파베 메시지로 올림
-                try chattingService.sendMessage(uid: uid, message: downloadURL, type: .image)
+                try chattingService.sendMessage(uid: uid, message: imagePath, type: .image)
                 // 캐시에 올림
-                ImageCacheManager.shared.updateImageFirst(name: downloadURL, image: selectedImage)
+                ImageCacheManager.shared.updateImageFirst(name: imagePath, image: selectedImage)
                 // 이미지 전송 끝냄
                 DispatchQueue.main.async {
                     isSending.toggle()
