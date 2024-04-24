@@ -46,15 +46,6 @@ struct ContentView: View {
                     .tag(3)
             }
             .tint(Color.pointColor)
-            .onAppear {
-                Task {
-                    userModel = try await userService.loggedInUserInfo()
-                    if let id = userModel?.id{
-                        restrictionViewModel.loadRestriction(userID: id)
-                        print(restrictionViewModel.isUnderRestriction)
-                    }
-                }
-            }
         }
     }
 }
