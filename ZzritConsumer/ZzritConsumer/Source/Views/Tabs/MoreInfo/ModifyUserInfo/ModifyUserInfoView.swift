@@ -104,7 +104,7 @@ struct ModifyUserInfoView: View {
                                            imageURL: downloadURL)
                 _ = try await userService.loggedInUserInfo()
                 // 이미지 캐시 저장
-                ImageCacheManager.shared.updateToCache(name: downloadURL, image: selectedImage)
+                ImageCacheManager.shared.updateImageFirst(name: downloadURL, image: selectedImage)
             } catch {
                 print("에러: \(error)")
             }

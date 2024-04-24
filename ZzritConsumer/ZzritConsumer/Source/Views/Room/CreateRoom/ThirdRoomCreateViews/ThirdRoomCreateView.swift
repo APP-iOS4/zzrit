@@ -50,63 +50,87 @@ struct ThirdRoomCreateView: View {
     // 시간 시트 활성화 여부
     @State private var isShowingTimeSheet: Bool = false
     
+    @State private var isCreateNewRoom: Bool = false
+    
     // MARK: - body
     
     var body: some View {
         RCNavigationBar(page: .page3, VM: VM) {
-            ScrollView {
-                // 진행방식을 입력 받는 뷰
-                RCProcedurePicker(processSelection: $processSelection, platformSelection: $platformSelection, offlineLocation: $offlineLocation) {
-                    // 피커 버튼 눌렀을 때 사용할 함수
-                    checkButtonEnable()
+            ZStack {
+                ScrollView {
+                    // 진행방식을 입력 받는 뷰
+                    RCProcedurePicker(processSelection: $processSelection, platformSelection: $platformSelection, offlineLocation: $offlineLocation) {
+                        // 피커 버튼 눌렀을 때 사용할 함수
+                        checkButtonEnable()
+                    }
+                    
+                    // 시간을 입력 받는 뷰
+                    timeSelectionView
+                        .padding(.bottom, Configs.paddingValue)
+                    
+                    // 정원 선택 화면
+                    RCParticipantsSection(participantsLimit: $limitPeople)
+                        .padding(.bottom, Configs.paddingValue)
+                    
+                    // 성별 선택 화면
+                    genderSelectionView
+                        .padding(.bottom, Configs.paddingValue)
+                    
+                    staticGuageLimitView
                 }
-                
-                // 시간을 입력 받는 뷰
-                timeSelectionView
-                    .padding(.bottom, Configs.paddingValue)
-                
-                // 정원 선택 화면
-                RCParticipantsSection(participantsLimit: $limitPeople)
-                    .padding(.bottom, Configs.paddingValue)
-                
-                // 성별 선택 화면
-                genderSelectionView
-                    .padding(.bottom, Configs.paddingValue)
-                
-                staticGuageLimitView
+                if isCreateNewRoom {
+                    ZStack {
+                        Rectangle()
+                            .frame(maxWidth: .infinity)
+                            .frame(maxHeight: .infinity)
+                            .foregroundStyle(.white)
+                        VStack {
+                            Spacer()
+                            Text("모임을 생성 중입니다.")
+                                .font(.title)
+                                .foregroundStyle(Color.pointColor)
+                                .fontWeight(.bold)
+                            Spacer()
+                        }
+                    }
+                }
             }
             
             // 다음으로 넘어가기 버튼
-            GeneralButton("완료", isDisabled: !isButtonEnabled) {
-                VM.saveRoomProcess(
-                    processSelection: processSelection,
-                    placeLatitude: offlineLocation?.latitude ?? 0.0,
-                    placeLongitude: offlineLocation?.longitude ?? 0.0,
-                    platform: platformSelection
-                )
-                
-                VM.saveDateTime(
-                    dateSelection: dateSelection,
-                    timeSelection: timeSelection ?? .now
-                )
-                
-                VM.saveGenderLimitation(genderLimitation: genderSelection)
-                
-                VM.saveScoreLimitation(
-                    hasScoreLimit: hasScoreLimit,
-                    scoreLimitation: staticGuageLimit
-                )
-                
-                VM.saveLimitPeople(limitPeople: limitPeople)
-                
-                Task {
-                    let roomID = try await VM.createRoom(userModel: userService.loggedInUserInfo())
-                    if let roomID = roomID {
-                        // 방장 입장 메시지
-                        guard let username = try await userService.loggedInUserInfo()?.userName else { return }
-                        try ChattingService(roomID: roomID).sendMessage(message: "\(username)님께서 입장하셨습니다.")
+            GeneralButton(isButtonEnabled ? "완료" : "잠시만 기다려주세요.", isDisabled: !isButtonEnabled) {
+                if !isCreateNewRoom {
+                    isCreateNewRoom.toggle()
+                    isButtonEnabled.toggle()
+                    VM.saveRoomProcess(
+                        processSelection: processSelection,
+                        placeLatitude: offlineLocation?.latitude ?? 0.0,
+                        placeLongitude: offlineLocation?.longitude ?? 0.0,
+                        platform: platformSelection
+                    )
+                    
+                    VM.saveDateTime(
+                        dateSelection: dateSelection,
+                        timeSelection: timeSelection ?? .now
+                    )
+                    
+                    VM.saveGenderLimitation(genderLimitation: genderSelection)
+                    
+                    VM.saveScoreLimitation(
+                        hasScoreLimit: hasScoreLimit,
+                        scoreLimitation: staticGuageLimit
+                    )
+                    
+                    VM.saveLimitPeople(limitPeople: limitPeople)
+                    
+                    Task {
+                        let roomID = try await VM.createRoom(userModel: userService.loggedInUserInfo())
+                        if let roomID = roomID {
+                            // 방장 입장 메시지
+                            guard let username = try await userService.loggedInUserInfo()?.userName else { return }
+                            try ChattingService(roomID: roomID).sendMessage(message: "\(username)님께서 입장하셨습니다.")
+                            VM.topDismiss?.callAsFunction()
+                        }
                     }
-                    // FIXME: 모임개설 페이지가 안없어져용.
                 }
             }
         }
