@@ -168,132 +168,17 @@ struct RoomDetailView: View {
                     }
                 }
             }
-            .onChange(of: isLogined) {
-                if isLogined  {
-                    Task {
-                        do {
-                            if let roomId = room.id, let userModel = userModel?.id {
-                                isJoined = try await roomService.isJoined(roomID: roomId, userUID: userModel)
-                            }
-                        } catch {
-                            Configs.printDebugMessage("참여한 방인지 여부의 error: \(error)")
-                        }
-                    }
-                }
-            }
-            
-            //MARK: - iOS16
-            
-        } else {
-            ZStack(alignment: .bottom) {
-                ScrollView {
-                    LazyVStack(alignment: .leading) {
-                        // 상단 타이틀 Stack
-                        HStack {
-                            // 카테고리
-                            RoomCategoryView(room.category.rawValue)
-                            
-                            // 타이틀
-                            Text(room.title)
-                                .font(.title3)
-                        }
-                        
-                        // 썸네일 이미지
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundStyle(.clear)
-                            .aspectRatio(contentMode: .fill)
-                            .frame(maxHeight: 200)
-                            .background {
-                                fetchRoomImage(image: roomImage)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(maxHeight: 200)
-                                    .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                            }
-                            .padding(.bottom, 20)
-                        
-                        // 세부 내용
-                        Text(room.content)
-                            .foregroundStyle(Color.staticGray1)
-                            .padding(.bottom, 40)
-                        
-                        // 위치, 시간, 참여 인원에 대한 정보를 나타내는 뷰
-                        RoomInfoView(room: room, participantsCount: participantsCount, offlineLocation: $offlineLocation)
-                            .padding(.bottom, 40)
-                        
-                        Text("와우, 벌써 \(participantsCount)명이나 모였어요.")
-                            .font(.title3)
-                            .fontWeight(.bold)
-                        // 참여자의 정보를 나타내는 뷰
-                        ParticipantListView(room: room, participants: participants)
-                    }
-                    .padding(.horizontal, 20)
-                }
-                .padding(.vertical, 1)
-                .padding(.bottom, 85)
-                
-                participateRoomButton
-            }
-            .toolbarRole(.editor)
-            .toolbar {
-                if isLogined {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            alertToReport.toggle()
-                        } label: {
-                            Image(systemName: "light.beacon.max")
-                        }
-                    }
-                }
-            }
-            .alert("신고하기", isPresented: $alertToReport) {
-                Button {
-                    isShowingContactInputView.toggle()
-                } label: {
-                    Label("신고하기", systemImage: "person.circle")
-                        .labelStyle(.titleOnly)
-                }
-                // 취소 버튼
-                Button{
-                    alertToReport = false
-                } label: {
-                    Label("취소", systemImage: "trash")
-                        .labelStyle(.titleOnly)
-                }
-            } message: {
-                Text("해당 모임을 신고하시겠습니까?")
-            }
-            .navigationDestination(isPresented: $isShowingContactInputView, destination: {
-                if let roomid = room.id {
-                    ContactInputView(selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "", contactThroughRoomView: true)
-                }
-            })
-            .onAppear {
-                modifyRoomStatus()
-                
+            .customOnChange(of: isShowingLoginView) { _ in
                 Task {
                     do {
-                        await updateRecentRoom()
                         userModel = try await userService.loggedInUserInfo()
-                        if let roomId = room.id {
-                            participants = try await roomService.joinedUsers(roomID: roomId)
-                        }
-                        participantsCount = participants.count
-                    } catch {
-                        Configs.printDebugMessage("\(error)")
-                    }
-                }
-            }
-            .onChange(of: isLogined) { newValue in
-                if isLogined  {
-                    Task {
-                        do {
+                        if isLogined  {
                             if let roomId = room.id, let userModel = userModel?.id {
                                 isJoined = try await roomService.isJoined(roomID: roomId, userUID: userModel)
                             }
-                        } catch {
-                            Configs.printDebugMessage("참여한 방인지 여부의 error: \(error)")
                         }
+                    } catch {
+                        Configs.printDebugMessage("참여한 방인지 여부의 error: \(error)")
                     }
                 }
             }
@@ -346,18 +231,18 @@ extension RoomDetailView {
                     }
                 }
                 .alert("로그인 알림", isPresented: $alertToLogin) {
-                    // 로그인 시트 올리는 버튼
-                    Button {
-                        isShowingLoginView.toggle()
-                    } label: {
-                        Label("로그인", systemImage: "person.circle")
-                            .labelStyle(.titleOnly)
-                    }
                     // 취소 버튼
                     Button{
                         alertToLogin = false
                     } label: {
                         Label("취소", systemImage: "trash")
+                            .labelStyle(.titleOnly)
+                    }
+                    // 로그인 시트 올리는 버튼
+                    Button {
+                        isShowingLoginView.toggle()
+                    } label: {
+                        Label("로그인", systemImage: "person.circle")
                             .labelStyle(.titleOnly)
                     }
                 } message: {
@@ -368,6 +253,19 @@ extension RoomDetailView {
                 }
                 .fullScreenCover(isPresented: $isShowingLoginView) {
                     LogInView()
+                }
+            }
+        }
+        .customOnChange(of: isLogined) { _ in
+            Task {
+                do {
+                    if isLogined  {
+                        if let roomId = room.id, let userModel = userModel?.id {
+                            isJoined = try await roomService.isJoined(roomID: roomId, userUID: userModel)
+                        }
+                    }
+                } catch {
+                    Configs.printDebugMessage("참여한 방인지 여부의 error: \(error)")
                 }
             }
         }
