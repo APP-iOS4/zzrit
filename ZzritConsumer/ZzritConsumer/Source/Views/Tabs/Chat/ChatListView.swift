@@ -13,6 +13,8 @@ struct ChatListView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     
+    @Binding var offlineLocation: OfflineLocationModel?
+    
     @State private var selection = "참여 중인 모임"
     @State private var userModel: UserModel?
     @State private var rooms: [RoomModel] = []
@@ -35,9 +37,9 @@ struct ChatListView: View {
                     if isLogined {
                         // TODO: 가장 최근에 메시지가 온 모임이 상단에 뜨도록 정렬
                         if selection == "참여 중인 모임" {
-                            ChatActiveListView(rooms: rooms)
+                            ChatActiveListView(rooms: rooms, offlineLocation: $offlineLocation)
                         } else {
-                            ChatDeactiveListView(rooms: rooms)
+                            ChatDeactiveListView(rooms: rooms, offlineLocation: $offlineLocation)
                         }
                     }
                     Spacer()
@@ -146,7 +148,7 @@ struct ChatListView: View {
 
 #Preview {
     NavigationStack {
-        ChatListView()
+        ChatListView(offlineLocation: .constant(nil))
             .environmentObject(UserService())
             .environmentObject(LoadRoomViewModel())
     }

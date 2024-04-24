@@ -19,6 +19,8 @@ struct ChatView: View {
     // 모임방 활성화 여부
     @Binding var isActive: Bool
     
+    @Binding var offlineLocation: OfflineLocationModel?
+    
     // 유저 정보 불러옴
     @EnvironmentObject private var userService: UserService
     // 유저모델 변수
@@ -94,10 +96,11 @@ struct ChatView: View {
     }
     
     // 모임 정보 init
-    init(roomID: String, room: RoomModel, isActive: Binding<Bool>) {
+    init(roomID: String, room: RoomModel, isActive: Binding<Bool>, offlineLocation: Binding<OfflineLocationModel?>) {
         self._chattingService = StateObject(wrappedValue: ChattingService(roomID: roomID))
         self.room = room
         self._isActive = isActive
+        self._offlineLocation = offlineLocation
     }
     
     var body: some View {
@@ -375,14 +378,14 @@ struct ChatView: View {
                 .background(RoundedRectangle(cornerRadius: Configs.cornerRadius).foregroundStyle(Color.staticGray6))
             }
             .disabled(!isActive)
-            .padding(.top, 5)
         }
-        .padding(.horizontal, Configs.paddingValue)
-        .padding(.bottom, 10)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 5)
         
         // FIXME: 채팅방 제목으로
         .navigationTitle(room.title)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .tabBar)
         .toolbar {
             // 오른쪽 메뉴창
             ToolbarItem(placement: .topBarTrailing) {
@@ -431,7 +434,7 @@ struct ChatView: View {
                 }
                 .sheet(isPresented: $isRoomDetailShow) {
                     // 모임 상세보기 sheet
-                    RoomDetailView(room: room)
+                    RoomDetailView(offlineLocation: $offlineLocation, room: room)
                         .padding(.top, Configs.paddingValue)
                 }
                 .sheet(isPresented: $isContactShow) {

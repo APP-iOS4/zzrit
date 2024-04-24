@@ -117,6 +117,8 @@
 		DFB59ED02BCE03FA00D7DD8A /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB59ECF2BCE03FA00D7DD8A /* PageControl.swift */; };
 		DFB59ED32BCE300C00D7DD8A /* ZziritUserVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB59ED22BCE300C00D7DD8A /* ZziritUserVoteView.swift */; };
 		DFB59ED52BCE358900D7DD8A /* VoteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB59ED42BCE358800D7DD8A /* VoteProfileView.swift */; };
+		DFC076BF2BD891020053F332 /* RoomModel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC076BE2BD891020053F332 /* RoomModel+Extension.swift */; };
+		DFC076C12BD895840053F332 /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC076C02BD895840053F332 /* CLLocationCoordinate2D+Extension.swift */; };
 		DFC75F822BC36CC50005DDD9 /* ZzritKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFC75F812BC36CC50005DDD9 /* ZzritKit */; };
 		FC0A793F2BC8C9B30012F85D /* ChatRoomNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0A793E2BC8C9B30012F85D /* ChatRoomNoticeView.swift */; };
 		FC2DDC0D2BC5070A00A51E64 /* MoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */; };
@@ -259,6 +261,8 @@
 		DFB59ECF2BCE03FA00D7DD8A /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		DFB59ED22BCE300C00D7DD8A /* ZziritUserVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZziritUserVoteView.swift; sourceTree = "<group>"; };
 		DFB59ED42BCE358800D7DD8A /* VoteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteProfileView.swift; sourceTree = "<group>"; };
+		DFC076BE2BD891020053F332 /* RoomModel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoomModel+Extension.swift"; sourceTree = "<group>"; };
+		DFC076C02BD895840053F332 /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
 		FC0A793E2BC8C9B30012F85D /* ChatRoomNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomNoticeView.swift; sourceTree = "<group>"; };
 		FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoView.swift; sourceTree = "<group>"; };
 		FC2DDC0E2BC508B700A51E64 /* MyStaticGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStaticGaugeView.swift; sourceTree = "<group>"; };
@@ -390,6 +394,8 @@
 			isa = PBXGroup;
 			children = (
 				3056254C2BC6B77000814FBF /* View+Extension.swift */,
+				DFC076BE2BD891020053F332 /* RoomModel+Extension.swift */,
+				DFC076C02BD895840053F332 /* CLLocationCoordinate2D+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -934,6 +940,7 @@
 				30064DB82BC8025D00FD04A2 /* ChatView.swift in Sources */,
 				303EDA762BC503EF0023FC09 /* RoomDetailView.swift in Sources */,
 				1F70CD332BD7A13200869119 /* SearchTextField.swift in Sources */,
+				DFC076C12BD895840053F332 /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				30BE7E9F2BC5055600A5A178 /* ParticipantListCellView.swift in Sources */,
 				30064DBA2BC8027700FD04A2 /* MessageModel.swift in Sources */,
 				30BE7EBF2BC57C7E00A5A178 /* ContactListView.swift in Sources */,
@@ -980,6 +987,7 @@
 				DFB59ED02BCE03FA00D7DD8A /* PageControl.swift in Sources */,
 				30064DBC2BC802A000FD04A2 /* MessageViewModel.swift in Sources */,
 				1F0603562BC63289003808F4 /* RCContentTextField.swift in Sources */,
+				DFC076BF2BD891020053F332 /* RoomModel+Extension.swift in Sources */,
 				1F70CD2E2BD79FE300869119 /* HistoryViewModel.swift in Sources */,
 				DFB57BCE2BCF667C0070A923 /* TermView.swift in Sources */,
 				DF2209672BD797DC00B9A2C7 /* HiddenRectangle.swift in Sources */,

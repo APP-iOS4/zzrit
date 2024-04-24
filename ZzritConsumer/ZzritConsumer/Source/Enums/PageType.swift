@@ -60,13 +60,13 @@ enum PageType: Hashable {
             }
         // 메인 페이지
         case .main:
-            MainView()
+            MainView(offlineLocation: .constant(nil))
         // 모임 그룹
         case .room(let room):
             switch room {
             // 모임 디테일 페이지
             case .detail:
-                RoomDetailView(room: RoomModel(title: "", category: .art, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+                RoomDetailView(offlineLocation: .constant(nil), room: RoomModel(title: "", category: .art, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
             // 모임 참여 시 안내사항 페이지
             case .notice:
                 ParticipantNoticeView(room: RoomModel(title: "", category: .art, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), confirmParticipation: .constant(false))

@@ -20,8 +20,8 @@ class LoadRoomViewModel: ObservableObject {
     
     private var isInit: Bool = true
     private var status: ActiveType = .activation
-    private var fetchCount: Int = 0
-    private var prevIsOnline: Bool? = nil
+    // private var fetchCount: Int = 0
+    // private var prevIsOnline: Bool? = nil
     
     init() {
         consumerLoadRoom()
@@ -30,14 +30,22 @@ class LoadRoomViewModel: ObservableObject {
     func consumerLoadRoom(_ title: String = "") {
         Task {
             do {
-                if fetchCount < 3 {
-                    let newRooms = try await roomService.loadRoom(isInitial: isInit, status: status.rawValue, title: title)
-                    
-                    if !newRooms.isEmpty {
-                        rooms += newRooms
-                        fetchCount += 1
-                        Configs.printDebugMessage("\(fetchCount)회 불러오기")
-                    }
+                /*
+                 if fetchCount < 3 {
+                 let newRooms = try await roomService.loadRoom(isInitial: isInit, status: status.rawValue, title: title)
+                 
+                 if !newRooms.isEmpty {
+                 rooms += newRooms
+                 fetchCount += 1
+                 Configs.printDebugMessage("\(fetchCount)회 불러오기")
+                 }
+                 }
+                 */
+                
+                let newRooms = try await roomService.loadRoom(isInitial: isInit, status: status.rawValue, title: title)
+                
+                if !newRooms.isEmpty {
+                    rooms += newRooms
                 }
                 
                 isInit = false
@@ -74,10 +82,10 @@ class LoadRoomViewModel: ObservableObject {
     }
     
     func getFilter(status: ActiveType = .activation, category: CategoryType? = nil, isOnline: Bool? = nil) {
-        if prevIsOnline != isOnline {
-            fetchCount = 0
-            Configs.printDebugMessage("카운터 초기화")
-        }
+//        if prevIsOnline != isOnline {
+//            fetchCount = 0
+//            Configs.printDebugMessage("카운터 초기화")
+//        }
         
         // FIXME: 리펙토링 필요!
         // 이거 어떻게 해야 쉽게 짤 수 있을까...
@@ -105,7 +113,7 @@ class LoadRoomViewModel: ObservableObject {
         // FIXME: 일단은 dateTime, 근데 생성 일자가 있어야 생성된 날짜 순으로 정렬이 가능할 거 같습니다.
         filterRooms.sort(by: { $0.dateTime > $1.dateTime })
         
-        prevIsOnline = isOnline
+        // prevIsOnline = isOnline
     }
     
     func roomInfo(_ roomID: String) async throws -> RoomModel? {
@@ -114,7 +122,7 @@ class LoadRoomViewModel: ObservableObject {
     }
     
     func refreshRooms() {
-        fetchCount = 0
+        // fetchCount = 0
         isInit = true
         rooms = []
         consumerLoadRoom()
