@@ -29,10 +29,14 @@ struct ZzritConsumerApp: App {
     @StateObject private var restrictionViewModel = RestrictionViewModel()
     @StateObject private var loadRoomViewModel = LoadRoomViewModel()
     
+    @State private var userModel: UserModel?
+    
+    @Environment(\.scenePhase) var scenePhase
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .onAppear(perform: {
+                .onAppear {
                     let tabBarAppearance = UITabBarAppearance()
                     tabBarAppearance.configureWithTransparentBackground()
                     UITabBar.appearance().standardAppearance = tabBarAppearance
@@ -41,13 +45,30 @@ struct ZzritConsumerApp: App {
                     let navigationBarAppearance = UINavigationBarAppearance()
                     navigationBarAppearance.configureWithTransparentBackground()
                     UINavigationBar.appearance().standardAppearance = navigationBarAppearance
-                })
+                    
+                    fetchRestriction()
+                }
+                .onChange(of: scenePhase) { _ in
+                    if scenePhase == .active {
+                        fetchRestriction()
+                    }
+                }
                 .preferredColorScheme(.light)
                 .environmentObject(userService)
                 .environmentObject(contactService)
                 .environmentObject(recentRoomViewModel)
                 .environmentObject(restrictionViewModel)
                 .environmentObject(loadRoomViewModel)
+        }
+    }
+    
+    private func fetchRestriction() {
+        Task {
+            userModel = try await userService.loggedInUserInfo()
+            if let id = userModel?.id{
+                restrictionViewModel.loadRestriction(userID: id)
+                print(restrictionViewModel.isUnderRestriction)
+            }
         }
     }
 }
