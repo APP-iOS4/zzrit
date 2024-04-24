@@ -90,7 +90,11 @@ struct RoomCellView: View {
                     Configs.printDebugMessage("error: \(error)")
                 }
                 
-                simpleAddress = await room.simpleAddress() ?? "(unknown)"
+                if let platformName = room.platform?.rawValue {
+                    simpleAddress = platformName
+                } else {
+                    simpleAddress = await room.simpleAddress() ?? "(unknown)"
+                }
             }
         }
     }

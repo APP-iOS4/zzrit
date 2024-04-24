@@ -14,6 +14,14 @@ struct ChatRoomNoticeView: View {
     
     @State private var fullAddress: String = ""
     
+    var locationString: String {
+        if let platformName = room.platform?.rawValue {
+            return platformName
+        } else {
+            return "\(fullAddress) \(room.placeName ?? "")"
+        }
+    }
+    
     var body: some View {
         HStack(alignment: .top, spacing: Configs.paddingValue) {
             VStack(spacing: 5) {
@@ -26,7 +34,7 @@ struct ChatRoomNoticeView: View {
             VStack(alignment: .leading, spacing: 5) {
                 Text(DateService.shared.formattedString(date: room.dateTime))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text("\(fullAddress) \(room.placeName ?? "")")
+                Text("\(locationString)")
                 
             }
         }

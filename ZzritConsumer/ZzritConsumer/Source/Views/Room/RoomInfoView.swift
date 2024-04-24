@@ -37,6 +37,14 @@ struct RoomInfoView: View {
         return "약 \(formattedString)km"
     }
 
+    private var locationString: String {
+        if let platformName = room.platform?.rawValue {
+            return platformName
+        } else {
+            return "\(simpleAddress) (\(distanceString))"
+        }
+    }
+    
     // MARK: - body
     
     var body: some View {
@@ -47,7 +55,7 @@ struct RoomInfoView: View {
                 .padding(.bottom, 5)
                 .padding(.top, 13)
             
-            Text("\(simpleAddress) (\(distanceString))")
+            Text("\(locationString)")
                 .foregroundStyle(Color.staticGray1)
                 .padding(.bottom, 5)
                 .padding(.top, 13)

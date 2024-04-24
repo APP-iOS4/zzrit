@@ -27,12 +27,20 @@ struct RoomCardView: View {
         return "약 \(formattedString)km"
     }
     
+    private var locationString: String {
+        if let platformName = room.platform?.rawValue {
+            return platformName
+        } else {
+            return "\(simpleAddress) (\(distanceString))"
+        }
+    }
+    
     // MARK: - body
     
     var body: some View {
         VStack(alignment: .leading) {
             // 모임 위치
-            Text("\(simpleAddress) (\(distanceString))")
+            Text("\(locationString)")
                 .font(.caption2)
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
