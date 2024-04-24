@@ -114,7 +114,8 @@ struct SearchTextField: View {
                 CustomFilterPicker("모임 날짜", data: DateType.allCases, selection: $filterModel.dateSelection)
             }
             .lineLimit(2)
-            .padding(Configs.paddingValue)
+            .padding(.horizontal, Configs.paddingValue)
+            .padding(.vertical, 10.0)
             .fixedSize(horizontal: true, vertical: true)
         }
     }
