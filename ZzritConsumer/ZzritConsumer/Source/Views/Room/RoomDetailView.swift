@@ -123,7 +123,7 @@ struct RoomDetailView: View {
                         .padding(.bottom, 40)
                     
                     // 위치, 시간, 참여 인원에 대한 정보를 나타내는 뷰
-                    RoomInfoView(room: room, participantsCount: participantsCount, offlineLocation: $offlineLocation)
+                    RoomInfoView(room: room, participantsCount: participantsCount)
                         .padding(.bottom, 40)
                     
                     Text("와우, 벌써 \(participantsCount)명이나 모였어요.")
