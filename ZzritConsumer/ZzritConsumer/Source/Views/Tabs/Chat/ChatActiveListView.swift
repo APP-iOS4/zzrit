@@ -12,7 +12,6 @@ import ZzritKit
 struct ChatActiveListView: View {
     
     let rooms: [RoomModel]
-    @Binding var offlineLocation: OfflineLocationModel?
     
     @State private var isActive: Bool = true
     
@@ -28,7 +27,7 @@ struct ChatActiveListView: View {
                         
                         NavigationLink {
                             // 상세 페이지
-                            ChatView(roomID: roomId, room: room, isActive: $isActive, offlineLocation: $offlineLocation)
+                            ChatView(roomID: roomId, room: room, isActive: $isActive)
                         } label: {
                             // 여기는 쓰이지 않는다
                         }
@@ -61,6 +60,6 @@ struct ChatActiveListView: View {
 
 #Preview {
     NavigationStack {
-        ChatActiveListView(rooms: [RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "", isOnline: false, status: .activation, leaderID: "", limitPeople: 8)], offlineLocation: .constant(nil))
+        ChatActiveListView(rooms: [RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "", isOnline: false, status: .activation, leaderID: "", limitPeople: 8)])
     }
 }

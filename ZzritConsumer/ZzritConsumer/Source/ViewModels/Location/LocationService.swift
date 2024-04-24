@@ -8,12 +8,14 @@
 import CoreLocation
 import Foundation
 
-class LocationService: NSObject, CLLocationManagerDelegate {
+class LocationService: NSObject, CLLocationManagerDelegate, ObservableObject {
     static let shared = LocationService()
     
     private let locationManager = CLLocationManager()
     
     private var userCurrentLocation: CLLocationCoordinate2D? = nil
+    
+    @Published private(set) var currentOffineLocation: OfflineLocationModel? = nil
     
     override init() {
         super.init()
@@ -60,6 +62,12 @@ class LocationService: NSObject, CLLocationManagerDelegate {
             // 필요한 처리를 여기에 추가
             break
         }
-
+    }
+    
+    /// 현재 위치를 업데이트 합니다.
+    func setCurrentLocation(_ from: OfflineLocationModel) {
+        currentOffineLocation = from
+        
+        LocalStorage.shared.setCurrentLocation(location: from)
     }
 }

@@ -16,7 +16,11 @@ final class RoomCreateViewModel {
     private var roomService = RoomService.shared
     
     /// 최상위 dismiss
-    var topDismiss: DismissAction? = nil
+    var topDismiss: DismissAction? = nil {
+        didSet {
+            print("topDismiss 변경 됨")
+        }
+    }
     
     /// 모임 리더 아이디
     private var leaderID: String?
@@ -55,6 +59,7 @@ final class RoomCreateViewModel {
     // FIXME: 여기 부분의 coverImage 고쳐야 함
     
     init(category: CategoryType? = nil, title: String? = nil, selectedImage: UIImage? = nil, roomIntroduction: String? = nil, isOnline: Bool? = nil, platform: PlatformType? = nil, placeLatitude: Double? = nil, placeLongitude: Double? = nil, placeName: String? = nil, dateTime: Date? = nil, limitPeople: Int? = nil, genderLimitation: GenderType? = nil, scoreLimitation: Int? = nil) {
+        print("RoomCreateVM Init")
         self.category = category
         self.title = title
         self.selectedImage = selectedImage
@@ -95,6 +100,7 @@ final class RoomCreateViewModel {
     
     /// 선택 사항들을 확인해서 새 모임 인스턴스를 만들어주는 함수
     private func makeNewRoom() async -> RoomModel? {
+        Configs.printDebugMessage("\(#function) category: \(category)")
         // 유저 UID 확인
         guard let leaderID else {
             Configs.printDebugMessage("유저 UID가 저장되지 않음.")
@@ -190,6 +196,7 @@ final class RoomCreateViewModel {
     
     /// 선택한 카테고리 저장하는 함수
     func saveSelectedCategory(selection: CategoryType?) {
+        Configs.printDebugMessage("\(#function) \(selection)")
         if let selection {
             self.category = selection
             Configs.printDebugMessage("선택한 카테고리가 저장됨.")

@@ -16,7 +16,7 @@ struct RoomCardListView: View {
     //
     @State private var scrollSelectedIndex: Int = 0
     // 사용자의 설정 위치
-    @Binding var offlineLocation: OfflineLocationModel?
+    
     // 임시 배열카운트 개수
     let testCount: Int = 4
     
@@ -30,10 +30,10 @@ struct RoomCardListView: View {
                         // 네비게이션 링크를 통한 카드 뷰 상세 페이지 이동
                         NavigationLink {
                             // 상세페이지 뷰 연결
-                            RoomDetailView(offlineLocation: $offlineLocation, room: room)
+                            RoomDetailView(room: room)
                         } label: {
                             // 라벨은 카드 뷰
-                            RoomCardView(room: room, offlineLocation: $offlineLocation, titleToHStackPadding: 75)
+                            RoomCardView(room: room, titleToHStackPadding: 75)
 //                                .padding(.leading, 10)
                         }
                     }
@@ -62,10 +62,10 @@ struct RoomCardListView: View {
                         // 네비게이션 링크를 통한 카드 뷰 상세 페이지 이동
                         NavigationLink {
                             // 상세페이지 뷰 연결
-                            RoomDetailView(offlineLocation: $offlineLocation, room: room)
+                            RoomDetailView(room: room)
                         } label: {
                             // 라벨은 카드 뷰
-                            RoomCardView(room: room, offlineLocation: $offlineLocation, titleToHStackPadding: 75)
+                            RoomCardView(room: room, titleToHStackPadding: 75)
                         }
                     }
                     .padding(.trailing, 5)
@@ -92,6 +92,6 @@ struct RoomCardListView: View {
 }
 
 #Preview {
-    RoomCardListView(offlineLocation: .constant(nil))
+    RoomCardListView()
         .environmentObject(LoadRoomViewModel())
 }

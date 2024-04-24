@@ -12,10 +12,6 @@ struct SearchView: View {
     @State private var isTextFieldFocused: Bool = false
     @StateObject private var searchViewModel = SearchViewModel()
     
-    @Binding var offlineLocation: OfflineLocationModel?
-    
-    @Environment(\.offlineLocation) private var sampleOfflineLocation
-    
     var body: some View {
         SearchTextField(searchViewModel: searchViewModel, filterModel: $filterModel, isTextFieldFocused: $isTextFieldFocused)
             .onTapGesture {
@@ -26,7 +22,7 @@ struct SearchView: View {
         if isTextFieldFocused {
             HistoryView(searchText: $filterModel.searchText)
         } else {
-            ResultRoomListView(searchViewModel: searchViewModel, filterModel: $filterModel, offlineLocation: $offlineLocation)
+            ResultRoomListView(searchViewModel: searchViewModel, filterModel: $filterModel)
                 .onTapGesture {
                     self.endTextEditing()
                 }
@@ -35,5 +31,5 @@ struct SearchView: View {
 }
 
 #Preview {
-    SearchView(offlineLocation: .constant(nil))
+    SearchView()
 }

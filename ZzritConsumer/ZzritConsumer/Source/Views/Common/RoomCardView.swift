@@ -11,17 +11,17 @@ import SwiftUI
 import ZzritKit
 
 struct RoomCardView: View {
+    @EnvironmentObject private var locationService: LocationService
     let room: RoomModel
     let roomService = RoomService.shared
     
-    @Binding var offlineLocation: OfflineLocationModel?
+    @State private var participantsCount: Int = 0
+    
+    var titleToHStackPadding: CGFloat
+    
     
     @State private var simpleAddress: String = "(unknown)"
     @State private var distance: Double = 0.0
-    @State private var participantsCount: Int = 0
-    @State private var roomImage: UIImage?
-    
-    var titleToHStackPadding: CGFloat
     
     private var distanceString: String {
         let formattedString = String(format: "%.1f", distance)
@@ -52,7 +52,7 @@ struct RoomCardView: View {
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
-            
+
             HStack {
                 // 날짜 및 시간
                 Text(DateService.shared.formattedString(date: room.dateTime, format: "M/dd HH:mm"))
@@ -112,15 +112,15 @@ struct RoomCardView: View {
                 }
                 
                 simpleAddress = await room.simpleAddress() ?? "(unknown)"
-                if let offlineLocation {
-                    let fromCoordinate = CLLocationCoordinate2D(latitude: offlineLocation.latitude, longitude: offlineLocation.longitude)
-                    distance = room.distance(from: fromCoordinate) ?? 0.0
-                }
+                
+                let fromCoordinate = CLLocationCoordinate2D(latitude: locationService.currentOffineLocation.wrappedValue.latitude, longitude: locationService.currentOffineLocation.wrappedValue.longitude)
+                distance = room.distance(from: fromCoordinate) ?? 0.0
+                
             }
         }
     }
 }
-//
-//#Preview {
-//    RoomCardView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), titleToHStackPadding: 100, offlineLocation: .constant(nil))
-//}
+
+#Preview {
+    RoomCardView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), titleToHStackPadding: 100)
+}

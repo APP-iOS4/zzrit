@@ -32,9 +32,9 @@ struct RecentWatchRoomView: View {
                         ForEach(recentRoomViewModel.recentViewedRooms.indices, id: \.self) { index in
                             NavigationLink {
                                 // 모임 상세 페이지 넘기기
-                                RoomDetailView(offlineLocation: .constant(nil), room: recentRoomViewModel.recentViewedRooms[index])
+                                RoomDetailView(room: recentRoomViewModel.recentViewedRooms[index])
                             } label: {
-                                RoomCardView(room: recentRoomViewModel.recentViewedRooms[index], offlineLocation: .constant(nil), titleToHStackPadding: 25)
+                                RoomCardView(room: recentRoomViewModel.recentViewedRooms[index], titleToHStackPadding: 25)
                             }
                             .tag(index)
                         }

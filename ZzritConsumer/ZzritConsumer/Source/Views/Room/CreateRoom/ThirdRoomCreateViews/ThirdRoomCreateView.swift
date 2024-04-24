@@ -78,29 +78,12 @@ struct ThirdRoomCreateView: View {
                     
                     staticGuageLimitView
                 }
-                if isCreateNewRoom {
-                    ZStack {
-                        Rectangle()
-                            .frame(maxWidth: .infinity)
-                            .frame(maxHeight: .infinity)
-                            .foregroundStyle(.white)
-                        VStack {
-                            Spacer()
-                            Text("모임을 생성 중입니다.")
-                                .font(.title)
-                                .foregroundStyle(Color.pointColor)
-                                .fontWeight(.bold)
-                            Spacer()
-                        }
-                    }
-                }
             }
             
             // 다음으로 넘어가기 버튼
-            GeneralButton(isButtonEnabled ? "완료" : "잠시만 기다려주세요.", isDisabled: !isButtonEnabled) {
+            GeneralButton("완료", isDisabled: !isButtonEnabled) {
                 if !isCreateNewRoom {
                     isCreateNewRoom.toggle()
-                    isButtonEnabled.toggle()
                     VM.saveRoomProcess(
                         processSelection: processSelection,
                         placeLatitude: offlineLocation?.latitude,
@@ -124,12 +107,15 @@ struct ThirdRoomCreateView: View {
                     VM.saveLimitPeople(limitPeople: limitPeople)
                     
                     Task {
-                        let roomID = try await VM.createRoom(userModel: userService.loggedInUserInfo())
+                        let userInfo = userService.loginedUser
+                        let roomID = await VM.createRoom(userModel: userInfo)
                         if let roomID = roomID {
                             // 방장 입장 메시지
-                            guard let username = try await userService.loggedInUserInfo()?.userName else { return }
+                            guard let username = userInfo?.userName else { return }
                             try ChattingService(roomID: roomID).sendMessage(message: "\(username)님께서 입장하셨습니다.")
                             VM.topDismiss?.callAsFunction()
+                        } else {
+                            isCreateNewRoom = false
                         }
                     }
                 }
@@ -138,6 +124,7 @@ struct ThirdRoomCreateView: View {
         .customOnChange(of: offlineLocation, handler: { _ in
             checkButtonEnable()
         })
+        .loading(isCreateNewRoom)
         .onAppear {
             timeSelection = .now
         }

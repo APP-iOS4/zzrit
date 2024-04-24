@@ -13,7 +13,7 @@ struct MainView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     
-    @Environment(\.offlineLocation) private var sampleOfflineLocation
+    @EnvironmentObject private var locationService: LocationService
     
     // 우측 상단 알람 버튼 눌렀는지 안눌렀는지 검사
     @State private var isTopTrailingAction: Bool = false
@@ -25,12 +25,15 @@ struct MainView: View {
     // 로그인 FullScreenCover로 넘어가는지 결정하는 변수
     @State private var isShowingLoginView: Bool = false
     // 오프라인 위치
-    @Binding var offlineLocation: OfflineLocationModel?
+    
+    init() {
+        Configs.printDebugMessage("MainView Init")
+    }
     
     // 유저모델 변수
-    @State private var userModel: UserModel?
+//    @State private var userModel: UserModel?
     private var isLogined: Bool {
-        return userModel != nil
+        return userService.loginedUser != nil
     }
     
     // MARK: - body
@@ -39,7 +42,7 @@ struct MainView: View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
                 ScrollView(.vertical) {
-                    MainLocationView(isOnline: $isOnline, offlineLocation: $offlineLocation)
+                    MainLocationView(isOnline: $isOnline)
                         .padding(.horizontal, 20)
                         .padding(.bottom, 40)
 
@@ -51,11 +54,11 @@ struct MainView: View {
                     
                     // 모임 카트 뷰 리스트 불러오기
                     // TODO: 모델 연동 시 모임 마감 인원 모델 배열을 넘겨줘야 한다.
-                    RoomCardListView(offlineLocation: $offlineLocation)
+                    RoomCardListView()
                     
                     // 최근 생성된 모임 리스트 불러오기
                     // TODO: 모델 연동 시 최근 생성된 모임 모델 배열을 넘겨줘야 한다.
-                    MainExistView(isOnline: $isOnline, offlineLocation: $offlineLocation)
+                    MainExistView(isOnline: $isOnline)
                 }
                 .padding(.vertical, 1)
                 .refreshable {
@@ -96,10 +99,11 @@ struct MainView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear {
-            Task {
-                userModel = try await userService.loggedInUserInfo()
-            }
-            offlineLocation = LocalStorage.shared.latestSettedLocation()
+            locationService.setCurrentLocation(LocalStorage.shared.latestSettedLocation() ?? .initialLocation)
+        }
+        .customOnChange(of: locationService.currentOffineLocation) { _ in
+            loadRoomViewModel.refreshRooms()
+            Configs.printDebugMessage("뭔가 바뀌긴 했어.")
         }
     }
 }
@@ -145,9 +149,6 @@ extension MainView {
             RoomCreateView()
         }
         .sheet(isPresented: $isShowingLoginView) {
-            Task {
-                userModel = try await userService.loggedInUserInfo()
-            }
         } content: {
             LogInView()
         }
@@ -159,7 +160,7 @@ extension MainView {
 
 #Preview {
     NavigationStack {
-        MainView(offlineLocation: .constant(nil))
+        MainView()
             .environmentObject(UserService())
             .environmentObject(LoadRoomViewModel())
     }

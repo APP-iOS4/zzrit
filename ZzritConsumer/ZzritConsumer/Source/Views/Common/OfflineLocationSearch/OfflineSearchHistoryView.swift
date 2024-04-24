@@ -9,10 +9,18 @@ import SwiftUI
 
 struct OfflineSearchHistoryView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var locationService: LocationService
+    
+    let searchType: OfflineLocationSearchType
     
     @State private var histories: [OfflineLocationModel] = []
-
+    
     @Binding var offlineLocation: OfflineLocationModel?
+    
+    init(searchType: OfflineLocationSearchType, offlineLocation: Binding<OfflineLocationModel?> = .constant(nil)) {
+        self.searchType = searchType
+        self._offlineLocation = offlineLocation
+    }
     
     var body: some View {
         ZStack {
@@ -73,12 +81,17 @@ struct OfflineSearchHistoryView: View {
     }
     
     private func selectHistory(_ history: OfflineLocationModel) {
-        LocalStorage.shared.setCurrentLocation(location: history)
-        offlineLocation = history
+        if searchType == .currentLocation {
+            LocalStorage.shared.setCurrentLocation(location: history)
+            locationService.setCurrentLocation(history)
+        } else {
+            Configs.printDebugMessage("offlineLocation 변경됨")
+            offlineLocation = history
+        }
         dismiss()
     }
 }
 
 #Preview {
-    OfflineSearchHistoryView(offlineLocation: .constant(nil))
+    OfflineSearchHistoryView(searchType: .currentLocation)
 }

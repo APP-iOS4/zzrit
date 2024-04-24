@@ -10,10 +10,18 @@ import SwiftUI
 struct OfflineLocationListCell: View {
     let locationModel: KakaoSearchDocumentModel
     let keyword: String
+    let searchType: OfflineLocationSearchType
+    @Binding var offlineLocation: OfflineLocationModel?
     
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var locationService: LocationService
     
-    @Binding var offlineLocation: OfflineLocationModel?
+    init(keyword: String, locationModel: KakaoSearchDocumentModel, searchType: OfflineLocationSearchType, offlineLocation: Binding<OfflineLocationModel?> = .constant(nil)) {
+        self.keyword = keyword
+        self.locationModel = locationModel
+        self.searchType = searchType
+        self._offlineLocation = offlineLocation
+    }
     
     private var address: String {
         if locationModel.roadAddressName != "" {
@@ -70,7 +78,11 @@ struct OfflineLocationListCell: View {
     private func selectLocation(location: OfflineLocationModel) {
         LocalStorage.shared.addLocationHistory(location: location)
         LocalStorage.shared.setCurrentLocation(location: location)
-        offlineLocation = location
+        if searchType == .currentLocation {
+            locationService.setCurrentLocation(location)
+        } else {
+            offlineLocation = location
+        }
         dismiss()
     }
 }

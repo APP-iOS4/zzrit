@@ -11,7 +11,7 @@ struct MainExistView: View {
     @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     @Binding var isOnline: Bool
     // @State private var fetchCount: Int = 0
-    @Binding var offlineLocation: OfflineLocationModel?
+    
     
     var body: some View {
         if #available(iOS 17.0, *) {
@@ -26,7 +26,7 @@ struct MainExistView: View {
                     // 모임 리스트 셀 불러오기
                     NavigationLink {
                         // 상세페이지 뷰 연결
-                        RoomDetailView(offlineLocation: $offlineLocation, room: room)
+                        RoomDetailView(room: room)
                     } label: {
                         RoomCellView(room: room)
                     }
@@ -60,7 +60,7 @@ struct MainExistView: View {
                     // 모임 리스트 셀 불러오기
                     NavigationLink {
                         // 상세페이지 뷰 연결
-                        RoomDetailView(offlineLocation: $offlineLocation, room: room)
+                        RoomDetailView(room: room)
                     } label: {
                         RoomCellView(room: room)
                     }
@@ -88,6 +88,6 @@ struct MainExistView: View {
 }
 
 #Preview {
-    MainExistView(isOnline: .constant(false), offlineLocation: .constant(nil))
+    MainExistView(isOnline: .constant(false))
         .environmentObject(LoadRoomViewModel())
 }

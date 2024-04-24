@@ -18,9 +18,7 @@ struct ChatView: View {
     let room: RoomModel
     // 모임방 활성화 여부
     @Binding var isActive: Bool
-    
-    @Binding var offlineLocation: OfflineLocationModel?
-    
+
     // 유저 정보 불러옴
     @EnvironmentObject private var userService: UserService
     // 유저모델 변수
@@ -96,11 +94,10 @@ struct ChatView: View {
     }
     
     // 모임 정보 init
-    init(roomID: String, room: RoomModel, isActive: Binding<Bool>, offlineLocation: Binding<OfflineLocationModel?>) {
+    init(roomID: String, room: RoomModel, isActive: Binding<Bool>) {
         self._chattingService = StateObject(wrappedValue: ChattingService(roomID: roomID))
         self.room = room
         self._isActive = isActive
-        self._offlineLocation = offlineLocation
     }
     
     var body: some View {
@@ -434,7 +431,7 @@ struct ChatView: View {
                 }
                 .sheet(isPresented: $isRoomDetailShow) {
                     // 모임 상세보기 sheet
-                    RoomDetailView(offlineLocation: $offlineLocation, room: room)
+                    RoomDetailView(room: room)
                         .padding(.top, Configs.paddingValue)
                 }
                 .sheet(isPresented: $isContactShow) {
