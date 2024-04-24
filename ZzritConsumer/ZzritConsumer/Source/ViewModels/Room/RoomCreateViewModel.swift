@@ -216,16 +216,22 @@ final class RoomCreateViewModel {
     
     /// 새 모임의 커버 이미지를 저장하는 함수
     func saveCoverImage(coverUIImage: UIImage?) async -> String {
-        guard let coverUIImage = coverUIImage else {
-            Configs.printDebugMessage("coverUIImage 정보가 없음")
-            return "NONE"
-        }
-        guard let imageData = coverUIImage.pngData() else {
+        // 이미지 없을때
+        guard let userUploadImage = coverUIImage else { return "NONE"}
+        
+        guard let resizeImage = (userUploadImage.size.width) < 840 ? userUploadImage : userUploadImage.resizeWithWidth(width: 840) else { return "NONE" }
+        
+        guard let imageData = resizeImage.pngData() else {
             Configs.printDebugMessage("coverImage의 png 정보가 없음")
             return "NONE"
         }
+        let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMdd")
+        let timeString = DateService.shared.formattedString(date: Date(), format: "HHmm")
+        let leaderID: String = self.leaderID!
+        let imageDir: [StorageService.StorageName: [String]] = [.roomCover: [dayString, timeString, leaderID]]
+        
         do {
-            let coverImage: String = try await storageService.imageUpload(topDir: .roomCover, dirs: ["\(UUID().uuidString)"], image: imageData)
+            let coverImage: String = try await storageService.imageUpload(dirs: imageDir, image: imageData) ?? "NONE"
             // 파베에 저장 하고 캐시에도 저장
             ImageCacheManager.shared.updateImageFirst(name: coverImage, image: coverUIImage)
             Configs.printDebugMessage("파이어베이스에 새 모임 커버 이미지 저장 성공!")
