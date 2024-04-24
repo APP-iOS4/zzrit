@@ -35,6 +35,7 @@ struct RoomCardView: View {
             return "\(simpleAddress) (\(distanceString))"
         }
     }
+    @State private var roomImage: UIImage?
     
     // MARK: - body
     
