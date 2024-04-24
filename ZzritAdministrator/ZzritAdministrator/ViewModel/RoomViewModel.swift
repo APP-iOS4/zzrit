@@ -71,8 +71,8 @@ final class RoomViewModel: ObservableObject {
     
     /// 모임 refresh
     func refreshRooms() {
-        initialFetch = true
         rooms = []
+        initialFetch = true
         loadRooms()
     }
 }
