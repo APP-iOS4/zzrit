@@ -14,6 +14,7 @@ struct RCProcedurePicker: View {
     
     @Binding var processSelection: RoomProcessType?
     @Binding var platformSelection: PlatformType?
+    @Binding var offlineLocation: OfflineLocationModel?
     
     
     let onPressButton: () -> Void
@@ -45,7 +46,7 @@ struct RCProcedurePicker: View {
         .padding(.bottom, Configs.paddingValue)
         .lineLimit(3)
         .sheet(isPresented: $isShowingLocationSearchView) {
-            OfflineLocationSearchView()
+            OfflineLocationSearchView(searchType: .createRoom, offlineLocation: $offlineLocation)
                 .presentationDragIndicator(.visible)
         }
         
@@ -97,7 +98,7 @@ struct RCProcedurePicker: View {
                 VStack(alignment: .leading, spacing: 10.0) {
                     // 한 줄
                     HStack {
-                        Text(locationService.currentOffineLocation.wrappedValue.placeName)
+                        Text(offlineLocation?.placeName ?? "장소를 검색해주세요.")
                         Spacer()
                         Button {
                             
@@ -109,8 +110,10 @@ struct RCProcedurePicker: View {
                     .fontWeight(.bold)
                     .foregroundStyle(.black)
                     
-                    Text(locationService.currentOffineLocation.wrappedValue.address)
-                        .foregroundStyle(Color.staticGray2)
+                    if let offlineLocation {
+                        Text(offlineLocation.address)
+                            .foregroundStyle(Color.staticGray2)
+                    }
                 }
                 .padding()
                 .overlay {
@@ -124,7 +127,7 @@ struct RCProcedurePicker: View {
 }
 
 #Preview {
-    RCProcedurePicker(processSelection: .constant(.offline), platformSelection: .constant(.discord)) {
+    RCProcedurePicker(processSelection: .constant(.offline), platformSelection: .constant(.discord), offlineLocation: .constant(nil)) {
         
     }
 }

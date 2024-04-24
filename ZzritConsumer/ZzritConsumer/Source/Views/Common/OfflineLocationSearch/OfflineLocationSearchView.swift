@@ -13,9 +13,20 @@ struct OfflineLocationSearchView: View {
     @EnvironmentObject private var locationService: LocationService
     private let kakaoService = KakaoSearchService()
     
+    let searchType: OfflineLocationSearchType
+    
     @State private var keyword: String = ""
     @State private var selectedTabIndex: Int = 0
     @FocusState private var keywordFocus
+    
+    @Binding var offlineLocation: OfflineLocationModel?
+    
+    init(searchType: OfflineLocationSearchType, offlineLocation: Binding<OfflineLocationModel?> = .constant(nil)) {
+        self.searchType = searchType
+        self._offlineLocation = offlineLocation
+        
+        Configs.printDebugMessage("searchType: \(searchType)")
+    }
     
     var body: some View {
         NavigationStack {
@@ -62,9 +73,9 @@ struct OfflineLocationSearchView: View {
                     .frame(height: 5)
                 
                 TabView(selection: $selectedTabIndex) {
-                    OfflineSearchHistoryView()
+                    OfflineSearchHistoryView(searchType: searchType, offlineLocation: $offlineLocation)
                         .tag(0)
-                    KakaoSearchResultView(keyword: $keyword)
+                    KakaoSearchResultView(searchType: searchType, keyword: $keyword, offlineLocation: $offlineLocation)
                         .tag(1)
                 }
             }
@@ -107,8 +118,13 @@ struct OfflineLocationSearchView: View {
                         tempOfflineLocation.placeName = address
                         tempOfflineLocation.address = address
                     }
-                    LocalStorage.shared.setCurrentLocation(location: tempOfflineLocation)
-                    locationService.setCurrentLocation(tempOfflineLocation)
+                    if searchType == .currentLocation {
+                        LocalStorage.shared.setCurrentLocation(location: tempOfflineLocation)
+                        locationService.setCurrentLocation(tempOfflineLocation)
+                    } else {
+                        Configs.printDebugMessage("offlineLocation 변경됨")
+                        offlineLocation = tempOfflineLocation
+                    }
                     dismiss()
                 }
             } catch {

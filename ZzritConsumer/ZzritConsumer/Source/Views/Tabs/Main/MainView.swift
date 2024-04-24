@@ -26,6 +26,9 @@ struct MainView: View {
     @State private var isShowingLoginView: Bool = false
     // 오프라인 위치
     
+    init() {
+        Configs.printDebugMessage("MainView Init")
+    }
     
     // 유저모델 변수
 //    @State private var userModel: UserModel?
