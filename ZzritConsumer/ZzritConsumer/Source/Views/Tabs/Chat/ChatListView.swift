@@ -16,14 +16,12 @@ struct ChatListView: View {
     @Binding var offlineLocation: OfflineLocationModel?
     
     @State private var selection = "참여 중인 모임"
-//    @State private var userModel: UserModel?
     @State private var rooms: [RoomModel] = []
     @State private var checkActivation: Bool = false
     
     @State private var isShowingLoginView: Bool = false
     
     private var isLogined: Bool {
-//        return userModel != nil
         return userService.loginedUser != nil
     }
     
@@ -112,11 +110,7 @@ struct ChatListView: View {
             }
         }
     }
-    
-//    func isLogined() async throws {
-//        try await userService.loginedUser
-//    }
-    
+ 
     func fetchRoom() async throws {
         rooms.removeAll()
         if let userModel = userService.loginedUser {
@@ -142,10 +136,8 @@ struct ChatListView: View {
         
         for room in rooms {
             let tempRoom = loadRoomViewModel.deactivateOneRoom(room: room)
-            
             tempRooms.append(tempRoom)
         }
-        
         rooms = tempRooms
     }
 }
