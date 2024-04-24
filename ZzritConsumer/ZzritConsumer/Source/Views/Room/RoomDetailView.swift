@@ -13,7 +13,7 @@ struct RoomDetailView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var recentRoomViewModel: RecentRoomViewModel
     
-    @Binding var offlineLocation: OfflineLocationModel?
+    @EnvironmentObject private var locationService: LocationService
     
     @State var room: RoomModel
     let roomService = RoomService.shared
@@ -90,9 +90,6 @@ struct RoomDetailView: View {
     // MARK: - body
     
     var body: some View {
-        
-        //MARK: - iOS17
-        
         ZStack(alignment: .bottom) {
             ScrollView {
                 LazyVStack(alignment: .leading) {
@@ -265,7 +262,7 @@ extension RoomDetailView {
                     }
                     .navigationDestination(isPresented: $confirmParticipation) {
                         if let roomID = room.id {
-                            ChatView(roomID: roomID, room: room, isActive: $isActive, offlineLocation: $offlineLocation)
+                            ChatView(roomID: roomID, room: room, isActive: $isActive)
                         }
                     }
                     .alert("로그인 알림", isPresented: $alertToLogin) {
@@ -326,7 +323,7 @@ struct disableTextModifier: ViewModifier {
 
 #Preview {
     NavigationStack {
-        RoomDetailView(offlineLocation: .constant(nil), room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+        RoomDetailView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
             .environmentObject(UserService())
             .environmentObject(RecentRoomViewModel())
     }

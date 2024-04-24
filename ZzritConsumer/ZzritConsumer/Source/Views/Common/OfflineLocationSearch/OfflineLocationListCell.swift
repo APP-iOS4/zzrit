@@ -12,8 +12,7 @@ struct OfflineLocationListCell: View {
     let keyword: String
     
     @Environment(\.dismiss) private var dismiss
-    
-    @Binding var offlineLocation: OfflineLocationModel?
+    @EnvironmentObject private var locationService: LocationService
     
     private var address: String {
         if locationModel.roadAddressName != "" {
@@ -70,7 +69,7 @@ struct OfflineLocationListCell: View {
     private func selectLocation(location: OfflineLocationModel) {
         LocalStorage.shared.addLocationHistory(location: location)
         LocalStorage.shared.setCurrentLocation(location: location)
-        offlineLocation = location
+        locationService.setCurrentLocation(location)
         dismiss()
     }
 }

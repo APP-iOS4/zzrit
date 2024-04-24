@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct KakaoSearchResultView: View {
+    
     private let kakaoService = KakaoSearchService()
     
     @Binding var keyword: String
-    @Binding var offlineLocation: OfflineLocationModel?
     
     @State private var results: [KakaoSearchDocumentModel] = []
     
@@ -23,7 +23,7 @@ struct KakaoSearchResultView: View {
             ScrollView {
                 LazyVStack(spacing: 0) {
                     ForEach(results) { result in
-                        OfflineLocationListCell(locationModel: result, keyword: keyword, offlineLocation: $offlineLocation)
+                        OfflineLocationListCell(locationModel: result, keyword: keyword)
                     }
                 }
             }
@@ -64,5 +64,5 @@ struct KakaoSearchResultView: View {
 }
 
 #Preview {
-    KakaoSearchResultView(keyword: .constant(""), offlineLocation: .constant(nil))
+    KakaoSearchResultView(keyword: .constant(""))
 }

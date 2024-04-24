@@ -11,13 +11,12 @@ import SwiftUI
 import ZzritKit
 
 struct RoomInfoView: View {
+    @EnvironmentObject private var locationService: LocationService
     let room: RoomModel
     
     let participantsCount: Int
     // 그리드 뷰에 나타낼 열의 개수
     let columns: [GridItem] = [GridItem(.flexible(minimum: 85, maximum: 85)), GridItem(.flexible())]
-    
-    @Binding var offlineLocation: OfflineLocationModel?
     
     private var isGenderLimit: Bool {
         if room.genderLimitation != nil { return true }
@@ -111,14 +110,12 @@ struct RoomInfoView: View {
         }
         .task {
             simpleAddress = await room.simpleAddress() ?? "(unknown)"
-            if let offlineLocation {
-                let fromCoordinate = CLLocationCoordinate2D(latitude: offlineLocation.latitude, longitude: offlineLocation.longitude)
-                distance = room.distance(from: fromCoordinate) ?? 0.0
-            }
+            let fromCoordinate = CLLocationCoordinate2D(latitude: locationService.currentOffineLocation.wrappedValue.latitude, longitude: locationService.currentOffineLocation.wrappedValue.longitude)
+            distance = room.distance(from: fromCoordinate) ?? 0.0
         }
     }
 }
 
 #Preview {
-    RoomInfoView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), participantsCount: 0, offlineLocation: .constant(nil))
+    RoomInfoView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), participantsCount: 0)
 }

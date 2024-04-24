@@ -10,16 +10,12 @@ import SwiftUI
 
 struct OfflineLocationSearchView: View {
     @Environment(\.dismiss) private var dismiss
-    
-    private let locationService = LocationService()
+    @EnvironmentObject private var locationService: LocationService
     private let kakaoService = KakaoSearchService()
     
     @State private var keyword: String = ""
     @State private var selectedTabIndex: Int = 0
     @FocusState private var keywordFocus
-    
-    
-    @Binding var offlineLocation: OfflineLocationModel?
     
     var body: some View {
         NavigationStack {
@@ -66,9 +62,9 @@ struct OfflineLocationSearchView: View {
                     .frame(height: 5)
                 
                 TabView(selection: $selectedTabIndex) {
-                    OfflineSearchHistoryView(offlineLocation: $offlineLocation)
+                    OfflineSearchHistoryView()
                         .tag(0)
-                    KakaoSearchResultView(keyword: $keyword, offlineLocation: $offlineLocation)
+                    KakaoSearchResultView(keyword: $keyword)
                         .tag(1)
                 }
             }
@@ -112,7 +108,7 @@ struct OfflineLocationSearchView: View {
                         tempOfflineLocation.address = address
                     }
                     LocalStorage.shared.setCurrentLocation(location: tempOfflineLocation)
-                    offlineLocation = tempOfflineLocation
+                    locationService.setCurrentLocation(tempOfflineLocation)
                     dismiss()
                 }
             } catch {

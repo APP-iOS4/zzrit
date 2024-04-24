@@ -59,7 +59,7 @@ struct ThirdRoomCreateView: View {
             ZStack {
                 ScrollView {
                     // 진행방식을 입력 받는 뷰
-                    RCProcedurePicker(processSelection: $processSelection, platformSelection: $platformSelection, offlineLocation: $offlineLocation) {
+                    RCProcedurePicker(processSelection: $processSelection, platformSelection: $platformSelection) {
                         // 피커 버튼 눌렀을 때 사용할 함수
                         checkButtonEnable()
                     }

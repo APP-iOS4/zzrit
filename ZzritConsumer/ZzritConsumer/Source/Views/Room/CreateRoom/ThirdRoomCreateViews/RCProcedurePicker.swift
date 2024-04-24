@@ -10,9 +10,11 @@ import SwiftUI
 import ZzritKit
 
 struct RCProcedurePicker: View {
+    @EnvironmentObject private var locationService: LocationService
+    
     @Binding var processSelection: RoomProcessType?
     @Binding var platformSelection: PlatformType?
-    @Binding var offlineLocation: OfflineLocationModel?
+    
     
     let onPressButton: () -> Void
     
@@ -43,7 +45,7 @@ struct RCProcedurePicker: View {
         .padding(.bottom, Configs.paddingValue)
         .lineLimit(3)
         .sheet(isPresented: $isShowingLocationSearchView) {
-            OfflineLocationSearchView(offlineLocation: $offlineLocation)
+            OfflineLocationSearchView()
                 .presentationDragIndicator(.visible)
         }
         
@@ -95,7 +97,7 @@ struct RCProcedurePicker: View {
                 VStack(alignment: .leading, spacing: 10.0) {
                     // 한 줄
                     HStack {
-                        Text(offlineLocation?.placeName ?? "주소를 검색하세요.")
+                        Text(locationService.currentOffineLocation.wrappedValue.placeName)
                         Spacer()
                         Button {
                             
@@ -107,10 +109,8 @@ struct RCProcedurePicker: View {
                     .fontWeight(.bold)
                     .foregroundStyle(.black)
                     
-                    if let address = offlineLocation?.address {
-                        Text(address)
-                            .foregroundStyle(Color.staticGray2)
-                    }
+                    Text(locationService.currentOffineLocation.wrappedValue.address)
+                        .foregroundStyle(Color.staticGray2)
                 }
                 .padding()
                 .overlay {
@@ -124,7 +124,7 @@ struct RCProcedurePicker: View {
 }
 
 #Preview {
-    RCProcedurePicker(processSelection: .constant(.offline), platformSelection: .constant(.discord), offlineLocation: .constant(nil)) {
+    RCProcedurePicker(processSelection: .constant(.offline), platformSelection: .constant(.discord)) {
         
     }
 }
