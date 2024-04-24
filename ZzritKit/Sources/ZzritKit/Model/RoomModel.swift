@@ -48,6 +48,9 @@ public struct RoomModel: Identifiable, Codable, Hashable {
     
     public var lastChatTime: Date?
     
+    /// 개설 시간
+    public var createTime: Date
+    
     public init(id: String? = UUID().uuidString, title: String, category: CategoryType, dateTime: Date, placeLatitude: Double? = nil, placeLongitude: Double? = nil, placeName: String? = nil ,content: String, coverImage: String, isOnline: Bool, platform: PlatformType? = nil, status: ActiveType, leaderID: String, limitPeople: Int) {
         self.id = id
         self.title = title
@@ -63,6 +66,7 @@ public struct RoomModel: Identifiable, Codable, Hashable {
         self.status = status
         self.leaderID = leaderID
         self.limitPeople = limitPeople
+        self.createTime = Date()
     }
     
     /// 모임 종료 시간
