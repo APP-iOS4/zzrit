@@ -9,6 +9,7 @@ import SwiftUI
 import ZzritKit
 
 final class ImageManager {
+    static let shared = ImageManager()
     private var storageService = StorageService()
     
     // 이미지 불러오기
