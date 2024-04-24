@@ -13,6 +13,8 @@ struct RoomDetailView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var recentRoomViewModel: RecentRoomViewModel
     
+    @Binding var offlineLocation: OfflineLocationModel?
+    
     @State var room: RoomModel
     let roomService = RoomService.shared
     // 참석 버튼 눌렀는 지 확인
@@ -97,7 +99,7 @@ struct RoomDetailView: View {
                             .padding(.bottom, 40)
                         
                         // 위치, 시간, 참여 인원에 대한 정보를 나타내는 뷰
-                        RoomInfoView(room: room, participantsCount: participantsCount)
+                        RoomInfoView(room: room, participantsCount: participantsCount, offlineLocation: $offlineLocation)
                             .padding(.bottom, 40)
                         
                         Text("와우, 벌써 \(participantsCount)명이나 모였어요.")
@@ -216,7 +218,7 @@ struct RoomDetailView: View {
                             .padding(.bottom, 40)
                         
                         // 위치, 시간, 참여 인원에 대한 정보를 나타내는 뷰
-                        RoomInfoView(room: room, participantsCount: participantsCount)
+                        RoomInfoView(room: room, participantsCount: participantsCount, offlineLocation: $offlineLocation)
                             .padding(.bottom, 40)
                         
                         Text("와우, 벌써 \(participantsCount)명이나 모였어요.")
@@ -340,7 +342,7 @@ extension RoomDetailView {
                 .padding(20)
                 .navigationDestination(isPresented: $confirmParticipation) {
                     if let roomID = room.id {
-                        ChatView(roomID: roomID, room: room, isActive: $isActive)
+                        ChatView(roomID: roomID, room: room, isActive: $isActive, offlineLocation: $offlineLocation)
                     }
                 }
                 .alert("로그인 알림", isPresented: $alertToLogin) {
@@ -374,7 +376,7 @@ extension RoomDetailView {
 
 #Preview {
     NavigationStack {
-        RoomDetailView( room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+        RoomDetailView(offlineLocation: .constant(nil), room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
             .environmentObject(UserService())
             .environmentObject(RecentRoomViewModel())
     }

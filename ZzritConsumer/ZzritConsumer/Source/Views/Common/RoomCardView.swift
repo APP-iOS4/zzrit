@@ -5,6 +5,7 @@
 //  Created by 하윤호 on 4/8/24.
 //
 
+import CoreLocation
 import SwiftUI
 
 import ZzritKit
@@ -17,12 +18,21 @@ struct RoomCardView: View {
     
     var titleToHStackPadding: CGFloat
     
+    @Binding var offlineLocation: OfflineLocationModel?
+    @State private var simpleAddress: String = "(unknown)"
+    @State private var distance: Double = 0.0
+    
+    private var distanceString: String {
+        let formattedString = String(format: "%.1f", distance)
+        return "약 \(formattedString)km"
+    }
+    
     // MARK: - body
     
     var body: some View {
         VStack(alignment: .leading) {
             // 모임 위치
-            Text("광화문역 (0.1km)")
+            Text("\(simpleAddress) (\(distanceString))")
                 .font(.caption2)
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
@@ -87,11 +97,17 @@ struct RoomCardView: View {
                 } catch {
                     Configs.printDebugMessage("\(error)")
                 }
+                
+                simpleAddress = await room.simpleAddress() ?? "(unknown)"
+                if let offlineLocation {
+                    let fromCoordinate = CLLocationCoordinate2D(latitude: offlineLocation.latitude, longitude: offlineLocation.longitude)
+                    distance = room.distance(from: fromCoordinate) ?? 0.0
+                }
             }
         }
     }
 }
 
 #Preview {
-    RoomCardView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), titleToHStackPadding: 100)
+    RoomCardView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), titleToHStackPadding: 100, offlineLocation: .constant(nil))
 }

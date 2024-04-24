@@ -35,6 +35,7 @@ final class RoomCreateViewModel {
     /// 모임 위치
     private var placeLatitude: Double?
     private var placeLongitude: Double?
+    private var placeName: String?
     /// 날짜 · 시간
     private var dateTime: Date?
     /// 모임 제한 참여자 수
@@ -53,7 +54,7 @@ final class RoomCreateViewModel {
     
     // FIXME: 여기 부분의 coverImage 고쳐야 함
     
-    init(category: CategoryType? = nil, title: String? = nil, selectedImage: UIImage? = nil, roomIntroduction: String? = nil, isOnline: Bool? = nil, platform: PlatformType? = nil, placeLatitude: Double? = nil, placeLongitude: Double? = nil, dateTime: Date? = nil, limitPeople: Int? = nil, genderLimitation: GenderType? = nil, scoreLimitation: Int? = nil) {
+    init(category: CategoryType? = nil, title: String? = nil, selectedImage: UIImage? = nil, roomIntroduction: String? = nil, isOnline: Bool? = nil, platform: PlatformType? = nil, placeLatitude: Double? = nil, placeLongitude: Double? = nil, placeName: String? = nil, dateTime: Date? = nil, limitPeople: Int? = nil, genderLimitation: GenderType? = nil, scoreLimitation: Int? = nil) {
         self.category = category
         self.title = title
         self.selectedImage = selectedImage
@@ -62,6 +63,7 @@ final class RoomCreateViewModel {
         self.platform = platform
         self.placeLatitude = placeLatitude
         self.placeLongitude = placeLongitude
+        self.placeName = placeName
         self.dateTime = dateTime
         self.limitPeople = limitPeople
         self.genderLimitation = genderLimitation
@@ -80,7 +82,7 @@ final class RoomCreateViewModel {
                 Configs.printDebugMessage("모임 생성 완료")
                 return newRoomID
             } catch {
-                Configs.printDebugMessage("모임 생성 중 에러가 발생했습니다!")
+                Configs.printDebugMessage("모임 생성 중 에러가 발생했습니다! \(error)")
             }
         } else {
             Configs.printDebugMessage("모임이 생성되지 않았습니다!")
@@ -173,6 +175,7 @@ final class RoomCreateViewModel {
                 dateTime: dateTime,
                 placeLatitude: placeLatitude,
                 placeLongitude: placeLongitude,
+                placeName: placeName,
                 content: roomIntroduction,
                 coverImage: coverImage,
                 isOnline: isOnline,
@@ -245,7 +248,7 @@ final class RoomCreateViewModel {
     }
     
     /// 새 모임 진행방식을 저장하는 함수
-    func saveRoomProcess(processSelection: RoomProcessType?, placeLatitude: Double?, placeLongitude: Double?, platform: PlatformType?) {
+    func saveRoomProcess(processSelection: RoomProcessType?, placeLatitude: Double?, placeLongitude: Double?, placeName: String?, platform: PlatformType?) {
         // 저장할 새 모임의 진행방식을 체크해서 비어있다면 리턴, 아니라면 진행
         guard let processSelection else {
             Configs.printDebugMessage("선택한 모임 진행방식이 없어 에러가 발생함!")
@@ -253,10 +256,11 @@ final class RoomCreateViewModel {
         }
         switch processSelection {
         case .offline:
-            if let placeLatitude, let placeLongitude {
+            if let placeLatitude, let placeLongitude, let placeName {
                 self.isOnline = processSelection.value
                 self.placeLatitude = placeLatitude
                 self.placeLongitude = placeLongitude
+                self.placeName = placeName
                 Configs.printDebugMessage("선택한 모임 진행 방식은 오프라인이며, 위치 정보가 저장되었습니다.")
             } else {
                 Configs.printDebugMessage("오프라인 방식이 선택되었지만, 위치 정보가 없어 에러가 발생함!")

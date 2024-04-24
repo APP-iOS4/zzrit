@@ -23,7 +23,7 @@ struct MainView: View {
     // 로그인 FullScreenCover로 넘어가는지 결정하는 변수
     @State private var isShowingLoginView: Bool = false
     // 오프라인 위치
-    @State private var offlineLocation: OfflineLocationModel? = nil
+    @Binding var offlineLocation: OfflineLocationModel?
     
     // 유저모델 변수
     @State private var userModel: UserModel?
@@ -49,11 +49,11 @@ struct MainView: View {
                     
                     // 모임 카트 뷰 리스트 불러오기
                     // TODO: 모델 연동 시 모임 마감 인원 모델 배열을 넘겨줘야 한다.
-                    RoomCardListView()
+                    RoomCardListView(offlineLocation: $offlineLocation)
                     
                     // 최근 생성된 모임 리스트 불러오기
                     // TODO: 모델 연동 시 최근 생성된 모임 모델 배열을 넘겨줘야 한다.
-                    MainExistView(isOnline: $isOnline)
+                    MainExistView(isOnline: $isOnline, offlineLocation: $offlineLocation)
                 }
                 .padding(.vertical, 1)
                 .refreshable {
@@ -157,7 +157,7 @@ extension MainView {
 
 #Preview {
     NavigationStack {
-        MainView()
+        MainView(offlineLocation: .constant(nil))
             .environmentObject(UserService())
             .environmentObject(LoadRoomViewModel())
     }

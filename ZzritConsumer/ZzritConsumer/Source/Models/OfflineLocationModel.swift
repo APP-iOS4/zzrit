@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct OfflineLocationModel: Identifiable, Codable {
+struct OfflineLocationModel: Identifiable, Equatable, Codable {
     var id: String = UUID().uuidString
     var placeName: String
     var address: String

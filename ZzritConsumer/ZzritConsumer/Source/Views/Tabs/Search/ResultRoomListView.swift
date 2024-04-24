@@ -11,6 +11,7 @@ struct ResultRoomListView: View {
     
     @StateObject var searchViewModel: SearchViewModel
     @Binding var filterModel: FilterModel
+    @Binding var offlineLocation: OfflineLocationModel?
     
     var body: some View {
         // 검색 결과
@@ -20,7 +21,7 @@ struct ResultRoomListView: View {
                     // 모임 리스트 셀 불러오기
                     NavigationLink {
                         // 상세페이지 뷰 연결
-                        RoomDetailView(room: room)
+                        RoomDetailView(offlineLocation: $offlineLocation, room: room)
                     } label: {
                         RoomCellView(room: room)
                     }
@@ -47,5 +48,5 @@ struct ResultRoomListView: View {
 }
 
 #Preview {
-    ResultRoomListView(searchViewModel: SearchViewModel(), filterModel: .constant(FilterModel()))
+    ResultRoomListView(searchViewModel: SearchViewModel(), filterModel: .constant(FilterModel()), offlineLocation: .constant(nil))
 }
