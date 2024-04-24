@@ -120,6 +120,7 @@
 		DFC076BF2BD891020053F332 /* RoomModel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC076BE2BD891020053F332 /* RoomModel+Extension.swift */; };
 		DFC076C12BD895840053F332 /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC076C02BD895840053F332 /* CLLocationCoordinate2D+Extension.swift */; };
 		DFC076C72BD8D4FC0053F332 /* OfflineLocationEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC076C62BD8D4FC0053F332 /* OfflineLocationEnvironment.swift */; };
+		DFC076C92BD8F3A60053F332 /* OfflineLocationModel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC076C82BD8F3A60053F332 /* OfflineLocationModel+Extension.swift */; };
 		DFC75F822BC36CC50005DDD9 /* ZzritKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFC75F812BC36CC50005DDD9 /* ZzritKit */; };
 		FC0A793F2BC8C9B30012F85D /* ChatRoomNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0A793E2BC8C9B30012F85D /* ChatRoomNoticeView.swift */; };
 		FC2DDC0D2BC5070A00A51E64 /* MoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */; };
@@ -265,6 +266,7 @@
 		DFC076BE2BD891020053F332 /* RoomModel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoomModel+Extension.swift"; sourceTree = "<group>"; };
 		DFC076C02BD895840053F332 /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
 		DFC076C62BD8D4FC0053F332 /* OfflineLocationEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationEnvironment.swift; sourceTree = "<group>"; };
+		DFC076C82BD8F3A60053F332 /* OfflineLocationModel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OfflineLocationModel+Extension.swift"; sourceTree = "<group>"; };
 		FC0A793E2BC8C9B30012F85D /* ChatRoomNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomNoticeView.swift; sourceTree = "<group>"; };
 		FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoView.swift; sourceTree = "<group>"; };
 		FC2DDC0E2BC508B700A51E64 /* MyStaticGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStaticGaugeView.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				3056254C2BC6B77000814FBF /* View+Extension.swift */,
 				DFC076BE2BD891020053F332 /* RoomModel+Extension.swift */,
 				DFC076C02BD895840053F332 /* CLLocationCoordinate2D+Extension.swift */,
+				DFC076C82BD8F3A60053F332 /* OfflineLocationModel+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1007,6 +1010,7 @@
 				FC628F342BC4D115007F5E5C /* BirthYearPickerView.swift in Sources */,
 				1F0603452BC53F36003808F4 /* RCTitleTextField.swift in Sources */,
 				30BE7EA12BC50A1100A5A178 /* ParticipantListView.swift in Sources */,
+				DFC076C92BD8F3A60053F332 /* OfflineLocationModel+Extension.swift in Sources */,
 				DF9674BD2BCCFC9700322382 /* AuthenticationButton.swift in Sources */,
 				30BE7EC82BC57CCA00A5A178 /* ContactInputCompleteView.swift in Sources */,
 				DF22096B2BD8055500B9A2C7 /* LoadingView.swift in Sources */,

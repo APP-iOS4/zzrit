@@ -13,9 +13,7 @@ struct ContentView: View {
     @EnvironmentObject private var restrictionViewModel: RestrictionViewModel
     @EnvironmentObject private var userService: UserService
     @State private var userModel: UserModel?
-    @State private var offlineLocation: OfflineLocationModel? = nil
-    
-    @State private var sampleOfflineLocation: OfflineLocationModel = LocalStorage.shared.latestSettedLocation() ?? .initialLocation
+    @StateObject private var locationService = LocationService.shared
     
     var body: some View {
         if restrictionViewModel.isUnderRestriction {
@@ -23,20 +21,20 @@ struct ContentView: View {
                 .tint(Color.pointColor)
         } else {
             TabView(selection: $tabSelection) {
-                MainView(offlineLocation: $offlineLocation)
+                MainView()
                     .tabItem {
                         Label("모임", image: tabSelection == 0 ? "homefill" : "home")
                     }
                     .tag(0)
                 NavigationStack {
-                    SearchView(offlineLocation: $offlineLocation)
+                    SearchView()
                 }
                     .tabItem {
                         Label("탐색", image: "search")
                     }
                     .tag(1)
                 
-                ChatListView(offlineLocation: $offlineLocation)
+                ChatListView()
                     .tabItem {
                         Label("채팅", image: tabSelection == 2 ? "chatfill" : "chat")
                     }
@@ -49,7 +47,7 @@ struct ContentView: View {
                     .tag(3)
             }
             .tint(Color.pointColor)
-            .environment(\.offlineLocation, sampleOfflineLocation)
+            .environmentObject(locationService)
         }
     }
 }
