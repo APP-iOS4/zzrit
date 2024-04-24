@@ -103,8 +103,9 @@ struct ThirdRoomCreateView: View {
                     isButtonEnabled.toggle()
                     VM.saveRoomProcess(
                         processSelection: processSelection,
-                        placeLatitude: offlineLocation?.latitude ?? 0.0,
-                        placeLongitude: offlineLocation?.longitude ?? 0.0,
+                        placeLatitude: offlineLocation?.latitude,
+                        placeLongitude: offlineLocation?.longitude, 
+                        placeName: offlineLocation?.placeName,
                         platform: platformSelection
                     )
                     
@@ -134,14 +135,35 @@ struct ThirdRoomCreateView: View {
                 }
             }
         }
+        .customOnChange(of: offlineLocation, handler: { _ in
+            checkButtonEnable()
+        })
         .onAppear {
             timeSelection = .now
         }
     }
     
     func checkButtonEnable() {
-        if processSelection != nil && dateSelection != nil {
-            isButtonEnabled = true
+        guard let _ = dateSelection else {
+            isButtonEnabled = false
+            return
+        }
+        
+        switch processSelection {
+        case .online:
+            if let _ = platformSelection {
+                isButtonEnabled = true
+            } else {
+                isButtonEnabled = false
+            }
+        case .offline:
+            if let _ = offlineLocation {
+                isButtonEnabled = true
+            } else {
+                isButtonEnabled = false
+            }
+        case nil:
+            return
         }
     }
 }

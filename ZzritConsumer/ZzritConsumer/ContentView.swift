@@ -13,6 +13,7 @@ struct ContentView: View {
     @EnvironmentObject private var restrictionViewModel: RestrictionViewModel
     @EnvironmentObject private var userService: UserService
     @State private var userModel: UserModel?
+    @State private var offlineLocation: OfflineLocationModel?
     
     var body: some View {
         if restrictionViewModel.isUnderRestriction {
@@ -20,20 +21,20 @@ struct ContentView: View {
                 .tint(Color.pointColor)
         } else {
             TabView(selection: $tabSelection) {
-                MainView()
+                MainView(offlineLocation: $offlineLocation)
                     .tabItem {
                         Label("모임", image: tabSelection == 0 ? "homefill" : "home")
                     }
                     .tag(0)
                 NavigationStack {
-                    SearchView()
+                    SearchView(offlineLocation: $offlineLocation)
                 }
                     .tabItem {
                         Label("탐색", image: "search")
                     }
                     .tag(1)
                 
-                ChatListView()
+                ChatListView(offlineLocation: $offlineLocation)
                     .tabItem {
                         Label("채팅", image: tabSelection == 2 ? "chatfill" : "chat")
                     }

@@ -12,26 +12,38 @@ import ZzritKit
 struct ChatRoomNoticeView: View {
     let room: RoomModel
     
-    let columns: [GridItem] = [GridItem(.flexible(minimum: 85, maximum: 85)), GridItem(.flexible())]
+    @State private var fullAddress: String = ""
+    
+    var locationString: String {
+        if let platformName = room.platform?.rawValue {
+            return platformName
+        } else {
+            return "\(fullAddress) \(room.placeName ?? "")"
+        }
+    }
     
     var body: some View {
-        LazyVGrid(columns: columns, alignment: .leading) {
-            Text("모임 일자")
-                .fontWeight(.bold)
-                .foregroundStyle(Color.pointColor)
-                .padding(.bottom, 5)
-            Text(DateService.shared.formattedString(date: room.dateTime))
-                .padding(.bottom, 5)
+        HStack(alignment: .top, spacing: Configs.paddingValue) {
+            VStack(spacing: 5) {
+                Text("모임 일자")
+                Text("모임 장소")
+            }
+            .fontWeight(.bold)
+            .foregroundStyle(Color.pointColor)
             
-            Text("모임 장소")
-                .fontWeight(.bold)
-                .foregroundStyle(Color.pointColor)
-            // FIXME: RoomModel.placeLatitude - RoomModel.placeLongitude
-            Text("서울특별시 종로구 종로 17길 바밤바밤뚜두두")
+            VStack(alignment: .leading, spacing: 5) {
+                Text(DateService.shared.formattedString(date: room.dateTime))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Text("\(locationString)")
+                
+            }
         }
         .font(.footnote)
         .padding(.horizontal, Configs.paddingValue)
-        .padding(.vertical, Configs.paddingValue)
+        .padding(.vertical, 10)
+        .task {
+            fullAddress = await room.fullAddress() ?? ""
+        }
     }
 }
 

@@ -15,6 +15,7 @@ struct RoomCellView: View {
     let roomService = RoomService.shared
     
     @State private var participantsCount: Int = 0
+    @State private var simpleAddress: String = ""
     
     // MARK: - body
     
@@ -39,7 +40,7 @@ struct RoomCellView: View {
             HStack {
                 // 위치
                 Label {
-                    Text("일산구")
+                    Text(simpleAddress)
                         .foregroundStyle(Color.staticGray1)
                 } icon: {
                     Image(systemName: "mappin.and.ellipse")
@@ -87,6 +88,12 @@ struct RoomCellView: View {
                     }
                 } catch {
                     Configs.printDebugMessage("error: \(error)")
+                }
+                
+                if let platformName = room.platform?.rawValue {
+                    simpleAddress = platformName
+                } else {
+                    simpleAddress = await room.simpleAddress() ?? "(unknown)"
                 }
             }
         }
