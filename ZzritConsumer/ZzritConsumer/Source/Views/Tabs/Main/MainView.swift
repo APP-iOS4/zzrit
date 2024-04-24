@@ -28,9 +28,9 @@ struct MainView: View {
     @Binding var offlineLocation: OfflineLocationModel?
     
     // 유저모델 변수
-    @State private var userModel: UserModel?
+//    @State private var userModel: UserModel?
     private var isLogined: Bool {
-        return userModel != nil
+        return userService.loginedUser != nil
     }
     
     // MARK: - body
@@ -96,9 +96,6 @@ struct MainView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear {
-            Task {
-                userModel = try await userService.loggedInUserInfo()
-            }
             offlineLocation = LocalStorage.shared.latestSettedLocation()
         }
     }
@@ -145,9 +142,6 @@ extension MainView {
             RoomCreateView()
         }
         .sheet(isPresented: $isShowingLoginView) {
-            Task {
-                userModel = try await userService.loggedInUserInfo()
-            }
         } content: {
             LogInView()
         }

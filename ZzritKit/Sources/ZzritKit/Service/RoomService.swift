@@ -156,6 +156,7 @@ public final class RoomService {
 //            }
     }
     
+    // FIXME: setData에서 updateData로 수정해야함.
     /// 모임 내용을 변경합니다.
     ///  - Parameter room: 수정된 RoomModel
     ///  - Parameter roomID(String): 변경할 모임 ID
