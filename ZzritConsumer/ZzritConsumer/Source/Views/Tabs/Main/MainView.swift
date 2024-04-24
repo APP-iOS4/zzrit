@@ -13,6 +13,8 @@ struct MainView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     
+    @Environment(\.offlineLocation) private var sampleOfflineLocation
+    
     // 우측 상단 알람 버튼 눌렀는지 안눌렀는지 검사
     @State private var isTopTrailingAction: Bool = false
     @State private var isOnline = false

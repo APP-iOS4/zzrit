@@ -14,6 +14,8 @@ struct SearchView: View {
     
     @Binding var offlineLocation: OfflineLocationModel?
     
+    @Environment(\.offlineLocation) private var sampleOfflineLocation
+    
     var body: some View {
         SearchTextField(searchViewModel: searchViewModel, filterModel: $filterModel, isTextFieldFocused: $isTextFieldFocused)
             .onTapGesture {

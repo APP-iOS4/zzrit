@@ -13,7 +13,9 @@ struct ContentView: View {
     @EnvironmentObject private var restrictionViewModel: RestrictionViewModel
     @EnvironmentObject private var userService: UserService
     @State private var userModel: UserModel?
-    @State private var offlineLocation: OfflineLocationModel?
+    @State private var offlineLocation: OfflineLocationModel? = nil
+    
+    @State private var sampleOfflineLocation: OfflineLocationModel = LocalStorage.shared.latestSettedLocation() ?? .initialLocation
     
     var body: some View {
         if restrictionViewModel.isUnderRestriction {
@@ -47,6 +49,7 @@ struct ContentView: View {
                     .tag(3)
             }
             .tint(Color.pointColor)
+            .environment(\.offlineLocation, sampleOfflineLocation)
         }
     }
 }
