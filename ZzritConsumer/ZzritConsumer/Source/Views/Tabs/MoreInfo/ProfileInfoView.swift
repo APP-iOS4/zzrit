@@ -18,9 +18,10 @@ struct ProfileInfoView: View {
     @State private var isEditViewDestination: Bool = false
     @State private var showModify: Bool = false
     @State private var uid: String = ""
-    //    @State private var imageURL: URL?
-    private var imageURL: URL? {
-        return userService.loginedUser?.profileImage
+    @State private var userImage: Image?
+    
+    private var imagePath: String {
+        return userService.loginedUser?.userImage ?? "NONE"
     }
     private var name: String {
         return userService.loginedUser!.userName
@@ -28,21 +29,27 @@ struct ProfileInfoView: View {
     
     var body: some View {
         HStack(spacing: 10) {
-            AsyncImage(url: imageURL, scale: 1.0) { phase in
-                phase
+            // 프로필 이미지
+            if userImage != nil {
+                userImage!
+                .resizable()
+                .frame(width: 50, height: 50)
+                .aspectRatio(1.0, contentMode: .fill)
+                .clipShape(.circle)
+                .overlay {
+                    Circle()
+                        .strokeBorder(Color.staticGray5, lineWidth: 1)
+                }
+            } else {
+                Image("ZziritLogoImage")
                     .resizable()
                     .frame(width: 50, height: 50)
-            } placeholder: {
-                Image("noProfile")
-                    .resizable()
-                    .aspectRatio(1.0, contentMode: .fit)
-                    .frame(width: 50, height: 50)
-            }
-            .aspectRatio(1.0, contentMode: .fill)
-            .clipShape(.circle)
-            .overlay {
-                Circle()
-                    .strokeBorder(Color.staticGray5, lineWidth: 1)
+                    .aspectRatio(1.0, contentMode: .fill)
+                    .clipShape(.circle)
+                    .overlay {
+                        Circle()
+                            .strokeBorder(Color.staticGray5, lineWidth: 1)
+                    }
             }
             
             VStack {
@@ -68,6 +75,12 @@ struct ProfileInfoView: View {
                 ModifyUserInfoView(registeredUID: $uid)
             }
             
+        }
+        .onAppear {
+            Task {
+                Configs.printDebugMessage("profile")
+                userImage = await ImageManager.shared.loadImage(imagePath: imagePath)
+            }
         }
     }
 }

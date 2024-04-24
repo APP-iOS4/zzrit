@@ -11,6 +11,7 @@ import ZzritKit
 
 struct ModifyUserInfoView: View {
     var storageService = StorageService()
+    var imageManager = ImageManager()
     private let authService = AuthenticationService.shared
     
     @Environment(\.dismiss) private var dismiss
@@ -20,18 +21,10 @@ struct ModifyUserInfoView: View {
     @State private var nickName = ""
     @State private var isDuplicate = false
     
-    @State private var isMan = true
-    @State private var isWoman = false
-    
-    @State private var birthYear =  Calendar.current.component(.year, from: Date()) - 19
-    @State private var birthYearPickerShow = false
-    
     @State private var finishProfile = false
-    @State private var completeSignUp = false
     
     @EnvironmentObject private var userService: UserService
     
-    var emailField: String = ""
     @Binding var registeredUID: String
     
     var body: some View {
@@ -77,6 +70,15 @@ struct ModifyUserInfoView: View {
                 
             }
         }
+        .onAppear {
+            Task {
+                let imagePath = userService.loginedUser?.userImage ?? "NONE"
+                if let image = await ImageCacheManager.shared.findImageFromCache(imagePath: imagePath) {
+                    selectedImage = image
+                }
+                nickName = userService.loginedUser?.userName ?? ""
+            }
+        }
         .padding(20)
         .toolbarRole(.editor)
     }
@@ -90,21 +92,35 @@ struct ModifyUserInfoView: View {
         }
     }
     
+    // 프로필 저장
     private func modifyUserInfo() {
-        // 유저 프로필은 width: 300 크기로 리사이징해서 올라감
-        guard let selectedImage = (selectedImage?.size.width)! < 300 ? selectedImage : selectedImage?.resizeWithWidth(width: 300) else { return }
+        
+        guard let userUploadImage = selectedImage else { return }
+        
+        // 유저 프로필 리사이징
+        guard let selectedImage = (userUploadImage.size.width) < 300 ? userUploadImage : userUploadImage.resizeWithWidth(width: 300) else { return }
+        
+        // 이미지 -> data 변환
         guard let imageData = selectedImage.pngData() else { return }
+        
+        // 이미지 경로 지정
+        let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMdd")
+        let timeString = DateService.shared.formattedString(date: Date(), format: "HHmmss")
+        let imageDir: [StorageService.StorageName: [String]] = [.profile: [registeredUID, dayString, timeString]]
+        
         Task {
             do {
-                // 이미지 올리고 url 받아오기
-                let downloadURL = try await storageService.imageUpload(topDir: .profile, dirs: ["\(registeredUID)", Date().toString()], image: imageData)
+                // 이미지 firebase 올리고 저장 path 받아오기
+                guard let imagePath = try await storageService.imageUpload(dirs: imageDir, image: imageData) else { return }
                 
                 userService.modifyUserInfo(userID: authService.currentUID!,
                                            userName: nickName,
-                                           imageURL: downloadURL)
+                                           imageURL: imagePath)
+                // 변경된 회원정보 firebase로
                 _ = try await userService.loggedInUserInfo()
+                
                 // 이미지 캐시 저장
-                ImageCacheManager.shared.updateImageFirst(name: downloadURL, image: selectedImage)
+                ImageCacheManager.shared.updateImageFirst(name: imagePath, image: selectedImage)
             } catch {
                 print("에러: \(error)")
             }
@@ -112,6 +128,6 @@ struct ModifyUserInfoView: View {
     }
 }
 
-#Preview {
-    ModifyUserInfoView(emailField: "ㅁㄴㅇㄹ", registeredUID: .constant(""))
-}
+//#Preview {
+//    ModifyUserInfoView(emailField: "ㅁㄴㅇㄹ", registeredUID: .constant(""))
+//}

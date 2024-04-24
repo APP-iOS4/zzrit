@@ -7,10 +7,13 @@
 
 import SwiftUI
 import PhotosUI
+import ZzritKit
 
 struct SetProfilePhotoView: View {
+    @EnvironmentObject private var userService: UserService
     @State private var selectedItem: PhotosPickerItem?
     @Binding var selectedImage: UIImage?
+    
     var body: some View {
         HStack {
             
@@ -25,7 +28,7 @@ struct SetProfilePhotoView: View {
                                 .scaledToFill()
                                 .clipShape(Circle())
                         } else {
-                            Image(systemName: "person.crop.circle.fill")
+                            Image("ZziritLogoImage")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundStyle(Color.staticGray3)
@@ -49,7 +52,7 @@ struct SetProfilePhotoView: View {
                                 .scaledToFill()
                                 .clipShape(Circle())
                         } else {
-                            Image(systemName: "person.crop.circle.fill")
+                            Image("ZziritLogoImage")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                         }
