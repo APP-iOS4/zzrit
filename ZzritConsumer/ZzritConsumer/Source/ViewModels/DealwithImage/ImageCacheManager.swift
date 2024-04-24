@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ZzritKit
+
 final class ImageCacheManager {
     static let shared = ImageCacheManager()
     private var storageService = StorageService()
@@ -33,7 +34,7 @@ final class ImageCacheManager {
     private let cache = NSCache<NSString, UIImage>()
     
     
-    // MARK: 이미지 저장하기
+    // MARK: - 이미지 저장하기
     
     // NSCache에 업데이트
     private func updateToNSCache(name: String, image: UIImage?) {
@@ -63,13 +64,13 @@ final class ImageCacheManager {
         }
     }
     
-    // 사용자가 처음 파베로 올릴때
+    // 사용자가 처음 Firebase로 올릴때 NSCache와 filemanager에 이미지 업데이트
     func updateImageFirst(name: String, image: UIImage?) {
         updateToNSCache(name: name, image: image)
         updateToFileManager(name: name, image: image)
     }
     
-    // MARK: 이미지 로드 받아오기
+    // MARK: - 이미지 받아오기
     
     // NSCache로부터 로드
     private func loadFromNSCacheImage(imageURL: String) -> UIImage? {
@@ -103,7 +104,7 @@ final class ImageCacheManager {
         }
     }
     
-    // FIXME : 다른 파일들에서 안쓰이면 지워주기
+    // FIXME: 다른 파일들에서 안쓰이면 지워주기
     // 캐시에서 이미지 찾기
     func findImageFromCache(imageURL: String) async -> UIImage? {
         // NSCache에서 찾기
