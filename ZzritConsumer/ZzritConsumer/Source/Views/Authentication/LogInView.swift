@@ -30,6 +30,8 @@ struct LogInView: View {
     @State private var googleEmailID = ""
     @State private var registerdID = ""
     
+    @State private var isLoading: Bool = false
+    
     var body: some View {
         NavigationStack {
             HStack {
@@ -122,6 +124,7 @@ struct LogInView: View {
                 pw = ""
             }
         }
+        .loading(isLoading)
     }
     
     func activeLoginButton() {
@@ -136,13 +139,16 @@ struct LogInView: View {
     private func login() {
         Task {
             do {
+                isLoading.toggle()
                 try await authService.loginUser(email: id, password: pw)
                 if let id = try await userService.loggedInUserInfo()?.id {
                     restrictionViewModel.loadRestriction(userID: id)
                 }
+                isLoading.toggle()
                
                 dismiss()
             } catch {
+                isLoading = false
                 errorMessage = "로그인 정보를 확인해주세요."
             }
         }

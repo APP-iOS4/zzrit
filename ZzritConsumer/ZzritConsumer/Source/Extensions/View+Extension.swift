@@ -46,4 +46,15 @@ extension View {
             )
         }
     }
+    
+    /// 화면 전체를 로딩뷰로 감쌉니다.
+    func loading(_ visiable: Bool) -> some View {
+        self
+            .overlay {
+                if visiable {
+                    LoadingView()
+                }
+            }
+            .animation(.easeIn, value: visiable)
+    }
 }
