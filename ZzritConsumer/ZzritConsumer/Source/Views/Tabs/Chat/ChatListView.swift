@@ -71,6 +71,7 @@ struct ChatListView: View {
                 } buttonAction: {
                     isShowingLoginView.toggle()
                 }
+
             }
             
             HiddenRectangle()
@@ -83,6 +84,7 @@ struct ChatListView: View {
                             return
                         }
                     }
+                    
                 }
                 .customOnChange(of: checkActivation) { _ in
                     deactivateRooms()
@@ -109,7 +111,7 @@ struct ChatListView: View {
             }
         }
     }
-
+    
     func isLogined() async throws {
         userModel = try await userService.loggedInUserInfo()
     }
