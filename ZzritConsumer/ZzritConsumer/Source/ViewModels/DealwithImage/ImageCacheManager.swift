@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import ZzritKit
 
 final class ImageCacheManager {
     static let shared = ImageCacheManager()
+    private var storageService = StorageService()
     
     private init() {
         // NSCache 저장 용량 지정
@@ -32,7 +34,7 @@ final class ImageCacheManager {
     private let cache = NSCache<NSString, UIImage>()
     
     
-    // MARK: 이미지 저장하기
+    // MARK: - 이미지 저장하기
     
     // NSCache에 업데이트
     private func updateToNSCache(name: String, image: UIImage?) {
@@ -43,8 +45,12 @@ final class ImageCacheManager {
     // filemanager에 업데이트
     private func updateToFileManager(name: String, image: UIImage?) {
         // 주소 경로 중 마지막 부분만 잘라서 파일명으로 변경
+        // TODO: 다시 / -> _ 로 문자 치환해주기
         guard let urlObject = URL(string: name) else { return }
         let encodedImageName = urlObject.lastPathComponent
+        
+        // 문자열 치환
+//        let encodedImageName = imageURL.replacingOccurrences(of: "/", with: "_")
         
         // 넣을 path 지정
         let imagePath = cacheDirectory.appendingPathComponent(encodedImageName)
@@ -58,13 +64,13 @@ final class ImageCacheManager {
         }
     }
     
-    // 사용자가 처음 파베로 올릴때
+    // 사용자가 처음 Firebase로 올릴때 NSCache와 filemanager에 이미지 업데이트
     func updateImageFirst(name: String, image: UIImage?) {
         updateToNSCache(name: name, image: image)
         updateToFileManager(name: name, image: image)
     }
     
-    // MARK: 이미지 로드 받아오기
+    // MARK: - 이미지 받아오기
     
     // NSCache로부터 로드
     private func loadFromNSCacheImage(imageURL: String) -> UIImage? {
@@ -74,10 +80,15 @@ final class ImageCacheManager {
     // filemanager로부터 로드
     private func loadFromFilemanagerImage(imageURL: String) -> UIImage? {
         // 주소 경로 중 마지막 부분만 잘라서 파일명으로 변경
+        // TODO: 다시 / -> _ 로 문자 치환해주기
         guard let urlObject = URL(string: imageURL) else {
             return nil
         }
         let encodedImageName = urlObject.lastPathComponent
+        
+        // 문자열 치환
+//        let encodedImageName = imageURL.replacingOccurrences(of: "/", with: "_")
+        
         
         // 찾을 파일 이름을 갖고 경로 설정
         let imagePath = cacheDirectory.appendingPathComponent(encodedImageName)
@@ -93,6 +104,7 @@ final class ImageCacheManager {
         }
     }
     
+    // FIXME: 다른 파일들에서 안쓰이면 지워주기
     // 캐시에서 이미지 찾기
     func findImageFromCache(imageURL: String) async -> UIImage? {
         // NSCache에서 찾기
@@ -106,7 +118,9 @@ final class ImageCacheManager {
                 return filemanagerImage
             } else {
                 // 파베로부터 다운받아오기
+                // url이 string형태여서 URL 타입으로 바꿔줌
                 if let imageFBURL = URL(string: imageURL) {
+                    // URL에서 불러옴.
                     if let data = try? Data(contentsOf: imageFBURL) {
                         // url로 부터 이미지 받아오기
                         guard let loadImageFromFB = UIImage(data: data) else { return nil }
@@ -119,6 +133,40 @@ final class ImageCacheManager {
                 }
             }
             return nil
+        }
+    }
+    
+    // 캐시에서 이미지 찾기 2 -> 개선된 StorageService 이미지 함수 적용
+    func findImageFromCache(imagePath: String) async -> UIImage? {
+        // 1. 이미지가 없을때
+        if imagePath == "None" {
+            return nil
+        } else {
+            // 2. NSCache에서 찾기
+            if let nsCacheImage = loadFromNSCacheImage(imageURL: imagePath) {
+                return nsCacheImage
+            } else {
+                // 3. filemanager에서 찾기
+                if let filemanagerImage = loadFromFilemanagerImage(imageURL: imagePath) {
+                    updateToNSCache(name: imagePath, image: filemanagerImage)
+                    return filemanagerImage
+                } else {
+                    // 4. Firebase에서 받아오기
+                    // TODO: 이미지 퀄리티 세분화 해야할까?
+                    Task {
+                        do {
+                            let firebaseImage = try await storageService.loadImage(path: imagePath, quality: .medium)
+                            updateImageFirst(name: imagePath, image: firebaseImage)
+                            
+                            return firebaseImage
+                        } catch {
+                            Configs.printDebugMessage("Failed to load image from cache: \(error)")
+                            return nil
+                        }
+                    }
+                    return nil
+                }
+            }
         }
     }
 }
