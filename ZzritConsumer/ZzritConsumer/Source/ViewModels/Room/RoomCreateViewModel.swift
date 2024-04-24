@@ -219,26 +219,31 @@ final class RoomCreateViewModel {
         // 이미지 없을때
         guard let userUploadImage = coverUIImage else { return "NONE"}
         
+        // 이미지 리사이징
         guard let resizeImage = (userUploadImage.size.width) < 840 ? userUploadImage : userUploadImage.resizeWithWidth(width: 840) else { return "NONE" }
         
-        guard let imageData = resizeImage.pngData() else {
-            Configs.printDebugMessage("coverImage의 png 정보가 없음")
-            return "NONE"
-        }
+        // 이미지 -> Data 타입으로 변환
+        guard let imageData = resizeImage.pngData() else { return "NONE" }
+        
+        // 저장 위치를 위한 사전 작업
         let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMdd")
-        let timeString = DateService.shared.formattedString(date: Date(), format: "HHmm")
+        let timeString = DateService.shared.formattedString(date: Date(), format: "HHmmss")
         let leaderID: String = self.leaderID!
         let imageDir: [StorageService.StorageName: [String]] = [.roomCover: [dayString, timeString, leaderID]]
         
         do {
+            // firebase에 저장
             let coverImage: String = try await storageService.imageUpload(dirs: imageDir, image: imageData) ?? "NONE"
-            // 파베에 저장 하고 캐시에도 저장
+            // 캐시에 저장
             ImageCacheManager.shared.updateImageFirst(name: coverImage, image: coverUIImage)
+            
             Configs.printDebugMessage("파이어베이스에 새 모임 커버 이미지 저장 성공!")
+            // 저장 경로 return
             return coverImage
         } catch {
             Configs.printDebugMessage("에러: \(error)")
         }
+        // 실패하면 "NONE"으로 return
         return "NONE"
     }
     
