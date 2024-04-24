@@ -19,7 +19,7 @@ struct RoomCardView: View {
     @State private var simpleAddress: String = "(unknown)"
     @State private var distance: Double = 0.0
     @State private var participantsCount: Int = 0
-    @State private var userImage: UIImage?
+    @State private var roomImage: UIImage?
     
     var titleToHStackPadding: CGFloat
     
@@ -80,8 +80,8 @@ struct RoomCardView: View {
             // 배경 이미지
             ZStack {
                 // 이미지 삽입 부분
-                if userImage != nil {
-                    Image(uiImage: userImage!)
+                if roomImage != nil {
+                    Image(uiImage: roomImage!)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(maxHeight: 400)
@@ -105,7 +105,7 @@ struct RoomCardView: View {
                 do {
                     if let roomId = room.id {
                         participantsCount = try await roomService.joinedUsers(roomID: roomId).count
-                        userImage = await ImageCacheManager.shared.findImageFromCache(imagePath: room.coverImage)
+                        roomImage = await ImageCacheManager.shared.findImageFromCache(imagePath: room.coverImage)
                     }
                 } catch {
                     Configs.printDebugMessage("\(error)")
