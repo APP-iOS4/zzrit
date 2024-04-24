@@ -27,7 +27,6 @@ final class RoomViewModel: ObservableObject {
                 initialFetch = false
                 // 중복제거
                 rooms = Array(Set(rooms))
-                print("로드 완료")
             } catch {
                 print("에러: \(error)")
             }
@@ -42,7 +41,6 @@ final class RoomViewModel: ObservableObject {
                 // 중복제거
                 rooms = Array(Set(rooms))
                 initialFetch = false
-                print("로드 완료")
             } catch {
                 print("에러: \(error)")
             }
@@ -69,5 +67,12 @@ final class RoomViewModel: ObservableObject {
         if let index = rooms.firstIndex(where: { $0.id == roomID }) {
             rooms[index].status = status
         }
+    }
+    
+    /// 모임 refresh
+    func refreshRooms() {
+        rooms = []
+        initialFetch = true
+        loadRooms()
     }
 }

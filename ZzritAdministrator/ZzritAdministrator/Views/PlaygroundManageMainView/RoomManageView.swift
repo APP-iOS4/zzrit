@@ -53,6 +53,9 @@ struct RoomManageView: View {
                         }
                     }
                 }
+                .refreshable {
+                    roomViewModel.refreshRooms()
+                }
                 .overlay {
                     RoundedRectangle(cornerRadius: Constants.commonRadius)
                         .stroke(Color.staticGray3, lineWidth: 1.0)

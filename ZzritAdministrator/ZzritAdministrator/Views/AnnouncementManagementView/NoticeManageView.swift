@@ -66,6 +66,9 @@ struct NoticeManageView: View {
                         }
                     }
                 }
+                .refreshable {
+                    noticeViewModel.refreshNotice()
+                }
                 .overlay {
                     RoundedRectangle(cornerRadius: Constants.commonRadius)
                         .stroke(Color.staticGray3, lineWidth: 1.0)

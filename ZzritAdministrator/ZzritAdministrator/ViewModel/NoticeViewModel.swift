@@ -84,4 +84,10 @@ final class NoticeViewModel: ObservableObject {
             }
         }
     }
+    
+    func refreshNotice() {
+        notices = []
+        initialFetch = true
+        loadNotices()
+    }
 }
