@@ -19,7 +19,7 @@ struct ChatMessageCellView: View {
     let messageType: ChattingType
     
     @State private var userName = ""
-    @State private var loadImage: UIImage?
+    @State private var messageImage: UIImage?
     @State private var userProfileImage: UIImage?
     
     var body: some View {
@@ -45,7 +45,7 @@ struct ChatMessageCellView: View {
                                     .background(Color.staticGray6)
                                     .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
                             case .image:
-                                fetchChatImage(image: loadImage)
+                                fetchChatImage(image: messageImage)
                             case .notice:
                                 Text("nothing")
                             }
@@ -76,7 +76,7 @@ struct ChatMessageCellView: View {
                                 .background(Color.pointColor)
                                 .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
                         case .image:
-                            fetchChatImage(image: loadImage)
+                            fetchChatImage(image: messageImage)
                         case .notice:
                             // 여기선 아무것도 안함
                             Text("nothing")
@@ -90,11 +90,11 @@ struct ChatMessageCellView: View {
                 // 유저 별명 가져오기
                 userName = await findUserName(userID: message.userID)
                 // 유저 프로필사진 가져오기
-                guard let userImageURL = try await userService.findUserInfo(uid: message.userID)?.userImage else { return }
-                userProfileImage =  await ImageCacheManager.shared.findImageFromCache(imageURL: userImageURL)
+                guard let userImagePath = try await userService.findUserInfo(uid: message.userID)?.userImage else { return }
+                userProfileImage = await ImageCacheManager.shared.findImageFromCache(imagePath: userImagePath)
                 if messageType == .image {
                     // 채팅 메시지가 이미지일 경우 불러오기
-                    loadImage = await ImageCacheManager.shared.findImageFromCache(imageURL: message.message)
+                    messageImage = await ImageCacheManager.shared.findImageFromCache(imagePath: message.message)
                 }
             }
         }
@@ -109,8 +109,10 @@ struct ChatMessageCellView: View {
                     .scaledToFit()
                     .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
             } else {
-                ProgressView()
-                    .frame(width: 100, height: 100)
+                Image("ZziritLogoImage")
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
             }
         }
         .frame(height: 100)
@@ -127,7 +129,7 @@ struct ChatMessageCellView: View {
                     .frame(width: 50, height: 50)
             } else {
                 // 이미지가 없거나 로드에 실패했을때
-                Image(systemName: "person.crop.circle.fill")
+                Image("ZziritLogoImage")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 50, height: 50)
