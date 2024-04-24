@@ -28,17 +28,11 @@ struct ContactView: View {
         .toolbarRole(.editor)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                HStack {
-                    Button {
-                        isTopTrailingAction.toggle()
-                    } label: {
-                        Image(systemName: "pencil.line")
-                            .foregroundStyle(.black)
-                    }
-                    // 문의 내용 작성 뷰로 이동하는 navigationDestination
-                    .navigationDestination(isPresented: $isTopTrailingAction) {
-                        ContactInputView()
-                    }
+                NavigationLink {
+                    ContactInputView()
+                } label: {
+                    Image(systemName: "pencil.line")
+                        .foregroundStyle(.black)
                 }
             }
         }

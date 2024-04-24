@@ -36,7 +36,7 @@ struct ContactInputView: View {
     
     let contactThroughRoomView: Bool
     
-    init(selectedContactCategory: ContactCategory = .app, selectedRoomContact: String = "", selectedUserContact: String = "", contactThroughRoomView: Bool = false){
+    init(selectedContactCategory: ContactCategory = .app, selectedRoomContact: String = "", selectedUserContact: String = "", contactThroughRoomView: Bool = false) {
         self.selectedContactCategory = selectedContactCategory
         self.selectedRoomContact = selectedRoomContact
         self.selectedUserContact = selectedUserContact
