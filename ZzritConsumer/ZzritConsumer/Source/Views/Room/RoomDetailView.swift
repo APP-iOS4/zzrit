@@ -174,11 +174,11 @@ struct RoomDetailView: View {
             }
         }
         .onAppear {
+            participants.removeAll()
             modifyRoomStatus()
             Task {
                 do {
                     await updateRecentRoom()
-                    //                        userModel = try await userService.loggedInUserInfo()
                     if let roomId = room.id {
                         participants = try await roomService.joinedUsers(roomID: roomId)
                     }
@@ -193,15 +193,8 @@ struct RoomDetailView: View {
             }
         }
         .customOnChange(of: isShowingLoginView) { _ in
-            Task {
-                do {
-                    userModel = try await userService.loggedInUserInfo()
-                } catch {
-                    Configs.printDebugMessage("참여한 방인지 여부의 error: \(error)")
-                }
-            }
+            userModel = userService.loginedUser
         }
-        
     }
     
     func updateRecentRoom() async {
@@ -293,17 +286,17 @@ extension RoomDetailView {
             }
         }
         .padding(20)
-        .customOnChange(of: isLogined) { _ in
-            Task {
-                do {
-                    if isLogined {
-                        if let roomId = room.id, let userModel = userModel?.id {
-                            isJoined = try await roomService.isJoined(roomID: roomId, userUID: userModel)
+        .task {
+            do {
+                if isLogined {
+                    if let roomId = room.id, let userModel = userService.loginedUser {
+                        if let userUID = userModel.id {
+                            isJoined = try await roomService.isJoined(roomID: roomId, userUID: userUID)
                         }
                     }
-                } catch {
-                    Configs.printDebugMessage("참여한 방인지 여부의 error: \(error)")
                 }
+            } catch {
+                Configs.printDebugMessage("참여한 방인지 여부의 error: \(error)")
             }
         }
     }
