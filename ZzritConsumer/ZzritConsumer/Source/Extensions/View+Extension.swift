@@ -48,11 +48,11 @@ extension View {
     }
     
     /// 화면 전체를 로딩뷰로 감쌉니다.
-    func loading(_ visiable: Bool) -> some View {
+    func loading(_ visiable: Bool, message: String? = nil) -> some View {
         self
             .overlay {
                 if visiable {
-                    LoadingView()
+                    LoadingView(message: message)
                 }
             }
             .animation(.easeIn, value: visiable)

@@ -27,6 +27,8 @@ struct SetProfileView: View {
     @State private var finishProfile = false
     @State private var completeSignUp = false
     
+    @State private var isLoading = false
+    
     @EnvironmentObject private var userService: UserService
     
     var emailField: String = ""
@@ -119,6 +121,7 @@ struct SetProfileView: View {
         }
         .padding(20)
         .toolbarRole(.editor)
+        .loading(isLoading, message: "회원 정보를 등록하고 있습니다.")
     }
     
     // MARK: 일단 별명만 채워도 넘어가게 하도록 설정.
@@ -133,56 +136,43 @@ struct SetProfileView: View {
     private func setUserInfo() {
         // 이미지가 있을때
         // 유저 프로필은 width: 300 크기로 리사이징해서 올라감
-        if selectedImage != nil {
-            guard let selectedImage = ((selectedImage?.size.width)! < 300 ? selectedImage : selectedImage?.resizeWithWidth(width: 300) ) else { return }
-            
-            // 이미지 경로 설정
-            let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMdd")
-            let timeString = DateService.shared.formattedString(date: Date(), format: "HHmmss")
-            let imageDir: [StorageService.StorageName: [String]] = [.profile : [registeredUID, dayString, timeString ]]
-            
-            
-            if let imageData = selectedImage.pngData() {
-                Task {
-                    do {
-                        let serviceTerm = try await userService.term(type: .service)
-                        let privacyTerm = try await userService.term(type: .privacy)
-                        let locationTerm = try await userService.term(type: .location)
-                        
-                        // 이미지 올리고 url 받아오기
-                        let getPath = try await storageService.imageUpload(dirs: imageDir, image: imageData) ?? "NONE"
-                        
-                        Configs.printDebugMessage("이미지 파베에 올림")
-                        // 유저 정보 모델에 저장
-                        let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: getPath, gender: isMan ? .male : .female, birthYear: birthYear, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
-                        
-                        // 유저 프로필 서버에 올리기
-                        try userService.setUserInfo(uid: registeredUID, info: userInfo)
-                        
-                        // 이미지 캐시 저장
-                        ImageCacheManager.shared.updateImageFirst(name: getPath, image: selectedImage)
-                    } catch {
-                        Configs.printDebugMessage("에러: \(error)")
-                    }
+        
+        isLoading.toggle()
+        Task {
+            do {
+                let serviceTerm = try await userService.term(type: .service)
+                let privacyTerm = try await userService.term(type: .privacy)
+                let locationTerm = try await userService.term(type: .location)
+                
+                var getPath: String = "NONE"
+                
+                if let selectedImage, let imageData = selectedImage.pngData() {
+                    guard let selectedImage = ((selectedImage.size.width) < 300 ? selectedImage : selectedImage.resizeWithWidth(width: 300) ) else { return }
+                    
+                    // 이미지 경로 설정
+                    let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMdd")
+                    let timeString = DateService.shared.formattedString(date: Date(), format: "HHmmss")
+                    let imageDir: [StorageService.StorageName: [String]] = [.profile : [registeredUID, dayString, timeString ]]
+                    
+                    // 이미지 올리고 url 받아오기
+                    getPath = try await storageService.imageUpload(dirs: imageDir, image: imageData) ?? "NONE"
+                    
+                    Configs.printDebugMessage("이미지 파베에 올림")
+                    
+                    // 이미지 캐시 저장
+                    ImageCacheManager.shared.updateImageFirst(name: getPath, image: selectedImage)
                 }
-            }
-        } else {
-            // 이미지를 설정하지 않았을때
-            Task {
-                do {
-                    let serviceTerm = try await userService.term(type: .service)
-                    let privacyTerm = try await userService.term(type: .privacy)
-                    let locationTerm = try await userService.term(type: .location)
-                    
-                    // 유저 정보 모델에 저장
-                    let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: "NONE", gender: isMan ? .male : .female, birthYear: birthYear, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
-                    
-                    // 유저 프로필 서버에 올리기
-                    try userService.setUserInfo(uid: registeredUID, info: userInfo)
-                    
-                } catch {
-                    Configs.printDebugMessage("에러: \(error)")
-                }
+                
+                // 유저 정보 모델에 저장
+                let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: getPath, gender: isMan ? .male : .female, birthYear: birthYear, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
+                
+                // 유저 프로필 서버에 올리기
+                try userService.setUserInfo(uid: registeredUID, info: userInfo)
+                
+                isLoading.toggle()
+            } catch {
+                Configs.printDebugMessage("에러: \(error)")
+                isLoading = false
             }
         }
     }

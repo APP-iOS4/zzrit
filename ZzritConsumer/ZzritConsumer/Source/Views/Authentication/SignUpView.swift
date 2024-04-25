@@ -21,6 +21,7 @@ struct SignUpView: View {
     @State private var equlText = false
     @State private var isSignUpButtonActive: Bool = false
     @State private var registeredUID: String = ""
+    @State private var isLoading: Bool = false
     
     @Environment (\.dismiss) private var dismiss
     
@@ -104,6 +105,7 @@ struct SignUpView: View {
             .padding(Configs.paddingValue)
             .toolbarRole(.editor)
         }
+        .loading(isLoading, message: "계정을 생성하고 있습니다.")
     }
     
     func activeSignUpButton() {
@@ -142,13 +144,16 @@ struct SignUpView: View {
     }
     
     private func register() {
+        isLoading.toggle()
         Task {
             do {
                 let register = try await authService.register(email: signUpId, password: signUpPw1)
                 Configs.printDebugMessage("회원가입 성공, 생성된 계정 uid: \(register.user.uid)")
                 registeredUID = register.user.uid
+                isLoading.toggle()
                 showProfile.toggle()
             } catch {
+                isLoading = false
                 Configs.printDebugMessage("에러: \(error)")
             }
         }
