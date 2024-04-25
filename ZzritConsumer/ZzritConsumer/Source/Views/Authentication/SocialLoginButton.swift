@@ -38,7 +38,7 @@ struct SocialLoginButton: View {
         Button {
             tapAction()
         } label: {
-            Text(type.rawValue)
+            Text(type.buttonString)
                 .frame(maxWidth: .infinity)
                 .foregroundStyle(textColor)
                 .padding()
@@ -48,7 +48,7 @@ struct SocialLoginButton: View {
                     RoundedRectangle(cornerRadius: 10)
                         .strokeBorder(borderColor, lineWidth: 1)
                     HStack {
-                        Image(type.symbol)
+                        Image("\(type)")
                         Spacer()
                     }
                     .padding(.leading, 10)
