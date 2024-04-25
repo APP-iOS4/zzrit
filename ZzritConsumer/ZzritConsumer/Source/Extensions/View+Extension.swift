@@ -48,13 +48,22 @@ extension View {
     }
     
     /// 화면 전체를 로딩뷰로 감쌉니다.
+    @ViewBuilder
     func loading(_ visiable: Bool, message: String? = nil) -> some View {
-        self
-            .overlay {
-                if visiable {
-                    LoadingView(message: message)
+        if visiable {
+            self
+                .overlay {
+                    if visiable {
+                        LoadingView(message: message)
+                    }
                 }
-            }
-            .animation(.easeIn, value: visiable)
+                .toolbar(.hidden, for: .navigationBar)
+                .toolbar(.hidden, for: .tabBar)
+                .animation(.easeIn, value: visiable)
+        } else {
+            self
+                .toolbar(.automatic, for: .navigationBar)
+                .toolbar(.automatic, for: .tabBar)
+        }
     }
 }
