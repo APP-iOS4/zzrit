@@ -24,7 +24,7 @@ struct ProfileInfoView: View {
         return userService.loginedUser?.userImage ?? "NONE"
     }
     private var name: String {
-        return userService.loginedUser!.userName
+        return userService.loginedUser?.userName ?? ""
     }
     
     var body: some View {
