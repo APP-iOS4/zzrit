@@ -80,13 +80,16 @@ struct ParticipantListView: View {
     
     func getUsersInfo() async throws {
         do {
+            var tempGetUserModels: [UserModel] = []
             for participant in participants {
                 
                 guard let userInfo =  try await userService.findUserInfo(uid: participant.userID)
                 else { return }
                 
-                getUserModels.append(userInfo)
+                tempGetUserModels.append(userInfo)
             }
+            
+            getUserModels = tempGetUserModels
         } catch {
             throw error
         }

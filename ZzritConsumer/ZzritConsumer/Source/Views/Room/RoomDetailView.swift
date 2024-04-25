@@ -174,7 +174,6 @@ struct RoomDetailView: View {
             }
         }
         .onAppear {
-            participants.removeAll()
             modifyRoomStatus()
             Task {
                 do {
