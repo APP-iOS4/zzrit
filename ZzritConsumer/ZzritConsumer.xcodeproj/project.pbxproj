@@ -232,6 +232,7 @@
 		3BA17FDA2BD9DBF60000F964 /* LastChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastChatModel.swift; sourceTree = "<group>"; };
 		9B5403CD2BD73C870066A7EF /* RestrictionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestrictionViewModel.swift; sourceTree = "<group>"; };
 		9B5403CF2BD73CBB0066A7EF /* UnderRestrictionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderRestrictionView.swift; sourceTree = "<group>"; };
+		9B9FCB562BDA3D7F004D22F8 /* ZzritConsumer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZzritConsumer.entitlements; sourceTree = "<group>"; };
 		DF2209622BD780AE00B9A2C7 /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
 		DF2209662BD797DC00B9A2C7 /* HiddenRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenRectangle.swift; sourceTree = "<group>"; };
 		DF2209682BD79B9200B9A2C7 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
@@ -689,6 +690,7 @@
 		DF54D21D2BC36C4500D72491 /* ZzritConsumer */ = {
 			isa = PBXGroup;
 			children = (
+				9B9FCB562BDA3D7F004D22F8 /* ZzritConsumer.entitlements */,
 				DF54D21E2BC36C4500D72491 /* ZzritConsumerApp.swift */,
 				DF54D2202BC36C4500D72491 /* ContentView.swift */,
 				DF9674C22BCD211B00322382 /* Info.plist */,
@@ -1185,6 +1187,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZzritConsumer/ZzritConsumer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"ZzritConsumer/Resource/Preview Content\"";
@@ -1223,6 +1226,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZzritConsumer/ZzritConsumer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"ZzritConsumer/Resource/Preview Content\"";
