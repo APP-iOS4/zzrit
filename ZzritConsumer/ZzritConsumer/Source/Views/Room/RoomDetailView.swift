@@ -168,9 +168,9 @@ struct RoomDetailView: View {
         } message: {
             Text("해당 모임을 신고하시겠습니까?")
         }
-        .navigationDestination(isPresented: $isShowingContactInputView) {
+        .fullScreenCover(isPresented: $isShowingContactInputView) {
             if let roomid = room.id {
-//                ContactInputView(selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "", contactThroughRoomView: true)
+                ContactInputView(isPresented: $isShowingContactInputView, selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "", contactThroughRoomView: true)
             }
         }
         .onAppear {
@@ -326,5 +326,6 @@ struct disableTextModifier: ViewModifier {
         RoomDetailView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
             .environmentObject(UserService())
             .environmentObject(RecentRoomViewModel())
+            .environmentObject(LocationService())
     }
 }

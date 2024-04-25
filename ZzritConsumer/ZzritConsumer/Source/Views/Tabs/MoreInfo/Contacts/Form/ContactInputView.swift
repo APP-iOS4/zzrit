@@ -38,11 +38,11 @@ struct ContactInputView: View {
     
     let contactThroughRoomView: Bool
     
-    init(selectedContactCategory: ContactCategory = .app, selectedRoomContact: String = "", isPresented: Binding<Bool>, selectedUserContact: String = "", contactThroughRoomView: Bool = false) {
+    init(isPresented: Binding<Bool>, selectedContactCategory: ContactCategory = .app, selectedRoomContact: String = "", selectedUserContact: String = "", contactThroughRoomView: Bool = false) {
+        self._isPresented = isPresented
         self.selectedContactCategory = selectedContactCategory
         self.selectedRoomContact = selectedRoomContact
         self.selectedUserContact = selectedUserContact
-        self._isPresented = isPresented
         self.contactThroughRoomView = contactThroughRoomView
     }
     
@@ -173,6 +173,7 @@ struct ContactInputView: View {
                         isPresented = false
                     } label: {
                         Image(systemName: "xmark")
+                            .foregroundStyle(.black)
                     }
                 }
             }

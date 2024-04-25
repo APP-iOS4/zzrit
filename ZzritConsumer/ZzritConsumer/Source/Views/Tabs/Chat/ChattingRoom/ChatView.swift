@@ -434,9 +434,12 @@ struct ChatView: View {
                     RoomDetailView(room: room)
                         .padding(.top, Configs.paddingValue)
                 }
-                .sheet(isPresented: $isContactShow) {
+                .fullScreenCover(isPresented: $isContactShow) {
                     // 신고하기 sheet
                     // FIXME: 신고가 안올라감. 뭐를 더 넣어줘야하는지
+                    if let roomid = room.id {
+                        ContactInputView(isPresented: $isContactShow, selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "", contactThroughRoomView: true)
+                    }
 //                    ContactInputView()
 //                        .padding(.top, Configs.paddingValue)
                 }
