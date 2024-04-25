@@ -34,142 +34,157 @@ struct ContactInputView: View {
     // 방 신고 버튼 눌렀을 시, 방 타이틀
     @State private var roomTitle: String = ""
     
+    @Binding var isPresented: Bool
+    
     let contactThroughRoomView: Bool
     
-    init(selectedContactCategory: ContactCategory = .app, selectedRoomContact: String = "", selectedUserContact: String = "", contactThroughRoomView: Bool = false) {
+    init(selectedContactCategory: ContactCategory = .app, selectedRoomContact: String = "", isPresented: Binding<Bool>, selectedUserContact: String = "", contactThroughRoomView: Bool = false) {
         self.selectedContactCategory = selectedContactCategory
         self.selectedRoomContact = selectedRoomContact
         self.selectedUserContact = selectedUserContact
+        self._isPresented = isPresented
         self.contactThroughRoomView = contactThroughRoomView
     }
     
     //MARK: - body
     
     var body: some View {
-        VStack {
-            ScrollView {
-                // 문의 제목을 받는 곳
-                TextField("문의 제목을 입력해주세요", text: $contactTitle)
-                    .foregroundStyle(Color.staticGray1)
-                    .roundedBorder()
-                    .padding(.bottom, Configs.paddingValue)
-                
-                // 문의 종류를 받는 곳
-                HStack {
-                    Text("문의 종류")
+        NavigationStack {
+            VStack {
+                ScrollView {
+                    // 문의 제목을 받는 곳
+                    TextField("문의 제목을 입력해주세요", text: $contactTitle)
+                        .foregroundStyle(Color.staticGray1)
+                        .roundedBorder()
+                        .padding(.bottom, Configs.paddingValue)
                     
-                    Spacer()
-                    
-                    // Picker를 통해 selectedContactCategory에 값을 바인딩한다.
-                    Picker("Choose contact category", selection: $selectedContactCategory) {
-                        ForEach(ContactCategory.allCases, id: \.self) {
-                            Text($0.rawValue)
-                        }
-                    }
-                }
-                .foregroundStyle(Color.staticGray1)
-                .roundedBorder()
-                .padding(.bottom, Configs.paddingValue)
-                
-                // 만약 문의 종류가 모임이라면....
-                if selectedContactCategory == .room {
-                    // 문의 종류가 모임 관련 시 어떤 모임인지 선택하는 곳
+                    // 문의 종류를 받는 곳
                     HStack {
-                        Text("모임")
+                        Text("문의 종류")
                         
                         Spacer()
                         
-                        if !contactThroughRoomView {
-                            // Picker를 통해 selectedRoomContact에 값을 바인딩한다.
-                            if #available(iOS 17.0, *) {
-                                Picker("Choose room title", selection: $selectedRoomContact) {
-                                    ForEach(rooms) { room in
-                                        Text(room.title)
-                                            .tag(room.id!)
-                                    }
-                                }
-                                .onChange(of: selectedRoomContact) { _, _ in
-                                    fetchUsers()
-                                }
-                            } else {
-                                Picker("Choose room title", selection: $selectedRoomContact) {
-                                    ForEach(rooms) { room in
-                                        Text(room.title)
-                                            .tag(room.id!)
-                                    }
-                                }
-                                .onChange(of: selectedRoomContact) { _ in
-                                    fetchUsers()
-                                }
+                        // Picker를 통해 selectedContactCategory에 값을 바인딩한다.
+                        Picker("Choose contact category", selection: $selectedContactCategory) {
+                            ForEach(ContactCategory.allCases, id: \.self) {
+                                Text($0.rawValue)
                             }
-                        } else {
-                            Text(roomTitle)
-                                .foregroundStyle(Color.pointColor)
-                                .onAppear {
-                                    fetchUsers()
-                                }
                         }
                     }
                     .foregroundStyle(Color.staticGray1)
                     .roundedBorder()
                     .padding(.bottom, Configs.paddingValue)
                     
-                    if selectedRoomContact != "" {
-                        // 모임 선택시 회원 목록 뜸
+                    // 만약 문의 종류가 모임이라면....
+                    if selectedContactCategory == .room {
+                        // 문의 종류가 모임 관련 시 어떤 모임인지 선택하는 곳
                         HStack {
-                            Text("회원")
+                            Text("모임")
                             
                             Spacer()
                             
-                            // Picker를 통해 selectedUserContact에 값을 바인딩한다.
-                            Picker("Choose member", selection: $selectedUserContact) {
-                                Text("신고할 회원을 선택하세요.")
-                                    .tag("")
-                                if users.isEmpty {
-                                    Text("참가한 회원이 없습니다.")
-                                        .tag("")
-                                        .foregroundStyle(.red)
+                            if !contactThroughRoomView {
+                                // Picker를 통해 selectedRoomContact에 값을 바인딩한다.
+                                if #available(iOS 17.0, *) {
+                                    Picker("Choose room title", selection: $selectedRoomContact) {
+                                        ForEach(rooms) { room in
+                                            Text(room.title)
+                                                .tag(room.id!)
+                                        }
+                                    }
+                                    .onChange(of: selectedRoomContact) { _, _ in
+                                        fetchUsers()
+                                    }
                                 } else {
-                                    ForEach(users) { user in
-                                        Text(user.userName)
-                                            .tag(user.id!)
+                                    Picker("Choose room title", selection: $selectedRoomContact) {
+                                        ForEach(rooms) { room in
+                                            Text(room.title)
+                                                .tag(room.id!)
+                                        }
+                                    }
+                                    .onChange(of: selectedRoomContact) { _ in
+                                        fetchUsers()
                                     }
                                 }
+                            } else {
+                                Text(roomTitle)
+                                    .foregroundStyle(Color.pointColor)
+                                    .onAppear {
+                                        fetchUsers()
+                                    }
                             }
                         }
                         .foregroundStyle(Color.staticGray1)
                         .roundedBorder()
                         .padding(.bottom, Configs.paddingValue)
+                        
+                        if selectedRoomContact != "" {
+                            // 모임 선택시 회원 목록 뜸
+                            HStack {
+                                Text("회원")
+                                
+                                Spacer()
+                                
+                                // Picker를 통해 selectedUserContact에 값을 바인딩한다.
+                                Picker("Choose member", selection: $selectedUserContact) {
+                                    Text("신고할 회원을 선택하세요.")
+                                        .tag("")
+                                    if users.isEmpty {
+                                        Text("참가한 회원이 없습니다.")
+                                            .tag("")
+                                            .foregroundStyle(.red)
+                                    } else {
+                                        ForEach(users) { user in
+                                            Text(user.userName)
+                                                .tag(user.id!)
+                                        }
+                                    }
+                                }
+                            }
+                            .foregroundStyle(Color.staticGray1)
+                            .roundedBorder()
+                            .padding(.bottom, Configs.paddingValue)
+                        }
                     }
+                    
+                    // 문의 내용을 작성하는 곳
+                    TextEditor(text: $contactContent)
+                        .foregroundStyle(Color.staticGray1)
+                        .frame(height: 250, alignment: .top)
+                        .roundedBorder()
+                        .padding(.bottom, Configs.paddingValue)
                 }
                 
-                // 문의 내용을 작성하는 곳
-                TextEditor(text: $contactContent)
-                    .foregroundStyle(Color.staticGray1)
-                    .frame(height: 250, alignment: .top)
-                    .roundedBorder()
-                    .padding(.bottom, Configs.paddingValue)
+                GeneralButton("문의하기", isDisabled: contactTitle.isEmpty) {
+                    writeContact()
+                }
+                .navigationDestination(isPresented: $isPressContactButton) {
+                    ContactInputCompleteView(isPresented: $isPresented)
+                }
             }
-            
-            GeneralButton("문의하기", isDisabled: contactTitle.isEmpty) {
-                writeContact()
+            .padding(.vertical, Configs.paddingValue)
+            .padding(.horizontal, Configs.paddingValue)
+            .navigationTitle("문의하기")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        isPresented = false
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                }
             }
-            .navigationDestination(isPresented: $isPressContactButton) {
-                ContactInputCompleteView()
+            .onTapGesture {
+                self.endTextEditing()
             }
-        }
-        .padding(.vertical, Configs.paddingValue)
-        .padding(.horizontal, Configs.paddingValue)
-        .navigationTitle("문의하기")
-        .toolbarRole(.editor)
-        .onTapGesture {
-            self.endTextEditing()
-        }
-        .onAppear {
-            if !contactThroughRoomView {
-                fetchRooms()
-            } else {
-                fetchRoomThroughRoomView()
+            .onAppear {
+                if !contactThroughRoomView {
+                    fetchRooms()
+                } else {
+                    fetchRoomThroughRoomView()
+                }
             }
         }
     }
@@ -239,7 +254,7 @@ struct ContactInputView: View {
 
 #Preview {
     NavigationStack {
-        ContactInputView()
+        ContactInputView(isPresented: .constant(true))
             .environmentObject(UserService())
             .environmentObject(ContactService())
     }

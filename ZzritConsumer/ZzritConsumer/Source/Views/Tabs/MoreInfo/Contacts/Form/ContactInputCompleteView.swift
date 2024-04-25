@@ -12,6 +12,8 @@ import ZzritKit
 struct ContactInputCompleteView: View {
     @State private var isPressConfirmButton: Bool = false
     
+    @Binding var isPresented: Bool
+    
     var body: some View {
         VStack {
             Spacer()
@@ -31,17 +33,14 @@ struct ContactInputCompleteView: View {
             
             GeneralButton("확인") {
                 // FIXME: 화면 내리기
-                isPressConfirmButton.toggle()
+                isPresented = false
             }
             .padding(Configs.paddingValue)
-//            .navigationDestination(isPresented: $isPressConfirmButton) {
-//                
-//            }
         }
-        .toolbarRole(.editor)
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
 #Preview {
-    ContactInputCompleteView()
+    ContactInputCompleteView(isPresented: .constant(true))
 }

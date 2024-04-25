@@ -437,8 +437,8 @@ struct ChatView: View {
                 .sheet(isPresented: $isContactShow) {
                     // 신고하기 sheet
                     // FIXME: 신고가 안올라감. 뭐를 더 넣어줘야하는지
-                    ContactInputView()
-                        .padding(.top, Configs.paddingValue)
+//                    ContactInputView()
+//                        .padding(.top, Configs.paddingValue)
                 }
                 .fullScreenCover(isPresented: $isImageDetail) {
                     // 채팅 이미지 상세

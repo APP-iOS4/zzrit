@@ -170,7 +170,7 @@ struct RoomDetailView: View {
         }
         .navigationDestination(isPresented: $isShowingContactInputView) {
             if let roomid = room.id {
-                ContactInputView(selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "", contactThroughRoomView: true)
+//                ContactInputView(selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "", contactThroughRoomView: true)
             }
         }
         .onAppear {
