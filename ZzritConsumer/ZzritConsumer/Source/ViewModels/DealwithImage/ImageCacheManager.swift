@@ -44,17 +44,12 @@ final class ImageCacheManager {
     
     // filemanager에 업데이트
     private func updateToFileManager(name: String, image: UIImage?) {
-        // 주소 경로 중 마지막 부분만 잘라서 파일명으로 변경
-        // TODO: 다시 / -> _ 로 문자 치환해주기
-        guard let urlObject = URL(string: name) else { return }
-        let encodedImageName = urlObject.lastPathComponent
-        
         // 문자열 치환
-//        let encodedImageName = imageURL.replacingOccurrences(of: "/", with: "_")
+        let encodedImageName = name.replacingOccurrences(of: "/", with: "_")
         
         // 넣을 path 지정
         let imagePath = cacheDirectory.appendingPathComponent(encodedImageName)
-        guard let imageData = image!.pngData() else { return }
+        guard let imageData = image?.pngData() else { return }
         
         do {
             // filemanager에 로드
@@ -79,21 +74,12 @@ final class ImageCacheManager {
     
     // filemanager로부터 로드
     private func loadFromFilemanagerImage(imageURL: String) -> UIImage? {
-        // 주소 경로 중 마지막 부분만 잘라서 파일명으로 변경
-        // TODO: 다시 / -> _ 로 문자 치환해주기
-        guard let urlObject = URL(string: imageURL) else {
-            return nil
-        }
-        let encodedImageName = urlObject.lastPathComponent
-        
         // 문자열 치환
-//        let encodedImageName = imageURL.replacingOccurrences(of: "/", with: "_")
-        
+        let encodedImageName = imageURL.replacingOccurrences(of: "/", with: "_")
         
         // 찾을 파일 이름을 갖고 경로 설정
         let imagePath = cacheDirectory.appendingPathComponent(encodedImageName)
         guard FileManager.default.fileExists(atPath: imagePath.path) else { return nil }
-        
         do {
             // 사진 찾아와서 UIImage로 return
             let imageData = try Data(contentsOf: imagePath)
