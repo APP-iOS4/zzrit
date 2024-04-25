@@ -69,10 +69,11 @@ struct ParticipantNoticeView: View {
             }
             .padding(.bottom, 20)
             
-            HStack {
+            HStack(alignment: .top) {
                 VStack {
                     Image(systemName: "1.circle.fill")
-                    Spacer()
+                        .padding(.top, 1.5)
+                    //Spacer()
                 }
                 Text("만남 전, 참석이 어려울 경우엔\n꼭! 다른 사람들에게 알려주세요.")
                     .multilineTextAlignment(.leading)
@@ -80,27 +81,29 @@ struct ParticipantNoticeView: View {
                 
                 Spacer()
             }
-            .frame(height: 43)
+            //.frame(height: 43)
             .padding(.bottom, 10)
             
-            HStack {
+            HStack(alignment: .top) {
                 VStack {
                     Image(systemName: "2.circle.fill")
-                    Spacer()
+                        .padding(.top, 1.5)
+                    //Spacer()
                 }
-                Text("비속어 또는 험담은 자신의 정전기가\n깎일 수 있어요!")
+                Text("비속어 또는 험담으로 정전기 지수가 깎이면\n이후 모임 참여가 어려워질 수 있어요!")
                     .multilineTextAlignment(.leading)
                     .foregroundStyle(Color.staticGray1)
                 
                 Spacer()
             }
-            .frame(height: 43)
+            //.frame(height: 43)
             .padding(.bottom, 10)
             
-            HStack {
+            HStack(alignment: .top) {
                 VStack {
                     Image(systemName: "3.circle.fill")
-                    Spacer()
+                        .padding(.top, 1.5)
+                    //Spacer()
                 }
                 Text("모임에서 부당한 일을 당했을 경우,\n주저하지 말고 신고해주세요!")
                     .multilineTextAlignment(.leading)
@@ -108,7 +111,7 @@ struct ParticipantNoticeView: View {
                 
                 Spacer()
             }
-            .frame(height: 43)
+            //.frame(height: 43)
             .padding(.bottom, 20)
             
             Spacer()
