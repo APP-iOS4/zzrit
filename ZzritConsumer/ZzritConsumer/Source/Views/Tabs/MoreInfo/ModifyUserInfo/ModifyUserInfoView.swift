@@ -88,10 +88,9 @@ struct ModifyUserInfoView: View {
         isLoading.toggle()
         
         // 바뀐 항목 체크
-        var isNameChange = userService.loginedUser?.userName != nickName
-        var isImageChange = selectedImage != originImage
-        Configs.printDebugMessage("이름 : \(isNameChange) -- 이미지 : \(isImageChange)")
-        var setImagePath = userService.loginedUser?.userImage
+        let isNameChange = userService.loginedUser?.userName != nickName
+        let isImageChange = selectedImage != originImage
+        let setImagePath = userService.loginedUser?.userImage
         
         
         if isImageChange, let selectedImage, let imageData = selectedImage.pngData()  {
@@ -103,7 +102,7 @@ struct ModifyUserInfoView: View {
                     let imageDir: [StorageService.StorageName: [String]] = [.profile: [registeredUID, dayString, timeString]]
                     
                     // 이미지 firebase 올리고 저장 path 받아오기
-                    var imagePath = try await storageService.imageUpload(dirs: imageDir, image: imageData) ?? "NONE"
+                    let imagePath = try await storageService.imageUpload(dirs: imageDir, image: imageData) ?? "NONE"
                     
                     userService.modifyUserInfo(userID: authService.currentUID!,
                                                userName: nickName,
