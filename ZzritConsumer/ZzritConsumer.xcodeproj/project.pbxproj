@@ -143,6 +143,7 @@
 		FC628F342BC4D115007F5E5C /* BirthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC628F332BC4D114007F5E5C /* BirthYearPickerView.swift */; };
 		FC715E912BD61994001B67CF /* ImageResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC715E902BD61994001B67CF /* ImageResize.swift */; };
 		FC715E932BD626C7001B67CF /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC715E922BD626C7001B67CF /* ImageCacheManager.swift */; };
+		FC8F12082BD9F1A70061A906 /* ChatNoticeMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8F12072BD9F1A70061A906 /* ChatNoticeMessageView.swift */; };
 		FCADAA342BC4EB7700364272 /* CompleteSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCADAA332BC4EB7700364272 /* CompleteSignUpView.swift */; };
 		FCAF4A1A2BC40C8400603C2D /* AppSlogan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAF4A192BC40C8400603C2D /* AppSlogan.swift */; };
 		FCAF4A1C2BC40CBA00603C2D /* SignUpAgreeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAF4A1B2BC40CBA00603C2D /* SignUpAgreeButton.swift */; };
@@ -289,6 +290,7 @@
 		FC628F332BC4D114007F5E5C /* BirthYearPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthYearPickerView.swift; sourceTree = "<group>"; };
 		FC715E902BD61994001B67CF /* ImageResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResize.swift; sourceTree = "<group>"; };
 		FC715E922BD626C7001B67CF /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		FC8F12072BD9F1A70061A906 /* ChatNoticeMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNoticeMessageView.swift; sourceTree = "<group>"; };
 		FCADAA332BC4EB7700364272 /* CompleteSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpView.swift; sourceTree = "<group>"; };
 		FCAF4A192BC40C8400603C2D /* AppSlogan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSlogan.swift; sourceTree = "<group>"; };
 		FCAF4A1B2BC40CBA00603C2D /* SignUpAgreeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAgreeButton.swift; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 				FC4314692BCD600B003D35FB /* ImagePicker.swift */,
 				FC43146B2BCD765E003D35FB /* ChatMessageName.swift */,
 				FCBA9B7A2BCE0774001E948B /* ForScrollView.swift */,
+				FC8F12072BD9F1A70061A906 /* ChatNoticeMessageView.swift */,
 			);
 			path = ChattingRoom;
 			sourceTree = "<group>";
@@ -942,6 +945,7 @@
 				FC2DDC0D2BC5070A00A51E64 /* MoreInfoView.swift in Sources */,
 				FC2DDC152BC528F900A51E64 /* RecentWatchRoomView.swift in Sources */,
 				DF2209692BD79B9200B9A2C7 /* InformationView.swift in Sources */,
+				FC8F12082BD9F1A70061A906 /* ChatNoticeMessageView.swift in Sources */,
 				1F4566FB2BCDFFA8001EC0E7 /* Coordinator.swift in Sources */,
 				FC2DDC132BC5231200A51E64 /* ProfileInfoView.swift in Sources */,
 				1F4566E82BCDFCEC001EC0E7 /* RCNavigationBar.swift in Sources */,
