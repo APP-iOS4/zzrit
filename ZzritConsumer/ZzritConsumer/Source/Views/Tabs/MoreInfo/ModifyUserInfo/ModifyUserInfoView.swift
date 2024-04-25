@@ -20,8 +20,10 @@ struct ModifyUserInfoView: View {
     
     @State private var nickName = ""
     @State private var isDuplicate = false
+    @State private var isSelecedImage = false
     
-    @State private var finishProfile = false
+    @State private var isFinishProfile = false
+    @State private var isLoading = false
     
     @EnvironmentObject private var userService: UserService
     
@@ -31,20 +33,16 @@ struct ModifyUserInfoView: View {
         NavigationStack {
             HStack {
                 SetProfilePhotoView(selectedImage: $selectedImage)
+                    .customOnChange(of: selectedImage) { _ in
+                        isSelecedImage.toggle()
+                    }
             }
             .padding(40)
             
-            if #available(iOS 17.0, *) {
-                UserInputCellView(text: $nickName, title: "별명", symbol: "rectangle.and.pencil.and.ellipsis")
-                    .onChange(of: nickName) {
-                        ProfileSettingDone()
-                    }
-            } else {
-                UserInputCellView(text: $nickName, title: "별명", symbol: "rectangle.and.pencil.and.ellipsis")
-                    .onChange(of: nickName, perform: { value in
-                        ProfileSettingDone()
-                    })
-            }
+            UserInputCellView(text: $nickName, title: "별명", symbol: "rectangle.and.pencil.and.ellipsis")
+                .customOnChange(of: nickName, handler: { _ in
+                    ProfileSettingDone()
+                })
             
             // MARK: isduplicate - nickname 보내고 중복 확인후 (중복이면 true로 반환) -> 수시로 하나요?
             if isDuplicate {
@@ -56,18 +54,9 @@ struct ModifyUserInfoView: View {
             Spacer()
             
             // TODO: 성별은 isMan과 isWoman중 true인 것으로 보내기. (enum 반환 함수 만들기)
-            if #available(iOS 17.0, *) {
-                GeneralButton("수정완료", isDisabled: !finishProfile) {
-                    modifyUserInfo()
-                    dismiss()
-                }
-                
-            } else {
-                GeneralButton("수정완료", isDisabled: !finishProfile) {
-                    modifyUserInfo()
-                    dismiss()
-                }
-                
+            GeneralButton("수정완료", isDisabled: !isFinishProfile) {
+                modifyUserInfo()
+                dismiss()
             }
         }
         .onAppear {
@@ -81,48 +70,66 @@ struct ModifyUserInfoView: View {
         }
         .padding(20)
         .toolbarRole(.editor)
+        .loading(isLoading, message: "회원 정보를 수정하고 있습니다.")
     }
     
     // MARK: 일단 별명만 채워도 넘어가게 하도록 설정.
     func ProfileSettingDone() {
         if !isDuplicate {
-            finishProfile = true
+            isFinishProfile = true
         } else {
-            finishProfile = false
+            isFinishProfile = false
         }
     }
     
     // 프로필 저장
     private func modifyUserInfo() {
-        
-        guard let userUploadImage = selectedImage else { return }
-        
-        // 유저 프로필 리사이징
-        guard let selectedImage = (userUploadImage.size.width) < 300 ? userUploadImage : userUploadImage.resizeWithWidth(width: 300) else { return }
-        
-        // 이미지 -> data 변환
-        guard let imageData = selectedImage.pngData() else { return }
-        
-        // 이미지 경로 지정
-        let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMdd")
-        let timeString = DateService.shared.formattedString(date: Date(), format: "HHmmss")
-        let imageDir: [StorageService.StorageName: [String]] = [.profile: [registeredUID, dayString, timeString]]
-        
-        Task {
-            do {
-                // 이미지 firebase 올리고 저장 path 받아오기
-                guard let imagePath = try await storageService.imageUpload(dirs: imageDir, image: imageData) else { return }
-                
-                userService.modifyUserInfo(userID: authService.currentUID!,
-                                           userName: nickName,
-                                           imageURL: imagePath)
-                // 변경된 회원정보 firebase로
-                _ = try await userService.loggedInUserInfo()
-                
-                // 이미지 캐시 저장
-                ImageCacheManager.shared.updateImageFirst(name: imagePath, image: selectedImage)
-            } catch {
-                print("에러: \(error)")
+        isLoading.toggle()
+        var imagePath: String = "NONE"
+        if let selectedImage, let imageData = selectedImage.pngData() {
+            Task {
+                do {
+                    if isSelecedImage {
+                        // 이미지 경로 지정
+                        let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMdd")
+                        let timeString = DateService.shared.formattedString(date: Date(), format: "HHmmss")
+                        let imageDir: [StorageService.StorageName: [String]] = [.profile: [registeredUID, dayString, timeString]]
+                        
+                        // 이미지 firebase 올리고 저장 path 받아오기
+                        imagePath = try await storageService.imageUpload(dirs: imageDir, image: imageData) ?? "NONE"
+                        
+                        userService.modifyUserInfo(userID: authService.currentUID!,
+                                                   userName: nickName,
+                                                   imageURL: imagePath)
+                        
+                        // 변경된 회원정보 firebase로
+                        _ = try await userService.loggedInUserInfo()
+                        
+                        // 이미지 캐시 저장
+                        ImageCacheManager.shared.updateImageFirst(name: imagePath, image: selectedImage)
+                    }
+                    isLoading.toggle()
+                } catch {
+                    print("에러: \(error)")
+                    isLoading = false
+                }
+            }
+        } else {
+            Task {
+                do {
+                    userService.modifyUserInfo(userID: authService.currentUID!,
+                                               userName: nickName,
+                                               imageURL: imagePath)
+                    
+                    Configs.printDebugMessage("변경된 회원정보 파베에올라감")
+                    // 변경된 회원정보 firebase로
+                    _ = try await userService.loggedInUserInfo()
+                    
+                    isLoading.toggle()
+                } catch {
+                    print("에러: \(error)")
+                    isLoading = false
+                }
             }
         }
     }
