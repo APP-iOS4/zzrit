@@ -41,7 +41,7 @@ struct ProfileInfoView: View {
                         .strokeBorder(Color.staticGray5, lineWidth: 1)
                 }
             } else {
-                Image("ZziritLogoImage")
+                Image("noProfile")
                     .resizable()
                     .frame(width: 50, height: 50)
                     .aspectRatio(1.0, contentMode: .fill)
