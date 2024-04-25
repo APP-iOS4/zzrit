@@ -19,53 +19,28 @@ struct SetProfilePhotoView: View {
             
             // MARK: 카메라찍기도 해야하나
             // TODO: 사진 접근 허용
-            if #available(iOS 17.0, *) {
-                PhotosPicker(selection: $selectedItem, matching: .images) {
-                    VStack {
-                        if selectedImage != nil {
-                            Image(uiImage: selectedImage!)
-                                .resizable()
-                                .scaledToFill()
-                                .clipShape(Circle())
-                        } else {
-                            Image("noProfile")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundStyle(Color.staticGray3)
-                        }
-                    }
-                    .frame(width: 200, height: 200)
-                }
-                .onChange(of: selectedItem) {
-                    Task {
-                        if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
-                            selectedImage = UIImage(data: data)
-                        }
+            PhotosPicker(selection: $selectedItem, matching: .images) {
+                VStack {
+                    if selectedImage != nil {
+                        Image(uiImage: selectedImage!)
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(Circle())
+                    } else {
+                        Image("noProfile")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundStyle(Color.staticGray3)
                     }
                 }
-            } else {
-                PhotosPicker(selection: $selectedItem, matching: .images) {
-                    VStack {
-                        if selectedImage != nil {
-                            Image(uiImage: selectedImage!)
-                                .resizable()
-                                .scaledToFill()
-                                .clipShape(Circle())
-                        } else {
-                            Image("noProfile")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        }
+                .frame(width: 200, height: 200)
+            }
+            .customOnChange(of: selectedItem) { _ in
+                Task {
+                    if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
+                        selectedImage = UIImage(data: data)
                     }
-                    .frame(height: 200)
                 }
-                .onChange(of: selectedItem, perform: { value in
-                    Task {
-                        if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
-                            selectedImage = UIImage(data: data)
-                        }
-                    }
-                })
             }
         }
     }
