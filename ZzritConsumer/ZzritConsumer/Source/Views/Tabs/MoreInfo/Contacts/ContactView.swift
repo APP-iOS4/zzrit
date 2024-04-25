@@ -44,6 +44,9 @@ struct ContactView: View {
         .onAppear {
             fetchContacts()
         }
+        .refreshable {
+            fetchContacts()
+        }
     }
     
     private func fetchContacts() {
