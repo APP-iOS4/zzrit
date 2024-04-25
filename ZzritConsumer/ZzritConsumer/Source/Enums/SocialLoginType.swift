@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum SocialLoginType: String, CaseIterable {
-    case google = "Google 계정으로 시작하기"
+enum SocialLoginType: CaseIterable {
+    case google
     
-    var symbol: String {
+    var buttonString: String {
         switch self {
         case .google:
-            return "google"
+            "Google 계정으로 시작하기"
         }
     }
 }
