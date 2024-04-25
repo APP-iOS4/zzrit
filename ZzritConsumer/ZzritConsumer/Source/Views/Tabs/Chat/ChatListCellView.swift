@@ -30,10 +30,14 @@ struct ChatListCellView: View {
     var latestMessage: String {
         if let lastmessage = chattingService.messages.last {
             switch lastmessage.type {
-            case .text, .notice:
+            case .text:
                 return lastmessage.message
             case .image:
                 return "사진"
+            case .notice:
+                let messageParse = lastmessage.message.split(separator: "_")
+                let showMessage = messageParse[1]
+                return "누군가 " + messageParse[1] + "하셨습니다."
             }
         } else {
             return " "
