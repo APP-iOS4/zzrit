@@ -126,7 +126,7 @@ struct RoomDetailView: View {
                     RoomInfoView(room: room, participantsCount: participantsCount)
                         .padding(.bottom, 40)
                     
-                    Text("와우, 벌써 \(participantsCount)명이나 모였어요.")
+                    Text(participantsCount <= 1 ? "여기에는 아직 \(participantsCount)명밖에 없어요." : "와우, 벌써 \(participantsCount)명이나 모였어요.")
                         .font(.title3)
                         .fontWeight(.bold)
                     // 참여자의 정보를 나타내는 뷰
