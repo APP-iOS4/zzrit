@@ -28,7 +28,7 @@ struct SetProfilePhotoView: View {
                                 .scaledToFill()
                                 .clipShape(Circle())
                         } else {
-                            Image("ZziritLogoImage")
+                            Image("noProfile")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundStyle(Color.staticGray3)
@@ -52,7 +52,7 @@ struct SetProfilePhotoView: View {
                                 .scaledToFill()
                                 .clipShape(Circle())
                         } else {
-                            Image("ZziritLogoImage")
+                            Image("noProfile")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                         }

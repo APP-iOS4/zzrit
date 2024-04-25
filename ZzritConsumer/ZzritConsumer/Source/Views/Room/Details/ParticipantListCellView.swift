@@ -33,7 +33,7 @@ struct ParticipantListCellView: View {
                     .clipShape(Circle())
                     .frame(maxWidth: 50)
             } else {
-                Image("ZziritLogoImage")
+                Image("noProfile")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .foregroundStyle(Color.staticGray4)

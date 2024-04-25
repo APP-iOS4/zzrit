@@ -129,7 +129,7 @@ struct ChatMessageCellView: View {
                     .frame(width: 50, height: 50)
             } else {
                 // 이미지가 없거나 로드에 실패했을때
-                Image("ZziritLogoImage")
+                Image("noProfile")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 50, height: 50)
