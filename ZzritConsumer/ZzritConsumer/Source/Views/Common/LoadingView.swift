@@ -8,16 +8,24 @@
 import SwiftUI
 
 struct LoadingView: View {
+    let message: String?
     var body: some View {
         ZStack {
             Color.clear
                 .background(.regularMaterial)
             
-            ProgressView()
+            VStack(spacing: 10) {
+                ProgressView()
+                
+                if let message {
+                    Text(message)
+                        .multilineTextAlignment(.center)
+                }
+            }
         }
     }
 }
 
 #Preview {
-    LoadingView()
+    LoadingView(message: nil)
 }
