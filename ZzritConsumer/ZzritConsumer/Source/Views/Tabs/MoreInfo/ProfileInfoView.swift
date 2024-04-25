@@ -18,7 +18,7 @@ struct ProfileInfoView: View {
     @State private var isEditViewDestination: Bool = false
     @State private var showModify: Bool = false
     @State private var uid: String = ""
-    @State private var userImage: Image?
+    @State private var userImage: UIImage?
     
     private var imagePath: String {
         return userService.loginedUser?.userImage ?? "NONE"
@@ -30,8 +30,8 @@ struct ProfileInfoView: View {
     var body: some View {
         HStack(spacing: 10) {
             // 프로필 이미지
-            if userImage != nil {
-                userImage!
+            if let userImage = userImage {
+                Image(uiImage: userImage)
                 .resizable()
                 .frame(width: 50, height: 50)
                 .aspectRatio(1.0, contentMode: .fill)
@@ -79,7 +79,9 @@ struct ProfileInfoView: View {
         .onAppear {
             Task {
                 Configs.printDebugMessage("profile")
-                userImage = await ImageManager.shared.loadImage(imagePath: imagePath)
+                if imagePath != "NONE" {
+                    userImage = await ImageCacheManager.shared.findImageFromCache(imagePath: imagePath)
+                }
             }
         }
     }
