@@ -83,6 +83,7 @@
 		30F80C3E2BC7C23A00B432DA /* MainLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F80C3D2BC7C23A00B432DA /* MainLocationView.swift */; };
 		30F80C442BC7E38F00B432DA /* OfflineLocationSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F80C432BC7E38F00B432DA /* OfflineLocationSearchView.swift */; };
 		3B883B8F2BD629820061D61F /* RecentRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B883B8E2BD629820061D61F /* RecentRoomViewModel.swift */; };
+		3BA17FDB2BD9DBF60000F964 /* LastChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA17FDA2BD9DBF60000F964 /* LastChatModel.swift */; };
 		9B5403CE2BD73C870066A7EF /* RestrictionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5403CD2BD73C870066A7EF /* RestrictionViewModel.swift */; };
 		9B5403D02BD73CBB0066A7EF /* UnderRestrictionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5403CF2BD73CBB0066A7EF /* UnderRestrictionView.swift */; };
 		DF2209632BD780AE00B9A2C7 /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2209622BD780AE00B9A2C7 /* RoomCreateView.swift */; };
@@ -228,6 +229,7 @@
 		30F80C3D2BC7C23A00B432DA /* MainLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLocationView.swift; sourceTree = "<group>"; };
 		30F80C432BC7E38F00B432DA /* OfflineLocationSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationSearchView.swift; sourceTree = "<group>"; };
 		3B883B8E2BD629820061D61F /* RecentRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRoomViewModel.swift; sourceTree = "<group>"; };
+		3BA17FDA2BD9DBF60000F964 /* LastChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastChatModel.swift; sourceTree = "<group>"; };
 		9B5403CD2BD73C870066A7EF /* RestrictionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestrictionViewModel.swift; sourceTree = "<group>"; };
 		9B5403CF2BD73CBB0066A7EF /* UnderRestrictionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderRestrictionView.swift; sourceTree = "<group>"; };
 		DF2209622BD780AE00B9A2C7 /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
@@ -422,6 +424,14 @@
 			path = Contacts;
 			sourceTree = "<group>";
 		};
+		3BA17FD92BD9DBC50000F964 /* LastChatModel */ = {
+			isa = PBXGroup;
+			children = (
+				3BA17FDA2BD9DBF60000F964 /* LastChatModel.swift */,
+			);
+			path = LastChatModel;
+			sourceTree = "<group>";
+		};
 		DF22094B2BD6A64300B9A2C7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -459,6 +469,7 @@
 				1F70CD2C2BD79FD500869119 /* Search */,
 				DF2209552BD6A80100B9A2C7 /* StoreKit */,
 				FC715E8C2BD618D9001B67CF /* DealwithImage */,
+				3BA17FD92BD9DBC50000F964 /* LastChatModel */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1014,6 +1025,7 @@
 				1F70CD2E2BD79FE300869119 /* HistoryViewModel.swift in Sources */,
 				DFB57BCE2BCF667C0070A923 /* TermView.swift in Sources */,
 				DF2209672BD797DC00B9A2C7 /* HiddenRectangle.swift in Sources */,
+				3BA17FDB2BD9DBF60000F964 /* LastChatModel.swift in Sources */,
 				DF6F4B4B2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift in Sources */,
 				FC628F342BC4D115007F5E5C /* BirthYearPickerView.swift in Sources */,
 				1F0603452BC53F36003808F4 /* RCTitleTextField.swift in Sources */,

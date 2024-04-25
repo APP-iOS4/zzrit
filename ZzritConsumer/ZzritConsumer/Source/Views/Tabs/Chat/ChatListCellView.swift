@@ -11,13 +11,19 @@ import ZzritKit
 
 struct ChatListCellView: View {
     @StateObject private var chattingService: ChattingService
+    @EnvironmentObject private var lastChatModel: LastChatModel
     
     let roomService = RoomService.shared
+   
     let room: RoomModel
     
     @State private var participants: [JoinedUserModel] = []
     @State private var participantsCount: Int = 0
     @State private var roomImage: UIImage?
+        
+    private var lastMessageDateToCompare: Int {
+        return Int((chattingService.messages.last?.date.timeIntervalSince1970 ?? 0) * 1000)
+    }
     
     private var messageDateString: String {
         return relativeString(chattingService.messages.last?.date ?? Date())
@@ -84,8 +90,9 @@ struct ChatListCellView: View {
                         .font(.caption2)
                         .foregroundStyle(Color.staticGray3)
                         .padding(.bottom, 15)
-                    
-                    // 아직 메세지를 안봤다면 위 이미지 띄우기
+                }
+                
+                if lastChatModel.lastChatDates[room.id!] != lastMessageDateToCompare {
                     Image(systemName: "n.circle.fill")
                         .foregroundStyle(Color.pointColor)
                 }

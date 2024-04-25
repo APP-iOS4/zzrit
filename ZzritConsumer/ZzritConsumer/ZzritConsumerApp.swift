@@ -28,6 +28,7 @@ struct ZzritConsumerApp: App {
     @StateObject private var recentRoomViewModel = RecentRoomViewModel()
     @StateObject private var restrictionViewModel = RestrictionViewModel()
     @StateObject private var loadRoomViewModel = LoadRoomViewModel()
+    @StateObject private var lastChatModel = LastChatModel()
     
     @State private var userModel: UserModel?
     
@@ -59,6 +60,7 @@ struct ZzritConsumerApp: App {
                 .environmentObject(recentRoomViewModel)
                 .environmentObject(restrictionViewModel)
                 .environmentObject(loadRoomViewModel)
+                .environmentObject(lastChatModel)
         }
     }
     
