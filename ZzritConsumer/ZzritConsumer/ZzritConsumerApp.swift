@@ -141,14 +141,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 extension AppDelegate: MessagingDelegate{
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-
-        print("토큰을 받았다")
-        // Store this token to firebase and retrieve when to send message to someone...
+        Configs.printDebugMessage("Firebase registration token: \(String(describing: fcmToken))")
+        
         let dataDict: [String: String] = ["token": fcmToken ?? ""]
-        
-        // Store token in Firestore For Sending Notifications From Server in Future...
-        
-        print(dataDict)
-     
+        NotificationCenter.default.post(
+            name: Notification.Name("FCMToken"),
+            object: nil,
+            userInfo: dataDict
+        )
+        // TODO: If necessary send token to application server.
+        // Note: This callback is fired at each app startup and whenever a new token is generated.
     }
 }
