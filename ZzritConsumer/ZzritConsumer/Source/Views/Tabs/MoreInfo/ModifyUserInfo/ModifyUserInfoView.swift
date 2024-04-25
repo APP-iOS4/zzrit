@@ -71,11 +71,10 @@ struct ModifyUserInfoView: View {
         }
         .padding(20)
         .toolbarRole(.editor)
-        // 이것 할때 네비게이션바 안보이면안대나
         .loading(isLoading, message: "회원 정보를 수정하고 있습니다.")
     }
     
-    // MARK: 일단 별명만 채워도 넘어가게 하도록 설정.
+    // TODO: 별명 중복 확인해주기
     func ProfileSettingDone() {
         if !isDuplicate {
             isFinishProfile = true
