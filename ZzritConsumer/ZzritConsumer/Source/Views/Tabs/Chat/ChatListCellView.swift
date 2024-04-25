@@ -36,8 +36,13 @@ struct ChatListCellView: View {
                 return "사진"
             case .notice:
                 let messageParse = lastmessage.message.split(separator: "_")
-                let showMessage = messageParse[1]
-                return "누군가 " + messageParse[1] + "하셨습니다."
+                if messageParse[1] == "입장" {
+                    return "찌릿! 누군가 " + messageParse[1] + "하셨습니다."
+                } else {
+                    return "어머.. 누군가 " + messageParse[1] + "하셨습니다."
+                }
+                
+                
             }
         } else {
             return " "
