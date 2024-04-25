@@ -8,33 +8,41 @@
 import SwiftUI
 
 struct VoteProfileView: View {
+    @State private var userImage: UIImage?
     
     let nickname: String
     let image: String
     let selected: Bool
     
-    var imageURL: URL? {
-        URL(string: image)
-    }
-    
     var body: some View {
         VStack(spacing: 15) {
-            AsyncImage(url: imageURL, scale: 1.0) { phase in
-                phase.resizable()
-            } placeholder: {
-                Circle()
-                    .foregroundStyle(Color.staticGray5)
+            if let userImage = userImage {
+                Image(uiImage: userImage)
+                    .resizable()
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .clipShape(.circle)
+            } else {
+                Image("noProfile")
+                    .resizable()
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .clipShape(.circle)
             }
-            .aspectRatio(1.0, contentMode: .fit)
-            .clipShape(.circle)
-            .overlay {
-                Circle()
-                    .stroke(style: .init(lineWidth: 2))
-                    .foregroundStyle(Color.pointColor)
-            }
+//            if selected 일때
+//                .overlay {
+//                Circle()
+//                    .stroke(style: .init(lineWidth: 2))
+//                    .foregroundStyle(Color.pointColor)
+//            }
             
             Text(nickname)
                 .font(.title3)
+        }
+        .onAppear {
+            Task {
+                if image != "NONE" {
+                    userImage = await ImageCacheManager.shared.findImageFromCache(imagePath: image)
+                }
+            }
         }
     }
 }

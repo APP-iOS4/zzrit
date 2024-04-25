@@ -110,8 +110,6 @@ struct ThirdRoomCreateView: View {
                         let userInfo = userService.loginedUser
                         let roomID = await VM.createRoom(userModel: userInfo)
                         if let roomID = roomID {
-                            // 방장 입장 메시지
-                            guard let username = userInfo?.userName else { return }
                             try ChattingService(roomID: roomID).sendMessage(message: "\(String(describing: userInfo?.id))_입장")
                             VM.topDismiss?.callAsFunction()
                         } else {
