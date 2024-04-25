@@ -18,6 +18,8 @@ struct ContactView: View {
     
     @State private var contacts: [ContactModel] = []
     
+    @State private var isPresented: Bool = false
+    
     //MARK: - body
     
     var body: some View {
@@ -28,15 +30,21 @@ struct ContactView: View {
         .toolbarRole(.editor)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink {
-                    ContactInputView()
+                Button {
+                    isPresented.toggle()
                 } label: {
                     Image(systemName: "pencil.line")
                         .foregroundStyle(.black)
                 }
             }
         }
+        .fullScreenCover(isPresented: $isPresented) {
+            ContactInputView(isPresented: $isPresented)
+        }
         .onAppear {
+            fetchContacts()
+        }
+        .refreshable {
             fetchContacts()
         }
     }

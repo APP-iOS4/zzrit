@@ -70,6 +70,7 @@ struct RoomCardView: View {
                     .fontWeight(.bold)
                     .foregroundStyle(.white)
                     .padding(5)
+                    .padding(.trailing, 5)
                     .background(Color.black.opacity(0.5))
                     .clipShape(Capsule())
             }
@@ -124,4 +125,5 @@ struct RoomCardView: View {
 
 #Preview {
     RoomCardView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), titleToHStackPadding: 100)
+        .environmentObject(LocationService())
 }

@@ -168,9 +168,9 @@ struct RoomDetailView: View {
         } message: {
             Text("해당 모임을 신고하시겠습니까?")
         }
-        .navigationDestination(isPresented: $isShowingContactInputView) {
+        .fullScreenCover(isPresented: $isShowingContactInputView) {
             if let roomid = room.id {
-                ContactInputView(selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "", contactThroughRoomView: true)
+                ContactInputView(isPresented: $isShowingContactInputView, selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "", contactThroughRoomView: true)
             }
         }
         .onAppear {
@@ -178,7 +178,6 @@ struct RoomDetailView: View {
             Task {
                 do {
                     await updateRecentRoom()
-                    //                        userModel = try await userService.loggedInUserInfo()
                     if let roomId = room.id {
                         participants = try await roomService.joinedUsers(roomID: roomId)
                     }
@@ -193,15 +192,8 @@ struct RoomDetailView: View {
             }
         }
         .customOnChange(of: isShowingLoginView) { _ in
-            Task {
-                do {
-                    userModel = try await userService.loggedInUserInfo()
-                } catch {
-                    Configs.printDebugMessage("참여한 방인지 여부의 error: \(error)")
-                }
-            }
+            userModel = userService.loginedUser
         }
-        
     }
     
     func updateRecentRoom() async {
@@ -293,17 +285,17 @@ extension RoomDetailView {
             }
         }
         .padding(20)
-        .customOnChange(of: isLogined) { _ in
-            Task {
-                do {
-                    if isLogined {
-                        if let roomId = room.id, let userModel = userModel?.id {
-                            isJoined = try await roomService.isJoined(roomID: roomId, userUID: userModel)
+        .task {
+            do {
+                if isLogined {
+                    if let roomId = room.id, let userModel = userService.loginedUser {
+                        if let userUID = userModel.id {
+                            isJoined = try await roomService.isJoined(roomID: roomId, userUID: userUID)
                         }
                     }
-                } catch {
-                    Configs.printDebugMessage("참여한 방인지 여부의 error: \(error)")
                 }
+            } catch {
+                Configs.printDebugMessage("참여한 방인지 여부의 error: \(error)")
             }
         }
     }
@@ -326,5 +318,6 @@ struct disableTextModifier: ViewModifier {
         RoomDetailView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
             .environmentObject(UserService())
             .environmentObject(RecentRoomViewModel())
+            .environmentObject(LocationService())
     }
 }
