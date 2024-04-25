@@ -48,34 +48,19 @@ struct LogInView: View {
             }
             
             VStack {
-//                Image("ZziritLogoImage")
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fit)
-//                    .frame(height: 180)
                 AppSlogan()
                 
                 Spacer(minLength: 50)
                 
                 // MARK: 로그인 입력란
-                if #available(iOS 17.0, *) {
-                    UserInputCellView(text: $id, title: "이메일", symbol: "envelope")
-                        .onChange(of: id, {
-                            activeLoginButton()
-                        })
-                    UserInputCellView(text: $pw, title: "비밀번호", symbol: "lock", isPassword: true)
-                        .onChange(of: pw, {
-                            activeLoginButton()
-                        })
-                } else {
-                    UserInputCellView(text: $id, title: "이메일", symbol: "envelope")
-                        .onChange(of: id, perform: { value in
-                            activeLoginButton()
-                        })
-                    UserInputCellView(text: $pw, title: "비밀번호", symbol: "lock", isPassword: true)
-                        .onChange(of: id, perform: { value in
-                            activeLoginButton()
-                        })
-                }
+                UserInputCellView(text: $id, title: "이메일", symbol: "envelope")
+                    .customOnChange(of: id) { _ in
+                        activeLoginButton()
+                    }
+                UserInputCellView(text: $pw, title: "비밀번호", symbol: "lock", isPassword: true)
+                    .customOnChange(of: pw) { _ in
+                        activeLoginButton()
+                    }
                 
                 
                 HStack {
@@ -145,7 +130,7 @@ struct LogInView: View {
                     restrictionViewModel.loadRestriction(userID: id)
                 }
                 isLoading.toggle()
-               
+                
                 dismiss()
             } catch {
                 isLoading = false
