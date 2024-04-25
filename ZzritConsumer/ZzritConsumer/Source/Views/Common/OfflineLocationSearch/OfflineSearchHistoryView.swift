@@ -14,6 +14,7 @@ struct OfflineSearchHistoryView: View {
     let searchType: OfflineLocationSearchType
     
     @State private var histories: [OfflineLocationModel] = []
+    @State private var isShowingAlert: Bool = false
     
     @Binding var offlineLocation: OfflineLocationModel?
     
@@ -41,8 +42,7 @@ struct OfflineSearchHistoryView: View {
                         Spacer()
                         
                         Button("전체삭제") {
-                            LocalStorage.shared.clearHistory()
-                            histories.removeAll()
+                            isShowingAlert.toggle()
                         }
                         .tint(.secondary)
                     }
@@ -64,6 +64,16 @@ struct OfflineSearchHistoryView: View {
                     .listStyle(.plain)
                 }
             }
+        }
+        .alert("검색기록 전체삭제", isPresented: $isShowingAlert) {
+            Button(role: .destructive) {
+                LocalStorage.shared.clearHistory()
+                histories.removeAll()
+            } label: {
+                Text("전체삭제")
+            }
+        } message: {
+            Text("이 작업은 되돌릴 수 없습니다.")
         }
         .onAppear {
             fetchHistory()
