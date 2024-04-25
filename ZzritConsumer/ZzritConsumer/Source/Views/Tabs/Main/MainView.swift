@@ -20,8 +20,6 @@ struct MainView: View {
     @State private var isOnline = false
     // 모임개설 FullScreenCover로 넘어가는지 결정하는 변수
     @State private var isShowingCreateRoom: Bool = false
-    // 로그인이 안됐다면 로그인 Alert를 위한 변수
-    @State private var alertToLogin: Bool = false
     // 로그인 FullScreenCover로 넘어가는지 결정하는 변수
     @State private var isShowingLoginView: Bool = false
     // 오프라인 위치
@@ -114,7 +112,7 @@ extension MainView {
             if isLogined {
                 isShowingCreateRoom.toggle()
             } else {
-                alertToLogin.toggle()
+                isShowingLoginView.toggle()
             }
         } label: {
             Image(systemName: "plus")
@@ -127,24 +125,6 @@ extension MainView {
                 .shadow(color: .black.opacity(0.4), radius: 3)
         }
         .padding(Configs.paddingValue)
-        .alert("로그인 알림", isPresented: $alertToLogin) {
-            // 로그인 시트 올리는 버튼
-            Button {
-                isShowingLoginView.toggle()
-            } label: {
-                Label("로그인", systemImage: "person.circle")
-                    .labelStyle(.titleOnly)
-            }
-            // 취소 버튼
-            Button{
-                alertToLogin = false
-            } label: {
-                Label("취소", systemImage: "trash")
-                    .labelStyle(.titleOnly)
-            }
-        } message: {
-            Text("모임 개설을 위해서는 로그인이 필요합니다.")
-        }
         .fullScreenCover(isPresented: $isShowingCreateRoom) {
             RoomCreateView()
         }
@@ -152,9 +132,6 @@ extension MainView {
         } content: {
             LogInView()
         }
-//        .fullScreenCover(isPresented: $isShowingLoginView) {
-//            LogInView()
-//        }
     }
 }
 

@@ -72,5 +72,5 @@ struct SetProfilePhotoView: View {
 }
 
 #Preview {
-    SetProfileView(registeredUID: .constant(""))
+    SetProfileView(isTopDismiss: .constant(false), registeredUID: .constant(""))
 }

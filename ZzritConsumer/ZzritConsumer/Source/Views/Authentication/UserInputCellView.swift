@@ -35,6 +35,10 @@ struct UserInputCellView: View {
         return focused ? Color.pointColor : Color.staticGray4
     }
     
+    var borderOpacity: Double {
+        return focused ? 0 : 1
+    }
+    
     var body: some View {
         ZStack {
             HStack(spacing: 20) {
@@ -53,7 +57,7 @@ struct UserInputCellView: View {
                         .offset(y: 0)
                         .opacity(titleOpacity)
                     VStack {
-                        // TODO: focus id -> pw 바뀌는거 
+                        // TODO: focus id -> pw 바뀌는거
                         if isPassword {
                             SecureField("", text: $text)
                                 .fontWeight(.semibold)
@@ -61,6 +65,7 @@ struct UserInputCellView: View {
                                 .focused($focused)
                                 .submitLabel(.go)
                                 .autocorrectionDisabled()
+                                .padding(.vertical, 10)
                         } else {
                             TextField("", text: $text)
                                 .fontWeight(.semibold)
@@ -69,9 +74,9 @@ struct UserInputCellView: View {
                                 .keyboardType(.emailAddress)
                                 .submitLabel(.next)
                                 .autocorrectionDisabled()
+                                .padding(.vertical, 10)
                         }
                     }
-                    .padding(.vertical, 15)
                 }
             }
             .frame(maxWidth: .infinity)
@@ -80,6 +85,10 @@ struct UserInputCellView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundStyle(.white)
                     .shadow(color: .black.opacity(backgroundShadowOpacity), radius: 8)
+            }
+            .overlay {
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(Color.staticGray5.opacity(borderOpacity), lineWidth: 1)
             }
             .animation(.easeIn, value: focused)
         }
