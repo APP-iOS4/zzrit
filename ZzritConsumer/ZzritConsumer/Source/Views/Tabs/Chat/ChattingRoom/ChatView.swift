@@ -491,8 +491,7 @@ struct ChatView: View {
     private func goOutRoom(roomID: String) {
         Task {
             do {
-                let username = (try await userService.findUserInfo(uid: uid)?.userName)!
-                try chattingService.sendMessage(message: "\(username)님께서 퇴장하셨습니다.")
+                try chattingService.sendMessage(message: "\(uid)_퇴장")
                 try await roomService.leaveRoom(roomID: roomID)
                 dismiss()
             } catch {
@@ -601,14 +600,9 @@ struct ChatView: View {
                     }
                 }
                 
-                // system 메시지
+                // system 메시지 - 입장 퇴장
             case .notice:
-                Text(chat.message)
-                    .foregroundStyle(Color.pointColor)
-                    .padding(10)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.lightPointColor)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                ChatNoticeMessageView(message: chat.message)
             }
         }
     }

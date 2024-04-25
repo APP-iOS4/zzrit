@@ -112,7 +112,7 @@ struct ThirdRoomCreateView: View {
                         if let roomID = roomID {
                             // 방장 입장 메시지
                             guard let username = userInfo?.userName else { return }
-                            try ChattingService(roomID: roomID).sendMessage(message: "\(username)님께서 입장하셨습니다.")
+                            try ChattingService(roomID: roomID).sendMessage(message: "\(String(describing: userInfo?.id))_입장")
                             VM.topDismiss?.callAsFunction()
                         } else {
                             isCreateNewRoom = false
