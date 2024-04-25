@@ -13,6 +13,8 @@ struct SetProfileView: View {
     // 채팅의 이미지 저장을 위한 것
     var storageService = StorageService()
     
+    @Binding var isTopDismiss: Bool
+    
     @State private var selectedImage: UIImage?
     
     @State private var nickName = ""
@@ -87,37 +89,20 @@ struct SetProfileView: View {
                     Text("\(String(birthYear)) 년생")
                         .foregroundStyle(Color.pointColor)
                 })
-                .sheet(isPresented: $birthYearPickerShow, content: {
+                .sheet(isPresented: $birthYearPickerShow) {
                     BirthYearPickerView(selectedYear: $birthYear)
-                })
+                }
             }
             .padding()
             Spacer()
             
-            // TODO: 성별은 isMan과 isWoman중 true인 것으로 보내기. (enum 반환 함수 만들기)
-            if #available(iOS 17.0, *) {
-                GeneralButton("다음", isDisabled: !finishProfile) {
-                    setUserInfo()
-                    completeSignUp.toggle()
-                }
-                .navigationDestination(isPresented: $completeSignUp, destination: {
-                    CompleteSignUpView()
-                })
-                .onChange(of: finishProfile) {
-                    
-                }
-            } else {
-                GeneralButton("다음", isDisabled: !finishProfile) {
-                    setUserInfo()
-                    completeSignUp.toggle()
-                }
-                .navigationDestination(isPresented: $completeSignUp, destination: {
-                    CompleteSignUpView()
-                })
-                .onChange(of: finishProfile, perform: { value in
-                    
-                })
+            GeneralButton("다음", isDisabled: !finishProfile) {
+                setUserInfo()
             }
+            .navigationDestination(isPresented: $completeSignUp) {
+                CompleteSignUpView(isTopDismiss: $isTopDismiss)
+            }
+            
         }
         .padding(20)
         .toolbarRole(.editor)
@@ -170,6 +155,7 @@ struct SetProfileView: View {
                 try userService.setUserInfo(uid: registeredUID, info: userInfo)
                 
                 isLoading.toggle()
+                completeSignUp.toggle()
             } catch {
                 Configs.printDebugMessage("에러: \(error)")
                 isLoading = false
@@ -179,5 +165,5 @@ struct SetProfileView: View {
 }
 
 #Preview {
-    SetProfileView(emailField: "", registeredUID: .constant(""))
+    SetProfileView(isTopDismiss: .constant(false), emailField: "", registeredUID: .constant(""))
 }

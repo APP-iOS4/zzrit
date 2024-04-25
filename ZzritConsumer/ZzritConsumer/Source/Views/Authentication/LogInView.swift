@@ -85,7 +85,7 @@ struct LogInView: View {
                     }
                 }
                 .navigationDestination(isPresented: $showProfile) {
-                    SetProfileView(emailField: googleEmailID, registeredUID: $registerdID)
+                    SetProfileView(isTopDismiss: $isShowingRegisterView, emailField: googleEmailID, registeredUID: $registerdID)
                 }
                 
                 Spacer(minLength: 50)
@@ -99,7 +99,7 @@ struct LogInView: View {
                         isShowingRegisterView.toggle()
                     }
                     .fullScreenCover(isPresented: $isShowingRegisterView) {
-                        SignUpView()
+                        SignUpView(isTopDismiss: $isShowingRegisterView)
                     }
                 }
             }

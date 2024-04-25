@@ -10,6 +10,8 @@ import SwiftUI
 struct CompleteSignUpView: View {
     @Environment (\.dismiss) private var dismiss
     
+    @Binding var isTopDismiss: Bool
+    
     var body: some View {
         VStack {
             Spacer()
@@ -25,7 +27,7 @@ struct CompleteSignUpView: View {
             .foregroundStyle(Color.staticGray2)
             Spacer()
             GeneralButton("로그인하러가기") {
-                self.dismiss()
+                isTopDismiss.toggle()
             }
         }
         .padding(20)
@@ -34,5 +36,5 @@ struct CompleteSignUpView: View {
 }
 
 #Preview {
-    CompleteSignUpView()
+    CompleteSignUpView(isTopDismiss: .constant(false))
 }

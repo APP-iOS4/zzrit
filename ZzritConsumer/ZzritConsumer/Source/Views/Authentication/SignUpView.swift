@@ -12,6 +12,8 @@ import ZzritKit
 struct SignUpView: View {
     private let authService = AuthenticationService.shared
     
+    @Binding var isTopDismiss: Bool
+    
     @State private var signUpId: String = ""
     @State private var signUpPw1: String = ""
     @State private var signUpPw2: String = ""
@@ -93,7 +95,7 @@ struct SignUpView: View {
                     activeSignUpButton()
                 }
                 .navigationDestination(isPresented: $showProfile) {
-                    SetProfileView(emailField: signUpId, registeredUID: $registeredUID)
+                    SetProfileView(isTopDismiss: $isTopDismiss, emailField: signUpId, registeredUID: $registeredUID)
                 }
                 
                 Spacer(minLength: 50)
@@ -161,5 +163,5 @@ struct SignUpView: View {
 }
 
 #Preview {
-    SignUpView()
+    SignUpView(isTopDismiss: .constant(false))
 }
