@@ -66,23 +66,20 @@ struct SecondRoomCreateView: View {
                     }
                 }
                 
-                VStack {
-                    Spacer()
-                    
-                    GeneralButton("다음", isDisabled: !isButtonEnabled) {
-                        // VM에 새 모임 제목 저장
-                        VM.saveTitle(title: title)
-                        // VM에 새 모임의 소개글 저장
-                        VM.saveIntroduction(roomIntroduction: roomIntroduction)
-                        // VM에 새 모임의 이미지를 저장
-                        VM.saveUIImage(selectedUIImage: selectedImage)
-                        // 다음 화면으로 이동
-                        isShowingNextView.toggle()
-                    }
-                    .navigationDestination(isPresented: $isShowingNextView) {
-                        ThirdRoomCreateView(VM: VM)
-                    }
-                }
+            }
+            
+            GeneralButton("다음", isDisabled: !isButtonEnabled) {
+                // VM에 새 모임 제목 저장
+                VM.saveTitle(title: title)
+                // VM에 새 모임의 소개글 저장
+                VM.saveIntroduction(roomIntroduction: roomIntroduction)
+                // VM에 새 모임의 이미지를 저장
+                VM.saveUIImage(selectedUIImage: selectedImage)
+                // 다음 화면으로 이동
+                isShowingNextView.toggle()
+            }
+            .navigationDestination(isPresented: $isShowingNextView) {
+                ThirdRoomCreateView(VM: VM)
             }
         }
     }
