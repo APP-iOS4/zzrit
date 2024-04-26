@@ -100,14 +100,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
-        
-        // ...
-        
+
         // Print full message.
         print(userInfo)
         
         // Change this to your preferred presentation option
-        return [[.list, .sound]]
+        return [[.sound, .banner, .list]]
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
