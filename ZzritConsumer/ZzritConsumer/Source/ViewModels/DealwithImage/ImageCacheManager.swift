@@ -55,7 +55,7 @@ final class ImageCacheManager {
             // filemanager에 로드
             try imageData.write(to: imagePath)
         } catch {
-            Configs.printDebugMessage("Failed to save image to cache: \(error)")
+            Configs.printDebugMessage("Failed to save image to filemanager cache: \(error)")
         }
     }
     
@@ -85,7 +85,7 @@ final class ImageCacheManager {
             let imageData = try Data(contentsOf: imagePath)
             return UIImage(data: imageData)
         } catch {
-            Configs.printDebugMessage("Failed to load image from cache: \(error)")
+            Configs.printDebugMessage("Failed to load image from filemangager cache: \(error)")
             return nil
         }
     }
@@ -114,7 +114,7 @@ final class ImageCacheManager {
                             
                             return firebaseImage
                         } catch {
-                            Configs.printDebugMessage("Failed to load image from cache: \(error)")
+                            Configs.printDebugMessage("Failed to load image from firbase or cache: \(error)")
                             return nil
                         }
                     }
