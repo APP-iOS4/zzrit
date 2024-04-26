@@ -12,6 +12,7 @@ import ZzritKit
 struct ChatListView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
+    @EnvironmentObject private var lastChatModel: LastChatModel
     
     @State private var selection = "참여 중인 모임"
     @State private var rooms: [RoomModel] = []
@@ -121,6 +122,11 @@ struct ChatListView: View {
                         print("실행되나 플래그3")
                     }
                 }
+                
+                // 패치하고 삭제 로직 실행
+                if lastChatModel.isDeleteFileInit {
+                    deleteDeactivateRooms()
+                }
             } else {
                 Configs.printDebugMessage("방을 참여해주세요")
             }
@@ -138,6 +144,21 @@ struct ChatListView: View {
         }
         rooms = tempRooms
     }
+    
+    // TODO: 추후 비활성화 된 모임 구분 시 active일때만 n 표시 로직 실행해야 함
+    func deleteDeactivateRooms() {
+        // deactivateRooms 찾기
+        var deactivateRoomIDs: [String]? = []
+
+        for room in rooms {
+            if room.status == .deactivation {
+                deactivateRoomIDs?.append(room.id ?? "")
+            }
+        }
+        
+        // 파일 삭제 함수 동작
+        lastChatModel.deleteDeactivateFiles(deactivateRoomIDs: deactivateRoomIDs)
+    }
 }
 
 #Preview {
@@ -145,5 +166,6 @@ struct ChatListView: View {
         ChatListView()
             .environmentObject(UserService())
             .environmentObject(LoadRoomViewModel())
+            .environmentObject(LastChatModel())
     }
 }
