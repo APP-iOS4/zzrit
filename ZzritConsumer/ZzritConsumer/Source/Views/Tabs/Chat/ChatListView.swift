@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+import GoogleMobileAds
 import ZzritKit
 
 struct ChatListView: View {
@@ -30,8 +31,13 @@ struct ChatListView: View {
         NavigationStack {
             if isLogined {
                 VStack {
+                    // 구글 애드몹 배너뷰
+                    AdMobBannerView()
+                        .initGADSize()
+                    
                     ChatCategoryView(selection: $selection)
                     // FIXME: 현재 뷰가 Active뷰, Deactive뷰 따로 있지만 모델 연동 시, 하나의 뷰로 이용할 것, 지금은 더미로 뷰를 두 개 생성
+                    
                     if isLogined {
                         // TODO: 가장 최근에 메시지가 온 모임이 상단에 뜨도록 정렬
                         if selection == "참여 중인 모임" {

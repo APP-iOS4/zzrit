@@ -5,10 +5,12 @@
 //  Created by Sanghyeon Park on 4/8/24.
 //
 
+import AppTrackingTransparency
 import SwiftUI
 
-import ZzritKit
 import FirebaseCore
+import GoogleMobileAds
+import ZzritKit
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -53,6 +55,16 @@ struct ZzritConsumerApp: App {
                     if scenePhase == .active {
                         fetchRestriction()
                     }
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                    Task {
+                        await ATTrackingManager.requestTrackingAuthorization()
+                    }
+                }
+                .task {
+                    await GADMobileAds.sharedInstance().start()
+                    await ATTrackingManager.requestTrackingAuthorization()
+                    GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = ["51457a6e5688df33e1f59fe13619a62f"]
                 }
                 .preferredColorScheme(.light)
                 .environmentObject(userService)

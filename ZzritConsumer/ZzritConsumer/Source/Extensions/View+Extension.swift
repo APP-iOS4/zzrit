@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+import GoogleMobileAds
 import ZzritKit
 
 // 텍스트필드 뷰 클릭 시 비활성화
@@ -65,5 +66,16 @@ extension View {
                 .toolbar(.automatic, for: .navigationBar)
                 .toolbar(.automatic, for: .tabBar)
         }
+    }
+    
+    /// 구글 애드몹 사이즈 초기화
+    func initGADSize() -> some View {
+        var bannerWidth: CGFloat {
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return 0.0 }
+            return windowScene.screen.bounds.width
+        }
+        
+        return self
+            .frame(width: bannerWidth, height: GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth(bannerWidth).size.height)
     }
 }
