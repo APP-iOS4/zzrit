@@ -250,7 +250,7 @@ extension ThirdRoomCreateView {
         VStack(spacing: 20.0) {
             HStack {
                 RCSubTitle(
-                    "참여가능 정전기 지수",
+                    "정전기지수 제한",
                     clarification: "\(Int(staticGuageLimit))W이상",
                     type: .point
                 )
