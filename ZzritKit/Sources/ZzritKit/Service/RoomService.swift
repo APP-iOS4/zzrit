@@ -278,7 +278,7 @@ public final class RoomService {
         fbConstants.roomCollection.document(roomID).setData(["status": status.rawValue], merge: true)
     }
     
-    /// 현재 로그인 되어있는 회원이 모임에 창여합니다.
+    /// 현재 로그인 되어있는 회원이 모임에 참여합니다.
     ///  - Parameter roomID(String): 가입할 모임 ID
     public func joinRoom(_ roomID: String) async throws {
         // 로그인 여부 및 회원정보 등록 여부에 따른 에러 throw
@@ -297,6 +297,14 @@ public final class RoomService {
             try fbConstants.joinedCollection(roomID).document(uid).setData(from: tempModel, merge: true)
             // 유저 데이터에 가입한 모임 ID 추가
             try await fbConstants.userCollection.document(uid).updateData(["joinedRooms": FieldValue.arrayUnion([roomID])])
+            
+            guard let roomInfo = try await roomInfo(roomID) else { return }
+            let leaderID = roomInfo.leaderID
+            var userService: UserService = UserService()
+            guard let leaderInfo = try await userService.findUserInfo(uid: leaderID) else { return }
+            guard let leaderPushToken = leaderInfo.pushToken else { return }
+            guard let loginedUserInfo = try await userService.findUserInfo(uid: uid) else { return }
+            fbConstants.sendMessage(to: leaderPushToken, title: "모임 참여 알림", body: "\(loginedUserInfo.userName)님께서 \(roomInfo.title)모임에 가입하셨습니다.")
         }
     }
     

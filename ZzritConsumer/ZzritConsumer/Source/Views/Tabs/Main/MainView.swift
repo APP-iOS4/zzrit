@@ -29,6 +29,11 @@ struct MainView: View {
 //        Configs.printDebugMessage("MainView Init")
 //        self._searchViewModel = searchViewModel
 //    }
+    let userNotificationCenter = UNUserNotificationCenter.current()
+    
+    init() {
+        Configs.printDebugMessage("MainView Init")
+    }
     
     // 유저모델 변수
 //    @State private var userModel: UserModel?
