@@ -53,7 +53,7 @@ struct RCNavigationBar<Content>: View where Content: View {
             
             // 들어올 내용
             content()
-                .padding(Configs.paddingValue)
+                .padding(.horizontal, Configs.paddingValue)
                 .onAppear {
                     //                coordinator.printPath()
                 }
