@@ -59,6 +59,9 @@ struct ModifyUserInfoView: View {
         .onTapGesture {
             self.endTextEditing()
         }
+        .padding(20)
+        .toolbarRole(.editor)
+        .loading(isLoading, message: "회원 정보를 수정하고 있습니다.")
         .onAppear {
             Task {
                 let imagePath = userService.loginedUser?.userImage ?? "NONE"
@@ -69,9 +72,6 @@ struct ModifyUserInfoView: View {
                 nickName = userService.loginedUser?.userName ?? ""
             }
         }
-        .padding(20)
-        .toolbarRole(.editor)
-        .loading(isLoading, message: "회원 정보를 수정하고 있습니다.")
     }
     
     // TODO: 별명 중복 확인해주기
