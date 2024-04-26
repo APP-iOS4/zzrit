@@ -219,6 +219,7 @@
 			<key>SKAdNetworkIdentifier</key>
 			<string>3qcr597p9d.skadnetwork</string>
 		</dict>
+    </array>
 	<key>FCM Server Key</key>
 	<string>$(FCM_SERVER_KEY)</string>
 	<key>UIBackgroundModes</key>
