@@ -18,64 +18,34 @@ struct RCAddPictureView: View {
             
             // MARK: 카메라찍기도 해야하나
             // TODO: 사진 접근 허용
-            if #available(iOS 17.0, *) {
-                PhotosPicker(selection: $selectedItem, matching: .images) {
-                    VStack {
-                        if let selectedImage {
-                            Image(uiImage: selectedImage)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                        } else {
-                            RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                                .fill(Color.staticGray6)
-                                .frame(height: 180)
-                                .overlay {
-                                    VStack(spacing: 10) {
-                                        Image(systemName: "plus")
-                                        Text("사진 등록")
-                                    }
-                                    .foregroundStyle(Color.staticGray1)
+            PhotosPicker(selection: $selectedItem, matching: .images) {
+                VStack {
+                    if let selectedImage {
+                        Image(uiImage: selectedImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(height: 180)
+                            .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
+                    } else {
+                        RoundedRectangle(cornerRadius: Configs.cornerRadius)
+                            .fill(Color.staticGray6)
+                            .frame(height: 180)
+                            .overlay {
+                                VStack(spacing: 10) {
+                                    Image(systemName: "plus")
+                                    Text("사진 등록")
                                 }
-                        }
+                                .foregroundStyle(Color.staticGray1)
+                            }
                     }
                 }
-                .onChange(of: selectedItem) {
-                    Task {
-                        if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
-                            selectedImage = UIImage(data: data)
-                        }
+            }
+            .customOnChange(of: selectedItem) { _ in
+                Task {
+                    if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
+                        selectedImage = UIImage(data: data)
                     }
                 }
-            } else {
-                PhotosPicker(selection: $selectedItem, matching: .images) {
-                    VStack {
-                        if selectedImage != nil {
-                            Image(uiImage: selectedImage!)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                        } else {
-                            RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                                .fill(Color.staticGray6)
-                                .frame(height: 180)
-                                .overlay {
-                                    VStack(spacing: 10) {
-                                        Image(systemName: "plus")
-                                        Text("사진 등록")
-                                    }
-                                    .foregroundStyle(Color.staticGray1)
-                                }
-                        }
-                    }
-                }
-                .onChange(of: selectedItem, perform: { value in
-                    Task {
-                        if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
-                            selectedImage = UIImage(data: data)
-                        }
-                    }
-                })
             }
         }
     }
