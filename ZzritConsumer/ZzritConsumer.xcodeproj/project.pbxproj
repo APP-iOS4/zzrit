@@ -106,6 +106,7 @@
 		DF6F4B492BD5E8A000DDBF96 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B482BD5E8A000DDBF96 /* LocalStorage.swift */; };
 		DF6F4B4B2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B4A2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift */; };
 		DF6F4B4D2BD6395B00DDBF96 /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B4C2BD6395B00DDBF96 /* PurchaseService.swift */; };
+		DF8AFC2D2BDB2FEC00C66BA2 /* AdMobBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC2C2BDB2FEC00C66BA2 /* AdMobBannerView.swift */; };
 		DF9674B92BCCF4C800322382 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B82BCCF4C800322382 /* SocialLoginType.swift */; };
 		DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */; };
 		DF9674BD2BCCFC9700322382 /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */; };
@@ -253,6 +254,7 @@
 		DF6F4B4A2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationHistoryCell.swift; sourceTree = "<group>"; };
 		DF6F4B4C2BD6395B00DDBF96 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
 		DF6F4B4E2BD63AB800DDBF96 /* ProductsConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = ProductsConfiguration.storekit; sourceTree = "<group>"; };
+		DF8AFC2C2BDB2FEC00C66BA2 /* AdMobBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobBannerView.swift; sourceTree = "<group>"; };
 		DF9674B82BCCF4C800322382 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
 		DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
@@ -514,6 +516,7 @@
 		DF2209542BD6A6E400B9A2C7 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				DF8AFC2B2BDB2FDA00C66BA2 /* AddMobViews */,
 				DF6F4B3D2BD4D6C800DDBF96 /* OfflineLocationSearch */,
 				309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */,
 				305136FD2BC3C3E400BA41EE /* RoomCategoryView.swift */,
@@ -720,6 +723,14 @@
 			path = OfflineLocationSearch;
 			sourceTree = "<group>";
 		};
+		DF8AFC2B2BDB2FDA00C66BA2 /* AddMobViews */ = {
+			isa = PBXGroup;
+			children = (
+				DF8AFC2C2BDB2FEC00C66BA2 /* AdMobBannerView.swift */,
+			);
+			path = AddMobViews;
+			sourceTree = "<group>";
+		};
 		DF9674B72BCCF4B400322382 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
@@ -910,6 +921,7 @@
 				1F4567022BCE3E3D001EC0E7 /* ImagePickerExtensions.swift in Sources */,
 				DF9674C12BCD027B00322382 /* AuthenticationErrorView.swift in Sources */,
 				1F6454F42BC8B96000C9D235 /* GenderButton.swift in Sources */,
+				DF8AFC2D2BDB2FEC00C66BA2 /* AdMobBannerView.swift in Sources */,
 				DF6F4B452BD557DE00DDBF96 /* OfflineLocationListCell.swift in Sources */,
 				DF6F4B472BD5E6FD00DDBF96 /* OfflineLocationModel.swift in Sources */,
 				1F4566EF2BCDFE25001EC0E7 /* PageType.swift in Sources */,
@@ -1182,6 +1194,7 @@
 				INFOPLIST_FILE = ZzritConsumer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "ZZ!RIT";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 위치를 불러옵니다.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "찌릿앱에서 사용자에게 맞춤 광고를 위해 추적 권한을 요청합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1220,6 +1233,7 @@
 				INFOPLIST_FILE = ZzritConsumer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "ZZ!RIT";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 위치를 불러옵니다.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "찌릿앱에서 사용자에게 맞춤 광고를 위해 추적 권한을 요청합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

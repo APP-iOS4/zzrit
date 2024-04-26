@@ -23,6 +23,8 @@ struct MoreInfoView: View {
     
     var body: some View {
         NavigationStack {
+            AdMobBannerView()
+                .initGADSize()
             ScrollView {
                 Section {
                     if isLogined {
