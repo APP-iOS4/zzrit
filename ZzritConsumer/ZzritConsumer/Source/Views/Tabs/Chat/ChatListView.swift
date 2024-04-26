@@ -105,28 +105,29 @@ struct ChatListView: View {
     
     func onAppear() {
         Task {
-            do {
-                if isLogined {
-                    try await fetchRoom()
-                }
-                checkActivation = true
-            } catch {
-                Configs.printDebugMessage("에러 \(error)")
+            if isLogined {
+                await fetchRoom()
             }
+            checkActivation = true
         }
     }
- 
-    func fetchRoom() async throws {
-        rooms.removeAll()
-        if let userModel = userService.loginedUser {
-            print("실행되나 플래그1")
-            if let joinedRooms = userModel.joinedRooms {
-                print("실행되나 플래그2")
-                for roomID in joinedRooms {
-                    if let room = try await loadRoomViewModel.roomInfo(roomID) {
-                        rooms.append(room)
-                        print("실행되나 플래그3")
+    
+    func fetchRoom() async {
+        var tempRooms: [RoomModel] = []
+        do {
+            if let userModel = try await userService.loggedInUserInfo() {
+                if let joinedRooms = userModel.joinedRooms {
+                    Configs.printDebugMessage("\(joinedRooms.count)")
+                    for roomID in joinedRooms {
+                        if let room = try await loadRoomViewModel.roomInfo(roomID) {
+                            tempRooms.append(room)
+                        }
                     }
+                    
+                    rooms = tempRooms
+                    Configs.printDebugMessage("\(rooms)")
+                } else {
+                    Configs.printDebugMessage("방을 참여해주세요")
                 }
                 
                 // 패치하고 삭제 로직 실행
@@ -134,10 +135,10 @@ struct ChatListView: View {
                     deleteDeactivateRooms()
                 }
             } else {
-                Configs.printDebugMessage("방을 참여해주세요")
+                Configs.printDebugMessage("로그인을 해주세요.")
             }
-        } else {
-            Configs.printDebugMessage("로그인을 해주세요.")
+        } catch {
+            Configs.printDebugMessage("에러 \(error)")
         }
     }
     
