@@ -21,6 +21,8 @@ struct ChatView: View {
 
     // 유저 정보 불러옴
     @EnvironmentObject private var userService: UserService
+    // 채팅방 N 표시
+    @EnvironmentObject private var lastChatModel: LastChatModel
     // 유저모델 변수
     @State private var userModel: UserModel?
     
@@ -29,6 +31,7 @@ struct ChatView: View {
     
     // 모임방 나가기 기능을 위한 것
     private let roomService = RoomService.shared
+
     // 채팅의 이미지 저장을 위한 것
     let storageService = StorageService()
     
@@ -488,6 +491,10 @@ struct ChatView: View {
             }
         }
         .toolbarRole(.editor)
+        .onDisappear {
+            guard let roomID = room.id else { return }
+            lastChatModel.updateFile(roomID: roomID, lastChat: messages.last)
+        }
     }
     
     // 모임 나가기

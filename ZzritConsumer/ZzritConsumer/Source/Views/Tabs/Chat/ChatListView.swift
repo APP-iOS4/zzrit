@@ -13,8 +13,6 @@ struct ChatListView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     
-    
-    
     @State private var selection = "참여 중인 모임"
     @State private var rooms: [RoomModel] = []
     @State private var checkActivation: Bool = false
