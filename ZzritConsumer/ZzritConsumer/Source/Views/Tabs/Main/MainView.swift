@@ -24,9 +24,11 @@ struct MainView: View {
     @State private var isShowingLoginView: Bool = false
     // 오프라인 위치
     
-    init() {
-        Configs.printDebugMessage("MainView Init")
-    }
+//    init() {
+//    init(searchViewModel: StateObject<SearchViewModel>) {
+//        Configs.printDebugMessage("MainView Init")
+//        self._searchViewModel = searchViewModel
+//    }
     
     // 유저모델 변수
 //    @State private var userModel: UserModel?
@@ -60,7 +62,7 @@ struct MainView: View {
                 }
                 .padding(.vertical, 1)
                 .refreshable {
-                    loadRoomViewModel.refreshRooms()
+                    loadRoomViewModel.refreshRooms(isOnline: isOnline)
                 }
                 
                 // 모임개설 페이지로 이동하는 버튼
@@ -100,7 +102,7 @@ struct MainView: View {
             locationService.setCurrentLocation(LocalStorage.shared.latestSettedLocation() ?? .initialLocation)
         }
         .customOnChange(of: locationService.currentOffineLocation) { _ in
-            loadRoomViewModel.refreshRooms()
+            loadRoomViewModel.refreshRooms(isOnline: isOnline)
             Configs.printDebugMessage("뭔가 바뀌긴 했어.")
         }
     }

@@ -10,19 +10,20 @@ import SwiftUI
 struct SearchView: View {
     @State private var filterModel: FilterModel = FilterModel()
     @State private var isTextFieldFocused: Bool = false
-    @StateObject private var searchViewModel = SearchViewModel()
+    @StateObject var searchViewModel: SearchViewModel = SearchViewModel()
+    @State private var offlineLocation: OfflineLocationModel?
     
     var body: some View {
-        SearchTextField(searchViewModel: searchViewModel, filterModel: $filterModel, isTextFieldFocused: $isTextFieldFocused)
+        SearchTextField(searchViewModel: searchViewModel, filterModel: $filterModel, offlineLocation: $offlineLocation, isTextFieldFocused: $isTextFieldFocused)
             .onTapGesture {
                 self.endTextEditing()
             }
             .toolbarBackground(.white, for: .tabBar)
         
         if isTextFieldFocused {
-            HistoryView(searchText: $filterModel.searchText)
+            HistoryView(searchText: $filterModel.title)
         } else {
-            ResultRoomListView(searchViewModel: searchViewModel, filterModel: $filterModel)
+            ResultRoomListView(searchViewModel: searchViewModel, filterModel: $filterModel, offlineLocation: $offlineLocation)
                 .onTapGesture {
                     self.endTextEditing()
                 }
@@ -31,5 +32,5 @@ struct SearchView: View {
 }
 
 #Preview {
-    SearchView()
+    SearchView(searchViewModel: SearchViewModel())
 }

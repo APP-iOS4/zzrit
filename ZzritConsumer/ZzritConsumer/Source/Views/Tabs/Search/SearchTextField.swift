@@ -13,55 +13,40 @@ struct SearchTextField: View {
     
     // MARK: - binding properties
     
+    @EnvironmentObject var locationService: LocationService
+    
     // 검색 결과에 대한 뷰 모델
     @StateObject var searchViewModel: SearchViewModel
-    // 오프라인 시 시트를 띄울 불리언 변수
-    @State private var isSheetOn: Bool = false
     // 필터 변수
     @Binding var filterModel: FilterModel
+    // 위치 검색 변수
+    @Binding var offlineLocation: OfflineLocationModel?
     // 포커스
     @FocusState private var isFocused: Bool
     // 텍스트 필드가 Focused 됐는지 확인하는 변수
     @Binding var isTextFieldFocused: Bool
+    // 위치 검색 시트 변수
+    @State private var isLocationSheetOn: Bool = false
     
     // MARK: - stored properties
     
     private let historyViewModel: HistoryViewModel = HistoryViewModel.shared
-    
-    // MARK: - computed properties
-    
-    // 리셋 버튼
-    private var resetButtonColor: Color {
-        if filterModel.isFiltered {
-            return Color.pointColor
-        } else {
-            return Color.staticGray4
-        }
-    }
     
     // MARK: - body
     
     var body: some View {
         // 검색 텍스트
         HStack(spacing: 15.0) {
-            if #available(iOS 17.0, *) {
-                TextField("검색어를 입력하세요.", text: $filterModel.searchText)
-                    .focused($isFocused)
-                    .onChange(of: isFocused) { _, newValue in
-                        isTextFieldFocused = isFocused
-                    }
-            } else {
-                TextField("검색어를 입력하세요.", text: $filterModel.searchText)
-                    .focused($isFocused)
-                    .onChange(of: isFocused) { newValue in
-                        isTextFieldFocused = isFocused
-                    }
-            }
+            TextField("검색어를 입력하세요.", text: $filterModel.title)
+                .focused($isFocused)
+                .customOnChange(of: isFocused) { _ in
+                    isTextFieldFocused = isFocused
+                }
             
             // 글자가 입력 되었을 때 취소하고 텍스트를 삭제하는 버튼
-            if !filterModel.searchText.isEmpty {
+            if !filterModel.title.isEmpty {
                 Button {
-                    filterModel.searchText = ""
+                    filterModel.title = ""
                 } label: {
                     Label("검색 취소", systemImage: "xmark.circle.fill")
                         .labelStyle(.iconOnly)
@@ -70,9 +55,9 @@ struct SearchTextField: View {
             }
             // 검색 결과로 이동하는 버튼
             Button {
-                historyViewModel.save(filterModel.searchText)
+                historyViewModel.save(filterModel.title)
+                searchViewModel.getFilter(with: filterModel)
                 endTextEditing()
-//                searchViewModel.loadRoom(filterModel.searchText)
             } label: {
                 Label("검색", systemImage: "magnifyingglass")
                     .labelStyle(.iconOnly)
@@ -89,33 +74,47 @@ struct SearchTextField: View {
         // 필터 스크롤
         ScrollView(.horizontal) {
             HStack(spacing: 10.0) {
-                // 초기화 버튼
-                Button {
-                    filterModel.resetValues()
-                } label: {
-                    Image(systemName: "arrow.counterclockwise.circle.fill")
-                        .resizable()
-                        .scaledToFit()
+                if filterModel.isFiltered {
+                    // 초기화 버튼
+                    Button {
+                        filterModel.resetValues()
+                        offlineLocation = nil
+                    } label: {
+                        Image(systemName: "arrow.counterclockwise.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    .foregroundStyle(Color.staticGray4)
                 }
-                .foregroundStyle(resetButtonColor)
                 
+                // 위치 피커
                 locationFilterPicker
-                    .sheet(isPresented: $isSheetOn) {
-                        VStack(spacing: 20.0) {
-                            Button("확인") {
-                                isSheetOn = false
-                            }
-                        }
+                    .sheet(isPresented: $isLocationSheetOn) {
+                        OfflineLocationSearchView(searchType: .createRoom, offlineLocation: $offlineLocation)
                     }
                 
                 // 카테고리 피커
-                CustomFilterPicker("카테고리", data: CategoryType.allCases, selection: $filterModel.categorySelection)
+                CustomFilterPicker("카테고리", data: CategoryType.allCases, selection: $filterModel.category)
                 // 모임 날짜 피커
-                CustomFilterPicker("모임 날짜", data: DateType.allCases, selection: $filterModel.dateSelection)
+                CustomFilterPicker("모임 날짜", data: DateType.allCases, selection: $filterModel.dateType)
             }
             .lineLimit(2)
-            .padding(Configs.paddingValue)
+            .padding(.horizontal, Configs.paddingValue)
+            .padding(.vertical, 10.0)
             .fixedSize(horizontal: true, vertical: true)
+        }
+        .customOnChange(of: filterModel.isOnline) { _ in
+            searchViewModel.refreshRooms(with: filterModel, offlineLocation: offlineLocation)
+        }
+        .customOnChange(of: offlineLocation) { _ in
+            searchViewModel.refreshRooms(with: filterModel, offlineLocation: offlineLocation)
+            print("오프라인 위치 바뀜")
+        }
+        .customOnChange(of: filterModel.dateType) { _ in
+            searchViewModel.getFilter(with: filterModel)
+        }
+        .customOnChange(of: filterModel.category) { _ in
+            searchViewModel.getFilter(with: filterModel)
         }
     }
 }
@@ -131,7 +130,7 @@ extension SearchTextField {
         } else if filterModel.isOnline == true {
             return "온라인"
         } else {
-            return filterModel.locationString
+            return offlineLocation?.address ?? "오프라인"
         }
     }
     
@@ -141,27 +140,24 @@ extension SearchTextField {
             if filterModel.isOnline != true {
                 Button {
                     filterModel.isOnline = true
+                    offlineLocation = nil
                 } label: {
                     Text("온라인")
                 }
             }
-            
             Button {
                 filterModel.isOnline = false
-                filterModel.locationString = "어떤 위치"
-                isSheetOn = true
+                isLocationSheetOn.toggle()
             } label: {
-                Text("오프라인")
+                Text(filterModel.isOnline == false ? "위치선택" : "오프라인")
             }
-            
         } label: {
             Label(locateSelectionText, systemImage: "scope")
                 .foregroundStyle(filterModel.isOnline != nil ? Color.pointColor : Color.primary)
                 .padding(EdgeInsets(top: 5.0, leading: 10.0, bottom: 5.0, trailing: 15.0))
                 .background {
                     RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                        .strokeBorder(filterModel.isOnline != nil ? Color.pointColor : Color.staticGray4,
-                                      lineWidth: 1.0)
+                        .strokeBorder(filterModel.isOnline != nil ? Color.pointColor : Color.staticGray4, lineWidth: 1.0)
                         .background {
                             RoundedRectangle(cornerRadius: Configs.cornerRadius)
                                 .fill(filterModel.isOnline != nil ? Color.lightPointColor : Color.white)
@@ -173,5 +169,5 @@ extension SearchTextField {
 }
 
 #Preview {
-    SearchTextField(searchViewModel: SearchViewModel(), filterModel: .constant(FilterModel()), isTextFieldFocused: .constant(false))
+    SearchTextField(searchViewModel: SearchViewModel(), filterModel: .constant(FilterModel()), offlineLocation: .constant(nil), isTextFieldFocused: .constant(false))
 }

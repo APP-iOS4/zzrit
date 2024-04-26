@@ -12,7 +12,6 @@ struct MainExistView: View {
     @Binding var isOnline: Bool
     // @State private var fetchCount: Int = 0
     
-    
     var body: some View {
         if #available(iOS 17.0, *) {
             //VStack(alignment: .leading) {
@@ -39,14 +38,14 @@ struct MainExistView: View {
                     .frame(height: 1)
                     .foregroundStyle(.clear)
                     .onAppear {
-                        loadRoomViewModel.consumerLoadRoom()
+                        loadRoomViewModel.consumerLoadRoom(isOnline: isOnline)
                         loadRoomViewModel.deactivateRooms()
-                        loadRoomViewModel.getFilter(isOnline: isOnline)
+                        loadRoomViewModel.getFilter()
                     }
             }
             .padding(.bottom, 80)
             .onChange(of: isOnline) {
-                loadRoomViewModel.getFilter(isOnline: isOnline)
+                loadRoomViewModel.refreshRooms(isOnline: isOnline)
             }
         } else {
              //VStack(alignment: .leading) {
@@ -75,13 +74,13 @@ struct MainExistView: View {
                         Task {
                             loadRoomViewModel.consumerLoadRoom()
                             loadRoomViewModel.deactivateRooms()
-                            loadRoomViewModel.getFilter(isOnline: isOnline)
+                            loadRoomViewModel.getFilter()
                         }
                     }
             }
             .padding(.bottom, 80)
             .onChange(of: isOnline) { newValue in
-                loadRoomViewModel.getFilter(isOnline: isOnline)
+                loadRoomViewModel.getFilter()
             }
         }
     }

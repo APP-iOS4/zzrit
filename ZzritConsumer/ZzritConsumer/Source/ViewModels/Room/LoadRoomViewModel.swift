@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import CoreLocation
 
 import ZzritKit
 
 @MainActor
-class LoadRoomViewModel: ObservableObject {
+final class LoadRoomViewModel: ObservableObject {
     let roomService: RoomService = RoomService.shared
     
     @Published private(set) var rooms: [RoomModel] = []
@@ -26,7 +27,21 @@ class LoadRoomViewModel: ObservableObject {
         consumerLoadRoom()
     }
     
-    func consumerLoadRoom(_ title: String = "") {
+    func consumerLoadRoom(isOnline: Bool = false, location: OfflineLocationModel? = LocalStorage.shared.latestSettedLocation()) {
+        
+        var coordinate: CLLocationCoordinate2D? = nil
+        
+        if isOnline == false {
+            if let location {
+                coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            } else {
+                coordinate = CLLocationCoordinate2D(
+                    latitude: OfflineLocationModel.initialLocation.latitude,
+                    longitude: OfflineLocationModel.initialLocation.longitude
+                )
+            }
+        }
+        
         Task {
             do {
                 /*
@@ -41,7 +56,7 @@ class LoadRoomViewModel: ObservableObject {
                  }
                  */
                 
-                let newRooms = try await roomService.loadRoom(isInitial: isInit, status: status.rawValue, title: title)
+                let newRooms = try await roomService.loadRoom(isInitial: isInit, status: status.rawValue, coordinate: coordinate)
                 
                 if !newRooms.isEmpty {
                     rooms += newRooms
@@ -49,7 +64,7 @@ class LoadRoomViewModel: ObservableObject {
                 }
                 
                 if isInit {
-                    getFilter(isOnline: false)
+                    getFilter()
                 }
     
                 isInit = false
@@ -85,34 +100,23 @@ class LoadRoomViewModel: ObservableObject {
         return tempRoom
     }
     
-    func getFilter(status: ActiveType = .activation, category: CategoryType? = nil, isOnline: Bool? = nil) {
+    func getFilter(status: ActiveType = .activation) {
 //        if prevIsOnline != isOnline {
 //            fetchCount = 0
 //            Configs.printDebugMessage("카운터 초기화")
 //        }
         
-        // FIXME: 리펙토링 필요!
-        // 이거 어떻게 해야 쉽게 짤 수 있을까...
-        // 뭔가 필터 전용 enum이나 구조체를 만들어서 switch 문이나 filter함수를 간편히 사용할 수 있을 거 같은데...여기까지밖에 안떠오른다.
-        if category == nil && isOnline == nil {
-            filterRooms = rooms.filter { element in
-                return element.status == status
-            }
-        } else if category != nil && isOnline == nil {
-            filterRooms = rooms.filter { element in
-                return element.status == status && element.category == category!
-            }
-        } else if category == nil && isOnline != nil {
-            filterRooms = rooms.filter { element in
-                return element.status == status && element.isOnline == isOnline!
-            }
-        } else {
-            filterRooms = rooms.filter { element in
-                return element.status == status && element.category == category! && element.isOnline == isOnline!
-            }
-        }
+        // 필요하다면 기본 날짜 필터 사용
+        // filterRooms = rooms.filter { $0.dateTime > Date() }
         
+        // 상태 필터
+        // filterRooms = filterRooms.filter { $0.status == status }
+        filterRooms = rooms.filter { $0.status == status }
+        
+        // 겹치는 내용이 있다면 집합으로 걸러줌
         filterRooms = Array(Set(filterRooms))
+        
+        // 늦게 만들어진 순으로 정렬
         filterRooms.sort(by: { $0.createTime > $1.createTime })
         
         // prevIsOnline = isOnline
@@ -123,10 +127,10 @@ class LoadRoomViewModel: ObservableObject {
         return room
     }
     
-    func refreshRooms() {
+    func refreshRooms(isOnline: Bool) {
         // fetchCount = 0
         isInit = true
         rooms = []
-        consumerLoadRoom()
+        consumerLoadRoom(isOnline: isOnline)
     }
 }
