@@ -54,7 +54,7 @@ final class FirebaseConstants {
     
     /// FCM 메세지 전송
     /// - Warning: 절대적으로 실제 앱 배포시에는 별도의 백엔드 서버를 통하여 메세지를 전송해야함
-    func sendMessage(to token: String, title: String, body: String) {
+    func pushMessage(to token: String, title: String, body: String) {
         guard let serverKey = Bundle.main.object(forInfoDictionaryKey: "FCM Server Key") as? String else { return }
         
         let urlString = "https://fcm.googleapis.com/fcm/send"

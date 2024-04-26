@@ -298,13 +298,20 @@ public final class RoomService {
             // 유저 데이터에 가입한 모임 ID 추가
             try await fbConstants.userCollection.document(uid).updateData(["joinedRooms": FieldValue.arrayUnion([roomID])])
             
+            // MARK: - FCM 임시구현
+            
             guard let roomInfo = try await roomInfo(roomID) else { return }
             let leaderID = roomInfo.leaderID
-            var userService: UserService = UserService()
-            guard let leaderInfo = try await userService.findUserInfo(uid: leaderID) else { return }
+            var userService: UserService? = UserService()
+            guard let leaderInfo = try await userService?.findUserInfo(uid: leaderID) else { return }
             guard let leaderPushToken = leaderInfo.pushToken else { return }
-            guard let loginedUserInfo = try await userService.findUserInfo(uid: uid) else { return }
-            fbConstants.sendMessage(to: leaderPushToken, title: "모임 참여 알림", body: "\(loginedUserInfo.userName)님께서 \(roomInfo.title)모임에 가입하셨습니다.")
+            guard let loginedUserInfo = try await userService?.findUserInfo(uid: uid) else { return }
+            
+            // 본인이 모임에 참여했을 경우에는 메세지를 푸시하지 않음.
+            guard leaderInfo.id != loginedUserInfo.id else { return }
+            
+            fbConstants.pushMessage(to: leaderPushToken, title: "모임 참여 알림", body: "\(loginedUserInfo.userName)님께서 \(roomInfo.title)모임에 가입하셨습니다.")
+            userService = nil
         }
     }
     
