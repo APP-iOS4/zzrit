@@ -10,62 +10,28 @@ import StoreKit
 
 import ZzritKit
 
-enum ProductType {
-    case monthly
-    case yearly
-}
-
-enum PurchaseError: Error {
-    case noProduct
-}
-
 typealias RestoreCompletion = (Bool) -> Void
 
-class PurchaseStore: ObservableObject {
-    static let shared = PurchaseStore()
+class PurchaseService {
+    enum SubscriptionType: String, CaseIterable {
+        case oneMonth = "techit.finalproject.ZzritConsumer.pro.1month"
+        case threeMonths = "techit.finalproject.ZzritConsumer.pro.3month"
+    }
     
     // 프로덕트 목록
-    let producdIds = [
-        "techit.finalproject.ZzritConsumer.pro.1month",
-        "techit.finalproject.ZzritConsumer.pro.3month",
-    ]
+    let producdIds = SubscriptionType.allCases.map { $0.rawValue }
     
-    @Published private(set) var products: [Product] = []
+    private(set) var products: [Product] = []
     private var productsLoaded = false
     
     private(set) var currentSubscriptionType: String?
     
-    @Published private(set) var purchasedProductIDs = Set<Transaction>()
-    var hasUnlockedPro: Bool {
-        return !self.purchasedProductIDs.isEmpty
-    }
-    
     private var updatesTask: Task<Void, Never>? = nil
     
-    // Public Properties
-//    @Published var isSubscribed: Bool = false
-    var isSubscribed: Bool {
-        return purchasedProductIDs.count > 0
-    }
-    
-    private init() {
-        Task {
-            try await loadProducts()
-            await updatePurchasedProducts()
-            Configs.printDebugMessage("All Products ------\n\(products)")
-            Configs.printDebugMessage("Localized Price ------\n")
-            products.forEach { product in
-                Configs.printDebugMessage(product.displayPrice)
-            }
-            Configs.printDebugMessage("Purchased Products -----\n\(purchasedProductIDs)")
-        }
-    }
-    
-    func loadProducts() async throws {
-        guard !self.productsLoaded else { return }
-        self.products = try await Product.products(for: producdIds)
-        self.productsLoaded = true
-        loadPromotionalOffer()
+    func loadProducts() async throws -> [Product] {
+        let products = try await Product.products(for: producdIds)
+        self.products = products
+        return products
     }
     
     func loadPromotionalOffer() {
@@ -77,50 +43,51 @@ class PurchaseStore: ObservableObject {
     }
     
     @MainActor
-    func purchase(_ product: Product, completion: @escaping (Bool) -> Void) async throws {
+    func purchase(_ productType: PurchaseService.SubscriptionType) async throws -> Bool {
+        guard let index = products.firstIndex(where: {$0.id == productType.rawValue}) else { return false }
+
+        let product = products[index ]
         let result = try await product.purchase()
         
         switch result {
         case let .success(.verified(transaction)):
             await transaction.finish()
-            await self.updatePurchasedProducts()
-            completion(true)
+            let _ = await self.updatePurchasedProducts()
+            return true
         case .success(.unverified(_, _)):
-            completion(false)
-            break
+            return false
         case .pending:
-            break
+            return false
         case .userCancelled:
-            Configs.printDebugMessage("유저가 결제를 취소함")
-            completion(false)
-            break
+            Configs.printDebugMessage("유저가 결제를 취소했습니다.")
+            return false
         @unknown default:
-            Configs.printDebugMessage("알 수 없는 오류")
-            completion(false)
-            break
+            Configs.printDebugMessage("알 수 없는 오류가 발생했습니다.")
+            return false
         }
     }
 
     @MainActor
-    func updatePurchasedProducts() async {
+    func updatePurchasedProducts() async -> String? {
         for await result in Transaction.currentEntitlements {
             guard case .verified(let transaction) = result else {
                 continue
             }
             
             if transaction.revocationDate == nil {
-                self.purchasedProductIDs.insert(transaction)
-                self.currentSubscriptionType = transaction.productID
+                return transaction.productID
             } else {
-                self.purchasedProductIDs.remove(transaction)
+                return nil
             }
         }
+        
+        return nil
     }
     
     func startObservingTransactionUpdates() {
         updatesTask = Task(priority: .background) { [weak self] in
             for await _ in Transaction.updates {
-                await self?.updatePurchasedProducts()
+                let _ = await self?.updatePurchasedProducts()
             }
         }
     }
@@ -144,6 +111,7 @@ class PurchaseStore: ObservableObject {
             }
         }
     }
+    
     // 이전에 구매한 항목을 가져오는 메서드
     private func fetchPreviousPurchases() async throws -> [Product] {
         return []

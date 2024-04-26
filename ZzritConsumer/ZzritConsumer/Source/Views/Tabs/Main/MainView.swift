@@ -24,6 +24,8 @@ struct MainView: View {
     @State private var isShowingLoginView: Bool = false
     // 오프라인 위치
     
+    @State private var isShowingPurchase: Bool = false
+    
 //    init() {
 //    init(searchViewModel: StateObject<SearchViewModel>) {
 //        Configs.printDebugMessage("MainView Init")
@@ -92,6 +94,17 @@ struct MainView: View {
                         // 알람 뷰로 이동하는 navigationDestination
                         .navigationDestination(isPresented: $isTopTrailingAction) {
                             Text("알람 뷰")
+                        }
+                   
+                        Button {
+                            isShowingPurchase.toggle()
+                        } label: {
+                            Image(systemName: "cart.circle")
+                                .foregroundStyle(.black)
+                        }
+                        // 알람 뷰로 이동하는 navigationDestination
+                        .navigationDestination(isPresented: $isShowingPurchase) {
+                            PurchaseView()
                         }
                     }
                 }

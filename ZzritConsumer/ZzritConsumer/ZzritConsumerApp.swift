@@ -32,8 +32,10 @@ struct ZzritConsumerApp: App {
     @StateObject private var loadRoomViewModel = LoadRoomViewModel()
     @StateObject private var lastChatModel = LastChatModel()
     @StateObject private var networkMonitor = NetworkMonitor()
+    @StateObject private var purchaseViewModel = PurchaseViewModel()
     
     @State private var userModel: UserModel?
+    @State private var isState: Bool = false
     
     @Environment(\.scenePhase) var scenePhase
     
@@ -62,6 +64,9 @@ struct ZzritConsumerApp: App {
                         await ATTrackingManager.requestTrackingAuthorization()
                     }
                 }
+                .onAppear {
+                    purchaseViewModel.startObservingTransactionUpdates()
+                }
                 .task {
                     await GADMobileAds.sharedInstance().start()
                     await ATTrackingManager.requestTrackingAuthorization()
@@ -75,6 +80,7 @@ struct ZzritConsumerApp: App {
                 .environmentObject(loadRoomViewModel)
                 .environmentObject(lastChatModel)
                 .environmentObject(networkMonitor)
+                .environmentObject(purchaseViewModel)
         }
     }
     
