@@ -11,7 +11,9 @@ import ZzritKit
 @MainActor
 class LastChatModel: ObservableObject {
     // 메모리에 저장된 마지막 대화 데이터들
-    @Published var lastChatDates: [String: Int] = [:]
+    @Published private(set) var lastChatDates: [String: Int] = [:]
+    
+    private(set) var isDeleteFileInit: Bool = true
     
     init() {
         // 디렉토리 생성 및 url 설정
@@ -59,10 +61,8 @@ class LastChatModel: ObservableObject {
             // 파일에서 문자열 값을 불러옴
             let dataString = try String(contentsOf: fileURL, encoding: .utf8)
                         
-            if var lastChatDate = Int(dataString) {
-        
+            if let lastChatDate = Int(dataString) {
                 lastChatDates[roomID] = lastChatDate
-                
                 return lastChatDate
             }
         } catch {
@@ -73,7 +73,7 @@ class LastChatModel: ObservableObject {
     }
     
     /// 초기 패치
-    func initialFetch() {
+    private func initialFetch() {
         do {
             let fileURLs = try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: [])
             
@@ -89,6 +89,30 @@ class LastChatModel: ObservableObject {
             }
         } catch {
             print("\(error)")
+        }
+    }
+    
+    /// deactivate Room 삭제
+    func deleteDeactivateFiles(deactivateRoomIDs: [String]?) {
+        if isDeleteFileInit {
+            guard let deactivateRoomIDs else { return }
+            
+            do {
+                for deactivateRoomID in deactivateRoomIDs {
+                    let fileURL = directory.appendingPathComponent(deactivateRoomID).appendingPathExtension(".txt")
+                    
+                    // 파일 삭제
+                    try FileManager.default.removeItem(at: fileURL)
+                    
+                    // lastChatDates에서 삭제
+                    lastChatDates.removeValue(forKey: deactivateRoomID)
+                    
+                    // init = false
+                    isDeleteFileInit = false
+                }
+            } catch {
+                print("\(error)")
+            }
         }
     }
 }

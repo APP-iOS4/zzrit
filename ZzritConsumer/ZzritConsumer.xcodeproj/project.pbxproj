@@ -532,6 +532,7 @@
 		DF2209542BD6A6E400B9A2C7 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				DF8AFC2B2BDB2FDA00C66BA2 /* AddMobViews */,
 				DF6F4B3D2BD4D6C800DDBF96 /* OfflineLocationSearch */,
 				309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */,
 				305136FD2BC3C3E400BA41EE /* RoomCategoryView.swift */,
@@ -739,6 +740,14 @@
 			path = OfflineLocationSearch;
 			sourceTree = "<group>";
 		};
+		DF8AFC2B2BDB2FDA00C66BA2 /* AddMobViews */ = {
+			isa = PBXGroup;
+			children = (
+				DF8AFC2C2BDB2FEC00C66BA2 /* AdMobBannerView.swift */,
+			);
+			path = AddMobViews;
+			sourceTree = "<group>";
+		};
 		DF9674B72BCCF4B400322382 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
@@ -929,6 +938,7 @@
 				1F4567022BCE3E3D001EC0E7 /* ImagePickerExtensions.swift in Sources */,
 				DF9674C12BCD027B00322382 /* AuthenticationErrorView.swift in Sources */,
 				1F6454F42BC8B96000C9D235 /* GenderButton.swift in Sources */,
+				DF8AFC2D2BDB2FEC00C66BA2 /* AdMobBannerView.swift in Sources */,
 				DF6F4B452BD557DE00DDBF96 /* OfflineLocationListCell.swift in Sources */,
 				DF6F4B472BD5E6FD00DDBF96 /* OfflineLocationModel.swift in Sources */,
 				1F4566EF2BCDFE25001EC0E7 /* PageType.swift in Sources */,
@@ -1204,6 +1214,7 @@
 				INFOPLIST_FILE = ZzritConsumer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "ZZ!RIT";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 위치를 불러옵니다.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "찌릿앱에서 사용자에게 맞춤 광고를 위해 추적 권한을 요청합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1242,6 +1253,7 @@
 				INFOPLIST_FILE = ZzritConsumer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "ZZ!RIT";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 위치를 불러옵니다.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "찌릿앱에서 사용자에게 맞춤 광고를 위해 추적 권한을 요청합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
