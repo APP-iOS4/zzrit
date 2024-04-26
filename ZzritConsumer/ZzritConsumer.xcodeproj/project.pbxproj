@@ -107,6 +107,9 @@
 		DF6F4B492BD5E8A000DDBF96 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B482BD5E8A000DDBF96 /* LocalStorage.swift */; };
 		DF6F4B4B2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B4A2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift */; };
 		DF6F4B4D2BD6395B00DDBF96 /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4B4C2BD6395B00DDBF96 /* PurchaseService.swift */; };
+		DF8AFC2D2BDB2FEC00C66BA2 /* AdMobBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC2C2BDB2FEC00C66BA2 /* AdMobBannerView.swift */; };
+		DF8AFC312BDB672D00C66BA2 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC302BDB672D00C66BA2 /* NetworkMonitor.swift */; };
+		DF8AFC332BDB6C4B00C66BA2 /* NetworkConnectionWarnningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC322BDB6C4B00C66BA2 /* NetworkConnectionWarnningView.swift */; };
 		DF9674B92BCCF4C800322382 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B82BCCF4C800322382 /* SocialLoginType.swift */; };
 		DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */; };
 		DF9674BD2BCCFC9700322382 /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */; };
@@ -255,6 +258,9 @@
 		DF6F4B4A2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationHistoryCell.swift; sourceTree = "<group>"; };
 		DF6F4B4C2BD6395B00DDBF96 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
 		DF6F4B4E2BD63AB800DDBF96 /* ProductsConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = ProductsConfiguration.storekit; sourceTree = "<group>"; };
+		DF8AFC2C2BDB2FEC00C66BA2 /* AdMobBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobBannerView.swift; sourceTree = "<group>"; };
+		DF8AFC302BDB672D00C66BA2 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		DF8AFC322BDB6C4B00C66BA2 /* NetworkConnectionWarnningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConnectionWarnningView.swift; sourceTree = "<group>"; };
 		DF9674B82BCCF4C800322382 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
 		DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
@@ -470,6 +476,7 @@
 				DF2209552BD6A80100B9A2C7 /* StoreKit */,
 				FC715E8C2BD618D9001B67CF /* DealwithImage */,
 				3BA17FD92BD9DBC50000F964 /* LastChatModel */,
+				DF8AFC302BDB672D00C66BA2 /* NetworkMonitor.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -534,6 +541,7 @@
 				DF2209662BD797DC00B9A2C7 /* HiddenRectangle.swift */,
 				DF2209682BD79B9200B9A2C7 /* InformationView.swift */,
 				DF22096A2BD8055500B9A2C7 /* LoadingView.swift */,
+				DF8AFC322BDB6C4B00C66BA2 /* NetworkConnectionWarnningView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -962,11 +970,13 @@
 				1F4566E82BCDFCEC001EC0E7 /* RCNavigationBar.swift in Sources */,
 				1F0603582BC6611D003808F4 /* RCProcedurePicker.swift in Sources */,
 				FCBA9B7B2BCE0774001E948B /* ForScrollView.swift in Sources */,
+				DF8AFC312BDB672D00C66BA2 /* NetworkMonitor.swift in Sources */,
 				FC628F2E2BC42F1A007F5E5C /* SetProfileView.swift in Sources */,
 				1F4566EA2BCDFCEC001EC0E7 /* PointSelectionButton.swift in Sources */,
 				DFC076C72BD8D4FC0053F332 /* OfflineLocationEnvironment.swift in Sources */,
 				309688032BC64E44007064A3 /* ChatDeactiveListView.swift in Sources */,
 				FC0A793F2BC8C9B30012F85D /* ChatRoomNoticeView.swift in Sources */,
+				DF8AFC332BDB6C4B00C66BA2 /* NetworkConnectionWarnningView.swift in Sources */,
 				3B883B8F2BD629820061D61F /* RecentRoomViewModel.swift in Sources */,
 				309688012BC6492E007064A3 /* ChatActiveListView.swift in Sources */,
 				1F4566EB2BCDFCEC001EC0E7 /* RCSubTitle.swift in Sources */,

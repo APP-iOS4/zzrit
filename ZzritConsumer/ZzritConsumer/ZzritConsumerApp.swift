@@ -29,6 +29,7 @@ struct ZzritConsumerApp: App {
     @StateObject private var restrictionViewModel = RestrictionViewModel()
     @StateObject private var loadRoomViewModel = LoadRoomViewModel()
     @StateObject private var lastChatModel = LastChatModel()
+    @StateObject private var networkMonitor = NetworkMonitor()
     
     @State private var userModel: UserModel?
     
@@ -49,7 +50,7 @@ struct ZzritConsumerApp: App {
                     
                     fetchRestriction()
                 }
-                .onChange(of: scenePhase) { _ in
+                .customOnChange(of: scenePhase) { _ in
                     if scenePhase == .active {
                         fetchRestriction()
                     }
@@ -61,6 +62,7 @@ struct ZzritConsumerApp: App {
                 .environmentObject(restrictionViewModel)
                 .environmentObject(loadRoomViewModel)
                 .environmentObject(lastChatModel)
+                .environmentObject(networkMonitor)
         }
     }
     
