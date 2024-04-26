@@ -493,7 +493,11 @@ struct ChatView: View {
         .toolbarRole(.editor)
         .onDisappear {
             guard let roomID = room.id else { return }
-            lastChatModel.updateFile(roomID: roomID, lastChat: messages.last)
+            
+            // 방이 activation 상태일 때 마지막 채팅 업데이트
+            if room.status == .activation {
+                lastChatModel.updateFile(roomID: roomID, lastChat: messages.last)
+            }
         }
     }
     
