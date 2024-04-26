@@ -51,6 +51,53 @@ final class FirebaseConstants {
     public func roomChatCollection(_ room: String) -> CollectionReference {
         return roomCollection.document(room).collection(collection(.chat))
     }
+    
+    /// FCM 메세지 전송
+    /// - Warning: 절대적으로 실제 앱 배포시에는 별도의 백엔드 서버를 통하여 메세지를 전송해야함
+    func sendMessage(to token: String, title: String, body: String) {
+        guard let serverKey = Bundle.main.object(forInfoDictionaryKey: "FCM Server Key") as? String else { return }
+        
+        let urlString = "https://fcm.googleapis.com/fcm/send"
+        guard let url = URL(string: urlString) else { return }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("key=\(serverKey)", forHTTPHeaderField: "Authorization")
+
+        let messageBody: [String: Any] = [
+            "to": token,
+            "notification": [
+                "title": title,
+                "body": body
+            ],
+            "data": [
+                // Custom data payload
+                "customData": "anythingYouWant"
+            ]
+        ]
+
+        do {
+            let data = try JSONSerialization.data(withJSONObject: messageBody, options: [])
+            request.httpBody = data
+        } catch {
+            print("Error serializing message body: \(error.localizedDescription)")
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print("Error sending message: \(error!.localizedDescription)")
+                return
+            }
+
+            if let data = data, let responseString = String(data: data, encoding: .utf8) {
+                print("Response: \(responseString)")
+            }
+        }
+
+        task.resume()
+    }
 
     // MARK: Private Methods
     

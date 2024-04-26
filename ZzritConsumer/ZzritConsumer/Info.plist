@@ -19,6 +19,8 @@
 	<false/>
 	<key>Kakao Rest API Key</key>
 	<string>$(KAKAO_REST_API_KEY)</string>
+	<key>FCM Server Key</key>
+	<string>$(FCM_SERVER_KEY)</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

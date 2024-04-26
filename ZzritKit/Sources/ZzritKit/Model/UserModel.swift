@@ -39,6 +39,8 @@ public struct UserModel: Codable, Identifiable {
     /// 유저가 동의한 위치서비스 이용약관 시행 날짜
     /// - Warning: 동의를 한 날짜가 아닌, 시행날짜 입니다.
     public var agreeLocationDate: Date?
+    /// 유저 디바이스 토큰
+    public var pushToken: String?
     
     public init(id: String? = UUID().uuidString, userID: String, userName: String, userImage: String, gender: GenderType, birthYear: Int, staticGauge: Double, joinedRooms: [String]? = nil, agreeServiceDate: Date?, agreePrivacyDate: Date?, agreeLocationDate: Date?) {
         self.id = id
