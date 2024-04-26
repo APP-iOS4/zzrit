@@ -43,6 +43,8 @@ struct ChatListCellView: View {
                 }
                 
                 
+                
+                
             }
         } else {
             return " "

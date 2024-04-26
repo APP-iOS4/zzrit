@@ -8,6 +8,7 @@
 import SwiftUI
 import ZzritKit
 
+@MainActor
 final class ImageManager {
     static let shared = ImageManager()
     private var storageService = StorageService()

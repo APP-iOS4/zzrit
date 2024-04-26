@@ -27,35 +27,37 @@ struct RCNavigationBar<Content>: View where Content: View {
     
     var body: some View {
         // 인디케이터(Indicator)
-        HStack {
-            ForEach(NewRoom.allCases, id: \.self) { index in
-                RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                    .fill(index.rawValue <= page.rawValue ? Color.pointColor : Color.staticGray6)
-                    .frame(height: 4.0)
-            }
-        }
-        .padding(Configs.paddingValue)
-        .toolbar {
-            // 메뉴
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    VM.topDismiss?.callAsFunction()
-                } label: {
-                    Image(systemName: "xmark")
-                        .foregroundStyle(.black)
+        VStack(spacing: 0) {
+            HStack {
+                ForEach(NewRoom.allCases, id: \.self) { index in
+                    RoundedRectangle(cornerRadius: Configs.cornerRadius)
+                        .fill(index.rawValue <= page.rawValue ? Color.pointColor : Color.staticGray6)
+                        .frame(height: 4.0)
                 }
             }
-        }
-        .navigationTitle(page.description)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarRole(.editor)
-        
-        // 들어올 내용
-        content()
             .padding(Configs.paddingValue)
-            .onAppear {
-//                coordinator.printPath()
+            .toolbar {
+                // 메뉴
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        VM.topDismiss?.callAsFunction()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(.black)
+                    }
+                }
             }
+            .navigationTitle(page.description)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarRole(.editor)
+            
+            // 들어올 내용
+            content()
+                .padding(Configs.paddingValue)
+                .onAppear {
+                    //                coordinator.printPath()
+                }
+        }
     }
 }
 

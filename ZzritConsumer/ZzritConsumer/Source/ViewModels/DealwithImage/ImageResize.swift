@@ -12,6 +12,7 @@ extension UIImage {
     // 채팅의 이미지 최대 : 1024
     // 프로필 이미지 최대 : 300
     // 모임방 이미지 최대 : 840
+    @MainActor
     func resizeWithWidth(width: CGFloat) -> UIImage? {
         let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))))
         imageView.contentMode = .scaleAspectFit

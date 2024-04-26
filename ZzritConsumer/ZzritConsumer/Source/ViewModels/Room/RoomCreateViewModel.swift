@@ -227,7 +227,7 @@ final class RoomCreateViewModel {
         guard let userUploadImage = coverUIImage else { return "NONE"}
         
         // 이미지 리사이징
-        guard let resizeImage = (userUploadImage.size.width) < 840 ? userUploadImage : userUploadImage.resizeWithWidth(width: 840) else { return "NONE" }
+        guard let resizeImage = await (userUploadImage.size.width) < 840 ? userUploadImage : userUploadImage.resizeWithWidth(width: 840) else { return "NONE" }
         
         // 이미지 -> Data 타입으로 변환
         guard let imageData = resizeImage.pngData() else { return "NONE" }
