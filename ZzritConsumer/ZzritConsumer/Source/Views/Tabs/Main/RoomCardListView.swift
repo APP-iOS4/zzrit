@@ -28,13 +28,14 @@ struct RoomCardListView: View {
                 LazyHStack {
                     ForEach (loadRoomViewModel.rooms.prefix(5)) { room in
                         // 네비게이션 링크를 통한 카드 뷰 상세 페이지 이동
-                        NavigationLink {
-                            // 상세페이지 뷰 연결
-                            RoomDetailView(room: room)
-                        } label: {
-                            // 라벨은 카드 뷰
-                            RoomCardView(room: room, titleToHStackPadding: 75)
-//                                .padding(.leading, 10)
+                        if room.dateTime > Date() {
+                            NavigationLink {
+                                // 상세페이지 뷰 연결
+                                RoomDetailView(room: room)
+                            } label: {
+                                // 라벨은 카드 뷰
+                                RoomCardView(room: room, titleToHStackPadding: 75)
+                            }
                         }
                     }
                 }
@@ -60,12 +61,14 @@ struct RoomCardListView: View {
                 TabView(selection: $selectedIndex) {
                     ForEach (loadRoomViewModel.rooms) { room in
                         // 네비게이션 링크를 통한 카드 뷰 상세 페이지 이동
-                        NavigationLink {
-                            // 상세페이지 뷰 연결
-                            RoomDetailView(room: room)
-                        } label: {
-                            // 라벨은 카드 뷰
-                            RoomCardView(room: room, titleToHStackPadding: 75)
+                        if room.dateTime > Date() {
+                            NavigationLink {
+                                // 상세페이지 뷰 연결
+                                RoomDetailView(room: room)
+                            } label: {
+                                // 라벨은 카드 뷰
+                                RoomCardView(room: room, titleToHStackPadding: 75)
+                            }
                         }
                     }
                     .padding(.trailing, 5)
