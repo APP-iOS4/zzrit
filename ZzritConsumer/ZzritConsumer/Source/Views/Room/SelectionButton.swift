@@ -55,7 +55,11 @@ struct SelectionButton<Data>: View where Data: Equatable {
     
     var body: some View {
         Button {
-            selection = data
+            if selection == data {
+                selection = nil
+            } else {
+                selection = data
+            }
             onPressButton()
         } label: {
             HStack {

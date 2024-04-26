@@ -162,11 +162,11 @@ enum NewRoom: Int, Identifiable, CaseIterable {
     var description: String {
         switch self {
         case .page1:
-            "모임개설 페이지 1"
+            "카테고리"
         case .page2:
-            "모임개설 페이지 2"
+            "기본정보"
         case .page3:
-            "모임개설 페이지 3"
+            "모임 세부사항"
         }
     }
 }
