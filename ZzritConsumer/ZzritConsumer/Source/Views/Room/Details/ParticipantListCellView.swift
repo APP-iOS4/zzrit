@@ -28,17 +28,17 @@ struct ParticipantListCellView: View {
             if let image = userImage {
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: .fill)
                     .foregroundStyle(Color.staticGray4)
                     .clipShape(Circle())
-                    .frame(maxWidth: 50)
+                    .frame(maxWidth: 50, maxHeight: 50)
             } else {
                 Image("noProfile")
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: .fill)
                     .foregroundStyle(Color.staticGray4)
                     .clipShape(Circle())
-                    .frame(maxWidth: 50)
+                    .frame(maxWidth: 50, maxHeight: 50)
             }
             
             
