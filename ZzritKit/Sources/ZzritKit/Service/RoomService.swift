@@ -160,7 +160,7 @@ public final class RoomService {
     }
     
     // 탐색탭 필터
-    public func searchLoadRoom(isInitial: Bool = true, status: String = "all", title: String? = nil, isOnline: Bool? = nil, coordinate: CLLocationCoordinate2D? = nil) async throws -> [RoomModel] {
+    public func searchLoadRoom(isInitial: Bool = true, status: String = "all", title: String? = nil, isOnline: Bool? = nil, coordinate: CLLocationCoordinate2D? = nil) async throws -> [RoomModel] {        
         var temp: [RoomModel] = []
         
         do {
@@ -169,7 +169,7 @@ public final class RoomService {
                 isFetchEndSearch = false
             }
             
-            if isFetchEnd {
+            if isFetchEndSearch {
                 print("더이상 갖고올 데이터가 없음.")
                 throw FirebaseErrorType.noMoreSearching
             }
