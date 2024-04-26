@@ -11,6 +11,7 @@ struct ResultRoomListView: View {
     
     @StateObject var searchViewModel: SearchViewModel
     @Binding var filterModel: FilterModel
+    @Binding var offlineLocation: OfflineLocationModel?
     
     var body: some View {
         // 검색 결과
@@ -30,22 +31,23 @@ struct ResultRoomListView: View {
                 Rectangle()
                     .frame(height: 1)
                     .foregroundStyle(.clear)
-                    .task {
-                        searchViewModel.loadRoom(filterModel.searchText)
+                    .onAppear {
+                        searchViewModel.loadRooms(filterModel: filterModel, offlineLocation: offlineLocation)
                         searchViewModel.deactivateRooms()
-                        searchViewModel.getFilter(filterModel)
+                        searchViewModel.getFilter(with: filterModel)
                     }
             }
             .padding(.top, 10.0)
             .padding(.horizontal, Configs.paddingValue)
             .padding(.bottom, 80)   // 윤호에게 bottom 80준 이유 물어보기
-            .onChange(of: filterModel) { _ in
-                searchViewModel.getFilter(filterModel)
-            }
         }
+        .refreshable {
+            searchViewModel.refreshRooms(with: filterModel, offlineLocation: offlineLocation)
+        }
+
     }
 }
 
 #Preview {
-    ResultRoomListView(searchViewModel: SearchViewModel(), filterModel: .constant(FilterModel()))
+    ResultRoomListView(searchViewModel: SearchViewModel(), filterModel: .constant(FilterModel()), offlineLocation: .constant(nil))
 }

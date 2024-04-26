@@ -60,7 +60,8 @@ enum PageType: Hashable {
             }
         // 메인 페이지
         case .main:
-            MainView()
+            // MainView(searchViewModel: SearchViewModel())
+            EmptyView()
         // 모임 그룹
         case .room(let room):
             switch room {

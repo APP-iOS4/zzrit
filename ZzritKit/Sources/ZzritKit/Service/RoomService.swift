@@ -16,10 +16,12 @@ public final class RoomService {
     let fbConstants = FirebaseConstants()
     
     private var lastSnapshot: QueryDocumentSnapshot? = nil
+    private var lastSnapshotForSearch: QueryDocumentSnapshot? = nil
     // 쿼리를 아끼기 위해 존재. 검색했을때 나와줄 친구들.
     var tempRooms: [RoomModel] = []
     
     private var isFetchEnd: Bool = false
+    private var isFetchEndSearch: Bool = false
 
     /**
      # Description
@@ -57,7 +59,6 @@ public final class RoomService {
         var temp: [RoomModel] = []
         
         do {
-
             if isInitial {
                 lastSnapshot = nil
                 isFetchEnd = false
@@ -87,6 +88,8 @@ public final class RoomService {
                 query = query.whereField("placeLatitude", isLessThanOrEqualTo: locationRange.maxLatitude)
                 query = query.whereField("placeLongitude", isGreaterThanOrEqualTo: locationRange.minLongitude)
                 query = query.whereField("placeLongitude", isLessThanOrEqualTo: locationRange.maxLongitude)
+            } else {
+                query = query.whereField("isOnline", isEqualTo: true)
             }
             
             if let titleString = title, titleString != "" {
@@ -156,6 +159,109 @@ public final class RoomService {
 //            }
     }
     
+    // 탐색탭 필터
+    public func searchLoadRoom(isInitial: Bool = true, status: String = "all", title: String? = nil, isOnline: Bool? = nil, coordinate: CLLocationCoordinate2D? = nil) async throws -> [RoomModel] {
+        var temp: [RoomModel] = []
+        
+        do {
+            if isInitial {
+                lastSnapshotForSearch = nil
+                isFetchEndSearch = false
+            }
+            
+            if isFetchEnd {
+                print("더이상 갖고올 데이터가 없음.")
+                throw FirebaseErrorType.noMoreSearching
+            }
+            
+            var query = fbConstants.roomCollection.limit(to: 16)
+            
+            if status == "deactivation" {
+                query = fbConstants.roomCollection
+                    .whereField("status", isEqualTo: "deactivation")
+            } else if status == "activation" {
+                query = fbConstants.roomCollection
+                    .whereField("status", isEqualTo: "activation")
+            }
+            
+            if let isOnline {
+                if isOnline {
+                    query = query.whereField("isOnline", isEqualTo: true)
+                } else {
+//                    query = query.whereField("isOnline", isEqualTo: false)
+                    
+                    if let coordinate {
+                        // 오프라인 모임 검색일 경우
+                        // LocationService에 저장되어 있는 위도 경도 범위로 모임 검색
+                        SearchLocationService.shared.setLocation(coordinate)
+                        let locationRange = SearchLocationService.shared.locationRange
+                        query = query.whereField("placeLatitude", isGreaterThanOrEqualTo: locationRange.minLatitude)
+                        query = query.whereField("placeLatitude", isLessThanOrEqualTo: locationRange.maxLatitude)
+                        query = query.whereField("placeLongitude", isGreaterThanOrEqualTo: locationRange.minLongitude)
+                        query = query.whereField("placeLongitude", isLessThanOrEqualTo: locationRange.maxLongitude)
+                    } 
+                }
+            }
+            
+            if let titleString = title, titleString != "" {
+                
+                query = query.whereField("title", isGreaterThanOrEqualTo: titleString)
+                            .whereField("title", isLessThan: titleString + "힣")
+                
+                let snapshot = try await query.getDocuments()
+                let documents = try snapshot.documents.map { try $0.data(as: RoomModel.self)}
+                
+                temp.append(contentsOf: documents)
+                print("isEqualTo: \(documents)")
+                print(documents)
+                
+                return temp
+                
+            } else if let titleString = title, titleString == "" {
+                
+                if !isInitial, let lastDocument = lastSnapshotForSearch {
+                    query = query.start(afterDocument: lastDocument)
+                }
+                
+                let snapshot = try await query.getDocuments()
+                let documents = try snapshot.documents.map { try $0.data(as: RoomModel.self)}
+                
+                lastSnapshotForSearch = snapshot.documents.last
+                
+                if lastSnapshotForSearch == nil {
+                    isFetchEndSearch = true
+    //                throw FirebaseErrorType.noMoreSearching
+                }
+                print(documents)
+                
+                return documents
+            } else if title == nil {
+                if !isInitial, let lastDocument = lastSnapshotForSearch {
+                    query = query.start(afterDocument: lastDocument)
+                }
+                
+                let snapshot = try await query.getDocuments()
+                let documents = try snapshot.documents.map { try $0.data(as: RoomModel.self)}
+                
+                lastSnapshotForSearch = snapshot.documents.last
+                
+                if lastSnapshotForSearch == nil {
+                    isFetchEndSearch = true
+    //                throw FirebaseErrorType.noMoreSearching
+                }
+                print(documents)
+                
+                return documents
+            }
+            
+            // 위에서 에러 발생시 맨위에 임의로 만들어놓은 offlineRoomModel이 반환됨.
+            return []
+        } catch {
+//            throw FirebaseErrorType.failLoadRoom
+            throw error
+        }
+    }
+    
     // FIXME: setData에서 updateData로 수정해야함.
     /// 모임 내용을 변경합니다.
     ///  - Parameter room: 수정된 RoomModel
@@ -214,7 +320,6 @@ public final class RoomService {
         }
     }
     
-  
     // TODO: 모임에 참여한 User 리스트 뽑아주기
     
     /// 모임에 참여한 유저의 목록을 불러옵니다.

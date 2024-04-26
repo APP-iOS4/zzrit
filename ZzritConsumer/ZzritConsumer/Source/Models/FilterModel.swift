@@ -8,20 +8,18 @@
 import ZzritKit
 
 struct FilterModel: Equatable {
-    var categorySelection: CategoryType?
-    var dateSelection: DateType?
+    var title: String = ""
     var isOnline: Bool?
-    var searchText: String = ""
-    var locationString: String = ""
+    var category: CategoryType?
+    var dateType: DateType?
     
     var isFiltered: Bool {
-        !(categorySelection == nil && dateSelection == nil && isOnline == nil)
+        !(category == nil && dateType == nil && isOnline == nil)
     }
     
     mutating func resetValues() {
-        categorySelection = nil
-        dateSelection = nil
+        category = nil
+        dateType = nil
         isOnline = nil
-        locationString = ""
     }
 }

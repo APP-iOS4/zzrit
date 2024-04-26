@@ -11,7 +11,7 @@ import CoreLocation
 import ZzritKit
 
 @MainActor
-class LoadRoomViewModel: ObservableObject {
+final class LoadRoomViewModel: ObservableObject {
     let roomService: RoomService = RoomService.shared
     
     @Published private(set) var rooms: [RoomModel] = []
@@ -27,16 +27,19 @@ class LoadRoomViewModel: ObservableObject {
         consumerLoadRoom()
     }
     
-    func consumerLoadRoom(location: OfflineLocationModel? = LocalStorage.shared.latestSettedLocation()) {
+    func consumerLoadRoom(isOnline: Bool = false, location: OfflineLocationModel? = LocalStorage.shared.latestSettedLocation()) {
         
         var coordinate: CLLocationCoordinate2D? = nil
-        if let location {
-            coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-        } else {
-            coordinate = CLLocationCoordinate2D(
-                latitude: OfflineLocationModel.initialLocation.latitude,
-                longitude: OfflineLocationModel.initialLocation.longitude
-            )
+        
+        if isOnline == false {
+            if let location {
+                coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            } else {
+                coordinate = CLLocationCoordinate2D(
+                    latitude: OfflineLocationModel.initialLocation.latitude,
+                    longitude: OfflineLocationModel.initialLocation.longitude
+                )
+            }
         }
         
         Task {
@@ -61,7 +64,7 @@ class LoadRoomViewModel: ObservableObject {
                 }
                 
                 if isInit {
-                    getFilter(isOnline: false)
+                    getFilter()
                 }
     
                 isInit = false
@@ -97,7 +100,7 @@ class LoadRoomViewModel: ObservableObject {
         return tempRoom
     }
     
-    func getFilter(status: ActiveType = .activation, title: String = "", isOnline: Bool? = nil, category: CategoryType? = nil, date: DateType? = nil) {
+    func getFilter(status: ActiveType = .activation) {
 //        if prevIsOnline != isOnline {
 //            fetchCount = 0
 //            Configs.printDebugMessage("카운터 초기화")
@@ -110,32 +113,8 @@ class LoadRoomViewModel: ObservableObject {
         // filterRooms = filterRooms.filter { $0.status == status }
         filterRooms = rooms.filter { $0.status == status }
         
-        // 카테고리 필터
-        if let category {
-             filterRooms = filterRooms.filter { $0.category == category }
-        }
-        
-        // 날짜 필터
-        if let date {
-            filterRooms = filterRooms.filter {
-                $0.dateTime.toStringYear() == date.date.toStringYear() &&
-                $0.dateTime.toStringMonth() == date.date.toStringMonth() &&
-                $0.dateTime.toStringDate() == date.date.toStringDate()
-            }
-        }
-        
-        // 온/오프라인 필터
-        if let isOnline {
-            filterRooms = filterRooms.filter { $0.isOnline == isOnline }
-        }
-        
         // 겹치는 내용이 있다면 집합으로 걸러줌
         filterRooms = Array(Set(filterRooms))
-        
-        // 제목 필터
-        if !title.isEmpty {
-            filterRooms = filterRooms.filter { $0.title.contains(title) }
-        }
         
         // 늦게 만들어진 순으로 정렬
         filterRooms.sort(by: { $0.createTime > $1.createTime })
@@ -148,10 +127,10 @@ class LoadRoomViewModel: ObservableObject {
         return room
     }
     
-    func refreshRooms() {
+    func refreshRooms(isOnline: Bool) {
         // fetchCount = 0
         isInit = true
         rooms = []
-        consumerLoadRoom()
+        consumerLoadRoom(isOnline: isOnline)
     }
 }
