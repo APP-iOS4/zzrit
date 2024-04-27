@@ -21,8 +21,13 @@ struct ChatListCellView: View {
     @State private var participantsCount: Int = 0
     @State private var roomImage: UIImage?
         
-    private var lastMessageDateToCompare: Int {
-        return Int((chattingService.messages.last?.date.timeIntervalSince1970 ?? 0) * 1000)
+    private var lastMessageDateToCompare: Int? {
+        // 활성화 상태일때만 계산
+        if room.status == .activation {
+            return Int((chattingService.messages.last?.date.timeIntervalSince1970 ?? 0) * 1000)
+        } else {
+            return nil
+        }
     }
     
     private var messageDateString: String {
@@ -47,10 +52,6 @@ struct ChatListCellView: View {
                 } else {
                     return "어머.. 누군가 " + messageParse[1] + "하셨습니다."
                 }
-                
-                
-                
-                
             }
         } else {
             return " "
@@ -94,9 +95,11 @@ struct ChatListCellView: View {
                         .padding(.bottom, 15)
                 }
                 
-                if lastChatModel.lastChatDates[room.id!] != lastMessageDateToCompare {
-                    Image(systemName: "n.circle.fill")
-                        .foregroundStyle(Color.pointColor)
+                if room.status == .activation {
+                    if lastChatModel.lastChatDates[room.id!] != lastMessageDateToCompare {
+                        Image(systemName: "n.circle.fill")
+                            .foregroundStyle(Color.pointColor)
+                    }
                 }
             }
             .padding(.leading, 20)
