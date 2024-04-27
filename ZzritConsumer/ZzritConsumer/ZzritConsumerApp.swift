@@ -19,7 +19,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
-
+        
         UNUserNotificationCenter.current().delegate = self
         Messaging.messaging().delegate = self
         
@@ -50,7 +50,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
-
+        
         // Print full message.
         print(userInfo)
         
@@ -73,11 +73,9 @@ extension AppDelegate: MessagingDelegate {
             if let error = error {
                 print("Error fetching FCM registration token: \(error)")
             } else if let token = token {
-                // 정상적으로 토큰을 받아왔을때
-                Task {
-                    var userService: UserService? = UserService()
-                    await userService?.updatePushToken(token: token)
-                    userService = nil
+                if let uid = AuthenticationService.shared.currentUID {
+                    Configs.printDebugMessage("토큰 저장")
+                    PushService.shared.saveToken(uid, token: token)
                 }
             }
         }

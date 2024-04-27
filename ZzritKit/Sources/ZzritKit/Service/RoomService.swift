@@ -310,7 +310,7 @@ public final class RoomService {
             // 본인이 모임에 참여했을 경우에는 메세지를 푸시하지 않음.
             guard leaderInfo.id != loginedUserInfo.id else { return }
             
-            fbConstants.pushMessage(to: leaderPushToken, title: "모임 참여 알림", body: "\(loginedUserInfo.userName)님께서 \(roomInfo.title)모임에 가입하셨습니다.")
+            await PushService.shared.pushMessage(to: leaderPushToken, title: "모임 참여 알림", body: "\(loginedUserInfo.userName)님께서 \(roomInfo.title)모임에 가입하셨습니다.")
             userService = nil
         }
     }
