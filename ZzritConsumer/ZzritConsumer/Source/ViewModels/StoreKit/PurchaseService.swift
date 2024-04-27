@@ -46,8 +46,10 @@ class PurchaseService {
     func purchase(_ productType: PurchaseService.SubscriptionType) async throws -> Bool {
         guard let index = products.firstIndex(where: {$0.id == productType.rawValue}) else { return false }
 
-        let product = products[index ]
+        let product = products[index]
         let result = try await product.purchase()
+        
+        print("\(#function) \(result)")
         
         switch result {
         case let .success(.verified(transaction)):

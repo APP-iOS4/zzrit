@@ -12,6 +12,8 @@ import StoreKit
 class PurchaseViewModel: ObservableObject {
     private let purchaseService = PurchaseService()
     
+    /// 결제화면을 보이기 위한 변수
+    @Published var isPresent: Bool = false
     /// 구매 가능한 구독 상품 목록
     @Published private(set) var products: [Product] = []
     /// 구매가 완료된 구독 상품
@@ -34,13 +36,8 @@ class PurchaseViewModel: ObservableObject {
     }
     
     /// 구독 상품을 구매합니다.
-    func purchase(_ productType: PurchaseService.SubscriptionType) async -> Bool {
-        do {
-            return try await purchaseService.purchase(productType)
-        } catch {
-            print("구매 도중 오류가 발생했습니다. \(error)")
-            return false
-        }
+    func purchase(_ productType: PurchaseService.SubscriptionType) async throws -> Bool {
+        return try await purchaseService.purchase(productType)
     }
     
     /// 현재 구독중인 상품을 불러옵니다.
@@ -53,4 +50,14 @@ class PurchaseViewModel: ObservableObject {
         purchaseService.startObservingTransactionUpdates()
     }
     
+    /// 해당 구독 상품을 불러옵니다.
+    func product(_ type: PurchaseService.SubscriptionType) -> Product? {
+        guard let index = products.firstIndex(where: {$0.id == type.rawValue}) else { return nil }
+        return products[index]
+    }
+    
+    /// 결제화면뷰 토글
+    func togglePresent() {
+        isPresent.toggle()
+    }
 }
