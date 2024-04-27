@@ -18,7 +18,7 @@ struct RoomCardView: View {
     @State private var participantsCount: Int = 0
     
     var titleToHStackPadding: CGFloat
-    
+    var isRecent: Bool = false
     
     @State private var simpleAddress: String = "(unknown)"
     @State private var distance: Double = 0.0
@@ -101,7 +101,7 @@ struct RoomCardView: View {
             }
         )
         .clipShape(.rect(cornerRadius: 10))
-        .frame(minWidth: 350,maxWidth: 350)
+        .frame(minWidth: 350, maxWidth: isRecent ? .infinity : 350)
         .onAppear {
             Task {
                 do {

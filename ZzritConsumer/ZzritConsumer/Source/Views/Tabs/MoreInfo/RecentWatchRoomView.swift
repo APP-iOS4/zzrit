@@ -18,32 +18,31 @@ struct RecentWatchRoomView: View {
     
     // 최근 본 모임 전체 뷰
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             Text("최근 본 모임")
                 .font(.title3)
                 .fontWeight(.bold)
-                .offset(y: 30)
-                .padding(.leading, 20)
             
             if !recentRoomViewModel.recentViewedRooms.isEmpty {
             // 최근 본 모임 슬라이드
-            VStack {
+                VStack {
                     TabView(selection: $selectedIndex) {
                         ForEach(recentRoomViewModel.recentViewedRooms.indices, id: \.self) { index in
                             NavigationLink {
                                 // 모임 상세 페이지 넘기기
                                 RoomDetailView(room: recentRoomViewModel.recentViewedRooms[index])
                             } label: {
-                                RoomCardView(room: recentRoomViewModel.recentViewedRooms[index], titleToHStackPadding: 25)
+                                VStack {
+                                    RoomCardView(room: recentRoomViewModel.recentViewedRooms[index], titleToHStackPadding: 25, isRecent: true)
+                                }
                             }
                             .tag(index)
                         }
-                        .frame(height: 150)
-                        .padding(.horizontal, 20)
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     .indexViewStyle(.page(backgroundDisplayMode: .interactive))
                     .frame(maxWidth: .infinity, minHeight: 200)
+                    
                     // TabView Indicator
                     HStack {
                         ForEach(recentRoomViewModel.recentViewedRooms.indices, id: \.self) { index in
@@ -58,7 +57,6 @@ struct RecentWatchRoomView: View {
                 RoundedRectangle(cornerRadius: Configs.cornerRadius)
                     .fill(Color.clear)
                     .frame(height: 150)
-                    .padding(.horizontal, 20)
                     .padding(.top, 25)
                     .overlay {
                         VStack(spacing: 0) {
@@ -72,6 +70,7 @@ struct RecentWatchRoomView: View {
                     }
             }
         }
+        .padding(.horizontal, 20)
     }
 }
 
