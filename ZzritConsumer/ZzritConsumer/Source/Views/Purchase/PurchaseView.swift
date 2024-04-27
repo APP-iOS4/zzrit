@@ -17,7 +17,13 @@ struct PurchaseView: View {
         VStack {
             Spacer()
             
-            VStack {
+            VStack(spacing: 10) {
+                Image("Ririt/Purchase")
+                    .resizable()
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .frame(height: 200)
+                    .padding(.bottom, 10)
+                
                 Text("만남을 더 특별하게")
                     .font(.title3)
                     .fontWeight(.black)
@@ -56,13 +62,6 @@ struct PurchaseView: View {
                         .font(.title3.bold())
                         .foregroundStyle(Color.pointColor)
                     Text("모임 개설시 참여 조건을 설정할 수 있어요.")
-                }
-                
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("혜택 3")
-                        .font(.title3.bold())
-                        .foregroundStyle(Color.pointColor)
-                    Text("뭐가 더 있을랑가")
                 }
             }
             
