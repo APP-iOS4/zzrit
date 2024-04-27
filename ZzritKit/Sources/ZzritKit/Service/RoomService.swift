@@ -301,16 +301,36 @@ public final class RoomService {
             // MARK: - FCM 임시구현
             
             guard let roomInfo = try await roomInfo(roomID) else { return }
-            let leaderID = roomInfo.leaderID
+//            let leaderID = roomInfo.leaderID
             var userService: UserService? = UserService()
-            guard let leaderInfo = try await userService?.findUserInfo(uid: leaderID) else { return }
-            guard let leaderPushToken = leaderInfo.pushToken else { return }
+//            guard let leaderInfo = try await userService?.findUserInfo(uid: leaderID) else { return }
+//            guard let leaderPushToken = leaderInfo.pushToken else { return }
             guard let loginedUserInfo = try await userService?.findUserInfo(uid: uid) else { return }
             
             // 본인이 모임에 참여했을 경우에는 메세지를 푸시하지 않음.
-            guard leaderInfo.id != loginedUserInfo.id else { return }
+//            guard leaderInfo.id != loginedUserInfo.id else { return }
+//                        await PushService.shared.pushMessage(to: leaderPushToken, title: "모임 참여 알림", body: "\(loginedUserInfo.userName)님께서 \(roomInfo.title)모임에 가입하셨습니다.")
             
-            await PushService.shared.pushMessage(to: leaderPushToken, title: "모임 참여 알림", body: "\(loginedUserInfo.userName)님께서 \(roomInfo.title)모임에 가입하셨습니다.")
+            // 누군가 참여
+            // 1. 참여자 정보 불러오기
+            let participants = try await joinedUsers(roomID: roomID)
+            
+            // 2. 참여자 토큰 알아오기
+            for participant in participants {
+                if participant.userID != uid {
+                    // 본인 빼고
+                    if let getToken = await PushService.shared.userTokens(uid: uid) {
+                        for token in getToken {
+                            // 메시지 보내기
+                            await PushService.shared.pushMessage(to: token, title: "모임 참여 알림", body: "\(loginedUserInfo.userName)님께서 \(roomInfo.title)모임에 가입하셨습니다.")
+//                            participantsToken.append(token)
+                        }
+                    }
+                }
+            }
+            
+            
+
             userService = nil
         }
     }
