@@ -78,9 +78,16 @@ public final class ChattingService: ObservableObject {
     ///     - type(ChattingType): 메시지 타입
     /// - Important: type이 .image일 경우 message는 이미지 URL String입니다.
     public func sendMessage(uid: String, message: String, type: ChattingType) async throws {
-        var userService: UserService? = UserService()
+        // 보낼 메시지 설정
+        let chatting: ChattingModel = .init(userID: uid, message: message, type: type)
+        
+        // 푸시 알림을 위한 서비스, 변수 설정
+        let userService: UserService? = UserService()
+        let roomService = RoomService.shared
         guard let loginedUserInfo = try await userService?.findUserInfo(uid: uid) else { return }
         let userName = loginedUserInfo.userName
+        let participants = try await roomService.joinedUsers(roomID: roomID)
+        let roomName = try await roomService.roomInfo(roomID)?.title ?? " "
         var messageContent: String {
             if type == .image {
                 return "사진"
@@ -89,14 +96,10 @@ public final class ChattingService: ObservableObject {
             }
         }
         
-        let roomService = RoomService.shared
-        let chatting: ChattingModel = .init(userID: uid, message: message, type: type)
+        // firebase에 메시지 올림
         try firebaseConst.roomChatCollection(roomID).addDocument(from: chatting)
         
-        // 푸시 알림 서비스
-        let participants = try await roomService.joinedUsers(roomID: roomID)
-        let roomName = try await roomService.roomInfo(roomID)?.title ?? " "
-        
+        // 보낸 메시지 푸시 알림
         for participant in participants {
             if participant.userID != uid {
                 print("참여자 : \(participant.userID)\n")
@@ -109,8 +112,6 @@ public final class ChattingService: ObservableObject {
                 }
             }
         }
-        
-        
     }
     
     /// 시스템 메세지를 전송합니다.
