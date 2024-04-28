@@ -47,6 +47,7 @@
 		1F70CD362BD7A15B00869119 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F70CD352BD7A15B00869119 /* SearchViewModel.swift */; };
 		1F70CD382BD7A19F00869119 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F70CD372BD7A19F00869119 /* FilterModel.swift */; };
 		1FF17E552BC509C500B505FA /* FirstRoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF17E542BC509C500B505FA /* FirstRoomCreateView.swift */; };
+		1FF608302BDE5FB600A9575F /* NewStaticPointProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6082F2BDE5FB600A9575F /* NewStaticPointProgress.swift */; };
 		30064DB82BC8025D00FD04A2 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30064DB72BC8025D00FD04A2 /* ChatView.swift */; };
 		30064DBA2BC8027700FD04A2 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30064DB92BC8027700FD04A2 /* MessageModel.swift */; };
 		30064DBC2BC802A000FD04A2 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30064DBB2BC802A000FD04A2 /* MessageViewModel.swift */; };
@@ -197,6 +198,7 @@
 		1F70CD352BD7A15B00869119 /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		1F70CD372BD7A19F00869119 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		1FF17E542BC509C500B505FA /* FirstRoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRoomCreateView.swift; sourceTree = "<group>"; };
+		1FF6082F2BDE5FB600A9575F /* NewStaticPointProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStaticPointProgress.swift; sourceTree = "<group>"; };
 		30064DB72BC8025D00FD04A2 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		30064DB92BC8027700FD04A2 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		30064DBB2BC802A000FD04A2 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 			children = (
 				FC2DDC0E2BC508B700A51E64 /* MyStaticGaugeView.swift */,
 				FC2DDC102BC50B6900A51E64 /* StaticGaugeProgressView.swift */,
+				1FF6082F2BDE5FB600A9575F /* NewStaticPointProgress.swift */,
 			);
 			path = StaticGuageView;
 			sourceTree = "<group>";
@@ -975,6 +978,7 @@
 				30BE7EC02BC57C7E00A5A178 /* ContactContentView.swift in Sources */,
 				1F0603432BC53AC9003808F4 /* SecondRoomCreateView.swift in Sources */,
 				FC2DDC1B2BC5767E00A51E64 /* NoticeTitleView.swift in Sources */,
+				1FF608302BDE5FB600A9575F /* NewStaticPointProgress.swift in Sources */,
 				FC715E932BD626C7001B67CF /* ImageCacheManager.swift in Sources */,
 				9B5403D02BD73CBB0066A7EF /* UnderRestrictionView.swift in Sources */,
 				FC2DDC0D2BC5070A00A51E64 /* MoreInfoView.swift in Sources */,
