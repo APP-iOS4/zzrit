@@ -26,6 +26,9 @@ struct RCTimeSettingView: View {
         .datePickerStyle(.wheel)
         .labelsHidden()
         .tint(Color.pointColor)
+        .onAppear {
+            UIDatePicker.appearance().minuteInterval = 10
+        }
         
         GeneralButton("완료") {
             isShowingTimeSheet.toggle()
