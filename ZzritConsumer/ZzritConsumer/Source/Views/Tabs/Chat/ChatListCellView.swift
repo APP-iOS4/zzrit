@@ -21,8 +21,13 @@ struct ChatListCellView: View {
     @State private var participantsCount: Int = 0
     @State private var roomImage: UIImage?
         
-    private var lastMessageDateToCompare: Int {
-        return Int((chattingService.messages.last?.date.timeIntervalSince1970 ?? 0) * 1000)
+    private var lastMessageDateToCompare: Int? {
+        // 활성화 상태일때만 계산
+        if room.status == .activation {
+            return Int((chattingService.messages.last?.date.timeIntervalSince1970 ?? 0) * 1000)
+        } else {
+            return nil
+        }
     }
     
     private var messageDateString: String {
@@ -47,10 +52,6 @@ struct ChatListCellView: View {
                 } else {
                     return "어머.. 누군가 " + messageParse[1] + "하셨습니다."
                 }
-                
-                
-                
-                
             }
         } else {
             return " "
@@ -58,7 +59,7 @@ struct ChatListCellView: View {
     }
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             // 모임 채팅방 썸네일 이미지
             fetchRoomImage(image: roomImage)
                 .frame(width: 56, height: 56)
@@ -77,10 +78,9 @@ struct ChatListCellView: View {
                 
                 // 모임 채팅방 제일 최근 글
                 Text(latestMessage)
-                    .lineLimit(2)
+                    .lineLimit(1)
                     .font(.footnote)
                     .foregroundStyle(Color.staticGray3)
-                Spacer()
             }
             
             Spacer()
@@ -94,14 +94,16 @@ struct ChatListCellView: View {
                         .padding(.bottom, 15)
                 }
                 
-                if lastChatModel.lastChatDates[room.id!] != lastMessageDateToCompare {
-                    Image(systemName: "n.circle.fill")
-                        .foregroundStyle(Color.pointColor)
+                if room.status == .activation {
+                    if lastChatModel.lastChatDates[room.id!] != lastMessageDateToCompare {
+                        Image(systemName: "n.circle.fill")
+                            .foregroundStyle(Color.pointColor)
+                    }
                 }
             }
             .padding(.leading, 20)
         }
-        .frame(height: 55)
+        .frame(minHeight: 55, maxHeight: .infinity)
         .onAppear {
             Task {
                 do {
@@ -164,4 +166,5 @@ struct ChatListCellView: View {
 
 #Preview {
     ChatListCellView(roomID: "1Ab05L2UJXVpbYD7qxNc", room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+        .environmentObject(LastChatModel())
 }

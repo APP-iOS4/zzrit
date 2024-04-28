@@ -24,13 +24,13 @@ struct ChatCategoryView: View {
                         .font(.subheadline)
                         .fontWeight(.semibold)
                         .foregroundStyle(selection == category ? Color.pointColor : Color.staticGray1 )
-                        .background{
+                        .background(alignment: .bottom) {
                             if selection == category {
                                 Rectangle()
                                     .foregroundStyle(isShowingChat ? Color.pointColor : .clear)
                                     .matchedGeometryEffect(id: "category", in: namespace)
                                     .frame(height: 1)
-                                    .offset(y: 12)
+                                    .offset(y: 6)
                             }
                         }
                         .padding(EdgeInsets(top: 5, leading: 20, bottom: 10, trailing: 20))
