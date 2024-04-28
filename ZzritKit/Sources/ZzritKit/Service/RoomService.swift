@@ -301,7 +301,6 @@ public final class RoomService {
             // MARK: - FCM 임시구현
             
             guard let roomInfo = try await roomInfo(roomID) else { return }
-            var userService: UserService? = UserService()
             guard let loginedUserInfo = try await userService?.findUserInfo(uid: uid) else { return }
             
             // 누군가 참여 했음을 알려주는 푸시 기능

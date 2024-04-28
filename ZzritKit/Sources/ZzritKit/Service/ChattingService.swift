@@ -77,9 +77,40 @@ public final class ChattingService: ObservableObject {
     ///     - message(String): 메시지 내용
     ///     - type(ChattingType): 메시지 타입
     /// - Important: type이 .image일 경우 message는 이미지 URL String입니다.
-    public func sendMessage(uid: String, message: String, type: ChattingType) throws {
+    public func sendMessage(uid: String, message: String, type: ChattingType) async throws {
+        var userService: UserService? = UserService()
+        guard let loginedUserInfo = try await userService?.findUserInfo(uid: uid) else { return }
+        let userName = loginedUserInfo.userName
+        var messageContent: String {
+            if type == .image {
+                return "사진"
+            } else {
+                return message
+            }
+        }
+        
+        let roomService = RoomService.shared
         let chatting: ChattingModel = .init(userID: uid, message: message, type: type)
         try firebaseConst.roomChatCollection(roomID).addDocument(from: chatting)
+        
+        // 푸시 알림 서비스
+        let participants = try await roomService.joinedUsers(roomID: roomID)
+        let roomName = try await roomService.roomInfo(roomID)?.title ?? " "
+        
+        for participant in participants {
+            if participant.userID != uid {
+                print("참여자 : \(participant.userID)\n")
+                // 본인 빼고
+                if let getToken = await PushService.shared.userTokens(uid: participant.userID) {
+                    for token in getToken {
+                        // 메시지 보내기
+                        await PushService.shared.pushMessage(to: token, title: "\(roomName)모임 채팅", body: "\(userName) : \(messageContent)")
+                    }
+                }
+            }
+        }
+        
+        
     }
     
     /// 시스템 메세지를 전송합니다.
