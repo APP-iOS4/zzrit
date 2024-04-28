@@ -59,7 +59,7 @@ struct ChatListCellView: View {
     }
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             // 모임 채팅방 썸네일 이미지
             fetchRoomImage(image: roomImage)
                 .frame(width: 56, height: 56)
@@ -78,10 +78,9 @@ struct ChatListCellView: View {
                 
                 // 모임 채팅방 제일 최근 글
                 Text(latestMessage)
-                    .lineLimit(2)
+                    .lineLimit(1)
                     .font(.footnote)
                     .foregroundStyle(Color.staticGray3)
-                Spacer()
             }
             
             Spacer()
@@ -104,7 +103,7 @@ struct ChatListCellView: View {
             }
             .padding(.leading, 20)
         }
-        .frame(height: 55)
+        .frame(minHeight: 55, maxHeight: .infinity)
         .onAppear {
             Task {
                 do {
@@ -167,4 +166,5 @@ struct ChatListCellView: View {
 
 #Preview {
     ChatListCellView(roomID: "1Ab05L2UJXVpbYD7qxNc", room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+        .environmentObject(LastChatModel())
 }
