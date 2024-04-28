@@ -20,7 +20,6 @@ struct MyStaticGaugeView: View {
             // TODO: (staticGauge: 66) 사용자의 정전기지수 넣어주기
             // 애니메이션 효과 넣어주기
             
-//            StaticGaugeProgressView(staticGauge: staticPoint)
             NewStaticPointProgress(staticPoint: staticPoint)
             VStack(alignment: .center) {
                 Text("정전기 지수가 낮으면 사람들과 연결되기 힘들어요!")
