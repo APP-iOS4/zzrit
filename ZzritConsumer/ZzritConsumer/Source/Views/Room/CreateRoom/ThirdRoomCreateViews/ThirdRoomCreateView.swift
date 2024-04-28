@@ -13,11 +13,9 @@ struct ThirdRoomCreateView: View {
     
     // MARK: - 저장 프로퍼티
     
-//    @EnvironmentObject var coordinator: Coordinator
+    //    @EnvironmentObject var coordinator: Coordinator
     @EnvironmentObject var userService: UserService
-    
-    // 오프라인/온라인 선택 변수
-    @State private var processSelection: RoomProcessType?
+    @EnvironmentObject var purchaseViewModel: PurchaseViewModel
     
     // 입장 메시지 입력을 위한 채팅
     @StateObject private var chattingService = ChattingService(roomID: " ")
@@ -25,7 +23,8 @@ struct ThirdRoomCreateView: View {
     let VM: RoomCreateViewModel
     
     // FIXME: 모임 위치 변수 -
-    
+    // 오프라인/온라인 선택 변수
+    @State private var processSelection: RoomProcessType?
     // 플랫폼 선택 변수
     @State private var platformSelection: PlatformType?
     // 오프라인 장소 변수
@@ -51,6 +50,8 @@ struct ThirdRoomCreateView: View {
     @State private var isShowingTimeSheet: Bool = false
     
     @State private var isCreateNewRoom: Bool = false
+    
+    @State private var isShowingPurchaseView: Bool = false
     
     // MARK: - body
     
@@ -83,30 +84,57 @@ struct ThirdRoomCreateView: View {
             // 다음으로 넘어가기 버튼
             GeneralButton("완료", isDisabled: !isButtonEnabled) {
                 if !isCreateNewRoom {
-                    isCreateNewRoom.toggle()
-                    VM.saveRoomProcess(
-                        processSelection: processSelection,
-                        placeLatitude: offlineLocation?.latitude,
-                        placeLongitude: offlineLocation?.longitude, 
-                        placeName: offlineLocation?.placeName,
-                        platform: platformSelection
-                    )
-                    
-                    VM.saveDateTime(
-                        dateSelection: dateSelection,
-                        timeSelection: timeSelection ?? .now
-                    )
-                    
-                    VM.saveGenderLimitation(genderLimitation: genderSelection)
-                    
-                    VM.saveScoreLimitation(
-                        hasScoreLimit: hasScoreLimit,
-                        scoreLimitation: staticGuageLimit
-                    )
-                    
-                    VM.saveLimitPeople(limitPeople: limitPeople)
-                    
                     Task {
+                        // 로그인 회원만 해당 뷰에 들어와 있으므로 강제 언래핑
+                        if !purchaseViewModel.isPurchased {
+                            let uid = AuthenticationService.shared.currentUID!
+                            var allowedMaximumCount: Int
+                            var isOnline: Bool
+                            
+                            if let processSelection {
+                                if processSelection == .online {
+                                    allowedMaximumCount = Configs.freeOnlineCreateRoomCount
+                                    isOnline = true
+                                } else {
+                                    allowedMaximumCount = Configs.freeOfflineCreateRoomCount
+                                    isOnline = false
+                                }
+                            } else {
+                                allowedMaximumCount = 3
+                                isOnline = true
+                            }
+                            
+                            let createdRoomCount = await userService.createdRoomsCount(uid, isOnline: isOnline)
+                            
+                            if createdRoomCount >= allowedMaximumCount {
+                                isShowingPurchaseView.toggle()
+                                return
+                            }
+                        }
+                        
+                        isCreateNewRoom.toggle()
+                        VM.saveRoomProcess(
+                            processSelection: processSelection,
+                            placeLatitude: offlineLocation?.latitude,
+                            placeLongitude: offlineLocation?.longitude,
+                            placeName: offlineLocation?.placeName,
+                            platform: platformSelection
+                        )
+                        
+                        VM.saveDateTime(
+                            dateSelection: dateSelection,
+                            timeSelection: timeSelection ?? .now
+                        )
+                        
+                        VM.saveGenderLimitation(genderLimitation: genderSelection)
+                        
+                        VM.saveScoreLimitation(
+                            hasScoreLimit: hasScoreLimit,
+                            scoreLimitation: staticGuageLimit
+                        )
+                        
+                        VM.saveLimitPeople(limitPeople: limitPeople)
+                        
                         let userInfo = userService.loginedUser
                         let roomID = await VM.createRoom(userModel: userInfo)
                         let userID = userInfo?.id ?? " "
@@ -116,9 +144,13 @@ struct ThirdRoomCreateView: View {
                         } else {
                             isCreateNewRoom = false
                         }
+                        
                     }
                 }
             }
+        }
+        .sheet(isPresented: $isShowingPurchaseView) {
+            PurchaseView()
         }
         .customOnChange(of: offlineLocation, handler: { _ in
             checkButtonEnable()
@@ -193,7 +225,7 @@ extension ThirdRoomCreateView {
             
             // 시간, 분 선택 버튼
             Button {
-//                coordinator.present(sheet: .timeSetting)
+                //                coordinator.present(sheet: .timeSetting)
                 isShowingTimeSheet.toggle()
             } label: {
                 HStack {
@@ -271,7 +303,8 @@ extension ThirdRoomCreateView {
 #Preview {
     NavigationStack {
         ThirdRoomCreateView(VM: RoomCreateViewModel())
-//            .environmentObject(Coordinator())
+        //            .environmentObject(Coordinator())
             .environmentObject(UserService())
+            .environmentObject(PurchaseViewModel())
     }
 }

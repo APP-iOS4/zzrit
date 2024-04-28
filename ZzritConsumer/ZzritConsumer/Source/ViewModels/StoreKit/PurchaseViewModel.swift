@@ -19,10 +19,18 @@ class PurchaseViewModel: ObservableObject {
     /// 구매가 완료된 구독 상품
     @Published private(set) var purchasedProduct: String? = nil
     
+    var isPurchased: Bool {
+        if let count = purchasedProduct?.count {
+            return count > 0 ? true : false
+        }
+        return false
+    }
+    
     init() {
         Task {
             await syncProducts()
             purchasedProduct = await purchaseService.updatePurchasedProducts()
+            print("purchasedProduct: \(purchasedProduct)")
         }
     }
     

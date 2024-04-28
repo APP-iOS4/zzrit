@@ -56,9 +56,16 @@ struct PurchaseView: View {
                         .foregroundStyle(Color.pointColor)
                     Text("광고없이 필요한 정보만 볼 수 있어요.")
                 }
-                
+              
                 VStack(alignment: .leading, spacing: 10) {
                     Text("혜택 2")
+                        .font(.title3.bold())
+                        .foregroundStyle(Color.pointColor)
+                    Text("횟수제한 없이 모임을 개설할 수 있어요.")
+                }
+                
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("혜택 3")
                         .font(.title3.bold())
                         .foregroundStyle(Color.pointColor)
                     Text("모임 개설시 참여 조건을 설정할 수 있어요.")

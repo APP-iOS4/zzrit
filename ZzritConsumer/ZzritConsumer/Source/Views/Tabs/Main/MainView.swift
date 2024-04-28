@@ -70,13 +70,7 @@ struct MainView: View {
             .toolbar {
                 // 왼쪽 앱 메인 로고
                 ToolbarItem(placement: .topBarLeading) {
-                    HStack(spacing: 0) {
-                        Text("ZZ!")
-                            .foregroundStyle(Color.pointColor)
-                        Text("RIT")
-                    }
-                    .font(.title2)
-                    .fontWeight(.black)
+                    NavigationSloganView()
                 }
                 
                 // 오른쪽 알림 창
