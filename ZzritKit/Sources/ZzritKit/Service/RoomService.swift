@@ -22,7 +22,7 @@ public final class RoomService {
     
     private var isFetchEnd: Bool = false
     private var isFetchEndSearch: Bool = false
-
+    
     /**
      # Description
      - 모임 추가를 위한 메서드
@@ -95,7 +95,7 @@ public final class RoomService {
             if let titleString = title, titleString != "" {
                 
                 query = query.whereField("title", isGreaterThanOrEqualTo: titleString)
-                            .whereField("title", isLessThan: titleString + "힣")
+                    .whereField("title", isLessThan: titleString + "힣")
                 
                 let snapshot = try await query.getDocuments()
                 let documents = try snapshot.documents.map { try $0.data(as: RoomModel.self)}
@@ -119,7 +119,7 @@ public final class RoomService {
                 
                 if lastSnapshot == nil {
                     isFetchEnd = true
-    //                throw FirebaseErrorType.noMoreSearching
+                    //                throw FirebaseErrorType.noMoreSearching
                 }
                 print(documents)
                 
@@ -136,7 +136,7 @@ public final class RoomService {
                 
                 if lastSnapshot == nil {
                     isFetchEnd = true
-    //                throw FirebaseErrorType.noMoreSearching
+                    //                throw FirebaseErrorType.noMoreSearching
                 }
                 print(documents)
                 
@@ -146,17 +146,17 @@ public final class RoomService {
             // 위에서 에러 발생시 맨위에 임의로 만들어놓은 offlineRoomModel이 반환됨.
             return []
         } catch {
-//            throw FirebaseErrorType.failLoadRoom
+            //            throw FirebaseErrorType.failLoadRoom
             throw error
         }
         
         // 필터가 있는 경우
         // 검색탭에서 필터링된 쿼리 만들기
         // 제목으로 필터링하는 부분 나중에 다시 사용할 수도있어서 일단은 주석처리했습니다.
-//            if title != "" {
-//                // title이 있다면
-//                query = query.whereField("title", isEqualTo: title!)
-//            }
+        //            if title != "" {
+        //                // title이 있다면
+        //                query = query.whereField("title", isEqualTo: title!)
+        //            }
     }
     
     // 탐색탭 필터
@@ -188,7 +188,7 @@ public final class RoomService {
                 if isOnline {
                     query = query.whereField("isOnline", isEqualTo: true)
                 } else {
-//                    query = query.whereField("isOnline", isEqualTo: false)
+                    //                    query = query.whereField("isOnline", isEqualTo: false)
                     
                     if let coordinate {
                         // 오프라인 모임 검색일 경우
@@ -199,14 +199,14 @@ public final class RoomService {
                         query = query.whereField("placeLatitude", isLessThanOrEqualTo: locationRange.maxLatitude)
                         query = query.whereField("placeLongitude", isGreaterThanOrEqualTo: locationRange.minLongitude)
                         query = query.whereField("placeLongitude", isLessThanOrEqualTo: locationRange.maxLongitude)
-                    } 
+                    }
                 }
             }
             
             if let titleString = title, titleString != "" {
                 
                 query = query.whereField("title", isGreaterThanOrEqualTo: titleString)
-                            .whereField("title", isLessThan: titleString + "힣")
+                    .whereField("title", isLessThan: titleString + "힣")
                 
                 let snapshot = try await query.getDocuments()
                 let documents = try snapshot.documents.map { try $0.data(as: RoomModel.self)}
@@ -230,7 +230,7 @@ public final class RoomService {
                 
                 if lastSnapshotForSearch == nil {
                     isFetchEndSearch = true
-    //                throw FirebaseErrorType.noMoreSearching
+                    //                throw FirebaseErrorType.noMoreSearching
                 }
                 print(documents)
                 
@@ -247,7 +247,7 @@ public final class RoomService {
                 
                 if lastSnapshotForSearch == nil {
                     isFetchEndSearch = true
-    //                throw FirebaseErrorType.noMoreSearching
+                    //                throw FirebaseErrorType.noMoreSearching
                 }
                 print(documents)
                 
@@ -257,7 +257,7 @@ public final class RoomService {
             // 위에서 에러 발생시 맨위에 임의로 만들어놓은 offlineRoomModel이 반환됨.
             return []
         } catch {
-//            throw FirebaseErrorType.failLoadRoom
+            //            throw FirebaseErrorType.failLoadRoom
             throw error
         }
     }
@@ -267,7 +267,7 @@ public final class RoomService {
     ///  - Parameter room: 수정된 RoomModel
     ///  - Parameter roomID(String): 변경할 모임 ID
     public func modifyRoom(_ room: RoomModel, roomID: String) throws {
-//        fbConstants.roomCollection.document(roomID).setData(room)
+        //        fbConstants.roomCollection.document(roomID).setData(room)
         try fbConstants.roomCollection.document(roomID).setData(from: room)
     }
     
@@ -278,7 +278,7 @@ public final class RoomService {
         fbConstants.roomCollection.document(roomID).setData(["status": status.rawValue], merge: true)
     }
     
-    /// 현재 로그인 되어있는 회원이 모임에 창여합니다.
+    /// 현재 로그인 되어있는 회원이 모임에 참여합니다.
     ///  - Parameter roomID(String): 가입할 모임 ID
     public func joinRoom(_ roomID: String) async throws {
         // 로그인 여부 및 회원정보 등록 여부에 따른 에러 throw
@@ -297,6 +297,34 @@ public final class RoomService {
             try fbConstants.joinedCollection(roomID).document(uid).setData(from: tempModel, merge: true)
             // 유저 데이터에 가입한 모임 ID 추가
             try await fbConstants.userCollection.document(uid).updateData(["joinedRooms": FieldValue.arrayUnion([roomID])])
+            
+            // MARK: - FCM 임시구현
+            
+            guard let roomInfo = try await roomInfo(roomID) else { return }
+            guard let loginedUserInfo = try await userService?.findUserInfo(uid: uid) else { return }
+            
+            // 누군가 참여 했음을 알려주는 푸시 기능
+            // 1. 참여자 정보 불러오기
+            let participants = try await joinedUsers(roomID: roomID)
+            
+            // 2. 참여자 토큰 알아오기
+            for participant in participants {
+                print("참여자 : \(participant.userID)\n")
+                if participant.userID != uid {
+                    // 본인 빼고
+                    if let getToken = await PushService.shared.userTokens(uid: participant.userID) {
+                        for token in getToken {
+                            // 메시지 보내기
+                            print("참여자 : \(participant.userID)의 토큰 \(token)\n")
+                            await PushService.shared.pushMessage(to: token, title: "모임 참여 알림", body: "\(loginedUserInfo.userName)님께서 \(roomInfo.title)모임에 가입하셨습니다.")
+                        }
+                    }
+                }
+            }
+            
+            
+            
+            userService = nil
         }
     }
     
@@ -310,7 +338,7 @@ public final class RoomService {
         
         // 이미 위에서 uid 검증을 끝냈으므로, 강제 언래핑
         let uid = AuthenticationService.shared.currentUID!
-
+        
         if try await isJoined(roomID: roomID, userUID: uid) {
             try await fbConstants.joinedCollection(roomID).document(uid).delete()
             try await fbConstants.userCollection.document(uid).updateData(["joinedRooms": FieldValue.arrayRemove([roomID])])
@@ -329,7 +357,7 @@ public final class RoomService {
         let snapshop = try await fbConstants.joinedCollection(roomID).getDocuments()
         return try snapshop.documents.map { try $0.data(as: JoinedUserModel.self) }
     }
-
+    
     /// 모임 참여 여부를 확인합니다.
     /// - Parameter roomID(String): 확인 할 모임 ID
     /// - Parameter uid(String): 유저의 uid

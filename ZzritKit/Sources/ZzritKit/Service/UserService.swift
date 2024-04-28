@@ -209,4 +209,15 @@ public final class UserService: ObservableObject {
         firebaseConst.userCollection.document(uid).updateData(["userName": userName,
                                                                "userImage": imageURL])
     }
+    
+    /// 디바이스 토큰을 서버에 저장합니다.
+    public func updatePushToken(token: String) async {
+        do {
+            if let userInfo = try await loggedInUserInfo() {
+                try await firebaseConst.userCollection.document(userInfo.id!).setData(["pushToken": token], merge: true)
+            }
+        } catch {
+            print("디바이스 토큰 등록 에러: \(error)")
+        }
+    }
 }

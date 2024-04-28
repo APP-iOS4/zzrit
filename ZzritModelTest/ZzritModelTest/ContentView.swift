@@ -39,7 +39,9 @@ struct ContentView: View {
                     NavigationLink("모임검색") {
                         RoomSearchView()
                     }
-                    
+                    NavigationLink("푸시 메시지 발송") {
+                        PushTestView()
+                    }
                 }
             }
             .tabItem {
