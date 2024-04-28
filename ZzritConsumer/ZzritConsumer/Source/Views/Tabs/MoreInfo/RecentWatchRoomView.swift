@@ -22,26 +22,27 @@ struct RecentWatchRoomView: View {
             Text("최근 본 모임")
                 .font(.title3)
                 .fontWeight(.bold)
-            
+
             if !recentRoomViewModel.recentViewedRooms.isEmpty {
             // 최근 본 모임 슬라이드
                 VStack {
                     TabView(selection: $selectedIndex) {
                         ForEach(recentRoomViewModel.recentViewedRooms.indices, id: \.self) { index in
-                            NavigationLink {
-                                // 모임 상세 페이지 넘기기
-                                RoomDetailView(room: recentRoomViewModel.recentViewedRooms[index])
-                            } label: {
-                                VStack {
+                            HStack {
+                                NavigationLink {
+                                    // 모임 상세 페이지 넘기기
+                                    RoomDetailView(room: recentRoomViewModel.recentViewedRooms[index])
+                                } label: {
                                     RoomCardView(room: recentRoomViewModel.recentViewedRooms[index], titleToHStackPadding: 25, isRecent: true)
                                 }
+                                .tag(index)
                             }
-                            .tag(index)
+                            .padding(.trailing, 20)
                         }
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     .indexViewStyle(.page(backgroundDisplayMode: .interactive))
-                    .frame(maxWidth: .infinity, minHeight: 200)
+                    .frame(maxWidth: .infinity, minHeight: 200, maxHeight: .infinity)
                     
                     // TabView Indicator
                     HStack {
@@ -70,7 +71,7 @@ struct RecentWatchRoomView: View {
                     }
             }
         }
-        .padding(.horizontal, 20)
+        .padding(.leading, 20)
     }
 }
 

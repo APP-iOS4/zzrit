@@ -54,6 +54,9 @@ struct RoomCardView: View {
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
 
+            Spacer()
+                .frame(height: titleToHStackPadding)
+            
             HStack {
                 // 날짜 및 시간
                 Text(DateService.shared.formattedString(date: room.dateTime, format: "M/dd HH:mm"))
@@ -74,8 +77,6 @@ struct RoomCardView: View {
                     .background(Color.black.opacity(0.5))
                     .clipShape(Capsule())
             }
-            // 패딩 변수값 적용하는 곳
-            .padding(.top, titleToHStackPadding)
         }
         .padding(20)
         .background(
@@ -124,6 +125,6 @@ struct RoomCardView: View {
 }
 
 #Preview {
-    RoomCardView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), titleToHStackPadding: 100)
+    RoomCardView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), titleToHStackPadding: 25, isRecent: true)
         .environmentObject(LocationService())
 }
