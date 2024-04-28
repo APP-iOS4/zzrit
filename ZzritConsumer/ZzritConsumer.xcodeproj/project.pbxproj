@@ -56,6 +56,7 @@
 		3007E8B42BC4255900B9F7B3 /* RoomCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3007E8B32BC4255900B9F7B3 /* RoomCardListView.swift */; };
 		303EDA752BC503EF0023FC09 /* RoomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303EDA732BC503EF0023FC09 /* RoomInfoView.swift */; };
 		303EDA762BC503EF0023FC09 /* RoomDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303EDA742BC503EF0023FC09 /* RoomDetailView.swift */; };
+		304EAD1B2BDE56B100D1E818 /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304EAD1A2BDE56B100D1E818 /* UserDefaultsClient.swift */; };
 		305136FE2BC3C3E400BA41EE /* RoomCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305136FD2BC3C3E400BA41EE /* RoomCategoryView.swift */; };
 		305137012BC3D0AA00BA41EE /* RoomCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305137002BC3D0AA00BA41EE /* RoomCardView.swift */; };
 		3056254D2BC6B77000814FBF /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3056254C2BC6B77000814FBF /* View+Extension.swift */; };
@@ -205,6 +206,7 @@
 		3007E8B32BC4255900B9F7B3 /* RoomCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCardListView.swift; sourceTree = "<group>"; };
 		303EDA732BC503EF0023FC09 /* RoomInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomInfoView.swift; sourceTree = "<group>"; };
 		303EDA742BC503EF0023FC09 /* RoomDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomDetailView.swift; sourceTree = "<group>"; };
+		304EAD1A2BDE56B100D1E818 /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
 		305136FD2BC3C3E400BA41EE /* RoomCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCategoryView.swift; sourceTree = "<group>"; };
 		305137002BC3D0AA00BA41EE /* RoomCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCardView.swift; sourceTree = "<group>"; };
 		3056254C2BC6B77000814FBF /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 				FC715E8C2BD618D9001B67CF /* DealwithImage */,
 				3BA17FD92BD9DBC50000F964 /* LastChatModel */,
 				DF8AFC302BDB672D00C66BA2 /* NetworkMonitor.swift */,
+				304EAD1A2BDE56B100D1E818 /* UserDefaultsClient.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -956,6 +959,7 @@
 				3007E8B22BC4143700B9F7B3 /* SubTitleModifier.swift in Sources */,
 				9B5403CE2BD73C870066A7EF /* RestrictionViewModel.swift in Sources */,
 				1F4567002BCE3DE8001EC0E7 /* ImagePickerView.swift in Sources */,
+				304EAD1B2BDE56B100D1E818 /* UserDefaultsClient.swift in Sources */,
 				30C1BACA2BC3F50A00827BD1 /* MainExistView.swift in Sources */,
 				1F3859B82BC3D29500C753BD /* Configs.swift in Sources */,
 				DF6F4B492BD5E8A000DDBF96 /* LocalStorage.swift in Sources */,

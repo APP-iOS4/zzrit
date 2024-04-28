@@ -13,8 +13,11 @@ struct ContentView: View {
     @EnvironmentObject private var restrictionViewModel: RestrictionViewModel
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var networkMonitor: NetworkMonitor
+    @EnvironmentObject private var userDefaultsClient: UserDefaultsClient
     @State private var userModel: UserModel?
     @State private var isNetworkConnection: Bool = true
+    @State private var showsOnboarding: Bool = false
+    
     @StateObject private var locationService = LocationService.shared
     
     var body: some View {
@@ -58,12 +61,22 @@ struct ContentView: View {
             }
             .tint(Color.pointColor)
             .environmentObject(locationService)
+            .onAppear {
+                guard userDefaultsClient.isOnBoardingDone else {
+                    showsOnboarding = true
+                    return
+                }
+            }
             .customOnChange(of: networkMonitor.status) { status in
                 if status == .satisfied {
                     isNetworkConnection = true
                 } else {
                     isNetworkConnection = false
                 }
+            }
+            .fullScreenCover(isPresented: $showsOnboarding,
+                   onDismiss: { userDefaultsClient.isOnBoardingDone = true }) {
+                OnboardingView(isPresented: $showsOnboarding)
             }
         }
     }

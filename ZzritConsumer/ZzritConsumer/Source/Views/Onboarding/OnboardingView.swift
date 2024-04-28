@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    
-    @State private var isShowingMain: Bool = false
+    @EnvironmentObject private var userDefaultsClient: UserDefaultsClient
     
     // FIXME: 데이터 구조는 추후 리팩토링
     
@@ -32,6 +31,8 @@ struct OnboardingView: View {
     }
     
     @State private var selectedIndex: Int = 0
+    
+    @Binding var isPresented: Bool
     
     var body: some View {
         ZStack {
@@ -74,17 +75,15 @@ struct OnboardingView: View {
                 Spacer()
                 
                 GeneralButton("찾으러가기", isDisabled: !isLastPage) {
-                    isShowingMain.toggle()
+                    userDefaultsClient.isOnBoardingDone = true
+                    isPresented = false
                 }
             }
             .padding(Configs.paddingValue)
-        }
-        .fullScreenCover(isPresented: $isShowingMain) {
-            ContentView()
         }
     }
 }
 
 #Preview {
-    OnboardingView()
+    OnboardingView(isPresented: .constant(true))
 }

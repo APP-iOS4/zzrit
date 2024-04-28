@@ -94,6 +94,7 @@ struct ZzritConsumerApp: App {
     @StateObject private var loadRoomViewModel = LoadRoomViewModel()
     @StateObject private var lastChatModel = LastChatModel()
     @StateObject private var networkMonitor = NetworkMonitor()
+    @StateObject private var userDefaultsClient = UserDefaultsClient()
     
     @State private var userModel: UserModel?
     
@@ -137,6 +138,7 @@ struct ZzritConsumerApp: App {
                 .environmentObject(loadRoomViewModel)
                 .environmentObject(lastChatModel)
                 .environmentObject(networkMonitor)
+                .environmentObject(userDefaultsClient)
         }
     }
     
