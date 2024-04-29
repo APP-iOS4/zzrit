@@ -135,11 +135,6 @@ struct RoomDetailView: View {
     }
 }
 
-#Preview {
-    RoomDetailView(room: RoomModel(title: "모임 이름", category: .art, dateTime: Date(), content: "efpokepsofkspeofkpoesfk  pkfdpofkpoekf", coverImage: "efkef", isOnline: true, status: .activation, leaderID: "fepsfkspoek", limitPeople: 11))
-       .environmentObject(RoomViewModel())
-}
-
 struct RoomInfoView: View {
     @State var room: RoomModel
     @State var address: String?
