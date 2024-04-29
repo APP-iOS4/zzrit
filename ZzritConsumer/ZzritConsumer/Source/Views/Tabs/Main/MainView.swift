@@ -58,7 +58,7 @@ struct MainView: View {
                     
                     // 모임 카트 뷰 리스트 불러오기
                     // TODO: 모델 연동 시 모임 마감 인원 모델 배열을 넘겨줘야 한다.
-                    RoomCardListView()
+                    RoomCardListView(isManyPeopleCard: true)
                     
                     // 최근 생성된 모임 리스트 불러오기
                     // TODO: 모델 연동 시 최근 생성된 모임 모델 배열을 넘겨줘야 한다.
@@ -166,5 +166,6 @@ extension MainView {
         MainView()
             .environmentObject(UserService())
             .environmentObject(LoadRoomViewModel())
+            .environmentObject(LocationService())
     }
 }

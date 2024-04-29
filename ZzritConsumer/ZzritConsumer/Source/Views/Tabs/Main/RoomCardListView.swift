@@ -15,10 +15,11 @@ struct RoomCardListView: View {
     @State private var selectedIndex: Int = 0
     //
     @State private var scrollSelectedIndex: Int = 0
-    // 사용자의 설정 위치
     
     // 임시 배열카운트 개수
-    let testCount: Int = 4
+    // let testCount: Int = 4
+
+    var isManyPeopleCard: Bool = false
     
     // MARK: - body
     
@@ -26,7 +27,7 @@ struct RoomCardListView: View {
         if #available(iOS 17.0, *) {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach (loadRoomViewModel.rooms.prefix(5)) { room in
+                    ForEach (isManyPeopleCard ? loadRoomViewModel.manyPeopleRooms : loadRoomViewModel.rooms.prefix(5).map { $0 }) { room in
                         // 네비게이션 링크를 통한 카드 뷰 상세 페이지 이동
                         if room.dateTime > Date() {
                             NavigationLink {
@@ -59,7 +60,7 @@ struct RoomCardListView: View {
             // 카드 탭 뷰
             LazyVStack {
                 TabView(selection: $selectedIndex) {
-                    ForEach (loadRoomViewModel.rooms) { room in
+                    ForEach (isManyPeopleCard ? loadRoomViewModel.manyPeopleRooms : loadRoomViewModel.rooms) { room in
                         // 네비게이션 링크를 통한 카드 뷰 상세 페이지 이동
                         if room.dateTime > Date() {
                             NavigationLink {
@@ -78,18 +79,6 @@ struct RoomCardListView: View {
                 .indexViewStyle(.page(backgroundDisplayMode: .interactive))
                 .frame(maxWidth: .infinity, minHeight: 200)
             }
-            .padding(.bottom, 10)
-            
-            // 몇 번째 인덱스인지 알려주는 인디케이터
-            HStack(spacing: 3) {
-                ForEach(0...testCount, id: \.self) { index in
-                    Circle()
-                        .frame(width: 8, height: 8)
-                        .foregroundStyle(index == selectedIndex ? .black : Color.staticGray3)
-                        .padding(.horizontal, 3)
-                }
-            }
-            .padding(.bottom, 20)
         }
     }
 }
@@ -97,4 +86,5 @@ struct RoomCardListView: View {
 #Preview {
     RoomCardListView()
         .environmentObject(LoadRoomViewModel())
+        .environmentObject(LocationService())
 }

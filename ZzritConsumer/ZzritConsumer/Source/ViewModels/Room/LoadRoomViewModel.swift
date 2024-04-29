@@ -18,6 +18,8 @@ final class LoadRoomViewModel: ObservableObject {
     
     @Published private(set) var filterRooms: [RoomModel] = []
     
+    @Published private(set) var manyPeopleRooms: [RoomModel] = []
+    
     private var isInit: Bool = true
     private var status: ActiveType = .activation
     // private var fetchCount: Int = 0
@@ -65,6 +67,7 @@ final class LoadRoomViewModel: ObservableObject {
                 
                 if isInit {
                     getFilter()
+                    await fetchManyPeopleRoom()
                 }
     
                 isInit = false
@@ -149,5 +152,28 @@ final class LoadRoomViewModel: ObservableObject {
     func addNewRoomToData(newRoom: RoomModel) {
         rooms.insert(newRoom, at: 0)
         getFilter()
+    }
+    
+    func fetchManyPeopleRoom() async {
+        manyPeopleRooms = []
+        
+        for room in rooms {
+            if let roomId = room.id {
+                do {
+                    let participantsCount = try await roomService.joinedUsers(roomID: roomId).count
+                    if (room.limitPeople - participantsCount) > 0 && (room.limitPeople - participantsCount) <= 2 {
+                        manyPeopleRooms.append(room)
+                    }
+                    
+                    manyPeopleRooms = Array(Set(manyPeopleRooms))
+                    
+                    if manyPeopleRooms.count >= 5 {
+                        break
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }
     }
 }
