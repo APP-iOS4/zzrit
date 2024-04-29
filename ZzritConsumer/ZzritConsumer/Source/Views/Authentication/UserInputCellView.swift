@@ -70,7 +70,6 @@ struct UserInputCellView: View {
                             .submitLabel(.go)
                             .autocorrectionDisabled()
                             .padding(.vertical, 10)
-                            .textInputAutocapitalization(.never)
                     } else {
                         TextField("", text: $text)
                             .fontWeight(.semibold)
@@ -80,7 +79,6 @@ struct UserInputCellView: View {
                             .submitLabel(.next)
                             .autocorrectionDisabled()
                             .padding(.vertical, 10)
-                            .textInputAutocapitalization(.never)
                     }
                 }
             }
