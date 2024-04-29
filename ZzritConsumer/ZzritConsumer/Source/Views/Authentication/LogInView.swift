@@ -8,6 +8,7 @@
 import SwiftUI
 
 import ZzritKit
+import FirebaseMessaging
 
 struct LogInView: View {
     
@@ -134,6 +135,14 @@ struct LogInView: View {
                 try await authService.loginUser(email: id, password: pw)
                 if let id = try await userService.loggedInUserInfo()?.id {
                     restrictionViewModel.loadRestriction(userID: id)
+                    
+                    Messaging.messaging().token { token, error in
+                        if let error = error {
+                            print("Error fetching FCM registration token: \(error)")
+                        } else if let token = token {
+                            PushService.shared.saveToken(id, token: token)
+                        }
+                    }
                 }
                 isLoading.toggle()
                 
@@ -156,6 +165,15 @@ struct LogInView: View {
                 
                 if let userId = try await userService.loggedInUserInfo()?.id {
                     _ = try await userService.findUserInfo(uid: userId)
+                    restrictionViewModel.loadRestriction(userID: userId)
+                    
+                    Messaging.messaging().token { token, error in
+                        if let error = error {
+                            print("Error fetching FCM registration token: \(error)")
+                        } else if let token = token {
+                            PushService.shared.saveToken(userId, token: token)
+                        }
+                    }
                 }
                 dismiss()
             } catch AuthError.noUserInfo {

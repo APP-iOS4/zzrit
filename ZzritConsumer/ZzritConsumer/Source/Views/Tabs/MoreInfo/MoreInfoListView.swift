@@ -8,6 +8,7 @@
 import SwiftUI
 
 import ZzritKit
+import FirebaseMessaging
 
 struct MoreInfoListView: View {
     @State private var isNoticeShow = false
@@ -108,6 +109,16 @@ struct MoreInfoListView: View {
     
     private func logout() {
         do {
+            Messaging.messaging().token { token, error in
+                if let error = error {
+                    print("Error fetching FCM registration token: \(error)")
+                } else if let token = token {
+                    if let uid = AuthenticationService.shared.currentUID {
+                        PushService.shared.deleteToken(uid, token: token)
+                    }
+                }
+            }
+            
             try AuthenticationService.shared.logout()
             loginedInfo = nil
         } catch {
