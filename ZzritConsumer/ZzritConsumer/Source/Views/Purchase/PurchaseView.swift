@@ -11,7 +11,7 @@ struct PurchaseView: View {
     @EnvironmentObject private var purchaseViewModel: PurchaseViewModel
     
     @State private var isPurchasing: Bool = false
-    @State private var isShowingAlert: Bool = false
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack {
@@ -100,12 +100,11 @@ struct PurchaseView: View {
         Task {
             do {
                 let result = try await purchaseViewModel.purchase(product)
-                if !result {
-                    isShowingAlert = true
+                if result {
+                    dismiss()
                 }
                 isPurchasing.toggle()
             } catch {
-                isShowingAlert = true
                 isPurchasing.toggle()
             }
         }
