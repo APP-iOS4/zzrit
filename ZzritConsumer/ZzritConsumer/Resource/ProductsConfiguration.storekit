@@ -10,7 +10,7 @@
     "_applicationInternalID" : "6484272753",
     "_developerTeamID" : "6R3M7VGRP2",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 735460031.98550296,
+    "_lastSynchronizedDate" : 735872122.52835596,
     "_storeKitErrors" : [
       {
         "current" : null,
@@ -60,7 +60,65 @@
     ]
   },
   "subscriptionGroups" : [
+    {
+      "id" : "21478949",
+      "localizations" : [
 
+      ],
+      "name" : "찌릿 프로",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "0.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "6499123548",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "찌릿 Pro (1개월)",
+              "displayName" : "찌릿 Pro (1개월)",
+              "locale" : "ko"
+            }
+          ],
+          "productID" : "techit.finalproject.ZzritConsumer.pro.1month",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "찌릿 Pro (1개월)",
+          "subscriptionGroupID" : "21478949",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "1.99",
+          "familyShareable" : false,
+          "groupNumber" : 3,
+          "internalID" : "6499123720",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "찌릿 Pro (3개월)",
+              "displayName" : "찌릿 Pro (3개월)",
+              "locale" : "ko"
+            }
+          ],
+          "productID" : "techit.finalproject.ZzritConsumer.pro.3month",
+          "recurringSubscriptionPeriod" : "P3M",
+          "referenceName" : "찌릿 Pro (3개월)",
+          "subscriptionGroupID" : "21478949",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
   ],
   "version" : {
     "major" : 3,

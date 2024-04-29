@@ -14,7 +14,7 @@ struct SecondRoomCreateView: View {
     // MARK: - 저장 프로퍼티
     
     // 뷰모델
-    let VM: RoomCreateViewModel
+    let VM: RoomCreateViewModel = RoomCreateViewModel.shared
     
     // 이름 입력 받을 변수
     @State private var title: String = ""
@@ -33,7 +33,7 @@ struct SecondRoomCreateView: View {
     
     var body: some View {
         // 커스텀 네비게이션 바 - 두 번째 페이지
-        RCNavigationBar(page: .page2, VM: VM) {
+        RCNavigationBar(page: .page2) {
             ZStack {
                 // 스크롤 뷰
                 ScrollView(.vertical) {
@@ -79,7 +79,7 @@ struct SecondRoomCreateView: View {
                 isShowingNextView.toggle()
             }
             .navigationDestination(isPresented: $isShowingNextView) {
-                ThirdRoomCreateView(VM: VM)
+                ThirdRoomCreateView()
             }
         }
     }
@@ -96,6 +96,6 @@ struct SecondRoomCreateView: View {
 
 #Preview {
     NavigationStack {
-        SecondRoomCreateView(VM: RoomCreateViewModel())
+        SecondRoomCreateView()
     }
 }

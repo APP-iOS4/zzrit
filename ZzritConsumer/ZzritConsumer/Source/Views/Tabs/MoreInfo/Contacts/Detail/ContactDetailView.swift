@@ -11,17 +11,22 @@ import ZzritKit
 
 struct ContactDetailView: View {
     @EnvironmentObject private var contactService: ContactService
+    @EnvironmentObject private var userService: UserService
     
     let contact: ContactModel
     
     @State private var replies: [ContactReplyModel] = []
+    // 신고 대상 모임 이름
+    @State private var targetRoomName: String = ""
+    // 신고 대상 회원 닉네임
+    @State private var targetUserName: [String] = []
     
     var body: some View {
         ScrollView {
             LazyVStack {
                 // 문의내역 질문 뷰
                 // FIXME: 모델 연동 시 isAnswered가 아닌 모델 받는 것으로 수정해야 함
-                ContactContentView(contact: contact)
+                ContactContentView(contact: contact, targetRoomName: $targetRoomName, targetUserName: $targetUserName)
                     .padding(.bottom, 40)
                 
                 Divider()
@@ -34,6 +39,7 @@ struct ContactDetailView: View {
         .padding(.vertical, 1)
         .onAppear {
             fetchReplies()
+            fetchTargetRoom()
         }
     }
     
@@ -46,7 +52,7 @@ struct ContactDetailView: View {
                 .foregroundStyle(.secondary)
         } else {
             // 문의내역 답변 뷰
-            ForEach(replies) { reply in
+            ForEach(replies.sorted{ $0.date < $1.date }) { reply in
                 ContactReplyView(reply: reply)
                     .padding(.top, Configs.paddingValue)
             }
@@ -62,6 +68,37 @@ struct ContactDetailView: View {
             }
         }
     }
+    
+    private func fetchTargetRoom() {
+        if let targetRoom = contact.targetRoom, targetRoom != "" {
+            Task {
+                do {
+                    targetRoomName = try await RoomService.shared.roomInfo(targetRoom)?.title ?? "(unknown)"
+                } catch {
+                    Configs.printDebugMessage("에러: \(error)")
+                }
+            }
+        }
+        
+        if let targetUser = contact.targetUser, targetUser != [] {
+            Task {
+                targetUserName = []
+                do {
+                    for user in targetUser {
+                        if user != "" {
+                            let userModel = try await userService.findUserInfo(uid: user)
+                            if let userName = userModel?.userName {
+                                targetUserName.append(userName)
+                            }
+                        }
+                    }
+                } catch {
+                    Configs.printDebugMessage("에러: \(error)")
+                }
+            }
+        }
+    }
+
 }
 
 //#Preview {

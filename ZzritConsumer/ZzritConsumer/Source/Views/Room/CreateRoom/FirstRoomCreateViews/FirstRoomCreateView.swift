@@ -17,7 +17,7 @@ struct FirstRoomCreateView: View {
     
     //    @EnvironmentObject var coordinator: Coordinator
     // 뷰모델
-    let VM: RoomCreateViewModel
+    let VM: RoomCreateViewModel = RoomCreateViewModel.shared
     
     @Environment(\.dismiss) private var topDismiss
     
@@ -36,10 +36,12 @@ struct FirstRoomCreateView: View {
     
     var body: some View {
         /// 커스텀 네비게이션 바
-        RCNavigationBar(page: .page1, VM: VM) {
+        RCNavigationBar(page: .page1) {
             // 모임 카테고리 선택 부분 소제목
-            RCSubTitle("모임 주제를 선택해주세요.")
-            
+            VStack {
+                RCSubTitle("모임 주제를 선택해주세요.")
+                    .padding(.bottom, Configs.paddingValue)
+            }
             // 스크롤 뷰
             ScrollView(.vertical) {
                 // 모임 카테고리 그리드
@@ -66,7 +68,7 @@ struct FirstRoomCreateView: View {
                 isShowingNextButton.toggle()
             }
             .navigationDestination(isPresented: $isShowingNextButton) {
-                SecondRoomCreateView(VM: VM)
+                SecondRoomCreateView()
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -81,7 +83,7 @@ struct FirstRoomCreateView: View {
 
 #Preview {
     NavigationStack {
-        FirstRoomCreateView(VM: RoomCreateViewModel())
+        FirstRoomCreateView()
         //            .environmentObject(Coordinator())
     }
 }

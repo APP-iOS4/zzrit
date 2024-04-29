@@ -17,15 +17,19 @@ struct ContactContentView: View {
     // 임시 문의 종류 변수
     let contactCategory: ContactCategory = .room
     // 신고 대상 모임 이름
-    @State private var targetRoomName: String = ""
+    @Binding var targetRoomName: String
     // 신고 대상 회원 닉네임
-    @State private var targetUserName: [String] = []
+    @Binding var targetUserName: [String]
     
     var targetUserString: String {
         var tempString = "신고 대상 회원 : "
         
-        for name in targetUserName {
-            tempString += name + ", "
+        for idx in targetUserName.indices {
+            tempString += "\(targetUserName[idx])"
+            
+            if idx < targetUserName.count - 1 {
+                tempString += ", "
+            }
         }
         
         return tempString
@@ -83,42 +87,5 @@ struct ContactContentView: View {
                 .padding(.top, Configs.paddingValue)
         }
         .toolbarRole(.editor)
-        .onAppear {
-            fetchTargetRoom()
-        }
-    }
-    
-
-    private func fetchTargetRoom() {
-        if let targetRoom = contact.targetRoom, targetRoom != "" {
-            Task {
-                do {
-                    targetRoomName = try await RoomService.shared.roomInfo(targetRoom)?.title ?? "(unknown)"
-                } catch {
-                    Configs.printDebugMessage("에러: \(error)")
-                }
-            }
-        }
-        
-        if let targetUser = contact.targetUser, targetUser != [] {
-            Task {
-                do {
-                    for user in targetUser {
-                        if user != "" {
-                            let userModel = try await userService.findUserInfo(uid: user)
-                            if let userName = userModel?.userName {
-                                targetUserName.append(userName)
-                            }
-                        }
-                    }
-                } catch {
-                    Configs.printDebugMessage("에러: \(error)")
-                }
-            }
-        }
     }
 }
-
-//#Preview {
-//    ContactContentView(isAnswered: true)
-//}

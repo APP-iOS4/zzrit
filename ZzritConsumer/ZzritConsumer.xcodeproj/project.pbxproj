@@ -114,6 +114,10 @@
 		DF8AFC332BDB6C4B00C66BA2 /* NetworkConnectionWarnningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC322BDB6C4B00C66BA2 /* NetworkConnectionWarnningView.swift */; };
 		DF8AFC442BDF5FED00C66BA2 /* SecessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC432BDF5FED00C66BA2 /* SecessionView.swift */; };
 		DF8AFC462BDF7DDD00C66BA2 /* SecessionCancelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC452BDF7DDD00C66BA2 /* SecessionCancelView.swift */; };
+		DF8AFC382BDB934000C66BA2 /* PurchaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC372BDB934000C66BA2 /* PurchaseViewModel.swift */; };
+		DF8AFC3B2BDBCE1700C66BA2 /* PurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC3A2BDBCE1700C66BA2 /* PurchaseView.swift */; };
+		DF8AFC3F2BDE24AE00C66BA2 /* NavigationSloganView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC3E2BDE24AE00C66BA2 /* NavigationSloganView.swift */; };
+		DF8AFC412BDF401F00C66BA2 /* AdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC402BDF401F00C66BA2 /* AdView.swift */; };
 		DF9674B92BCCF4C800322382 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B82BCCF4C800322382 /* SocialLoginType.swift */; };
 		DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */; };
 		DF9674BD2BCCFC9700322382 /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */; };
@@ -270,6 +274,10 @@
 		DF8AFC322BDB6C4B00C66BA2 /* NetworkConnectionWarnningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConnectionWarnningView.swift; sourceTree = "<group>"; };
 		DF8AFC432BDF5FED00C66BA2 /* SecessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecessionView.swift; sourceTree = "<group>"; };
 		DF8AFC452BDF7DDD00C66BA2 /* SecessionCancelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecessionCancelView.swift; sourceTree = "<group>"; };
+		DF8AFC372BDB934000C66BA2 /* PurchaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewModel.swift; sourceTree = "<group>"; };
+		DF8AFC3A2BDBCE1700C66BA2 /* PurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseView.swift; sourceTree = "<group>"; };
+		DF8AFC3E2BDE24AE00C66BA2 /* NavigationSloganView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSloganView.swift; sourceTree = "<group>"; };
+		DF8AFC402BDF401F00C66BA2 /* AdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdView.swift; sourceTree = "<group>"; };
 		DF9674B82BCCF4C800322382 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
 		DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
@@ -469,6 +477,7 @@
 				DF2209592BD6A92000B9A2C7 /* Authentication */,
 				DFB59ECC2BCDFDB000D7DD8A /* Onboarding */,
 				DF2209542BD6A6E400B9A2C7 /* Common */,
+				DF8AFC392BDBCDFF00C66BA2 /* Purchase */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -553,6 +562,7 @@
 				DF2209682BD79B9200B9A2C7 /* InformationView.swift */,
 				DF22096A2BD8055500B9A2C7 /* LoadingView.swift */,
 				DF8AFC322BDB6C4B00C66BA2 /* NetworkConnectionWarnningView.swift */,
+				DF8AFC3E2BDE24AE00C66BA2 /* NavigationSloganView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -561,6 +571,7 @@
 			isa = PBXGroup;
 			children = (
 				DF6F4B4C2BD6395B00DDBF96 /* PurchaseService.swift */,
+				DF8AFC372BDB934000C66BA2 /* PurchaseViewModel.swift */,
 			);
 			path = StoreKit;
 			sourceTree = "<group>";
@@ -756,6 +767,7 @@
 			isa = PBXGroup;
 			children = (
 				DF8AFC2C2BDB2FEC00C66BA2 /* AdMobBannerView.swift */,
+				DF8AFC402BDF401F00C66BA2 /* AdView.swift */,
 			);
 			path = AddMobViews;
 			sourceTree = "<group>";
@@ -766,6 +778,12 @@
 				DF8AFC432BDF5FED00C66BA2 /* SecessionView.swift */,
 			);
 			path = Secession;
+		DF8AFC392BDBCDFF00C66BA2 /* Purchase */ = {
+			isa = PBXGroup;
+			children = (
+				DF8AFC3A2BDBCE1700C66BA2 /* PurchaseView.swift */,
+			);
+			path = Purchase;
 			sourceTree = "<group>";
 		};
 		DF9674B72BCCF4B400322382 /* Enums */ = {
@@ -969,11 +987,13 @@
 				1F70CD362BD7A15B00869119 /* SearchViewModel.swift in Sources */,
 				30F80C442BC7E38F00B432DA /* OfflineLocationSearchView.swift in Sources */,
 				30064DC72BC8079200FD04A2 /* ChatMessageCellView.swift in Sources */,
+				DF8AFC3B2BDBCE1700C66BA2 /* PurchaseView.swift in Sources */,
 				FC628F302BC4328A007F5E5C /* ErrorTextView.swift in Sources */,
 				DF6F4B4D2BD6395B00DDBF96 /* PurchaseService.swift in Sources */,
 				DF6F4B432BD5116A00DDBF96 /* SearchInfoView.swift in Sources */,
 				30BE7EC32BC57C7E00A5A178 /* ContactDetailView.swift in Sources */,
 				3007E8B22BC4143700B9F7B3 /* SubTitleModifier.swift in Sources */,
+				DF8AFC3F2BDE24AE00C66BA2 /* NavigationSloganView.swift in Sources */,
 				9B5403CE2BD73C870066A7EF /* RestrictionViewModel.swift in Sources */,
 				1F4567002BCE3DE8001EC0E7 /* ImagePickerView.swift in Sources */,
 				304EAD1B2BDE56B100D1E818 /* UserDefaultsClient.swift in Sources */,
@@ -1028,6 +1048,7 @@
 				3007E8B42BC4255900B9F7B3 /* RoomCardListView.swift in Sources */,
 				DF8AFC462BDF7DDD00C66BA2 /* SecessionCancelView.swift in Sources */,
 				FC2DDC212BC591F300A51E64 /* FakeDivider.swift in Sources */,
+				DF8AFC382BDB934000C66BA2 /* PurchaseViewModel.swift in Sources */,
 				DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */,
 				DF9674B92BCCF4C800322382 /* SocialLoginType.swift in Sources */,
 				1F0603542BC5C1C3003808F4 /* RoomCreateViewModel.swift in Sources */,
@@ -1060,6 +1081,7 @@
 				FCADAA342BC4EB7700364272 /* CompleteSignUpView.swift in Sources */,
 				30BE7EC92BC57CCA00A5A178 /* ContactInputView.swift in Sources */,
 				309688072BC65A5B007064A3 /* ChatCategoryView.swift in Sources */,
+				DF8AFC412BDF401F00C66BA2 /* AdView.swift in Sources */,
 				FC2DDC112BC50B6900A51E64 /* StaticGaugeProgressView.swift in Sources */,
 				1F6454F22BC8B60B00C9D235 /* RCParticipantsSection.swift in Sources */,
 				1F0603522BC5BF56003808F4 /* FilterCategory.swift in Sources */,

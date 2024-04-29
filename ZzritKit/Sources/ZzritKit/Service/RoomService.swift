@@ -298,6 +298,7 @@ public final class RoomService {
             // 유저 데이터에 가입한 모임 ID 추가
             try await fbConstants.userCollection.document(uid).updateData(["joinedRooms": FieldValue.arrayUnion([roomID])])
             
+            try ChattingService(roomID: roomID).sendMessage(message: "\(uid)_입장")
             // MARK: - FCM 임시구현
             
             guard let roomInfo = try await roomInfo(roomID) else { return }
@@ -321,9 +322,6 @@ public final class RoomService {
                     }
                 }
             }
-            
-            
-            
             userService = nil
         }
     }

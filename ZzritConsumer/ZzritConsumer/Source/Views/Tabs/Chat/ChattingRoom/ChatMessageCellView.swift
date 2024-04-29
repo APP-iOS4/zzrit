@@ -87,11 +87,15 @@ struct ChatMessageCellView: View {
         }
         .onAppear {
             Task {
-                // 유저 별명 가져오기
-                userName = await findUserName(userID: message.userID)
-                // 유저 프로필사진 가져오기
-                guard let userImagePath = try await userService.findUserInfo(uid: message.userID)?.userImage else { return }
-                userProfileImage = await ImageCacheManager.shared.findImageFromCache(imagePath: userImagePath)
+                // 상대방일때만 필요한 정보
+                if isYou {
+                    // 유저 별명 가져오기
+                    userName = await findUserName(userID: message.userID)
+                    
+                    // 유저 프로필사진 가져오기
+                    guard let userImagePath = try await userService.findUserInfo(uid: message.userID)?.userImage else { return }
+                    userProfileImage = await ImageCacheManager.shared.findImageFromCache(imagePath: userImagePath)
+                }
                 if messageType == .image {
                     // 채팅 메시지가 이미지일 경우 불러오기
                     messageImage = await ImageCacheManager.shared.findImageFromCache(imagePath: message.message)

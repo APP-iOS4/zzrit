@@ -24,8 +24,8 @@ struct MoreInfoView: View {
     
     var body: some View {
         NavigationStack {
-            AdMobBannerView()
-                .initGADSize()
+            AdView()
+            
             ScrollView {
                 Section {
                     if isLogined {
@@ -45,6 +45,7 @@ struct MoreInfoView: View {
                             }
                             .padding(.horizontal, Configs.paddingValue)
                         }
+                        .padding(.bottom, Configs.paddingValue)
                     }
                     
                     // 최근 본 모임
