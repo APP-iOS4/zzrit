@@ -321,9 +321,6 @@ public final class RoomService {
                     }
                 }
             }
-            
-            
-            
             userService = nil
         }
     }
