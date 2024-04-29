@@ -10,7 +10,7 @@ import SwiftUI
 struct RCParticipantsSection: View {
     
     @EnvironmentObject private var purchaseViewModel: PurchaseViewModel
-    
+    @FocusState private var focused: Bool
     @Binding var participantsLimit: Int
     @Binding var limitMaxmium: Int
     
@@ -45,9 +45,13 @@ struct RCParticipantsSection: View {
                     }
                     .disabled(isMinimum)
                     
-                    Text("\(20)")
-                        .foregroundStyle(.background)
-                    
+                    Text("\(100)")
+                        .foregroundStyle(Color.clear)
+                        .overlay {
+                            TextField("", value: $participantsLimit, format: .number)
+                                .multilineTextAlignment(.center)
+                                .keyboardType(.numberPad)
+                        }
                     Button {
                         participantsLimit += 1
                     } label: {
@@ -56,7 +60,7 @@ struct RCParticipantsSection: View {
                     }
                     .disabled(isMaximum)
                 }
-                Text("\(participantsLimit)")
+//                Text("\(participantsLimit)")
             }
         }
         .customOnChange(of: limitMaxmium) { _ in
@@ -69,9 +73,19 @@ struct RCParticipantsSection: View {
                 participantsLimit = 99
             }
         }
+        .customOnChange(of: participantsLimit) { newValue in
+            if newValue < 2 {
+                participantsLimit = 2
+            } else if limitMaxmium < newValue {
+                participantsLimit = limitMaxmium
+            } else {
+                participantsLimit = newValue
+            }
+        }
     }
 }
 
 #Preview {
     RCParticipantsSection(participantsLimit: .constant(2), limitMaxmium: .constant(10))
+        .environmentObject(PurchaseViewModel())
 }
