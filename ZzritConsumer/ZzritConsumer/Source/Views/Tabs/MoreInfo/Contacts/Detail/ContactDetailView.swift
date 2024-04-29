@@ -52,7 +52,7 @@ struct ContactDetailView: View {
                 .foregroundStyle(.secondary)
         } else {
             // 문의내역 답변 뷰
-            ForEach(replies) { reply in
+            ForEach(replies.sorted{ $0.date < $1.date }) { reply in
                 ContactReplyView(reply: reply)
                     .padding(.top, Configs.paddingValue)
             }
