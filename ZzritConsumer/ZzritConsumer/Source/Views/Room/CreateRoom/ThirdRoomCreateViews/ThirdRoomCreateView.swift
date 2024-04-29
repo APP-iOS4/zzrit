@@ -18,9 +18,6 @@ struct ThirdRoomCreateView: View {
     @EnvironmentObject var purchaseViewModel: PurchaseViewModel
     @EnvironmentObject var loadRoomViewModel: LoadRoomViewModel
     
-    // 오프라인/온라인 선택 변수
-    @State private var processSelection: RoomProcessType?
-    
     // 입장 메시지 입력을 위한 채팅
     @StateObject private var chattingService = ChattingService(roomID: " ")
     
