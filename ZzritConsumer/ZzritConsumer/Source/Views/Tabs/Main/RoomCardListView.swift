@@ -17,7 +17,7 @@ struct RoomCardListView: View {
     @State private var scrollSelectedIndex: Int = 0
     
     // 임시 배열카운트 개수
-    let testCount: Int = 4
+    // let testCount: Int = 4
 
     var isManyPeopleCard: Bool = false
     
@@ -79,18 +79,6 @@ struct RoomCardListView: View {
                 .indexViewStyle(.page(backgroundDisplayMode: .interactive))
                 .frame(maxWidth: .infinity, minHeight: 200)
             }
-            .padding(.bottom, 10)
-            
-            // 몇 번째 인덱스인지 알려주는 인디케이터
-            HStack(spacing: 3) {
-                ForEach(0...testCount, id: \.self) { index in
-                    Circle()
-                        .frame(width: 8, height: 8)
-                        .foregroundStyle(index == selectedIndex ? .black : Color.staticGray3)
-                        .padding(.horizontal, 3)
-                }
-            }
-            .padding(.bottom, 20)
         }
     }
 }
