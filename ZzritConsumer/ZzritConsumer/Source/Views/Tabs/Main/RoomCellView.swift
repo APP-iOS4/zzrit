@@ -10,6 +10,8 @@ import SwiftUI
 import ZzritKit
 
 struct RoomCellView: View {
+    @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
+    
     let room: RoomModel
     
     let roomService = RoomService.shared
@@ -84,7 +86,12 @@ struct RoomCellView: View {
             Task {
                 do {
                     if let roomId = room.id {
-                        participantsCount = try await roomService.joinedUsers(roomID: roomId).count
+                        if loadRoomViewModel.tempRoomID == roomId {
+                            participantsCount = 1
+                            loadRoomViewModel.clearCreatedRoomID()
+                        } else {
+                            participantsCount = try await roomService.joinedUsers(roomID: roomId).count
+                        }
                     }
                 } catch {
                     Configs.printDebugMessage("error: \(error)")

@@ -43,7 +43,7 @@ struct ResultRoomListView: View {
         }
         .refreshable {
             searchViewModel.refreshRooms(with: filterModel, offlineLocation: offlineLocation)
-        }
+        } 
 
     }
 }

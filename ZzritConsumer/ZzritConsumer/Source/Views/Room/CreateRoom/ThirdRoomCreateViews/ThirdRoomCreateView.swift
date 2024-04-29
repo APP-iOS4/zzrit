@@ -173,9 +173,10 @@ struct ThirdRoomCreateView: View {
                         VM.saveLimitPeople(limitPeople: limitPeople)
                         
                         let userInfo = userService.loginedUser
-                        let newRoom = await VM.createRoom(userModel: userInfo)
+                        var newRoom = await VM.createRoom(userModel: userInfo)
                         let roomID = newRoom?.id
                         let userID = userInfo?.id ?? " "
+                        
                         if let roomID = roomID {
                             if let newRoom {
                                 loadRoomViewModel.addNewRoomToData(newRoom: newRoom)

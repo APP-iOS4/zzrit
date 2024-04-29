@@ -15,10 +15,10 @@ final class LoadRoomViewModel: ObservableObject {
     let roomService: RoomService = RoomService.shared
     
     @Published private(set) var rooms: [RoomModel] = []
-    
     @Published private(set) var filterRooms: [RoomModel] = []
-    
     @Published private(set) var manyPeopleRooms: [RoomModel] = []
+    
+    private(set) var tempRoomID: String = ""
     
     private var isInit: Bool = true
     private var status: ActiveType = .activation
@@ -151,6 +151,7 @@ final class LoadRoomViewModel: ObservableObject {
     
     func addNewRoomToData(newRoom: RoomModel) {
         rooms.insert(newRoom, at: 0)
+        tempRoomID = newRoom.id ?? ""
         getFilter()
     }
     
@@ -175,5 +176,9 @@ final class LoadRoomViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func clearCreatedRoomID() {
+        tempRoomID = ""
     }
 }
