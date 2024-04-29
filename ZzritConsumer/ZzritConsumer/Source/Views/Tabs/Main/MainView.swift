@@ -58,7 +58,7 @@ struct MainView: View {
                     
                     // 모임 카트 뷰 리스트 불러오기
                     // TODO: 모델 연동 시 모임 마감 인원 모델 배열을 넘겨줘야 한다.
-                    RoomCardListView()
+                    RoomCardListView(isManyPeopleCard: true)
                     
                     // 최근 생성된 모임 리스트 불러오기
                     // TODO: 모델 연동 시 최근 생성된 모임 모델 배열을 넘겨줘야 한다.
@@ -91,14 +91,6 @@ struct MainView: View {
                         .navigationDestination(isPresented: $isTopTrailingAction) {
                             Text("알람 뷰")
                         }
-                        
-                        // 푸시알림 테스트 버튼(로컬)
-                        Button {
-                            sendNotification(seconds: 0.5, content: "푸시알림 테스트입니다!")
-                        } label: {
-                            Image(systemName: "bell.and.waves.left.and.right.fill")
-                                .foregroundStyle(.black)
-                        }
                     }
                 }
             }
@@ -110,24 +102,6 @@ struct MainView: View {
         .customOnChange(of: locationService.currentOffineLocation) { _ in
             loadRoomViewModel.refreshRooms(isOnline: isOnline)
             Configs.printDebugMessage("뭔가 바뀌긴 했어.")
-        }
-    }
-    
-    func sendNotification(seconds: Double, content: String) {
-        let notificationContent = UNMutableNotificationContent()
-
-        notificationContent.title = "ZZ!RIT"
-        notificationContent.body = content
-
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
-        let request = UNNotificationRequest(identifier: "testNotification",
-                                            content: notificationContent,
-                                            trigger: trigger)
-
-        userNotificationCenter.add(request) { error in
-            if let error = error {
-                print("Notification Error: ", error)
-            }
         }
     }
 }
@@ -166,5 +140,6 @@ extension MainView {
         MainView()
             .environmentObject(UserService())
             .environmentObject(LoadRoomViewModel())
+            .environmentObject(LocationService())
     }
 }
