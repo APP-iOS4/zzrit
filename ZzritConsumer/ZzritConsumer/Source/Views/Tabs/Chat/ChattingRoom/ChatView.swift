@@ -584,11 +584,10 @@ struct ChatView: View {
     
     // 메세지 보내는 함수
     private func sendMessage() async {
+        let sendTextContent = messageText
+        messageText = ""
         do {
-            try await chattingService.sendMessage(uid: uid, message: messageText, type: .text)
-            DispatchQueue.main.async {
-                messageText = ""
-            }
+            try await chattingService.sendMessage(uid: uid, message: sendTextContent, type: .text)
         } catch {
             Configs.printDebugMessage("에러: \(error)")
         }

@@ -38,8 +38,10 @@ struct FirstRoomCreateView: View {
         /// 커스텀 네비게이션 바
         RCNavigationBar(page: .page1) {
             // 모임 카테고리 선택 부분 소제목
-            RCSubTitle("모임 주제를 선택해주세요.")
-            
+            VStack {
+                RCSubTitle("모임 주제를 선택해주세요.")
+                    .padding(.bottom, Configs.paddingValue)
+            }
             // 스크롤 뷰
             ScrollView(.vertical) {
                 // 모임 카테고리 그리드

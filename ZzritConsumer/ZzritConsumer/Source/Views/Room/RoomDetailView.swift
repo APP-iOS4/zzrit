@@ -199,7 +199,9 @@ struct RoomDetailView: View {
     
     func updateRecentRoom() async {
         if let roomID = room.id {
-            await recentRoomViewModel.updateRecentViewedRoom(roomID: roomID)
+            if room.status == .activation {
+                await recentRoomViewModel.updateRecentViewedRoom(roomID: roomID)
+            }
         }
     }
     

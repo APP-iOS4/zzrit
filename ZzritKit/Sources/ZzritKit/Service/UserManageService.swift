@@ -30,7 +30,7 @@ public final class UserManageService {
                     for token in getToken {
                         // 메시지 보내기
                         await PushService.shared.pushMessage(to: token, title: "ZZ!RIT 제재 안내", 
-                                                             body: bannedType == .administrator ? "서비스 이용이 정지되었습니다. 자세한 사항은 제재 내역을 확인해 주세요. " : "\(bannedType.rawValue) 행위로 인해 \(dateService.formattedString(date: period, format: "yyyy년 M월 d일"))까지 서비스 이용이 정지되었습니다. 자세한 사항은 제재 내역을 확인해 주세요. ")
+                                                             body: bannedType == .administrator ? "\(dateService.formattedString(date: period, format: "yyyy년 M월 d일"))까지 서비스 이용이 정지되었습니다. 자세한 사항은 제재 내역을 확인해 주세요. " : "\(bannedType.rawValue) 행위로 인해 \(dateService.formattedString(date: period, format: "yyyy년 M월 d일"))까지 서비스 이용이 정지되었습니다. 자세한 사항은 제재 내역을 확인해 주세요. ")
                     }
                 }
             }
