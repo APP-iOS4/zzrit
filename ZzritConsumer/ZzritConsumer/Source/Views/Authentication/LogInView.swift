@@ -29,8 +29,8 @@ struct LogInView: View {
     @State private var showProfile = false
     @State private var googleEmailID = ""
     @State private var registerdID = ""
-    
     @State private var isLoading: Bool = false
+    @State private var isShowingSecessionCancelView: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -112,6 +112,10 @@ struct LogInView: View {
             }
             .loading(isLoading)
         }
+        .sheet(isPresented: $isShowingSecessionCancelView) {
+            SecessionCancelView()
+                .presentationDragIndicator(.visible)
+        }
     }
     
     func activeLoginButton() {
@@ -137,6 +141,9 @@ struct LogInView: View {
             } catch {
                 isLoading = false
                 errorMessage = "로그인 정보를 확인해주세요."
+                if error as? AuthError == .secessioning {
+                    isShowingSecessionCancelView.toggle()
+                }
             }
         }
     }
@@ -159,6 +166,9 @@ struct LogInView: View {
                 showProfile.toggle()
             } catch {
                 errorMessage = "오류가 발생했습니다.\n잠시 후 다시 시도해주시기 바랍니다."
+                if error as? AuthError == .secessioning {
+                    isShowingSecessionCancelView.toggle()
+                }
             }
         }
     }

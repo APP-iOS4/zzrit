@@ -16,8 +16,10 @@ public final class AuthenticationService: ObservableObject {
     public static let shared = AuthenticationService()
     
     var firebaseConst = FirebaseConstants()
-    
     var handle: AuthStateDidChangeListenerHandle?
+    
+    public var secessioningUID: String?
+    public var secessionDate: Date? = nil
     
     public private(set) var currentUID: String? = nil
     
@@ -41,24 +43,7 @@ public final class AuthenticationService: ObservableObject {
     public func loginUser(email: String, password: String) async throws {
         do {
             try await Auth.auth().signIn(withEmail: email, password: password)
-            
-            // 회원탈퇴 검증
-            var userService: UserService? = UserService()
-            if
-                let userInfo = try await userService?.loggedInUserInfo(),
-                let withdrawalDate = userInfo.secessionDate?.addDay(at: 7)
-            {
-                if withdrawalDate < Date() {
-                    print("회원탈퇴를 신청하였고, 회원탈퇴 철회 기간이 만료되어 계정을 삭제합니다")
-                    try await userService?.deleteLoginedUserInfo()
-                    await deleteAccount()
-                    try logout()
-                    userService = nil
-                } else {
-                    print("회원탈퇴를 신청하였고, 회원탈퇴 철회 기간이 만료되지 않았습니다.")
-                    throw AuthError.secessioning
-                }
-            }
+            try await checkSecession()
         } catch {
             throw error
         }
@@ -94,6 +79,8 @@ public final class AuthenticationService: ObservableObject {
             var userService: UserService? = UserService()
             let _ = try await userService?.loggedInUserInfo()
             userService = nil
+            
+            try await checkSecession()
         } catch {
             throw error
         }
@@ -143,6 +130,31 @@ public final class AuthenticationService: ObservableObject {
             try await user?.delete()
         } catch {
             print("에러: \(error)")
+        }
+    }
+    
+    /// 회원탈퇴 검증
+    private func checkSecession() async throws {
+        // 회원탈퇴 검증
+        var userService: UserService? = UserService()
+        if
+            let userInfo = try await userService?.loggedInUserInfo(),
+            let withdrawalDate = userInfo.secessionDate?.addDay(at: 7)
+        {
+            if withdrawalDate < Date() {
+                print("회원탈퇴를 신청하였고, 회원탈퇴 철회 기간이 만료되어 계정을 삭제합니다")
+                try await userService?.deleteLoginedUserInfo()
+                await deleteAccount()
+                try logout()
+                userService = nil
+                throw AuthError.occurred
+            } else {
+                secessionDate = userService?.loginedUser?.secessionDate
+                secessioningUID = AuthenticationService.shared.currentUID ?? ""
+                print("\(secessioningUID) 회원탈퇴를 신청하였고, 회원탈퇴 철회 기간이 만료되지 않았습니다.")
+                try logout()
+                throw AuthError.secessioning
+            }
         }
     }
     

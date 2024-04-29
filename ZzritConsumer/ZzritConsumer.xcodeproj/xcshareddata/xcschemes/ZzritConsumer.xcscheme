@@ -54,6 +54,11 @@
       </BuildableProductRunnable>
       <AdditionalOptions>
          <AdditionalOption
+            key = "NSZombieEnabled"
+            value = "YES"
+            isEnabled = "YES">
+         </AdditionalOption>
+      </AdditionalOptions>
             key = "APP_DISTRIBUTOR_ID_OVERRIDE"
             value = "com.apple.AppStore"
             isEnabled = "YES">

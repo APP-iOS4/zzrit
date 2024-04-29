@@ -78,7 +78,7 @@ struct MoreInfoListView: View {
             if isLogined {
                 FakeDivider()
                 // Section 3
-                VStack(alignment: .leading, spacing: 40) {
+                VStack(alignment: .leading, spacing: 40) {                    
                     // 로그아웃
                     Button {
                         isShowingAlert.toggle()
@@ -104,7 +104,6 @@ struct MoreInfoListView: View {
         } message: {
             Text("정말 로그아웃 하시겠습니까?")
         }
-        
     }
     
     private func logout() {
