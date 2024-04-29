@@ -47,15 +47,16 @@ struct ChatListCellView: View {
                 return "사진"
             case .notice:
                 let messageParse = lastmessage.message.split(separator: "_")
-                if messageParse[1] == "입장" {
-                    return "찌릿! 누군가 " + messageParse[1] + "하셨습니다."
-                } else {
-                    return "어머.. 누군가 " + messageParse[1] + "하셨습니다."
+                if messageParse.count > 1 {
+                    if messageParse[1] == "입장" {
+                        return "찌릿! 누군가 " + messageParse[1] + "하셨습니다."
+                    } else {
+                        return "어머.. 누군가 " + messageParse[1] + "하셨습니다."
+                    }
                 }
             }
-        } else {
-            return " "
         }
+        return " "
     }
     
     var body: some View {
@@ -149,9 +150,9 @@ struct ChatListCellView: View {
             if let image = image {
                 Image(uiImage: image)
                     .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 56, height: 56)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .aspectRatio(contentMode: .fill)
             } else {
                 // 이미지가 없거나 로드에 실패했을때
                 Image("ZziritLogoImage")
