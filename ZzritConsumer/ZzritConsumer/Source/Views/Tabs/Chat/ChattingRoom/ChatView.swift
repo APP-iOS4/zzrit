@@ -510,6 +510,11 @@ struct ChatView: View {
         Task {
             do {
                 try chattingService.sendMessage(message: "\(uid)_퇴장")
+                if let userModel = userService.loginedUser {
+                    if userModel.id == room.leaderID {
+                        changeStateDeleteRoom()
+                    }
+                }
                 try await roomService.leaveRoom(roomID: roomID)
                 dismiss()
             } catch {
@@ -545,6 +550,12 @@ struct ChatView: View {
                     }
                 }
             }
+        }
+    }
+    
+    private func changeStateDeleteRoom() {
+        if let roomId = room.id {
+            roomService.changeStatus(roomID: roomId, status: .delete)
         }
     }
     
