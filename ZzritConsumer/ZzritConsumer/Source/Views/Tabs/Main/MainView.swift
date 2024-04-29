@@ -86,13 +86,6 @@ struct MainView: View {
                         .navigationDestination(isPresented: $isTopTrailingAction) {
                             Text("알람 뷰")
                         }
-                   
-                        Button {
-                            purchaseViewModel.togglePresent()
-                        } label: {
-                            Image(systemName: "cart.circle")
-                                .foregroundStyle(.black)
-                        }
                     }
                 }
             }

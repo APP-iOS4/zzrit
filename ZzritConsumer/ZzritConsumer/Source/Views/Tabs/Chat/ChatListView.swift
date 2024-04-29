@@ -32,8 +32,7 @@ struct ChatListView: View {
             if isLogined {
                 VStack {
                     // 구글 애드몹 배너뷰
-                    AdMobBannerView()
-                        .initGADSize()
+                    AdView()
                     
                     ChatCategoryView(selection: $selection)
                     // FIXME: 현재 뷰가 Active뷰, Deactive뷰 따로 있지만 모델 연동 시, 하나의 뷰로 이용할 것, 지금은 더미로 뷰를 두 개 생성
