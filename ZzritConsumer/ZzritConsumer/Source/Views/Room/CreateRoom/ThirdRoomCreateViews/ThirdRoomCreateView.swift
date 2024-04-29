@@ -16,6 +16,10 @@ struct ThirdRoomCreateView: View {
     //    @EnvironmentObject var coordinator: Coordinator
     @EnvironmentObject var userService: UserService
     @EnvironmentObject var purchaseViewModel: PurchaseViewModel
+    @EnvironmentObject var loadRoomViewModel: LoadRoomViewModel
+    
+    // 오프라인/온라인 선택 변수
+    @State private var processSelection: RoomProcessType?
     
     // 입장 메시지 입력을 위한 채팅
     @StateObject private var chattingService = ChattingService(roomID: " ")
@@ -172,9 +176,13 @@ struct ThirdRoomCreateView: View {
                         VM.saveLimitPeople(limitPeople: limitPeople)
                         
                         let userInfo = userService.loginedUser
-                        let roomID = await VM.createRoom(userModel: userInfo)
+                        let newRoom = await VM.createRoom(userModel: userInfo)
+                        let roomID = newRoom?.id
                         let userID = userInfo?.id ?? " "
                         if let roomID = roomID {
+                            if let newRoom {
+                                loadRoomViewModel.addNewRoomToData(newRoom: newRoom)
+                            }
                             try ChattingService(roomID: roomID).sendMessage(message: "\(userID)_입장")
                             VM.topDismiss?.callAsFunction()
                         } else {
@@ -193,7 +201,7 @@ struct ThirdRoomCreateView: View {
         })
         .loading(isCreateNewRoom)
         .onAppear {
-            timeSelection = .now
+            timeSelection = tenMinutes()
         }
     }
     
@@ -219,6 +227,33 @@ struct ThirdRoomCreateView: View {
         case nil:
             return
         }
+    }
+    
+    /// 10분 단위로 반올림
+    func tenMinutes() -> Date {
+        print("=== tenMinutes")
+        
+        let currentDate = Date()
+        
+        // 현재 달력을 가져옴
+        let calendar = Calendar.current
+        // 현재 분을 가져옴
+        let minutes = calendar.component(.minute, from: currentDate)
+        // 분 단위를 반올림할 값
+        let roundingIncrement = 10
+        // 반올림된 분 값 계산
+        let roundedMinutes = Int(round(Double(minutes) / Double(roundingIncrement)) * Double(roundingIncrement))
+        
+        // 반올림된 분 값이 현재 분 값과 다른 경우, 시간을 조정하여 반환
+        var roundedDate = currentDate
+        
+        if roundedMinutes != minutes {
+            // 반올림된 분 값을 현재 시간에 반올림된 분 값과의 차이만큼 더하여 조정
+            roundedDate = calendar.date(byAdding: .minute, value: roundedMinutes - minutes, to: roundedDate) ?? currentDate
+        }
+        
+        print("=== \(roundedDate)")
+        return roundedDate
     }
 }
 
@@ -342,5 +377,6 @@ extension ThirdRoomCreateView {
         //            .environmentObject(Coordinator())
             .environmentObject(UserService())
             .environmentObject(PurchaseViewModel())
+            .environmentObject(LoadRoomViewModel())
     }
 }

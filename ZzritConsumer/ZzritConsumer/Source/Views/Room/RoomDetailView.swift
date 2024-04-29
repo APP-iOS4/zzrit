@@ -68,7 +68,7 @@ struct RoomDetailView: View {
                 return false
             }
         } else {
-            return false
+            return true
         }
     }
     
@@ -80,7 +80,7 @@ struct RoomDetailView: View {
                 return false
             }
         } else {
-            return false
+            return true
         }
     }
     
@@ -175,6 +175,7 @@ struct RoomDetailView: View {
         }
         .onAppear {
             modifyRoomStatus()
+            userModel = userService.loginedUser
             Task {
                 do {
                     await updateRecentRoom()
@@ -233,54 +234,48 @@ extension RoomDetailView {
             } else if overStartTime {
                 Text("모임 시작 시간이 지났습니다")
                     .modifier(disableTextModifier())
+            } else if !passGenderLimitation {
+                Text("참여 하실 수 없습니다(성별 제한)")
+                    .modifier(disableTextModifier())
+            } else if !passScoreLimitation {
+                Text("참여 하실 수 없습니다(점수 제한)")
+                    .modifier(disableTextModifier())
             } else {
-                if room.genderLimitation != nil {
-                    if !passGenderLimitation {
-                        Text("참여 하실 수 없습니다(성별 제한)")
-                            .modifier(disableTextModifier())
+                GeneralButton("참여하기", isDisabled: false) {
+                    if isLogined {
+                        isParticipant.toggle()
+                    } else {
+                        alertToLogin.toggle()
                     }
-                } else if room.scoreLimitation != nil {
-                    if !passScoreLimitation {
-                        Text("참여 하실 수 없습니다(점수 제한)")
-                            .modifier(disableTextModifier())
+                }
+                .navigationDestination(isPresented: $confirmParticipation) {
+                    if let roomID = room.id {
+                        ChatView(roomID: roomID, room: room, isActive: $isActive)
                     }
-                } else {
-                    GeneralButton("참여하기", isDisabled: false) {
-                        if isLogined {
-                            isParticipant.toggle()
-                        } else {
-                            alertToLogin.toggle()
-                        }
+                }
+                .alert("로그인 알림", isPresented: $alertToLogin) {
+                    // 취소 버튼
+                    Button{
+                        alertToLogin = false
+                    } label: {
+                        Label("취소", systemImage: "trash")
+                            .labelStyle(.titleOnly)
                     }
-                    .navigationDestination(isPresented: $confirmParticipation) {
-                        if let roomID = room.id {
-                            ChatView(roomID: roomID, room: room, isActive: $isActive)
-                        }
+                    // 로그인 시트 올리는 버튼
+                    Button {
+                        isShowingLoginView.toggle()
+                    } label: {
+                        Label("로그인", systemImage: "person.circle")
+                            .labelStyle(.titleOnly)
                     }
-                    .alert("로그인 알림", isPresented: $alertToLogin) {
-                        // 취소 버튼
-                        Button{
-                            alertToLogin = false
-                        } label: {
-                            Label("취소", systemImage: "trash")
-                                .labelStyle(.titleOnly)
-                        }
-                        // 로그인 시트 올리는 버튼
-                        Button {
-                            isShowingLoginView.toggle()
-                        } label: {
-                            Label("로그인", systemImage: "person.circle")
-                                .labelStyle(.titleOnly)
-                        }
-                    } message: {
-                        Text("모임에 참가하기 위해서는 로그인이 필요합니다.")
-                    }
-                    .fullScreenCover(isPresented: $isParticipant) {
-                        ParticipantNoticeView(room: room, confirmParticipation: $confirmParticipation)
-                    }
-                    .fullScreenCover(isPresented: $isShowingLoginView) {
-                        LogInView()
-                    }
+                } message: {
+                    Text("모임에 참가하기 위해서는 로그인이 필요합니다.")
+                }
+                .fullScreenCover(isPresented: $isParticipant) {
+                    ParticipantNoticeView(room: room, confirmParticipation: $confirmParticipation)
+                }
+                .fullScreenCover(isPresented: $isShowingLoginView) {
+                    LogInView()
                 }
             }
         }
@@ -315,7 +310,7 @@ struct disableTextModifier: ViewModifier {
 
 #Preview {
     NavigationStack {
-        RoomDetailView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+        RoomDetailView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8, scoreLimitaion: 40, genderLimitation: .female))
             .environmentObject(UserService())
             .environmentObject(RecentRoomViewModel())
             .environmentObject(LocationService())

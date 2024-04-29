@@ -122,6 +122,18 @@ final class LoadRoomViewModel: ObservableObject {
         // prevIsOnline = isOnline
     }
     
+    func deleteRoom(roomId: String?) {
+        for i in 0 ..< filterRooms.count {
+            if let roomId = roomId{
+                if roomId == filterRooms[i].id {
+                    filterRooms.remove(at: i)
+                    
+                    break
+                }
+            }
+        }
+    }
+    
     func roomInfo(_ roomID: String) async throws -> RoomModel? {
         let room = try await roomService.roomInfo(roomID)
         return room
@@ -132,5 +144,10 @@ final class LoadRoomViewModel: ObservableObject {
         isInit = true
         rooms = []
         consumerLoadRoom(isOnline: isOnline)
+    }
+    
+    func addNewRoomToData(newRoom: RoomModel) {
+        rooms.insert(newRoom, at: 0)
+        getFilter()
     }
 }

@@ -16,6 +16,7 @@
 		09D26BCD2BCCE6B90037BF0A /* UserManagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D26BCC2BCCE6B90037BF0A /* UserManagingView.swift */; };
 		09DC83AC2BC8C36D004C68D0 /* DateNStringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */; };
 		DF25D90E2BC6B9D0004B4B96 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */; };
+		DF8AFC3D2BDCD5B000C66BA2 /* PushTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC3C2BDCD5B000C66BA2 /* PushTestView.swift */; };
 		DF9674B32BCA3A9A00322382 /* ChatMessageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B12BCA3A9A00322382 /* ChatMessageCellView.swift */; };
 		DF9674B42BCA3A9A00322382 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B22BCA3A9A00322382 /* ChatView.swift */; };
 		DF9674B62BCA6FCE00322382 /* AddTermView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B52BCA6FCE00322382 /* AddTermView.swift */; };
@@ -50,6 +51,7 @@
 		09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateNStringView.swift; sourceTree = "<group>"; };
 		DF25D9082BC63FD9004B4B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DF25D90D2BC6B9D0004B4B96 /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
+		DF8AFC3C2BDCD5B000C66BA2 /* PushTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushTestView.swift; sourceTree = "<group>"; };
 		DF9674B12BCA3A9A00322382 /* ChatMessageCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageCellView.swift; sourceTree = "<group>"; };
 		DF9674B22BCA3A9A00322382 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		DF9674B52BCA6FCE00322382 /* AddTermView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTermView.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				09C90D562BCF58EE0039D92C /* RoomSearchView.swift */,
 				09DC83AB2BC8C36D004C68D0 /* DateNStringView.swift */,
 				09108DAE2BC831FD00F63BFF /* RoomModiView.swift */,
+				DF8AFC3C2BDCD5B000C66BA2 /* PushTestView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				DFAE9AE92BC8F8AC0056E2ED /* ContactWriteView.swift in Sources */,
 				DF9674B62BCA6FCE00322382 /* AddTermView.swift in Sources */,
 				DFCEEA2D2BC80400003598F0 /* CreateAdminAccountView.swift in Sources */,
+				DF8AFC3D2BDCD5B000C66BA2 /* PushTestView.swift in Sources */,
 				DF9674B32BCA3A9A00322382 /* ChatMessageCellView.swift in Sources */,
 				DFAE9AEB2BC8F9E80056E2ED /* ContactReplyView.swift in Sources */,
 				09DC83AC2BC8C36D004C68D0 /* DateNStringView.swift in Sources */,

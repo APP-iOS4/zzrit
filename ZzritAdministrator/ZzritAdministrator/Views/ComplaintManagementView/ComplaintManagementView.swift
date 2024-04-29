@@ -89,6 +89,7 @@ struct ComplaintManagementView: View {
         }
         .fullScreenCover(isPresented: $isShowingModalView) {
             ComplaintDetailView(contact: $pickedContact, isShowingModalView: $isShowingModalView)
+                .environmentObject(contactViewModel)
         }
     }
     

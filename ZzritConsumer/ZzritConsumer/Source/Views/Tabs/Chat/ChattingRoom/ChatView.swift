@@ -21,6 +21,8 @@ struct ChatView: View {
 
     // 유저 정보 불러옴
     @EnvironmentObject private var userService: UserService
+    // 방 상태 불러옴
+    @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     // 채팅방 N 표시
     @EnvironmentObject private var lastChatModel: LastChatModel
     // 유저모델 변수
@@ -341,7 +343,9 @@ struct ChatView: View {
                     TextField(isActive ? "메세지를 입력해주세요." : "비활성화된 모임입니다.", text: $messageText, axis: .vertical)
                         .lineLimit(4)
                         .onSubmit {
-                            sendMessage()
+                            Task {
+                                await sendMessage()
+                            }
                         }
                     
                     // 입력칸 지우기 버튼
@@ -365,7 +369,9 @@ struct ChatView: View {
                                 }
                                 isActive = false
                             } else {
-                                sendMessage()
+                                Task {
+                                    await sendMessage()
+                                }
                             }
                         }
                     } label: {
@@ -506,6 +512,14 @@ struct ChatView: View {
         Task {
             do {
                 try chattingService.sendMessage(message: "\(uid)_퇴장")
+                if let userModel = userService.loginedUser {
+                    if userModel.id == room.leaderID {
+                        changeStateDeleteRoom()
+                        if let roomId = room.id {
+                            loadRoomViewModel.deleteRoom(roomId: roomId)
+                        }
+                    }
+                }
                 try await roomService.leaveRoom(roomID: roomID)
                 dismiss()
             } catch {
@@ -544,6 +558,12 @@ struct ChatView: View {
         }
     }
     
+    private func changeStateDeleteRoom() {
+        if let roomId = room.id {
+            roomService.changeStatus(roomID: roomId, status: .delete)
+        }
+    }
+    
     // 중간 스크롤 위한 위치 저장 함수
     private func middleScroll() {
         loadingMiddleID = loadingNewID
@@ -564,9 +584,9 @@ struct ChatView: View {
     }
     
     // 메세지 보내는 함수
-    private func sendMessage() {
+    private func sendMessage() async {
         do {
-            try chattingService.sendMessage(uid: uid, message: messageText, type: .text)
+            try await chattingService.sendMessage(uid: uid, message: messageText, type: .text)
             DispatchQueue.main.async {
                 messageText = ""
             }
@@ -648,7 +668,7 @@ struct ChatView: View {
                 // 이미지의 이름은 유저아이디와 현재 시간을 이용해 지정
                 let imagePath = try await storageService.imageUpload(dirs: imageDir, image: imageData) ?? "NONE"
                 // 파베 메시지로 올림
-                try chattingService.sendMessage(uid: uid, message: imagePath, type: .image)
+                try await chattingService.sendMessage(uid: uid, message: imagePath, type: .image)
                 // 캐시에 올림
                 ImageCacheManager.shared.updateImageFirst(name: imagePath, image: selectedImage)
                 // 이미지 전송 끝냄

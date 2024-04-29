@@ -28,6 +28,11 @@ struct MainView: View {
 //        Configs.printDebugMessage("MainView Init")
 //        self._searchViewModel = searchViewModel
 //    }
+    let userNotificationCenter = UNUserNotificationCenter.current()
+    
+    init() {
+        Configs.printDebugMessage("MainView Init")
+    }
     
     // 유저모델 변수
 //    @State private var userModel: UserModel?
@@ -86,6 +91,14 @@ struct MainView: View {
                         .navigationDestination(isPresented: $isTopTrailingAction) {
                             Text("알람 뷰")
                         }
+                        
+                        // 푸시알림 테스트 버튼(로컬)
+                        Button {
+                            sendNotification(seconds: 0.5, content: "푸시알림 테스트입니다!")
+                        } label: {
+                            Image(systemName: "bell.and.waves.left.and.right.fill")
+                                .foregroundStyle(.black)
+                        }
                     }
                 }
             }
@@ -97,6 +110,24 @@ struct MainView: View {
         .customOnChange(of: locationService.currentOffineLocation) { _ in
             loadRoomViewModel.refreshRooms(isOnline: isOnline)
             Configs.printDebugMessage("뭔가 바뀌긴 했어.")
+        }
+    }
+    
+    func sendNotification(seconds: Double, content: String) {
+        let notificationContent = UNMutableNotificationContent()
+
+        notificationContent.title = "ZZ!RIT"
+        notificationContent.body = content
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
+        let request = UNNotificationRequest(identifier: "testNotification",
+                                            content: notificationContent,
+                                            trigger: trigger)
+
+        userNotificationCenter.add(request) { error in
+            if let error = error {
+                print("Notification Error: ", error)
+            }
         }
     }
 }
