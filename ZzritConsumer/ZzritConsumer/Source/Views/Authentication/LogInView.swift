@@ -131,7 +131,7 @@ struct LogInView: View {
     private func login() {
         Messaging.messaging().token { token, error in
             if let error = error {
-                print("Error fetching FCM registration token: \(error)")
+                Configs.printDebugMessage("Error fetching FCM registration token: \(error)")
             } else if let token = token {
                 Task {
                     do {
@@ -157,7 +157,7 @@ struct LogInView: View {
     private func googleSignIn() {
         Messaging.messaging().token { token, error in
             if let error = error {
-                print("Error fetching FCM registration token: \(error)")
+                Configs.printDebugMessage("Error fetching FCM registration token: \(error)")
             } else if let token = token {
                 Task {
                     do {
@@ -173,7 +173,7 @@ struct LogInView: View {
                         registerdID = authService.currentUID!
                         Configs.printDebugMessage("id는 이거 : \(registerdID)")
                         print("id는 이거 : \(registerdID)")
-                        googleEmailID = authService.currentUserEmail!
+                        googleEmailID = authService.currentUserEmail ?? ""
                         showProfile.toggle()
                     } catch {
                         errorMessage = "오류가 발생했습니다.\n잠시 후 다시 시도해주시기 바랍니다."

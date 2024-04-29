@@ -112,13 +112,11 @@ struct MoreInfoListView: View {
             do {
                 Messaging.messaging().token { token, error in
                     if let error = error {
-                        print("Error fetching FCM registration token: \(error)")
+                        Configs.printDebugMessage("Error fetching FCM registration token: \(error)")
                     } else if let token = token {
                         if let uid = loginedInfo?.id {
                             PushService.shared.deleteToken(uid, token: token)
                             loginedInfo = nil
-                        } else {
-                            print("삭제 실패")
                         }
                     }
                 }
