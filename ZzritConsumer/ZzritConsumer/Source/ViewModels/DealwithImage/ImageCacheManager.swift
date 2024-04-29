@@ -107,18 +107,15 @@ final class ImageCacheManager {
                 } else {
                     // 4. Firebase에서 받아오기
                     // TODO: 이미지 퀄리티 세분화 해야할까?
-                    Task {
-                        do {
-                            let firebaseImage = try await storageService.loadImage(path: imagePath, quality: .medium)
-                            updateImageFirst(name: imagePath, image: firebaseImage)
-                            
-                            return firebaseImage
-                        } catch {
-                            Configs.printDebugMessage("Failed to load image from firbase or cache: \(error)")
-                            return nil
-                        }
+                    do {
+                        let firebaseImage = try await storageService.loadImage(path: imagePath, quality: .medium)
+                        updateImageFirst(name: imagePath, image: firebaseImage)
+                        
+                        return firebaseImage
+                    } catch {
+                        Configs.printDebugMessage("Failed to load image from Firebase: \(error)\n")
+                        return nil
                     }
-                    return nil
                 }
             }
         }
