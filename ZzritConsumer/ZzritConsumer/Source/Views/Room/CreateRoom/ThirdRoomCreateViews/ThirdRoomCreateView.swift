@@ -180,7 +180,6 @@ struct ThirdRoomCreateView: View {
                             if let newRoom {
                                 loadRoomViewModel.addNewRoomToData(newRoom: newRoom)
                             }
-                            try ChattingService(roomID: roomID).sendMessage(message: "\(userID)_입장")
                             VM.topDismiss?.callAsFunction()
                         } else {
                             isCreateNewRoom = false
