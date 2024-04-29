@@ -18,7 +18,7 @@ struct ChatView: View {
     let room: RoomModel
     // 모임방 활성화 여부
     @Binding var isActive: Bool
-
+    
     // 유저 정보 불러옴
     @EnvironmentObject private var userService: UserService
     // 방 상태 불러옴
@@ -33,7 +33,7 @@ struct ChatView: View {
     
     // 모임방 나가기 기능을 위한 것
     private let roomService = RoomService.shared
-
+    
     // 채팅의 이미지 저장을 위한 것
     let storageService = StorageService()
     
@@ -449,8 +449,6 @@ struct ChatView: View {
                     if let roomid = room.id {
                         ContactInputView(isPresented: $isContactShow, selectedContactCategory: .room, selectedRoomContact: roomid, selectedUserContact: "", contactThroughRoomView: true)
                     }
-//                    ContactInputView()
-//                        .padding(.top, Configs.paddingValue)
                 }
                 .fullScreenCover(isPresented: $isImageDetail) {
                     // 채팅 이미지 상세
@@ -483,11 +481,12 @@ struct ChatView: View {
                                         .frame(maxWidth: .infinity)
                                     VStack(alignment: .center) {
                                         Text("이미지를 불러올 수 없습니다.")
+                                            .font(.title)
+                                            .fontWeight(.bold)
+                                            .foregroundStyle(Color.pointColor)
                                         Text("\n다시 시도해주세요.")
+                                            .foregroundStyle(Color.pointColor)
                                     }
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(Color.pointColor)
                                 }
                             }
                             Spacer()
@@ -644,9 +643,8 @@ struct ChatView: View {
     // 이미지 보내기전 보여주기 위해 로딩하는 함수
     func showImage() {
         guard let selectedImage = selectedUIImage else { return }
-        Task {
-            image = Image(uiImage: selectedImage)
-        }
+        image = Image(uiImage: selectedImage)
+        
     }
     
     // 이미지를 보내는 함수
