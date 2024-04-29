@@ -113,6 +113,7 @@
 		DF8AFC382BDB934000C66BA2 /* PurchaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC372BDB934000C66BA2 /* PurchaseViewModel.swift */; };
 		DF8AFC3B2BDBCE1700C66BA2 /* PurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC3A2BDBCE1700C66BA2 /* PurchaseView.swift */; };
 		DF8AFC3F2BDE24AE00C66BA2 /* NavigationSloganView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC3E2BDE24AE00C66BA2 /* NavigationSloganView.swift */; };
+		DF8AFC412BDF401F00C66BA2 /* AdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC402BDF401F00C66BA2 /* AdView.swift */; };
 		DF9674B92BCCF4C800322382 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B82BCCF4C800322382 /* SocialLoginType.swift */; };
 		DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */; };
 		DF9674BD2BCCFC9700322382 /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */; };
@@ -267,6 +268,7 @@
 		DF8AFC372BDB934000C66BA2 /* PurchaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewModel.swift; sourceTree = "<group>"; };
 		DF8AFC3A2BDBCE1700C66BA2 /* PurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseView.swift; sourceTree = "<group>"; };
 		DF8AFC3E2BDE24AE00C66BA2 /* NavigationSloganView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSloganView.swift; sourceTree = "<group>"; };
+		DF8AFC402BDF401F00C66BA2 /* AdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdView.swift; sourceTree = "<group>"; };
 		DF9674B82BCCF4C800322382 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
 		DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
@@ -753,6 +755,7 @@
 			isa = PBXGroup;
 			children = (
 				DF8AFC2C2BDB2FEC00C66BA2 /* AdMobBannerView.swift */,
+				DF8AFC402BDF401F00C66BA2 /* AdView.swift */,
 			);
 			path = AddMobViews;
 			sourceTree = "<group>";
@@ -1054,6 +1057,7 @@
 				FCADAA342BC4EB7700364272 /* CompleteSignUpView.swift in Sources */,
 				30BE7EC92BC57CCA00A5A178 /* ContactInputView.swift in Sources */,
 				309688072BC65A5B007064A3 /* ChatCategoryView.swift in Sources */,
+				DF8AFC412BDF401F00C66BA2 /* AdView.swift in Sources */,
 				FC2DDC112BC50B6900A51E64 /* StaticGaugeProgressView.swift in Sources */,
 				1F6454F22BC8B60B00C9D235 /* RCParticipantsSection.swift in Sources */,
 				1F0603522BC5BF56003808F4 /* FilterCategory.swift in Sources */,

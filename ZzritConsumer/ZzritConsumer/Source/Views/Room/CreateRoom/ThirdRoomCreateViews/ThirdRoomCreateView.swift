@@ -35,6 +35,8 @@ struct ThirdRoomCreateView: View {
     @State private var timeSelection: Date?
     // 참여자 수 제한 변수
     @State private var limitPeople: Int = 2
+    // 최대 참여자 수 제한 변수
+    @State private var limitMaximumPeople: Int = 0
     // 성별 제한 선택 변수
     @State private var genderSelection: GenderType?
     // 정전기지수 제한이 있는지 없는지 선택하는 변수
@@ -62,6 +64,18 @@ struct ThirdRoomCreateView: View {
                     // 진행방식을 입력 받는 뷰
                     RCProcedurePicker(processSelection: $processSelection, platformSelection: $platformSelection, offlineLocation: $offlineLocation) {
                         // 피커 버튼 눌렀을 때 사용할 함수
+                        if purchaseViewModel.isPurchased {
+                            limitMaximumPeople = 99
+                        } else {
+                            switch processSelection {
+                            case .offline:
+                                limitMaximumPeople = 3
+                            case .online:
+                                limitMaximumPeople = 5
+                            case nil:
+                                limitMaximumPeople = 3
+                            }
+                        }
                         checkButtonEnable()
                     }
                     
@@ -69,9 +83,11 @@ struct ThirdRoomCreateView: View {
                     timeSelectionView
                         .padding(.bottom, Configs.paddingValue)
                     
-                    // 정원 선택 화면
-                    RCParticipantsSection(participantsLimit: $limitPeople)
-                        .padding(.bottom, Configs.paddingValue)
+                    if let _ = processSelection {
+                        // 정원 선택 화면
+                        RCParticipantsSection(participantsLimit: $limitPeople, limitMaxmium: $limitMaximumPeople)
+                            .padding(.bottom, Configs.paddingValue)
+                    }
                     
                     if !purchaseViewModel.isPurchased {
                         Text("찌릿 Pro를 구독하시면, 더 많은 사람들을 모집할 수 있어요!")

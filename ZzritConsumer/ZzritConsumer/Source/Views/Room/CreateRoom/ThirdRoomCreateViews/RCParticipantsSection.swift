@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct RCParticipantsSection: View {
+    
     @EnvironmentObject private var purchaseViewModel: PurchaseViewModel
     
     @Binding var participantsLimit: Int
+    @Binding var limitMaxmium: Int
     
     var isMinimum: Bool {
         if participantsLimit <= 2 {
@@ -21,8 +23,7 @@ struct RCParticipantsSection: View {
     }
     
     var isMaximum: Bool {
-        let maximum = purchaseViewModel.isPurchased ? 99 : 5
-        if participantsLimit >= maximum {
+        if participantsLimit >= limitMaxmium {
             return true
         } else {
             return false
@@ -31,7 +32,7 @@ struct RCParticipantsSection: View {
     
     var body: some View {
         HStack {
-            RCSubTitle("정원", clarification: "2~10명")
+            RCSubTitle("정원", clarification: "2~\(limitMaxmium)명")
                 .lineLimit(1)
             
             ZStack {
@@ -58,9 +59,19 @@ struct RCParticipantsSection: View {
                 Text("\(participantsLimit)")
             }
         }
+        .customOnChange(of: limitMaxmium) { _ in
+            if participantsLimit >= limitMaxmium {
+                participantsLimit = limitMaxmium
+            }
+        }
+        .customOnChange(of: purchaseViewModel.isPurchased) { newValue in
+            if newValue {
+                participantsLimit = 99
+            }
+        }
     }
 }
 
 #Preview {
-    RCParticipantsSection(participantsLimit: .constant(2))
+    RCParticipantsSection(participantsLimit: .constant(2), limitMaxmium: .constant(10))
 }
