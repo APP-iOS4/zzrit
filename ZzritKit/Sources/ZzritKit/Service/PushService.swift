@@ -68,4 +68,17 @@ public class PushService {
             "tokens": FieldValue.arrayUnion([token])
         ], merge: true)
     }
+    
+    /// 유저의 토큰을 서버에서 삭제합니다.
+    ///  - Parameters:
+    ///     - uid(String): 유저의 uid
+    ///     - token(String): 저장할 토큰
+    public func deleteToken(_ uid: String, token: String) {
+        #if DEBUG
+        print("토큰 삭제 실행")
+        #endif
+        pushRef.document(uid).setData([
+            "tokens": FieldValue.arrayRemove([token])
+        ], merge: true)
+    }
 }

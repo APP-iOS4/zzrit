@@ -8,6 +8,7 @@
 import SwiftUI
 
 import ZzritKit
+import FirebaseMessaging
 
 struct LogInView: View {
     
@@ -128,21 +129,25 @@ struct LogInView: View {
     
     /// 아이디, 이메일 로그인
     private func login() {
-        Task {
-            do {
-                isLoading.toggle()
-                try await authService.loginUser(email: id, password: pw)
-                if let id = try await userService.loggedInUserInfo()?.id {
-                    restrictionViewModel.loadRestriction(userID: id)
-                }
-                isLoading.toggle()
-                
-                dismiss()
-            } catch {
-                isLoading = false
-                errorMessage = "로그인 정보를 확인해주세요."
-                if error as? AuthError == .secessioning {
-                    isShowingSecessionCancelView.toggle()
+        Messaging.messaging().token { token, error in
+            if let error = error {
+                Configs.printDebugMessage("Error fetching FCM registration token: \(error)")
+            } else if let token = token {
+                Task {
+                    do {
+                        isLoading.toggle()
+                        try await authService.loginUser(email: id, password: pw)
+                        if let id = try await userService.loggedInUserInfo()?.id {
+                            restrictionViewModel.loadRestriction(userID: id)
+                            PushService.shared.saveToken(id, token: token)
+                        }
+                        isLoading.toggle()
+                        
+                        dismiss()
+                    } catch {
+                        isLoading = false
+                        errorMessage = "로그인 정보를 확인해주세요."
+                    }
                 }
             }
         }
@@ -150,24 +155,29 @@ struct LogInView: View {
     
     /// 구글 로그인
     private func googleSignIn() {
-        Task {
-            do {
-                try await authService.loginWithGoogle()
-                
-                if let userId = try await userService.loggedInUserInfo()?.id {
-                    _ = try await userService.findUserInfo(uid: userId)
-                }
-                dismiss()
-            } catch AuthError.noUserInfo {
-                registerdID = authService.currentUID!
-                Configs.printDebugMessage("id는 이거 : \(registerdID)")
-                print("id는 이거 : \(registerdID)")
-                googleEmailID = authService.currentUserEmail!
-                showProfile.toggle()
-            } catch {
-                errorMessage = "오류가 발생했습니다.\n잠시 후 다시 시도해주시기 바랍니다."
-                if error as? AuthError == .secessioning {
-                    isShowingSecessionCancelView.toggle()
+        Messaging.messaging().token { token, error in
+            if let error = error {
+                Configs.printDebugMessage("Error fetching FCM registration token: \(error)")
+            } else if let token = token {
+                Task {
+                    do {
+                        try await authService.loginWithGoogle()
+                        
+                        if let userId = try await userService.loggedInUserInfo()?.id {
+                            _ = try await userService.findUserInfo(uid: userId)
+                            restrictionViewModel.loadRestriction(userID: userId)
+                            PushService.shared.saveToken(userId, token: token)
+                        }
+                        dismiss()
+                    } catch AuthError.noUserInfo {
+                        registerdID = authService.currentUID!
+                        Configs.printDebugMessage("id는 이거 : \(registerdID)")
+                        print("id는 이거 : \(registerdID)")
+                        googleEmailID = authService.currentUserEmail ?? ""
+                        showProfile.toggle()
+                    } catch {
+                        errorMessage = "오류가 발생했습니다.\n잠시 후 다시 시도해주시기 바랍니다."
+                    }
                 }
             }
         }
