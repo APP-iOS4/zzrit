@@ -19,6 +19,7 @@ struct ContentView: View {
         case settings = "설정"
     }
     
+    @EnvironmentObject private var contactViewModel: ContactViewModel
     @State var selection: Category = .userManagement
     @State var isLogin: Bool = false
     @State var adminName: String = ""
@@ -77,6 +78,7 @@ struct ContentView: View {
         // 문의 관리
         case .complaintManagement:
             ComplaintManagementView()
+                .environmentObject(contactViewModel)
         // 공지사항 관리
         case .announcementManagement:
             NoticeManageView()

@@ -91,7 +91,7 @@ class ContactViewModel: ObservableObject {
                 if let admin = try await userService.loginedAdminInfo() {
                     let tempModel: ContactReplyModel = .init(date: Date(), content: replyContent, answeredAdmin: admin.id ?? "")
                     
-                    try contactService.writeReply(tempModel, contactID: contact.id ?? "")
+                    try contactService.writeReply(tempModel, contactID: contact.id ?? "", writerID: contact.requestedUser)
                     replies.append(tempModel)
                     repliedAdmins.append(admin)
                 }

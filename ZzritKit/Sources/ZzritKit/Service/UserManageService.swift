@@ -13,6 +13,7 @@ import FirebaseFirestore
 public final class UserManageService {
     private let fbConstant = FirebaseConstants()
     private let authService = AuthenticationService.shared
+    private let dateService = DateService.shared
     
     private let db = Firestore.firestore()
     
@@ -24,6 +25,15 @@ public final class UserManageService {
             let tempBannedModel = BannedModel(date: Date(), period: period, type: bannedType, adminID: aid, content: content)
             try fbConstant.userCollection.document(uid).collection("BannedHistory").addDocument(from: tempBannedModel)
 
+            Task {
+                if let getToken = await PushService.shared.userTokens(uid: uid) {
+                    for token in getToken {
+                        // 메시지 보내기
+                        await PushService.shared.pushMessage(to: token, title: "ZZ!RIT 제재 안내", 
+                                                             body: bannedType == .administrator ? "서비스 이용이 정지되었습니다. 자세한 사항은 제재 내역을 확인해 주세요. " : "\(bannedType.rawValue) 행위로 인해 \(dateService.formattedString(date: period, format: "yyyy년 M월 d일"))까지 서비스 이용이 정지되었습니다. 자세한 사항은 제재 내역을 확인해 주세요. ")
+                    }
+                }
+            }
         } catch {
             throw error
         }
@@ -38,6 +48,14 @@ public final class UserManageService {
             if let document = document {
                 if document.exists {
                     self.fbConstant.userCollection.document(uid).collection("BannedHistory").document(bId).delete()
+                    Task {
+                        if let getToken = await PushService.shared.userTokens(uid: uid) {
+                            for token in getToken {
+                                // 메시지 보내기
+                                await PushService.shared.pushMessage(to: token, title: "ZZ!RIT 제재 해제 안내", body: "서비스 이용 정지가 해제되었습니다. ")
+                            }
+                        }
+                    }
                 } else {
                     print("삭제할 문서가 없음.")
                 }

@@ -107,7 +107,7 @@ struct ContactManagerContentView: View {
                     contactViewModel.fetchReplies(contact: contact ?? .init(category: .app, title: "", content: "", requestedDated: Date(), requestedUser: ""))
                 }
                 
-                if contact?.category == .room && contact?.targetUser != nil {
+                if contact?.category == .room && contact?.targetUser != nil && !(contactViewModel.targetUserModels ?? []).isEmpty {
                     VStack(alignment: .leading, spacing: 10) {
                         Text("대상 유저")
                             .fontWeight(.bold)
@@ -124,6 +124,7 @@ struct ContactManagerContentView: View {
                                                 Text("정전기 지수: \(String(format: "%.1f", target.staticGauge))W")
                                             }
                                             .foregroundStyle(Color.primary)
+                                            .multilineTextAlignment(.leading)
                                         }
                                     }
                                     .padding(5)
