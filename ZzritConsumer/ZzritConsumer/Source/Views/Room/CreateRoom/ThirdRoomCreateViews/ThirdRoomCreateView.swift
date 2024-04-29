@@ -15,6 +15,7 @@ struct ThirdRoomCreateView: View {
     
 //    @EnvironmentObject var coordinator: Coordinator
     @EnvironmentObject var userService: UserService
+    @EnvironmentObject var loadRoomViewModel: LoadRoomViewModel
     
     // 오프라인/온라인 선택 변수
     @State private var processSelection: RoomProcessType?
@@ -108,9 +109,13 @@ struct ThirdRoomCreateView: View {
                     
                     Task {
                         let userInfo = userService.loginedUser
-                        let roomID = await VM.createRoom(userModel: userInfo)
+                        let newRoom = await VM.createRoom(userModel: userInfo)
+                        let roomID = newRoom?.id
                         let userID = userInfo?.id ?? " "
                         if let roomID = roomID {
+                            if let newRoom {
+                                loadRoomViewModel.addNewRoomToData(newRoom: newRoom)
+                            }
                             try ChattingService(roomID: roomID).sendMessage(message: "\(userID)_입장")
                             VM.topDismiss?.callAsFunction()
                         } else {
@@ -300,5 +305,6 @@ extension ThirdRoomCreateView {
         ThirdRoomCreateView(VM: RoomCreateViewModel())
 //            .environmentObject(Coordinator())
             .environmentObject(UserService())
+            .environmentObject(LoadRoomViewModel())
     }
 }
