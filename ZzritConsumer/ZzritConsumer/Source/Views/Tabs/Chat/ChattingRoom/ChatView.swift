@@ -21,6 +21,8 @@ struct ChatView: View {
 
     // 유저 정보 불러옴
     @EnvironmentObject private var userService: UserService
+    // 방 상태 불러옴
+    @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     // 채팅방 N 표시
     @EnvironmentObject private var lastChatModel: LastChatModel
     // 유저모델 변수
@@ -510,6 +512,14 @@ struct ChatView: View {
         Task {
             do {
                 try chattingService.sendMessage(message: "\(uid)_퇴장")
+                if let userModel = userService.loginedUser {
+                    if userModel.id == room.leaderID {
+                        changeStateDeleteRoom()
+                        if let roomId = room.id {
+                            loadRoomViewModel.deleteRoom(roomId: roomId)
+                        }
+                    }
+                }
                 try await roomService.leaveRoom(roomID: roomID)
                 dismiss()
             } catch {
@@ -545,6 +555,12 @@ struct ChatView: View {
                     }
                 }
             }
+        }
+    }
+    
+    private func changeStateDeleteRoom() {
+        if let roomId = room.id {
+            roomService.changeStatus(roomID: roomId, status: .delete)
         }
     }
     
