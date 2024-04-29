@@ -20,7 +20,7 @@ struct ThirdRoomCreateView: View {
     // 입장 메시지 입력을 위한 채팅
     @StateObject private var chattingService = ChattingService(roomID: " ")
     
-    let VM: RoomCreateViewModel
+    let VM: RoomCreateViewModel = RoomCreateViewModel.shared
     
     // FIXME: 모임 위치 변수 -
     // 오프라인/온라인 선택 변수
@@ -56,7 +56,7 @@ struct ThirdRoomCreateView: View {
     // MARK: - body
     
     var body: some View {
-        RCNavigationBar(page: .page3, VM: VM) {
+        RCNavigationBar(page: .page3) {
             ZStack {
                 ScrollView {
                     // 진행방식을 입력 받는 뷰
@@ -73,11 +73,46 @@ struct ThirdRoomCreateView: View {
                     RCParticipantsSection(participantsLimit: $limitPeople)
                         .padding(.bottom, Configs.paddingValue)
                     
-                    // 성별 선택 화면
-                    genderSelectionView
-                        .padding(.bottom, Configs.paddingValue)
+                    if !purchaseViewModel.isPurchased {
+                        Text("찌릿 Pro를 구독하시면, 더 많은 사람들을 모집할 수 있어요!")
+                            .foregroundStyle(Color.pointColor)
+                            .font(.callout)
+                            .offset(y: -10)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                     
-                    staticGuageLimitView
+                    
+                    VStack {
+                        // 성별 선택 화면
+                        genderSelectionView
+                            .padding(.bottom, Configs.paddingValue)
+                        
+                        staticGuageLimitView
+                    }
+                    .overlay {
+                        if !purchaseViewModel.isPurchased {
+                            ZStack {
+                                Color.clear
+                                    .background(.regularMaterial)
+                                
+                                VStack {
+                                    Text("찌릿 Pro를 구독하고 참여조건을 설정하세요!")
+                                    Button {
+                                        isShowingPurchaseView.toggle()
+                                    } label: {
+                                        Text("구독하기")
+                                            .foregroundStyle(.white)
+                                            .padding(.horizontal, 10)
+                                            .padding(.vertical, 5)
+                                            .background {
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .foregroundStyle(Color.pointColor)
+                                            }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
             
@@ -88,25 +123,10 @@ struct ThirdRoomCreateView: View {
                         // 로그인 회원만 해당 뷰에 들어와 있으므로 강제 언래핑
                         if !purchaseViewModel.isPurchased {
                             let uid = AuthenticationService.shared.currentUID!
-                            var allowedMaximumCount: Int
-                            var isOnline: Bool
                             
-                            if let processSelection {
-                                if processSelection == .online {
-                                    allowedMaximumCount = Configs.freeOnlineCreateRoomCount
-                                    isOnline = true
-                                } else {
-                                    allowedMaximumCount = Configs.freeOfflineCreateRoomCount
-                                    isOnline = false
-                                }
-                            } else {
-                                allowedMaximumCount = 3
-                                isOnline = true
-                            }
+                            let createdRoomCount = await userService.createdRoomsCount(uid)
                             
-                            let createdRoomCount = await userService.createdRoomsCount(uid, isOnline: isOnline)
-                            
-                            if createdRoomCount >= allowedMaximumCount {
+                            if createdRoomCount >= Configs.freeDailyCreateRoomCount {
                                 isShowingPurchaseView.toggle()
                                 return
                             }
@@ -302,7 +322,7 @@ extension ThirdRoomCreateView {
 
 #Preview {
     NavigationStack {
-        ThirdRoomCreateView(VM: RoomCreateViewModel())
+        ThirdRoomCreateView()
         //            .environmentObject(Coordinator())
             .environmentObject(UserService())
             .environmentObject(PurchaseViewModel())

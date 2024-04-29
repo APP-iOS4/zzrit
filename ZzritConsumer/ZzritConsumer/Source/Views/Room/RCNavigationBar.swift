@@ -12,14 +12,13 @@ struct RCNavigationBar<Content>: View where Content: View {
     @Environment(\.dismiss) var dismiss
     
     let content: () -> Content
-    let VM: RoomCreateViewModel
+    let VM: RoomCreateViewModel = RoomCreateViewModel.shared
     let page: NewRoom
     
     // MARK: - init
     
-    init(page: NewRoom, VM: RoomCreateViewModel, @ViewBuilder content: @escaping () -> Content) {
+    init(page: NewRoom, @ViewBuilder content: @escaping () -> Content) {
         self.page = page
-        self.VM = VM
         self.content = content
     }
     
@@ -63,7 +62,7 @@ struct RCNavigationBar<Content>: View where Content: View {
 
 #Preview {
     NavigationStack {
-        RCNavigationBar(page: .page1, VM: RoomCreateViewModel()) {
+        RCNavigationBar(page: .page1) {
             HStack {
                 Spacer()
                 VStack {

@@ -30,7 +30,6 @@ class PurchaseViewModel: ObservableObject {
         Task {
             await syncProducts()
             purchasedProduct = await purchaseService.updatePurchasedProducts()
-            print("purchasedProduct: \(purchasedProduct)")
         }
     }
     
@@ -45,7 +44,9 @@ class PurchaseViewModel: ObservableObject {
     
     /// 구독 상품을 구매합니다.
     func purchase(_ productType: PurchaseService.SubscriptionType) async throws -> Bool {
-        return try await purchaseService.purchase(productType)
+        let result = try await purchaseService.purchase(productType)
+        purchasedProduct = await purchaseService.updatePurchasedProducts()
+        return result
     }
     
     /// 현재 구독중인 상품을 불러옵니다.

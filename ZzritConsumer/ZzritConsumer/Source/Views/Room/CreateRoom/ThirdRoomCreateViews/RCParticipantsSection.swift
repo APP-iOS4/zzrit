@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RCParticipantsSection: View {
+    @EnvironmentObject private var purchaseViewModel: PurchaseViewModel
+    
     @Binding var participantsLimit: Int
     
     var isMinimum: Bool {
@@ -19,7 +21,8 @@ struct RCParticipantsSection: View {
     }
     
     var isMaximum: Bool {
-        if participantsLimit >= 10 {
+        let maximum = purchaseViewModel.isPurchased ? 99 : 5
+        if participantsLimit >= maximum {
             return true
         } else {
             return false

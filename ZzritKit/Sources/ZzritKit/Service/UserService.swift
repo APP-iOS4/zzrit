@@ -132,7 +132,7 @@ public final class UserService: ObservableObject {
     }
     
     /// 해당 회원의 이달의 모임 개설의 개수를 불러옵니다.
-    public func createdRoomsCount(_ uid: String, isOnline: Bool) async -> Int {
+    public func createdRoomsCount(_ uid: String) async -> Int {
         let today = Date()
         
         // 현재 달력 가져오기
@@ -155,7 +155,6 @@ public final class UserService: ObservableObject {
                 .whereField("leaderID", isEqualTo: uid)
                 .whereField("createTime", isGreaterThanOrEqualTo: startDate)
                 .whereField("createTime", isLessThanOrEqualTo: endDate)
-                .whereField(("isOnline"), isEqualTo: isOnline)
                 .getDocuments()
             
             return documents.count
