@@ -97,6 +97,6 @@ struct ParticipantListView: View {
 }
 
 #Preview {
-    ParticipantListView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), participants: [JoinedUserModel()])
+    ParticipantListView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8, scoreLimitaion: 40, genderLimitation: .female), participants: [JoinedUserModel()])
         .environmentObject(UserService())
 }

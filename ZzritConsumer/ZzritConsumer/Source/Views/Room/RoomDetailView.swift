@@ -315,7 +315,7 @@ struct disableTextModifier: ViewModifier {
 
 #Preview {
     NavigationStack {
-        RoomDetailView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8))
+        RoomDetailView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "test", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8, scoreLimitaion: 40, genderLimitation: .female))
             .environmentObject(UserService())
             .environmentObject(RecentRoomViewModel())
             .environmentObject(LocationService())

@@ -51,7 +51,7 @@ public struct RoomModel: Identifiable, Codable, Hashable {
     /// 개설 시간
     public var createTime: Date
     
-    public init(id: String? = UUID().uuidString, title: String, category: CategoryType, dateTime: Date, placeLatitude: Double? = nil, placeLongitude: Double? = nil, placeName: String? = nil ,content: String, coverImage: String, isOnline: Bool, platform: PlatformType? = nil, status: ActiveType, leaderID: String, limitPeople: Int) {
+    public init(id: String? = UUID().uuidString, title: String, category: CategoryType, dateTime: Date, placeLatitude: Double? = nil, placeLongitude: Double? = nil, placeName: String? = nil ,content: String, coverImage: String, isOnline: Bool, platform: PlatformType? = nil, status: ActiveType, leaderID: String, limitPeople: Int, scoreLimitaion: Int?, genderLimitation: GenderType?) {
         self.id = id
         self.title = title
         self.category = category
@@ -67,6 +67,8 @@ public struct RoomModel: Identifiable, Codable, Hashable {
         self.leaderID = leaderID
         self.limitPeople = limitPeople
         self.createTime = Date()
+        self.scoreLimitation = scoreLimitaion
+        self.genderLimitation = genderLimitation
     }
     
     /// 모임 종료 시간
