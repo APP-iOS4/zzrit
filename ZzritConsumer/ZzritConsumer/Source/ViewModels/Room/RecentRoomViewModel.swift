@@ -39,12 +39,12 @@ class RecentRoomViewModel: ObservableObject {
                 return
             }
             
-            // 5개가 넘는 경우 -> 제일 처음꺼 삭제
+            // 배열의 크기가 5보다 크거나 같으면 마지막 값 삭제
             if savedRooms.count >= 5 {
-                savedRooms.removeFirst()
+                savedRooms.removeLast()
             }
             
-            savedRooms.append(roomID)
+            savedRooms.insert(roomID, at: 0)
             UserDefaults.standard.set(savedRooms, forKey: recentViewdRoomKey)
             await recentViewedRoomFetch()
         }
@@ -79,15 +79,15 @@ class RecentRoomViewModel: ObservableObject {
     private func recentViewedRoomFetch() async {
         let recentViewdRoomKey = "recentViewedRoom"
         
-        if let roomID = UserDefaults.standard.stringArray(forKey: recentViewdRoomKey)?.last {
-            // 5개가 넘는 경우 -> 제일 처음꺼 삭제
+        if let roomID = UserDefaults.standard.stringArray(forKey: recentViewdRoomKey)?.first {
+            // 5개와 같거나 큰 경우 -> 제일 마지막 값 삭제
             if recentViewedRooms.count >= 5 {
-                recentViewedRooms.removeFirst()
+                recentViewedRooms.removeLast()
             }
             
             do {
                 if let room = try await roomInfo(roomID) {
-                    recentViewedRooms.append(room)
+                    recentViewedRooms.insert(room, at: 0)
                 }
             } catch {
                 Configs.printDebugMessage("DEBUG: recentViewedRoomFetch error: \(error)")
