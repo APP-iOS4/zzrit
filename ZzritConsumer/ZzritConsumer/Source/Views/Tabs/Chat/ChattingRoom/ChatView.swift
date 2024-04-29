@@ -653,9 +653,9 @@ struct ChatView: View {
         isSendImage.toggle()
         
         // 이미지 사이즈 조절 채팅방 최대 이미지 가로 길이 1024
-        guard let selectedImage = (selectedUIImage?.size.width)! < 1024 ? selectedUIImage : selectedUIImage?.resizeWithWidth(width: 1024) else { return }
+        guard let selectedImage = (selectedUIImage?.size.width)! < 840 ? selectedUIImage : selectedUIImage?.resizeWithWidth(width: 840) else { return }
         // 무손실 png파일로 변경
-        guard let imageData = selectedImage.pngData() else { return }
+        guard let imageData = selectedImage.jpegData(compressionQuality: 5.0) else { return }
         // 이미지 경로 설정
         let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMddHHmmss")
         let roomID = room.id ?? "NONE"

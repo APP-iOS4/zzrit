@@ -110,10 +110,9 @@ final class ImageCacheManager {
                     do {
                         let firebaseImage = try await storageService.loadImage(path: imagePath, quality: .medium)
                         updateImageFirst(name: imagePath, image: firebaseImage)
-                        
                         return firebaseImage
                     } catch {
-                        Configs.printDebugMessage("Failed to load image from Firebase: \(error)\n")
+                        Configs.printDebugMessage("Failed to load image from Firebase:\(imagePath) \(error)\n")
                         return nil
                     }
                 }
