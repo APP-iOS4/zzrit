@@ -44,6 +44,7 @@ struct MoreInfoView: View {
                             }
                             .padding(.horizontal, Configs.paddingValue)
                         }
+                        .padding(.bottom, Configs.paddingValue)
                     }
                     
                     // 최근 본 모임
