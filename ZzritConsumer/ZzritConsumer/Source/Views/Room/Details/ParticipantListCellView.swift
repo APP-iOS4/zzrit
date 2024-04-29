@@ -78,5 +78,5 @@ struct ParticipantListCellView: View {
 }
 
 #Preview {
-    ParticipantListCellView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8), participant: UserModel(userID: "", userName: "테스트 네임", userImage: "dummyImage", gender: .male, birthYear: 1900, staticGauge: 50.0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()))
+    ParticipantListCellView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "https://picsum.photos/200", isOnline: false, status: .activation, leaderID: "", limitPeople: 8, scoreLimitaion: 40, genderLimitation: .female), participant: UserModel(userID: "", userName: "테스트 네임", userImage: "dummyImage", gender: .male, birthYear: 1900, staticGauge: 50.0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date()))
 }
