@@ -40,58 +40,61 @@ struct UserInputCellView: View {
     }
     
     var body: some View {
-        ZStack {
-            HStack(spacing: 20) {
+        HStack(spacing: 20) {
+            ZStack {
+                Image(systemName: "envelope")
+                    .fontWeight(.medium)
+                    .foregroundStyle(Color.clear)
+                
                 Image(systemName: "\(symbol)")
                     .fontWeight(.medium)
                     .foregroundStyle(symbolColor)
-                    .frame(width: 20)
+                //                .frame(width: 30.0, alignment: .center)
+            }
                 
-                ZStack {
-                    Text("\(title)")
-                        .font(.subheadline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(symbolColor)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .allowsHitTesting(false)
-                        .offset(y: 0)
-                        .opacity(titleOpacity)
-                    VStack {
-                        // TODO: focus id -> pw 바뀌는거
-                        if isPassword {
-                            SecureField("", text: $text)
-                                .fontWeight(.semibold)
-                                .foregroundStyle(Color.pointColor)
-                                .focused($focused)
-                                .submitLabel(.go)
-                                .autocorrectionDisabled()
-                                .padding(.vertical, 10)
-                        } else {
-                            TextField("", text: $text)
-                                .fontWeight(.semibold)
-                                .foregroundStyle(Color.pointColor)
-                                .focused($focused)
-                                .keyboardType(.emailAddress)
-                                .submitLabel(.next)
-                                .autocorrectionDisabled()
-                                .padding(.vertical, 10)
-                        }
+            ZStack {
+                Text("\(title)")
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .foregroundStyle(symbolColor)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .allowsHitTesting(false)
+                    .opacity(titleOpacity)
+                VStack {
+                    // TODO: focus id -> pw 바뀌는거
+                    if isPassword {
+                        SecureField("", text: $text)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color.pointColor)
+                            .focused($focused)
+                            .submitLabel(.go)
+                            .autocorrectionDisabled()
+                            .padding(.vertical, 10)
+                    } else {
+                        TextField("", text: $text)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color.pointColor)
+                            .focused($focused)
+                            .keyboardType(.emailAddress)
+                            .submitLabel(.next)
+                            .autocorrectionDisabled()
+                            .padding(.vertical, 10)
                     }
                 }
             }
-            .frame(maxWidth: .infinity)
-            .padding(10)
-            .background {
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(.white)
-                    .shadow(color: .black.opacity(backgroundShadowOpacity), radius: 8)
-            }
-            .overlay {
-                RoundedRectangle(cornerRadius: 10)
-                    .strokeBorder(Color.staticGray5.opacity(borderOpacity), lineWidth: 1)
-            }
-            .animation(.easeIn, value: focused)
         }
+        .frame(maxWidth: .infinity)
+        .padding(10)
+        .background {
+            RoundedRectangle(cornerRadius: 10)
+                .foregroundStyle(.white)
+                .shadow(color: .black.opacity(backgroundShadowOpacity), radius: 8)
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 10)
+                .strokeBorder(Color.staticGray5.opacity(borderOpacity), lineWidth: 1)
+        }
+        .animation(.easeIn, value: focused)
     }
 }
 
