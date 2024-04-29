@@ -144,7 +144,6 @@ struct ParticipantNoticeView: View {
             do {
                 try await roomService.joinRoom(room.id ?? "")
                 guard let userid = try await userService.loggedInUserInfo()?.id else { return }
-                try chattingService.sendMessage(message: "\(userid)_입장")
                 isPressedChat.toggle()
             } catch {
                 Configs.printDebugMessage("참여하기 에러: \(error)")
