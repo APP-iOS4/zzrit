@@ -634,7 +634,7 @@ struct ChatView: View {
                 
                 // system 메시지 - 입장 퇴장
             case .notice:
-                ChatNoticeMessageView(message: chat.message)
+                ChatNoticeMessageView(message: chat.message, room: room)
             }
         }
     }
