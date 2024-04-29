@@ -22,6 +22,7 @@ struct RecentWatchRoomView: View {
             Text("최근 본 모임")
                 .font(.title3)
                 .fontWeight(.bold)
+                .padding(.leading, 20)
 
             if !recentRoomViewModel.recentViewedRooms.isEmpty {
             // 최근 본 모임 슬라이드
@@ -39,6 +40,7 @@ struct RecentWatchRoomView: View {
                             }
                             .padding(.trailing, 20)
                         }
+                        .padding(.leading, 20)
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
                     .indexViewStyle(.page(backgroundDisplayMode: .interactive))
@@ -71,7 +73,6 @@ struct RecentWatchRoomView: View {
                     }
             }
         }
-        .padding(.leading, 20)
     }
 }
 
