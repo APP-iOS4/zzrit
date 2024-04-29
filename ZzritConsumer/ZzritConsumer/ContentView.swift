@@ -13,6 +13,7 @@ struct ContentView: View {
     @EnvironmentObject private var restrictionViewModel: RestrictionViewModel
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var networkMonitor: NetworkMonitor
+    @EnvironmentObject private var purchaseViewModel: PurchaseViewModel
     @EnvironmentObject private var userDefaultsClient: UserDefaultsClient
     @State private var userModel: UserModel?
     @State private var isNetworkConnection: Bool = true
@@ -58,6 +59,9 @@ struct ContentView: View {
                 } else {
                     NetworkConnectionWarnningView()
                 }
+            }
+            .sheet(isPresented: $purchaseViewModel.isPresent) {
+                PurchaseView()
             }
             .tint(Color.pointColor)
             .environmentObject(locationService)

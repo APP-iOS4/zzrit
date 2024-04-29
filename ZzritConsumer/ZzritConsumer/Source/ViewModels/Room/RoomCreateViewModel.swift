@@ -10,6 +10,7 @@ import SwiftUI
 import ZzritKit
 
 final class RoomCreateViewModel {
+    static let shared = RoomCreateViewModel()
     
     // MARK: - 저장 프로퍼티
     /// 모임 불러오는 싱글톤 인스턴스
@@ -94,6 +95,23 @@ final class RoomCreateViewModel {
             return nil
         }
         return nil
+    }
+    
+    /// 선택사항 초기화
+    func clearSelection() {
+        self.category = nil
+        self.title = nil
+        self.selectedImage = nil
+        self.roomIntroduction = nil
+        self.isOnline = nil
+        self.platform = nil
+        self.placeLatitude = nil
+        self.placeLongitude = nil
+        self.placeName = nil
+        self.dateTime = nil
+        self.limitPeople = nil
+        self.genderLimitation = nil
+        self.scoreLimitation = nil
     }
     
     // MARK: - RoomModel을 만들어주는 함수

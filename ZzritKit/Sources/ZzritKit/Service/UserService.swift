@@ -131,6 +131,39 @@ public final class UserService: ObservableObject {
         return try snapshot.documents.first!.data(as: TermModel.self)
     }
     
+    /// 해당 회원의 이달의 모임 개설의 개수를 불러옵니다.
+    public func createdRoomsCount(_ uid: String) async -> Int {
+        let today = Date()
+        
+        // 현재 달력 가져오기
+        let calendar = Calendar.current
+        var startComponents = calendar.dateComponents([.year, .month], from: today)
+        startComponents.day = 1
+        startComponents.hour = 0
+        startComponents.minute = 0
+        startComponents.second = 0
+        guard let startDate = calendar.date(from: startComponents) else { return 0 }
+        
+        var endComponents = DateComponents(month: 1, day: -1)
+        endComponents.hour = 23
+        endComponents.minute = 59
+        endComponents.second = 50
+        guard let endDate = calendar.date(byAdding: endComponents, to: startDate) else { return 0 }
+        
+        do {
+            let documents = try await firebaseConst.roomCollection
+                .whereField("leaderID", isEqualTo: uid)
+                .whereField("createTime", isGreaterThanOrEqualTo: startDate)
+                .whereField("createTime", isLessThanOrEqualTo: endDate)
+                .getDocuments()
+            
+            return documents.count
+        } catch {
+            print("이달의 모임 개설 개수 불러오는 도중 에러: \(error)")
+            return 0
+        }
+    }
+    
     // MARK: - Private Methods
     
     /// 접속된 회원정보 삭제

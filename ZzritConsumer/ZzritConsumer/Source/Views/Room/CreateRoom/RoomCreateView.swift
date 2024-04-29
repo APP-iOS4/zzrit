@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RoomCreateView: View {
-    let VM = RoomCreateViewModel()
+    let VM = RoomCreateViewModel.shared
     
     @Environment(\.dismiss) private var topDismiss
     
@@ -18,9 +18,10 @@ struct RoomCreateView: View {
     
     var body: some View {
         NavigationStack {
-            FirstRoomCreateView(VM: VM)
+            FirstRoomCreateView()
         }
         .onAppear {
+            VM.clearSelection()
             VM.topDismiss = topDismiss
         }
     }

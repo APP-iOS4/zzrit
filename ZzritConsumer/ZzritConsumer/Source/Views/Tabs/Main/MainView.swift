@@ -12,8 +12,8 @@ import ZzritKit
 struct MainView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
-    
     @EnvironmentObject private var locationService: LocationService
+    @EnvironmentObject private var purchaseViewModel: PurchaseViewModel
     
     // 우측 상단 알람 버튼 눌렀는지 안눌렀는지 검사
     @State private var isTopTrailingAction: Bool = false
@@ -22,7 +22,6 @@ struct MainView: View {
     @State private var isShowingCreateRoom: Bool = false
     // 로그인 FullScreenCover로 넘어가는지 결정하는 변수
     @State private var isShowingLoginView: Bool = false
-    // 오프라인 위치
     
 //    init() {
 //    init(searchViewModel: StateObject<SearchViewModel>) {
@@ -76,13 +75,7 @@ struct MainView: View {
             .toolbar {
                 // 왼쪽 앱 메인 로고
                 ToolbarItem(placement: .topBarLeading) {
-                    HStack(spacing: 0) {
-                        Text("ZZ!")
-                            .foregroundStyle(Color.pointColor)
-                        Text("RIT")
-                    }
-                    .font(.title2)
-                    .fontWeight(.black)
+                    NavigationSloganView()
                 }
                 
                 // 오른쪽 알림 창
