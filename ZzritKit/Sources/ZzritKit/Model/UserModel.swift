@@ -28,6 +28,8 @@ public struct UserModel: Codable, Identifiable {
     public var staticGauge: Double
     /// 회원 탈퇴 일자
     public var secessionDate: Date?
+    /// 회원 탈퇴 사유
+    public var secessionReason: String?
     /// 유저가 참여한 모임 목록
     public var joinedRooms: [String]?
     /// 유저가 동의한 서비스 이용약관 시행 날짜

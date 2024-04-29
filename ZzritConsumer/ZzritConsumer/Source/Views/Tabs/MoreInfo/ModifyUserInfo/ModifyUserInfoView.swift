@@ -56,6 +56,8 @@ struct ModifyUserInfoView: View {
                 modifyUserInfo()
             }
         }
+        .navigationTitle("회원정보 수정")
+        .navigationBarTitleDisplayMode(.inline)
         .onTapGesture {
             self.endTextEditing()
         }

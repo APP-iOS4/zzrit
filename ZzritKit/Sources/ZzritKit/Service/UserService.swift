@@ -52,12 +52,12 @@ public final class UserService: ObservableObject {
     }
     
     /// 회원탈퇴
-    public func secession() async throws {
+    public func secession(reason: String) async throws {
 
         try await loginedCheck()
         
         do {
-            var tempLoginedUserInfo = try await loggedInUserInfo()!
+            let tempLoginedUserInfo = try await loggedInUserInfo()!
             
             // 회원탈퇴가 이미 진행중일 경우 에러 throw
             if let _ = tempLoginedUserInfo.secessionDate {
@@ -66,9 +66,39 @@ public final class UserService: ObservableObject {
             
             let loginedUID = tempLoginedUserInfo.id!
             print("UID: \(loginedUID)")
-            tempLoginedUserInfo.secessionDate = Date()
-//            try firebaseConst.userCollection.document(loginedUID).setData(from: tempLoginedUserInfo, merge: true)
-            try await firebaseConst.userCollection.document(loginedUID).updateData(["secessionDate": Date()])
+
+            try await firebaseConst.userCollection.document(loginedUID).updateData([
+                "secessionDate": Date(),
+                "secessionReason": reason
+            ])
+            
+            // 정상적으로 회원탈퇴가 처리 되면 참여중인 방에서 탈퇴합니다.
+            if let joinedRoomIDs = tempLoginedUserInfo.joinedRooms {
+                // 모임 정보를 가져온다.
+                for roomID in joinedRoomIDs {
+                    if let room = try await RoomService.shared.roomInfo(roomID) {
+                        // 활성화 상태의 모임에만 탈퇴 처리를 진행한다.
+                        if room.status == .activation {
+                            // 채팅 메시지 전송
+                            var chattingService: ChattingService? = ChattingService(roomID: roomID)
+                            let userName = loginedUser?.userName ?? "알 수 없는 회원"
+                            
+                            // 모임 탈퇴
+                            try await RoomService.shared.leaveRoom(roomID: roomID)
+                            
+                            // 모임장인 경우 모임을 비활성화
+                            if room.leaderID == loginedUID {
+                                RoomService.shared.changeStatus(roomID: roomID, status: .deactivation)
+                                try chattingService?.sendMessage(message: "\(loginedUID)_퇴장")
+                            } else {
+                                try chattingService?.sendMessage(message: "\(loginedUID)_퇴장")
+                            }
+                            
+                            chattingService = nil
+                        }
+                    }
+                }
+            }
         } catch {
             throw error
         }
@@ -76,22 +106,12 @@ public final class UserService: ObservableObject {
     
     /// 회원탈퇴 철회
     public func secessionCancel() async throws {
-
-        try await loginedCheck()
-        
         do {
-            var tempLoginedUserInfo = try await loggedInUserInfo()!
-            
-            // 회원탈퇴가 진행중이지 않을때 에러 throw
-            guard let _ = tempLoginedUserInfo.secessionDate else {
-                print("회원탈퇴가 진행중이지 않음")
-                return
-            }
-            
-            let loginedUID = tempLoginedUserInfo.id!
-            print("UID: \(loginedUID)")
-            tempLoginedUserInfo.secessionDate = nil
-            try await firebaseConst.userCollection.document(loginedUID).updateData(["secessionDate": FieldValue.delete()])
+            guard let secessioningUID = authService.secessioningUID else { return }
+            try await firebaseConst.userCollection.document(secessioningUID).updateData([
+                "secessionDate": FieldValue.delete(),
+                "secessionReason": FieldValue.delete()
+            ])
         } catch {
             throw error
         }

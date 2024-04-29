@@ -13,6 +13,7 @@ struct MoreInfoView: View {
     @EnvironmentObject private var userService: UserService
     
     @State private var isShowingLoginView: Bool = false
+    @State private var isShowingSecessionView: Bool = false
 //    @State private var userService.loginedUser: UserModel? = nil
     @State private var userEmail: String?
     
@@ -51,6 +52,23 @@ struct MoreInfoView: View {
                     
                     // 그외 더보기 List
                     MoreInfoListView(loginedInfo: $userService.loginedUser, isLogined: isLogined)
+                    
+                    HStack {
+                        Button {
+                            isShowingSecessionView.toggle()
+                        } label: {
+                            Text("회원탈퇴")
+                                .font(.body)
+                                .padding()
+                        }
+                        .tint(Color.staticGray3)
+                        .offset(x: 3)
+                        
+                        Spacer()
+                    }
+                    .fullScreenCover(isPresented: $isShowingSecessionView, onDismiss: fetchLogin) {
+                        SecessionView()
+                    }
                 }
                 .padding(.vertical, 10)
             }
