@@ -32,7 +32,7 @@ struct NewStaticPointProgress: View {
                     .padding(.horizontal, 10.0)
                     .background {
                         RoundedRectangle(cornerRadius: 20.0)
-                            .fill(Color.red)
+                            .fill(Color.pointColor)
                         
                         GeometryReader { textProxy in
                             Path { _ in
@@ -49,16 +49,16 @@ struct NewStaticPointProgress: View {
                     CGPoint(x: textPositionX + 10, y: 0),
                     CGPoint(x: barPositionX, y: 8)
                 ])
-                .fill(Color.red)
+                .fill(Color.pointColor)
                 .frame(height: 8)
                 
                 ZStack(alignment: .leading) {
                     Rectangle()
-                        .fill(Color.red)
+                        .fill(Color.pointColor)
                         .frame(width: barPositionX, height: 10.0)
                     
                     Rectangle()
-                        .strokeBorder(Color.black, lineWidth: 1.0)
+                        .strokeBorder(Color.staticGray4, lineWidth: 1.0)
                         .frame(height: 10.0)
                 }
             }

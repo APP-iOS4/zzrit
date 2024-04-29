@@ -34,82 +34,84 @@ struct LogInView: View {
     
     var body: some View {
         NavigationStack {
-            HStack {
-                Spacer()
-                
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                        .padding()
-                        .font(.title3)
-                }
-                .tint(.primary)
-            }
-            
-            VStack {
-                AppSlogan()
-                
-                Spacer(minLength: 50)
-                
-                // MARK: 로그인 입력란
-                UserInputCellView(text: $id, title: "이메일", symbol: "envelope")
-                    .customOnChange(of: id) { _ in
-                        activeLoginButton()
-                    }
-                UserInputCellView(text: $pw, title: "비밀번호", symbol: "lock", isPassword: true)
-                    .customOnChange(of: pw) { _ in
-                        activeLoginButton()
-                    }
-                
-                
+            ScrollView {
                 HStack {
                     Spacer()
-                    Button(action: {
-                        resetPassword()
-                    }, label: {
-                        Text("비밀번호를 잊으셨나요?")
-                    })
-                }
-                .font(.subheadline)
-                .foregroundColor(Color.pointColor)
-                .padding(.top, 10)
-                
-                GeneralButton("로그인", isDisabled: !isLoginButtonActive) {
-                    login()
-                }
-                
-                SocialLoginButton(type: .google) {
-                    Task {
-                        googleSignIn()
+                    
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .padding()
+                            .font(.title3)
                     }
-                }
-                .navigationDestination(isPresented: $showProfile) {
-                    SetProfileView(isTopDismiss: $isShowingRegisterView, emailField: googleEmailID, registeredUID: $registerdID)
+                    .tint(.primary)
                 }
                 
-                Spacer(minLength: 50)
-                
-                VStack(spacing: 20) {
-                    if errorMessage != "" {
-                        AuthenticationErrorView(title: $errorMessage)
+                VStack {
+                    AppSlogan()
+                    
+                    Spacer(minLength: 50)
+                    
+                    // MARK: 로그인 입력란
+                    UserInputCellView(text: $id, title: "이메일", symbol: "envelope")
+                        .customOnChange(of: id) { _ in
+                            activeLoginButton()
+                        }
+                    UserInputCellView(text: $pw, title: "비밀번호", symbol: "lock", isPassword: true)
+                        .customOnChange(of: pw) { _ in
+                            activeLoginButton()
+                        }
+                    
+                    
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            resetPassword()
+                        }, label: {
+                            Text("비밀번호를 잊으셨나요?")
+                        })
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(Color.pointColor)
+                    .padding(.top, 10)
+                    
+                    GeneralButton("로그인", isDisabled: !isLoginButtonActive) {
+                        login()
                     }
                     
-                    AuthenticationButton(type: .register) {
-                        isShowingRegisterView.toggle()
+                    SocialLoginButton(type: .google) {
+                        Task {
+                            googleSignIn()
+                        }
                     }
-                    .fullScreenCover(isPresented: $isShowingRegisterView) {
-                        SignUpView(isTopDismiss: $isShowingRegisterView)
+                    .navigationDestination(isPresented: $showProfile) {
+                        SetProfileView(isTopDismiss: $isShowingRegisterView, emailField: googleEmailID, registeredUID: $registerdID)
+                    }
+                    
+                    Spacer(minLength: 50)
+                    
+                    VStack(spacing: 20) {
+                        if errorMessage != "" {
+                            AuthenticationErrorView(title: $errorMessage)
+                        }
+                        
+                        AuthenticationButton(type: .register) {
+                            isShowingRegisterView.toggle()
+                        }
+                        .fullScreenCover(isPresented: $isShowingRegisterView) {
+                            SignUpView(isTopDismiss: $isShowingRegisterView)
+                        }
                     }
                 }
+                .padding(20)
+                .onAppear {
+                    id = ""
+                    pw = ""
+                }
             }
-            .padding(20)
-            .onAppear {
-                id = ""
-                pw = ""
-            }
+            .loading(isLoading)
         }
-        .loading(isLoading)
     }
     
     func activeLoginButton() {

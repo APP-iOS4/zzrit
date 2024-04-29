@@ -38,75 +38,77 @@ struct SetProfileView: View {
     
     var body: some View {
         NavigationStack {
-            HStack {
-                SetProfilePhotoView(selectedImage: $selectedImage)
-            }
-            .padding(40)
-            
-            if #available(iOS 17.0, *) {
-                UserInputCellView(text: $nickName, title: "별명", symbol: "rectangle.and.pencil.and.ellipsis")
-                    .onChange(of: nickName) {
-                        ProfileSettingDone()
-                    }
-            } else {
-                UserInputCellView(text: $nickName, title: "별명", symbol: "rectangle.and.pencil.and.ellipsis")
-                    .onChange(of: nickName, perform: { value in
-                        ProfileSettingDone()
-                    })
-            }
-            
-            // MARK: isduplicate - nickname 보내고 중복 확인후 (중복이면 true로 반환) -> 수시로 하나요?
-            if isDuplicate {
-                ErrorTextView(title: "이미 존재하는 별명입니다.")
-            } else {
-                ErrorTextView(title: "")
-            }
-            
-            HStack {
-                Label("성별", systemImage: "person.fill")
-                    .foregroundStyle(Color.staticGray4)
-                Spacer()
-                ArchieveSelectionButtonView(isSelected: isMan, "남성", tapAction: {
-                    isMan = true
-                    isWoman = false
-                })
-                .frame(width: 100)
-                ArchieveSelectionButtonView(isSelected: isWoman, "여성", tapAction: {
-                    isWoman = true
-                    isMan = false
-                })
-                .frame(width: 100)
-            }
-            .padding()
-            
-            HStack {
-                Label("출생년도", systemImage: "birthday.cake")
-                    .foregroundStyle(Color.staticGray4)
-                Spacer()
-                Button(action: {
-                    birthYearPickerShow.toggle()
-                }, label: {
-                    Text("\(String(birthYear)) 년생")
-                        .foregroundStyle(Color.pointColor)
-                })
-                .sheet(isPresented: $birthYearPickerShow) {
-                    BirthYearPickerView(selectedYear: $birthYear)
+            ScrollView {
+                HStack {
+                    SetProfilePhotoView(selectedImage: $selectedImage)
                 }
+                .padding(40)
+                
+                if #available(iOS 17.0, *) {
+                    UserInputCellView(text: $nickName, title: "별명", symbol: "rectangle.and.pencil.and.ellipsis")
+                        .onChange(of: nickName) {
+                            ProfileSettingDone()
+                        }
+                } else {
+                    UserInputCellView(text: $nickName, title: "별명", symbol: "rectangle.and.pencil.and.ellipsis")
+                        .onChange(of: nickName, perform: { value in
+                            ProfileSettingDone()
+                        })
+                }
+                
+                // MARK: isduplicate - nickname 보내고 중복 확인후 (중복이면 true로 반환) -> 수시로 하나요?
+                if isDuplicate {
+                    ErrorTextView(title: "이미 존재하는 별명입니다.")
+                } else {
+                    ErrorTextView(title: "")
+                }
+                
+                HStack {
+                    Label("성별", systemImage: "person.fill")
+                        .foregroundStyle(Color.staticGray4)
+                    Spacer()
+                    ArchieveSelectionButtonView(isSelected: isMan, "남성", tapAction: {
+                        isMan = true
+                        isWoman = false
+                    })
+                    .frame(width: 100)
+                    ArchieveSelectionButtonView(isSelected: isWoman, "여성", tapAction: {
+                        isWoman = true
+                        isMan = false
+                    })
+                    .frame(width: 100)
+                }
+                .padding()
+                
+                HStack {
+                    Label("출생년도", systemImage: "birthday.cake")
+                        .foregroundStyle(Color.staticGray4)
+                    Spacer()
+                    Button(action: {
+                        birthYearPickerShow.toggle()
+                    }, label: {
+                        Text("\(String(birthYear)) 년생")
+                            .foregroundStyle(Color.pointColor)
+                    })
+                    .sheet(isPresented: $birthYearPickerShow) {
+                        BirthYearPickerView(selectedYear: $birthYear)
+                    }
+                }
+                .padding()
+                Spacer()
+                
+                GeneralButton("다음", isDisabled: !finishProfile) {
+                    setUserInfo()
+                }
+                .navigationDestination(isPresented: $completeSignUp) {
+                    CompleteSignUpView(isTopDismiss: $isTopDismiss)
+                }
+                
             }
-            .padding()
-            Spacer()
-            
-            GeneralButton("다음", isDisabled: !finishProfile) {
-                setUserInfo()
-            }
-            .navigationDestination(isPresented: $completeSignUp) {
-                CompleteSignUpView(isTopDismiss: $isTopDismiss)
-            }
-            
+            .padding(20)
+            .toolbarRole(.editor)
+            .loading(isLoading, message: "회원 정보를 등록하고 있습니다.")
         }
-        .padding(20)
-        .toolbarRole(.editor)
-        .loading(isLoading, message: "회원 정보를 등록하고 있습니다.")
     }
     
     // MARK: 일단 별명만 채워도 넘어가게 하도록 설정.
