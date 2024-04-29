@@ -92,8 +92,17 @@ public final class ContactService: ObservableObject {
     }
     
     /// 문의사항에 답변을 등록합니다.
-    public func writeReply(_ reply: ContactReplyModel, contactID: String) throws {
+    public func writeReply(_ reply: ContactReplyModel, contactID: String, writerID: String) throws {
         try firebaseConstant.contactReplyCollection(contactID).addDocument(from: reply)
         firebaseConstant.contactCollection.document(contactID).setData(["latestAnswerDate": Date()], merge: true)
+        
+        Task {
+            if let getToken = await PushService.shared.userTokens(uid: writerID) {
+                for token in getToken {
+                    // 메시지 보내기
+                    await PushService.shared.pushMessage(to: token, title: "ZZ!RIT 문의하기", body: "문의사항 답변이 등록되었습니다. ")
+                }
+            }
+        }
     }
 }
