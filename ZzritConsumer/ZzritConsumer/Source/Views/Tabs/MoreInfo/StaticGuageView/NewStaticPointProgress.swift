@@ -26,12 +26,13 @@ struct NewStaticPointProgress: View {
             }
             
             VStack(spacing: 0.0) {
-                Text("\(String(format: "%.1f", staticPoint)) W")
+                Text("\(String(format: "%.f", staticPoint)) W")
+                    .foregroundStyle(.white)
                     .bold()
                     .padding(.vertical, 5.0)
                     .padding(.horizontal, 10.0)
                     .background {
-                        RoundedRectangle(cornerRadius: 20.0)
+                        RoundedRectangle(cornerRadius: 10.0)
                             .fill(Color.pointColor)
                         
                         GeometryReader { textProxy in
@@ -45,19 +46,19 @@ struct NewStaticPointProgress: View {
                     .offset(x: textPositionX - globalProxy.size.width / 2)
                 
                 Triangle(points: [
-                    CGPoint(x: textPositionX - 10, y: 0),
-                    CGPoint(x: textPositionX + 10, y: 0),
+                    CGPoint(x: textPositionX - 6, y: 0),
+                    CGPoint(x: textPositionX + 6, y: 0),
                     CGPoint(x: barPositionX, y: 8)
                 ])
                 .fill(Color.pointColor)
                 .frame(height: 8)
                 
                 ZStack(alignment: .leading) {
-                    Rectangle()
+                    RoundedRectangle(cornerRadius: Configs.paddingValue)
                         .fill(Color.pointColor)
                         .frame(width: barPositionX, height: 10.0)
                     
-                    Rectangle()
+                    RoundedRectangle(cornerRadius: Configs.paddingValue)
                         .strokeBorder(Color.staticGray4, lineWidth: 1.0)
                         .frame(height: 10.0)
                 }
@@ -69,5 +70,5 @@ struct NewStaticPointProgress: View {
 }
 
 #Preview {
-    NewStaticPointProgress(staticPoint: 20.0)
+    NewStaticPointProgress(staticPoint: 67.0)
 }
