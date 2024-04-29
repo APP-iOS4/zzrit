@@ -168,7 +168,9 @@ final class RoomCreateViewModel {
                 platform: platform,
                 status: .activation,
                 leaderID: leaderID,
-                limitPeople: limitPeople
+                limitPeople: limitPeople,
+                scoreLimitaion: scoreLimitation,
+                genderLimitation: genderLimitation
             )
         } else {
             guard let placeLatitude, let placeLongitude else {
@@ -187,7 +189,9 @@ final class RoomCreateViewModel {
                 isOnline: isOnline,
                 status: .activation,
                 leaderID: leaderID,
-                limitPeople: limitPeople
+                limitPeople: limitPeople,
+                scoreLimitaion: scoreLimitation,
+                genderLimitation: genderLimitation
             )
         }
     }
