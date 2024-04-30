@@ -106,12 +106,12 @@ struct LogInView: View {
                     }
                 }
                 .padding(20)
-                .onAppear {
-                    id = ""
-                    pw = ""
-                }
             }
             .loading(isLoading)
+            .onAppear {
+                id = ""
+                pw = ""
+            }
         }
         .sheet(isPresented: $isShowingSecessionCancelView) {
             SecessionCancelView()

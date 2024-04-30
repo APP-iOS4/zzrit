@@ -63,6 +63,16 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
         print(userInfo)
     }
+    
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        Configs.printDebugMessage("백그라운드에서 수신 된 메시지: \(userInfo)")
+        if let messageTitle = userInfo["title"] as? String, let messageBody = userInfo["body"] as? String {
+            let dateString = DateService.shared.formattedString(date: Date(), format: "yyyy년 M월 d일 HH:mm:ss")
+            TestClass.shared.setLatestMessage(title: messageTitle, body: messageBody, date: dateString)
+        }
+        completionHandler(.newData)
+    }
 }
 
 extension AppDelegate: MessagingDelegate {

@@ -32,7 +32,7 @@ public final class ContactService: ObservableObject {
     public func deleteContact(contactID: String) {
         firebaseConstant.contactCollection.document(contactID).delete()
     }
-
+    
     public func writeContact(_ contact: ContactModel) throws {
         try firebaseConstant.contactCollection.addDocument(from: contact)
     }
@@ -97,12 +97,7 @@ public final class ContactService: ObservableObject {
         firebaseConstant.contactCollection.document(contactID).setData(["latestAnswerDate": Date()], merge: true)
         
         Task {
-            if let getToken = await PushService.shared.userTokens(uid: writerID) {
-                for token in getToken {
-                    // 메시지 보내기
-                    await PushService.shared.pushMessage(to: token, title: "ZZ!RIT 문의하기", body: "문의사항 답변이 등록되었습니다. ")
-                }
-            }
+            await PushService.shared.pushMessage(targetUID: writerID, title: "ZZ!RIT 문의하기", body: "문의사항 답변이 등록되었습니다. ", data: [.contact: contactID])
         }
     }
 }

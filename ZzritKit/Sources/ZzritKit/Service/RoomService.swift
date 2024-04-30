@@ -160,7 +160,7 @@ public final class RoomService {
     }
     
     // 탐색탭 필터
-    public func searchLoadRoom(isInitial: Bool = true, status: String = "all", title: String? = nil, isOnline: Bool? = nil, coordinate: CLLocationCoordinate2D? = nil) async throws -> [RoomModel] {        
+    public func searchLoadRoom(isInitial: Bool = true, status: String = "all", title: String? = nil, isOnline: Bool? = nil, coordinate: CLLocationCoordinate2D? = nil) async throws -> [RoomModel] {
         var temp: [RoomModel] = []
         
         do {
@@ -313,13 +313,8 @@ public final class RoomService {
                 print("참여자 : \(participant.userID)\n")
                 if participant.userID != uid {
                     // 본인 빼고
-                    if let getToken = await PushService.shared.userTokens(uid: participant.userID) {
-                        for token in getToken {
-                            // 메시지 보내기
-                            print("참여자 : \(participant.userID)의 토큰 \(token)\n")
-                            await PushService.shared.pushMessage(to: token, title: "모임 참여 알림", body: "\(loginedUserInfo.userName)님께서 \(roomInfo.title)모임에 가입하셨습니다.")
-                        }
-                    }
+                    // 메시지 보내기
+                    await PushService.shared.pushMessage(targetUID: participant.userID, title: "모임 참여 알림", body: "\(loginedUserInfo.userName)님께서 \(roomInfo.title)모임에 가입하셨습니다.", data: [.room: roomID])
                 }
             }
             userService = nil
