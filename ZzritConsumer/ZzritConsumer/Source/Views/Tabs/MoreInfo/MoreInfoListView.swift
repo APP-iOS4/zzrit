@@ -43,15 +43,6 @@ struct MoreInfoListView: View {
                         .foregroundStyle(Color.staticGray4)
                 }
                 
-                // TODO: FAQ 넣을것인가 그것이 문제로다
-                
-                //                    // 자주 묻는 질문
-                //                    Button {
-                //
-                //                    } label: {
-                //                        HorizontalLabel(string: "자주 묻는 질문")
-                //
-                //                    }
                 // 문의하기
                 if isLogined {
                     NavigationLink {
