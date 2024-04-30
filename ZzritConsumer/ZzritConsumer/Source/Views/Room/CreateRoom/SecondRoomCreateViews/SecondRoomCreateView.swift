@@ -82,6 +82,9 @@ struct SecondRoomCreateView: View {
                 ThirdRoomCreateView()
             }
         }
+        .onTapGesture {
+            endTextEditing()
+        }
     }
     
     // 화면에 있는 모든 텍스트 필드의 텍스트가 찼다면 버튼 활성화시키는 함수

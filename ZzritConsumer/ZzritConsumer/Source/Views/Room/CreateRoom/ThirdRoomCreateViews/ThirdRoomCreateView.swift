@@ -189,6 +189,9 @@ struct ThirdRoomCreateView: View {
                 }
             }
         }
+        .onTapGesture {
+            endTextEditing()
+        }
         .sheet(isPresented: $isShowingPurchaseView) {
             PurchaseView()
         }
