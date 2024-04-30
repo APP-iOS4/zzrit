@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		090EB3A12BE0A6C10039936B /* RoomCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090EB3A02BE0A6C10039936B /* RoomCountView.swift */; };
 		092876D02BC6C56500AFCA1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 092876CF2BC6C56500AFCA1D /* GoogleService-Info.plist */; };
 		09C567192BD533B700B5139D /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 09C567182BD533B700B5139D /* Secrets.xcconfig */; };
 		09E4BE3E2BD7385F002B6925 /* ModifyUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E4BE3D2BD7385F002B6925 /* ModifyUserInfoView.swift */; };
@@ -167,6 +168,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		090EB3A02BE0A6C10039936B /* RoomCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCountView.swift; sourceTree = "<group>"; };
 		092876CF2BC6C56500AFCA1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		09C567182BD533B700B5139D /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		09E4BE3D2BD7385F002B6925 /* ModifyUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyUserInfoView.swift; sourceTree = "<group>"; };
@@ -852,6 +854,7 @@
 				FC2DDC242BC5924C00A51E64 /* LittleUseView */,
 				FC2DDC1F2BC586EB00A51E64 /* StaticGuageView */,
 				FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */,
+				090EB3A02BE0A6C10039936B /* RoomCountView.swift */,
 				FC2DDC122BC5231200A51E64 /* ProfileInfoView.swift */,
 				FC2DDC142BC528F900A51E64 /* RecentWatchRoomView.swift */,
 				FC2DDC162BC52FBA00A51E64 /* MoreInfoListView.swift */,
@@ -1054,6 +1057,7 @@
 				3007E8B42BC4255900B9F7B3 /* RoomCardListView.swift in Sources */,
 				DF8AFC462BDF7DDD00C66BA2 /* SecessionCancelView.swift in Sources */,
 				FC2DDC212BC591F300A51E64 /* FakeDivider.swift in Sources */,
+				090EB3A12BE0A6C10039936B /* RoomCountView.swift in Sources */,
 				DF8AFC382BDB934000C66BA2 /* PurchaseViewModel.swift in Sources */,
 				DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */,
 				DF9674B92BCCF4C800322382 /* SocialLoginType.swift in Sources */,
