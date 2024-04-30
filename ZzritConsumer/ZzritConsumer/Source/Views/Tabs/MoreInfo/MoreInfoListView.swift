@@ -11,6 +11,8 @@ import ZzritKit
 import FirebaseMessaging
 
 struct MoreInfoListView: View {
+    @EnvironmentObject private var notificationViewModel: NotificationViewModel
+    
     @State private var isNoticeShow = false
     @State private var isQuestionShow = false
     @State private var isTermNavigationDestination: Bool = false
@@ -116,6 +118,7 @@ struct MoreInfoListView: View {
                         if let uid = loginedInfo?.id {
                             PushService.shared.deleteToken(uid, token: token)
                             loginedInfo = nil
+                            notificationViewModel.removeAllNotification()
                         }
                     }
                 }

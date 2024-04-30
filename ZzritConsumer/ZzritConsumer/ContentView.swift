@@ -21,6 +21,10 @@ struct ContentView: View {
     
     @StateObject private var locationService = LocationService.shared
     
+    private var isLogined: Bool {
+        return userService.loginedUser != nil
+    }
+    
     var body: some View {
         if restrictionViewModel.isUnderRestriction {
             UnderRestrictionView(userModel: $userModel)
@@ -55,8 +59,10 @@ struct ContentView: View {
             .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("didReceiveRemoteNotification"))) { notification in
                 if let title = notification.userInfo?["title"] as? String{
                     // 임시구현 - 현재는 해당 탭으로만 이동하도록 설정
-                    if title.contains("모임") {
-                        tabSelection = 2
+                    if isLogined {
+                        if title.contains("모임") {
+                            tabSelection = 2
+                        }
                     }
                 }
             }
