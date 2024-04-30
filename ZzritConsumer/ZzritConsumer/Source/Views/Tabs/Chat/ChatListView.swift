@@ -14,12 +14,15 @@ struct ChatListView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     @EnvironmentObject private var lastChatModel: LastChatModel
+    @EnvironmentObject private var roomVoteViewModel: RoomVoteViewModel
     
     @State private var selection = "참여 중인 모임"
     @State private var rooms: [RoomModel] = []
     @State private var checkActivation: Bool = false
     
     @State private var isShowingLoginView: Bool = false
+    @State private var isShowingVoteView = false
+    @State private var roomIDsToVote: [String] = []
     
     private var isLogined: Bool {
         return userService.loginedUser != nil
@@ -100,12 +103,20 @@ struct ChatListView: View {
                     LogInView()
                 }
         }
+        .fullScreenCover(isPresented: $isShowingVoteView, content: {
+            ZziritUserVoteView(roomID: roomIDsToVote.first!)
+        })
     }
     
     func onAppear() {
         Task {
             if isLogined {
                 await fetchRoom()
+                await checkRoomToVote()
+                
+                if !roomIDsToVote.isEmpty {
+                    isShowingVoteView.toggle()
+                }
             }
             checkActivation = true
         }
@@ -151,7 +162,6 @@ struct ChatListView: View {
         rooms = tempRooms
     }
     
-    // TODO: 추후 비활성화 된 모임 구분 시 active일때만 n 표시 로직 실행해야 함
     func deleteDeactivateRooms() {
         // deactivateRooms 찾기
         var deactivateRoomIDs: [String]? = []
@@ -165,6 +175,11 @@ struct ChatListView: View {
         // 파일 삭제 함수 동작
         lastChatModel.deleteDeactivateFiles(deactivateRoomIDs: deactivateRoomIDs)
     }
+    
+    func checkRoomToVote() async {
+        let roomIDs = rooms.filter { $0.status == .deactivation}.compactMap { $0.id }
+        roomIDsToVote = roomVoteViewModel.checkRoomToVote(fetchedRoomIDs: roomIDs)
+    }
 }
 
 #Preview {
@@ -173,5 +188,6 @@ struct ChatListView: View {
             .environmentObject(UserService())
             .environmentObject(LoadRoomViewModel())
             .environmentObject(LastChatModel())
+            .environmentObject(RoomVoteViewModel())
     }
 }

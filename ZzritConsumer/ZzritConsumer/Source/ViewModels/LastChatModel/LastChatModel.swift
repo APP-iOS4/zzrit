@@ -18,13 +18,13 @@ class LastChatModel: ObservableObject {
     init() {
         // 디렉토리 생성 및 url 설정
         do {
-            directory = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            directory = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
                 .appendingPathComponent("chats")
             
             try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true, attributes: nil)
             print("ChatCnt Saved URL: \(directory.path)")
         } catch {
-            fatalError("Failed to create cache directory: \(error)")
+            fatalError("Failed to create applicationSupportDirectory directory: \(error)")
         }
         
         // 초기 패치

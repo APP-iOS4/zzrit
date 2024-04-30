@@ -21,19 +21,26 @@ struct VoteProfileView: View {
                     .resizable()
                     .aspectRatio(1.0, contentMode: .fit)
                     .clipShape(.circle)
+                    .overlay {
+                        if selected {
+                            Circle()
+                                .stroke(style: .init(lineWidth: 2))
+                                .foregroundStyle(Color.pointColor)
+                        }
+                    }
             } else {
                 Image("noProfile")
                     .resizable()
                     .aspectRatio(1.0, contentMode: .fit)
                     .clipShape(.circle)
+                    .overlay {
+                        if selected {
+                            Circle()
+                                .stroke(style: .init(lineWidth: 2))
+                                .foregroundStyle(Color.pointColor)
+                        }
+                    }
             }
-//            if selected 일때
-//                .overlay {
-//                Circle()
-//                    .stroke(style: .init(lineWidth: 2))
-//                    .foregroundStyle(Color.pointColor)
-//            }
-            
             Text(nickname)
                 .font(.title3)
         }
@@ -48,5 +55,5 @@ struct VoteProfileView: View {
 }
 
 #Preview {
-    VoteProfileView(nickname: "예지님", image: "https://picsum.photos/100/100", selected: false)
+    VoteProfileView(nickname: "예지님", image: "https://picsum.photos/100/100", selected: true)
 }
