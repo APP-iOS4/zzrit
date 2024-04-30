@@ -11,7 +11,10 @@ import ZzritKit
 
 struct ChatNoticeMessageView: View {
     // 유저 별명 불러올때
+    private let roomService = RoomService.shared
+    
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     @Environment(\.dismiss) private var dismiss
     
     @State private var showMessage = ""
@@ -46,7 +49,10 @@ struct ChatNoticeMessageView: View {
             }
             .alert("방 삭제 안내", isPresented: $deleteChatRoom) {
                 // 취소 버튼
-                Button{
+                Button {
+                    if let roomId = room.id {
+                        goOutRoom(roomID: roomId)
+                    }
                     deleteChatRoom = false
                     dismiss()
                 } label: {
@@ -61,6 +67,16 @@ struct ChatNoticeMessageView: View {
             }
     }
     
+    // 모임 나가기
+    private func goOutRoom(roomID: String) {
+        if let userModel = userService.loginedUser {
+            if userModel.id != room.leaderID {
+                if let roomId = room.id {
+                    loadRoomViewModel.deleteRoom(roomId: roomId)
+                }
+            }
+        }
+    }
 }
 
 //#Preview {
