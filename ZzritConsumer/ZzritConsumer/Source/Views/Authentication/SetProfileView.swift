@@ -113,10 +113,10 @@ struct SetProfileView: View {
     
     // MARK: 일단 별명만 채워도 넘어가게 하도록 설정.
     func ProfileSettingDone() {
-        if !isDuplicate {
-            finishProfile = true
-        } else {
+        if nickName.isEmpty {
             finishProfile = false
+        } else {
+            finishProfile = true
         }
     }
     
@@ -127,42 +127,50 @@ struct SetProfileView: View {
         isLoading.toggle()
         Task {
             do {
-                let serviceTerm = try await userService.term(type: .service)
-                let privacyTerm = try await userService.term(type: .privacy)
-                let locationTerm = try await userService.term(type: .location)
-                
-                var getPath: String = "NONE"
-                
-                if let selectedImage, let imageData = selectedImage.pngData() {
-                    guard let selectedImage = ((selectedImage.size.width) < 300 ? selectedImage : selectedImage.resizeWithWidth(width: 300) ) else { return }
+                // 닉네임 확인
+                isDuplicate = await userService.checkNicknameDuplicated(nickName: nickName)
+                // 닉네임이 중복되지 않았다면
+                if !isDuplicate {
+                    let serviceTerm = try await userService.term(type: .service)
+                    let privacyTerm = try await userService.term(type: .privacy)
+                    let locationTerm = try await userService.term(type: .location)
                     
-                    // 이미지 경로 설정
-                    let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMdd")
-                    let timeString = DateService.shared.formattedString(date: Date(), format: "HHmmss")
-                    let imageDir: [StorageService.StorageName: [String]] = [.profile : [registeredUID, dayString, timeString ]]
+                    var getPath: String = "NONE"
                     
-                    // 이미지 올리고 url 받아오기
-                    getPath = try await storageService.imageUpload(dirs: imageDir, image: imageData) ?? "NONE"
+                    if let selectedImage, let imageData = selectedImage.pngData() {
+                        guard let selectedImage = ((selectedImage.size.width) < 300 ? selectedImage : selectedImage.resizeWithWidth(width: 300) ) else { return }
+                        
+                        // 이미지 경로 설정
+                        let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMdd")
+                        let timeString = DateService.shared.formattedString(date: Date(), format: "HHmmss")
+                        let imageDir: [StorageService.StorageName: [String]] = [.profile : [registeredUID, dayString, timeString ]]
+                        
+                        // 이미지 올리고 url 받아오기
+                        getPath = try await storageService.imageUpload(dirs: imageDir, image: imageData) ?? "NONE"
+                        
+                        Configs.printDebugMessage("이미지 파베에 올림")
+                        
+                        // 이미지 캐시 저장
+                        ImageCacheManager.shared.updateImageFirst(name: getPath, image: selectedImage)
+                    }
                     
-                    Configs.printDebugMessage("이미지 파베에 올림")
+                    // 유저 정보 모델에 저장
+                    let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: getPath, gender: isMan ? .male : .female, birthYear: birthYear, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
                     
-                    // 이미지 캐시 저장
-                    ImageCacheManager.shared.updateImageFirst(name: getPath, image: selectedImage)
+                    // 유저 프로필 서버에 올리기
+                    try userService.setUserInfo(uid: registeredUID, info: userInfo)
                 }
                 
-                // 유저 정보 모델에 저장
-                let userInfo: UserModel = .init(userID: emailField, userName: nickName, userImage: getPath, gender: isMan ? .male : .female, birthYear: birthYear, staticGauge: 20.0, agreeServiceDate: serviceTerm.date, agreePrivacyDate: privacyTerm.date, agreeLocationDate: locationTerm.date)
-                
-                // 유저 프로필 서버에 올리기
-                try userService.setUserInfo(uid: registeredUID, info: userInfo)
-                
                 isLoading.toggle()
-                completeSignUp.toggle()
+                if !isDuplicate {
+                    completeSignUp.toggle()
+                }
             } catch {
                 Configs.printDebugMessage("에러: \(error)")
                 isLoading = false
             }
         }
+        
     }
 }
 

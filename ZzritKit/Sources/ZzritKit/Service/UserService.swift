@@ -273,4 +273,16 @@ public final class UserService: ObservableObject {
             print("디바이스 토큰 등록 에러: \(error)")
         }
     }
+    
+    /// 닉네임 중복을 확인합니다.
+    public func checkNicknameDuplicated(nickName: String) async -> Bool {
+        do {
+            var array: [UserModel] = []
+            try await array = firebaseConst.userCollection.whereField("userName", isEqualTo: nickName).getDocuments().documents.map { try $0.data(as: UserModel.self)}
+            return array.count > 0 ? true : false
+        } catch {
+            print("닉네임 중복 체크: \(error)")
+            return true
+        }
+    }
 }

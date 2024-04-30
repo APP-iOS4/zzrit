@@ -14,6 +14,7 @@ public enum AuthError: Error {
     case noUserInfo
     case notLogin
     case secessioning
+    case duplicatedNickName
     
     public var description: String {
         switch self {
@@ -23,6 +24,7 @@ public enum AuthError: Error {
         case .noUserInfo: "유저 정보가 DB에 없습니다."
         case .notLogin: "로그인 되지 않았습니다."
         case .secessioning: "회원탈퇴 처리중입니다."
+        case .duplicatedNickName: "중복된 닉네임이 있습니다."
         }
     }
 }

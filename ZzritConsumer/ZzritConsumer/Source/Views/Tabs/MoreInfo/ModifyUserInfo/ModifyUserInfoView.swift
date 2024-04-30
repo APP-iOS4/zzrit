@@ -76,9 +76,8 @@ struct ModifyUserInfoView: View {
         }
     }
     
-    // TODO: 별명 중복 확인해주기
     func ProfileSettingDone() {
-        if !isDuplicate {
+        if !nickName.isEmpty {
             isFinishProfile = true
         } else {
             isFinishProfile = false
@@ -94,29 +93,41 @@ struct ModifyUserInfoView: View {
         let isImageChange = selectedImage != originImage
         let setImagePath = userService.loginedUser?.userImage
         
-        
         if isImageChange, let selectedImage, let imageData = selectedImage.pngData()  {
             Task {
                 do {
-                    // 이미지 경로 지정
-                    let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMdd")
-                    let timeString = DateService.shared.formattedString(date: Date(), format: "HHmmss")
-                    let imageDir: [StorageService.StorageName: [String]] = [.profile: [registeredUID, dayString, timeString]]
+                    // 닉네임 확인
+                    if isNameChange {
+                        isDuplicate = await userService.checkNicknameDuplicated(nickName: nickName)
+                    } else {
+                        isDuplicate = false
+                    }
                     
-                    // 이미지 firebase 올리고 저장 path 받아오기
-                    let imagePath = try await storageService.imageUpload(dirs: imageDir, image: imageData) ?? "NONE"
+                    // 닉네임이 중복되지 않았다면
+                    if !isDuplicate {
+                        // 이미지 경로 지정
+                        let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMdd")
+                        let timeString = DateService.shared.formattedString(date: Date(), format: "HHmmss")
+                        let imageDir: [StorageService.StorageName: [String]] = [.profile: [registeredUID, dayString, timeString]]
+                        
+                        // 이미지 firebase 올리고 저장 path 받아오기
+                        let imagePath = try await storageService.imageUpload(dirs: imageDir, image: imageData) ?? "NONE"
+                        
+                        userService.modifyUserInfo(userID: authService.currentUID!,
+                                                   userName: nickName,
+                                                   imageURL: imagePath)
+                        
+                        // 변경된 회원정보 firebase로
+                        _ = try await userService.loggedInUserInfo()
+                        
+                        // 이미지 캐시 저장
+                        ImageCacheManager.shared.updateImageFirst(name: imagePath, image: selectedImage)
+                    }
                     
-                    userService.modifyUserInfo(userID: authService.currentUID!,
-                                               userName: nickName,
-                                               imageURL: imagePath)
-                    
-                    // 변경된 회원정보 firebase로
-                    _ = try await userService.loggedInUserInfo()
-                    
-                    // 이미지 캐시 저장
-                    ImageCacheManager.shared.updateImageFirst(name: imagePath, image: selectedImage)
                     isLoading.toggle()
-                    dismiss()
+                    if !isDuplicate {
+                        dismiss()
+                    }
                 } catch {
                     Configs.printDebugMessage("에러: \(error)")
                     isLoading = false
@@ -127,13 +138,20 @@ struct ModifyUserInfoView: View {
             if isNameChange {
                 Task {
                     do {
-                        // 바뀐 닉네임만 적용되어 올라감.
-                        userService.modifyUserInfo(userID: authService.currentUID!, userName: nickName, imageURL: setImagePath!)
-                        
-                        // 변경된 회원정보 firebase로
-                        _ = try await userService.loggedInUserInfo()
+                        // 닉네임 확인
+                        isDuplicate = await userService.checkNicknameDuplicated(nickName: nickName)
+                        // 닉네임이 중복되지 않았다면
+                        if !isDuplicate {
+                            // 바뀐 닉네임만 적용되어 올라감.
+                            userService.modifyUserInfo(userID: authService.currentUID!, userName: nickName, imageURL: setImagePath!)
+                            
+                            // 변경된 회원정보 firebase로
+                            _ = try await userService.loggedInUserInfo()
+                        }
                         isLoading.toggle()
-                        dismiss()
+                        if !isDuplicate {
+                            dismiss()
+                        }
                     } catch {
                         Configs.printDebugMessage("에러: \(error)")
                         isLoading = false
