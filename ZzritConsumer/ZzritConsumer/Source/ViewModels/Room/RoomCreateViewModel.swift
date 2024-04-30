@@ -77,7 +77,7 @@ final class RoomCreateViewModel {
     }
     
     // MARK: - Firebase에 모임 추가
-    func createRoom(userModel: UserModel?) async -> RoomModel? {
+    func createRoom(userModel: UserModel?) async -> String? {
         saveLeaderID(userModel: userModel)
         
         let newRoom = await makeNewRoom()
@@ -86,7 +86,7 @@ final class RoomCreateViewModel {
             do {
                 let newRoomID = try await roomService.createRoom(newRoom)
                 Configs.printDebugMessage("모임 생성 완료")
-                return newRoom
+                return newRoomID
             } catch {
                 Configs.printDebugMessage("모임 생성 중 에러가 발생했습니다! \(error)")
             }

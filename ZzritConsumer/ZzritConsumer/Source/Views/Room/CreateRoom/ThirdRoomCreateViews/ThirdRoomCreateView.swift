@@ -16,7 +16,6 @@ struct ThirdRoomCreateView: View {
     //    @EnvironmentObject var coordinator: Coordinator
     @EnvironmentObject var userService: UserService
     @EnvironmentObject var purchaseViewModel: PurchaseViewModel
-    @EnvironmentObject var loadRoomViewModel: LoadRoomViewModel
     
     // 입장 메시지 입력을 위한 채팅
     @StateObject private var chattingService = ChattingService(roomID: " ")
@@ -173,13 +172,9 @@ struct ThirdRoomCreateView: View {
                         VM.saveLimitPeople(limitPeople: limitPeople)
                         
                         let userInfo = userService.loginedUser
-                        let newRoom = await VM.createRoom(userModel: userInfo)
-                        let roomID = newRoom?.id
+                        let roomID = await VM.createRoom(userModel: userInfo)
                         let userID = userInfo?.id ?? " "
                         if let roomID = roomID {
-                            if let newRoom {
-                                loadRoomViewModel.addNewRoomToData(newRoom: newRoom)
-                            }
                             VM.topDismiss?.callAsFunction()
                         } else {
                             isCreateNewRoom = false
@@ -376,6 +371,5 @@ extension ThirdRoomCreateView {
         //            .environmentObject(Coordinator())
             .environmentObject(UserService())
             .environmentObject(PurchaseViewModel())
-            .environmentObject(LoadRoomViewModel())
     }
 }
