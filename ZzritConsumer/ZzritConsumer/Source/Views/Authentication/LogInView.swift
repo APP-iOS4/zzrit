@@ -106,12 +106,12 @@ struct LogInView: View {
                     }
                 }
                 .padding(20)
-                .onAppear {
-                    id = ""
-                    pw = ""
-                }
             }
             .loading(isLoading)
+            .onAppear {
+                id = ""
+                pw = ""
+            }
         }
         .sheet(isPresented: $isShowingSecessionCancelView) {
             SecessionCancelView()
@@ -174,7 +174,6 @@ struct LogInView: View {
     /// 로그인 에러 핸들링
     private func checkError(_ error: any Error) {
         isLoading.toggle()
-        
         guard let error = error as? AuthError else {
             errorMessage = "오류가 발생했습니다.\n잠시 후 다시 시도해주시기 바랍니다."
             return

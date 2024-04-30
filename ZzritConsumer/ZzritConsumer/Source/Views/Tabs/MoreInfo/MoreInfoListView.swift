@@ -73,7 +73,6 @@ struct MoreInfoListView: View {
                         HorizontalLabel(string: type.title)
                     }
                 }
-                
             }
             .padding(Configs.paddingValue)
             if isLogined {

@@ -19,11 +19,21 @@ struct SignUpView: View {
     @State private var signUpPw2: String = ""
     @State private var agreeSheet = false
     @State private var showProfile = false
-    @State private var selectAgree = false
     @State private var equlText = false
     @State private var isSignUpButtonActive: Bool = false
     @State private var registeredUID: String = ""
     @State private var isLoading: Bool = false
+    
+    @State private var agreeCount = 0
+    
+    @State private var selectAgreeService = false
+    @State private var selectAgreePrivacy = false
+    @State private var selectAgreeLocation = false
+    
+    @State private var serviceText = "서비스 이용약관"
+    @State private var privacyText = "개인정보 처리방침"
+    @State private var locationText = "위치서비스 이용약관"
+    
     
     @Environment (\.dismiss) private var dismiss
     
@@ -40,7 +50,8 @@ struct SignUpView: View {
                             activeSignUpButton()
                         }
                     
-                    // MARK: 이메일 형식 체크 오류 메시지
+                    // MARK: -이메일 형식 체크 오류 메시지
+                    
                     if !signUpId.isEmpty {
                         if checkEmail(signUpId){
                             SpaceErrorTextView()
@@ -59,7 +70,8 @@ struct SignUpView: View {
                             activeSignUpButton()
                         }
                     
-                    // MARK: 비밀번호 일치 여부 확인 메시지
+                    // MARK: -비밀번호 일치 여부 확인 메시지
+                    
                     if !equlText {
                         if signUpPw1.isEmpty || signUpPw2.isEmpty {
                             ErrorTextView(title: "비밀번호 입력란은 모두 채워주세요.")
@@ -74,25 +86,68 @@ struct SignUpView: View {
                         }
                     }
                     
-                    // MARK: 이용약관 동의 버튼
-                    SignUpAgreeButton(selectAgree: $selectAgree)
-                        .onTapGesture {
-                            if selectAgree {
-                                selectAgree = false
-                            } else {
-                                agreeSheet.toggle()
+                    VStack(spacing: 5) {
+                        
+                        // MARK: -서비스 이용약관 동의 버튼
+                        
+                        SignUpAgreeButton(selectAgree: $selectAgreeService, agreeText: $serviceText)
+                            .onTapGesture {
+                                if selectAgreeService {
+                                    selectAgreeService = false
+                                } else {
+                                    agreeCount = 0
+                                    agreeSheet.toggle()
+                                }
                             }
-                        }
-                        .sheet(isPresented: $agreeSheet, content: {
-                            ServiceAgreeSheet(selectAgree: $selectAgree, agreeSheet: $agreeSheet)
-                        })
-                        .padding(.top, Configs.paddingValue)
+                            .sheet(isPresented: $agreeSheet) {
+                                ServiceAgreeSheet(selectAgreeService: $selectAgreeService, selectAgreePrivacy: $selectAgreePrivacy, selectAgreeLocation: $selectAgreeLocation, agreeSheet: $agreeSheet, agreeCount: $agreeCount)
+                            }
+                            .padding(.top, Configs.paddingValue)
+                        
+                        // MARK: -개인정보 이용약관 동의 버튼
+                        
+                        SignUpAgreeButton(selectAgree: $selectAgreePrivacy, agreeText: $privacyText)
+                            .onTapGesture {
+                                if selectAgreePrivacy {
+                                    selectAgreePrivacy = false
+                                } else {
+                                    agreeCount = 1
+                                    agreeSheet.toggle()
+                                }
+                            }
+                            .sheet(isPresented: $agreeSheet) {
+                                ServiceAgreeSheet(selectAgreeService: $selectAgreeService, selectAgreePrivacy: $selectAgreePrivacy, selectAgreeLocation: $selectAgreeLocation, agreeSheet: $agreeSheet, agreeCount: $agreeCount)
+                            }
+                        
+                        // MARK: -위치 동의 버튼
+                        
+                        SignUpAgreeButton(selectAgree: $selectAgreeLocation, agreeText: $locationText)
+                            .onTapGesture {
+                                if selectAgreeLocation {
+                                    selectAgreeLocation = false
+                                } else {
+                                    agreeCount = 2
+                                    agreeSheet.toggle()
+                                }
+                            }
+                            .sheet(isPresented: $agreeSheet) {
+                                ServiceAgreeSheet(selectAgreeService: $selectAgreeService, selectAgreePrivacy: $selectAgreePrivacy, selectAgreeLocation: $selectAgreeLocation, agreeSheet: $agreeSheet, agreeCount: $agreeCount)
+                            }
+                    }
+                    .padding(.bottom, Configs.paddingValue)
                     
-                    // MARK: 회원가입 버튼
+                    // MARK: -회원가입 버튼
+                    
                     GeneralButton("회원가입", isDisabled: !isSignUpButtonActive) {
                         register()
                     }
-                    .customOnChange(of: selectAgree) { _ in
+                    .customOnChange(of: selectAgreePrivacy) { _ in
+                        activeSignUpButton()
+                    }
+                    .customOnChange(of: selectAgreeService) { _ in
+                        activeSignUpButton()
+                    }
+                    .customOnChange(of: selectAgreeLocation) { _ in
                         activeSignUpButton()
                     }
                     .navigationDestination(isPresented: $showProfile) {
@@ -116,7 +171,7 @@ struct SignUpView: View {
         if !signUpId.isEmpty && !signUpPw1.isEmpty && !signUpPw2.isEmpty {
             if signUpPw1 == signUpPw2 {
                 equlText = true
-                if selectAgree {
+                if selectAgreePrivacy && selectAgreeService && selectAgreeLocation {
                     if checkEmail(signUpId) {
                         if checkPassword(signUpPw1) {
                             isSignUpButtonActive = true
@@ -156,6 +211,7 @@ struct SignUpView: View {
                 registeredUID = register.user.uid
                 isLoading.toggle()
                 showProfile.toggle()
+                try authService.logout()
             } catch {
                 isLoading = false
                 Configs.printDebugMessage("에러: \(error)")

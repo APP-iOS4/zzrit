@@ -53,22 +53,23 @@ struct MoreInfoView: View {
                     
                     // 그외 더보기 List
                     MoreInfoListView(loginedInfo: $userService.loginedUser, isLogined: isLogined)
-                    
-                    HStack {
-                        Button {
-                            isShowingSecessionView.toggle()
-                        } label: {
-                            Text("회원탈퇴")
-                                .font(.body)
-                                .padding()
+                    if isLogined {
+                        HStack {
+                            Button {
+                                isShowingSecessionView.toggle()
+                            } label: {
+                                Text("회원탈퇴")
+                                    .font(.body)
+                                    .padding()
+                            }
+                            .tint(Color.staticGray3)
+                            .offset(x: 3)
+                            
+                            Spacer()
                         }
-                        .tint(Color.staticGray3)
-                        .offset(x: 3)
-                        
-                        Spacer()
-                    }
-                    .fullScreenCover(isPresented: $isShowingSecessionView, onDismiss: fetchLogin) {
-                        SecessionView()
+                        .fullScreenCover(isPresented: $isShowingSecessionView, onDismiss: fetchLogin) {
+                            SecessionView()
+                        }
                     }
                 }
                 .padding(.vertical, 10)
