@@ -76,9 +76,8 @@ struct ModifyUserInfoView: View {
         }
     }
     
-    // TODO: 별명 중복 확인해주기
     func ProfileSettingDone() {
-        if !isDuplicate {
+        if !nickName.isEmpty {
             isFinishProfile = true
         } else {
             isFinishProfile = false
@@ -127,13 +126,20 @@ struct ModifyUserInfoView: View {
             if isNameChange {
                 Task {
                     do {
-                        // 바뀐 닉네임만 적용되어 올라감.
-                        userService.modifyUserInfo(userID: authService.currentUID!, userName: nickName, imageURL: setImagePath!)
-                        
-                        // 변경된 회원정보 firebase로
-                        _ = try await userService.loggedInUserInfo()
+                        // 닉네임 확인
+                        isDuplicate = await userService.checkNicknameDuplicated(nickName: nickName)
+                        // 닉네임이 중복되지 않았다면
+                        if !isDuplicate {
+                            // 바뀐 닉네임만 적용되어 올라감.
+                            userService.modifyUserInfo(userID: authService.currentUID!, userName: nickName, imageURL: setImagePath!)
+                            
+                            // 변경된 회원정보 firebase로
+                            _ = try await userService.loggedInUserInfo()
+                        }
                         isLoading.toggle()
-                        dismiss()
+                        if !isDuplicate {
+                            dismiss()
+                        }
                     } catch {
                         Configs.printDebugMessage("에러: \(error)")
                         isLoading = false

@@ -109,6 +109,13 @@ struct MoreInfoView: View {
     NavigationStack {
         MoreInfoView()
             .environmentObject(UserService())
+            .environmentObject(ContactService())
             .environmentObject(RecentRoomViewModel())
+            .environmentObject(RestrictionViewModel())
+            .environmentObject(LoadRoomViewModel())
+            .environmentObject(LastChatModel())
+            .environmentObject(NetworkMonitor())
+            .environmentObject(PurchaseViewModel())
+            .environmentObject(UserDefaultsClient())
     }
 }

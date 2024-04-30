@@ -126,10 +126,11 @@ struct SetProfileView: View {
         
         isLoading.toggle()
         Task {
-            // 닉네임 확인
-            isDuplicate = await userService.checkNicknameDuplicated(nickName: nickName)
-            if !isDuplicate {
-                do {
+            do {
+                // 닉네임 확인
+                isDuplicate = await userService.checkNicknameDuplicated(nickName: nickName)
+                // 닉네임이 중복되지 않았다면
+                if !isDuplicate {
                     let serviceTerm = try await userService.term(type: .service)
                     let privacyTerm = try await userService.term(type: .privacy)
                     let locationTerm = try await userService.term(type: .location)
@@ -158,17 +159,18 @@ struct SetProfileView: View {
                     
                     // 유저 프로필 서버에 올리기
                     try userService.setUserInfo(uid: registeredUID, info: userInfo)
-                    
-                    isLoading.toggle()
-                    completeSignUp.toggle()
-                } catch {
-                    Configs.printDebugMessage("에러: \(error)")
-                    isLoading = false
                 }
-            } else {
+                
+                isLoading.toggle()
+                if !isDuplicate {
+                    completeSignUp.toggle()
+                }
+            } catch {
+                Configs.printDebugMessage("에러: \(error)")
                 isLoading = false
             }
         }
+        
     }
 }
 
