@@ -23,19 +23,8 @@ struct MainView: View {
     // 로그인 FullScreenCover로 넘어가는지 결정하는 변수
     @State private var isShowingLoginView: Bool = false
     
-//    init() {
-//    init(searchViewModel: StateObject<SearchViewModel>) {
-//        Configs.printDebugMessage("MainView Init")
-//        self._searchViewModel = searchViewModel
-//    }
     let userNotificationCenter = UNUserNotificationCenter.current()
     
-    init() {
-        Configs.printDebugMessage("MainView Init")
-    }
-    
-    // 유저모델 변수
-//    @State private var userModel: UserModel?
     private var isLogined: Bool {
         return userService.loginedUser != nil
     }

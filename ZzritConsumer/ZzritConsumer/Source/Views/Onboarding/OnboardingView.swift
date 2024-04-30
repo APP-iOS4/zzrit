@@ -74,9 +74,11 @@ struct OnboardingView: View {
                 
                 Spacer()
                 
-                GeneralButton("찾으러가기", isDisabled: !isLastPage) {
-                    userDefaultsClient.isOnBoardingDone = true
-                    isPresented = false
+                if selectedIndex == 2 {
+                    GeneralButton("찾으러가기", isDisabled: !isLastPage) {
+                        userDefaultsClient.isOnBoardingDone = true
+                        isPresented = false
+                    }
                 }
             }
             .padding(Configs.paddingValue)

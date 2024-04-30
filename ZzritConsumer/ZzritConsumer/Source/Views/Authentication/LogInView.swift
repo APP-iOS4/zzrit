@@ -129,57 +129,70 @@ struct LogInView: View {
     
     /// 아이디, 이메일 로그인
     private func login() {
-        Messaging.messaging().token { token, error in
-            if let error = error {
-                Configs.printDebugMessage("Error fetching FCM registration token: \(error)")
-            } else if let token = token {
-                Task {
-                    do {
-                        isLoading.toggle()
-                        try await authService.loginUser(email: id, password: pw)
-                        if let id = try await userService.loggedInUserInfo()?.id {
-                            restrictionViewModel.loadRestriction(userID: id)
-                            PushService.shared.saveToken(id, token: token)
-                        }
-                        isLoading.toggle()
-                        
-                        dismiss()
-                    } catch {
-                        isLoading = false
-                        errorMessage = "로그인 정보를 확인해주세요."
-                    }
-                }
+        isLoading.toggle()
+        Task {
+            do {
+                try await authService.loginUser(email: id, password: pw)
+                await saveMessagingToken()
+                dismiss()
+            } catch {
+                checkError(error)
             }
         }
     }
     
     /// 구글 로그인
     private func googleSignIn() {
-        Messaging.messaging().token { token, error in
-            if let error = error {
-                Configs.printDebugMessage("Error fetching FCM registration token: \(error)")
-            } else if let token = token {
-                Task {
-                    do {
-                        try await authService.loginWithGoogle()
-                        
-                        if let userId = try await userService.loggedInUserInfo()?.id {
-                            _ = try await userService.findUserInfo(uid: userId)
-                            restrictionViewModel.loadRestriction(userID: userId)
-                            PushService.shared.saveToken(userId, token: token)
-                        }
-                        dismiss()
-                    } catch AuthError.noUserInfo {
-                        registerdID = authService.currentUID!
-                        Configs.printDebugMessage("id는 이거 : \(registerdID)")
-                        print("id는 이거 : \(registerdID)")
-                        googleEmailID = authService.currentUserEmail ?? ""
-                        showProfile.toggle()
-                    } catch {
-                        errorMessage = "오류가 발생했습니다.\n잠시 후 다시 시도해주시기 바랍니다."
-                    }
-                }
+        isLoading.toggle()
+        Task {
+            do {
+                try await authService.loginWithGoogle()
+                await saveMessagingToken()
+                dismiss()
+            } catch {
+                checkError(error)
             }
+        }
+    }
+    
+    /// 토큰 저장
+    private func saveMessagingToken() async {
+        do {
+            let token = try await Messaging.messaging().token()
+            
+            if let userId = try await userService.loggedInUserInfo()?.id {
+                _ = try await userService.findUserInfo(uid: userId)
+                restrictionViewModel.loadRestriction(userID: userId)
+                PushService.shared.saveToken(userId, token: token)
+            }
+            print("토큰: \(token)")
+        } catch {
+            print("FCM 토큰을 받아오는 도중 에러 발생: \(error)")
+        }
+    }
+    
+    /// 로그인 에러 핸들링
+    private func checkError(_ error: any Error) {
+        isLoading.toggle()
+        
+        guard let error = error as? AuthError else {
+            errorMessage = "오류가 발생했습니다.\n잠시 후 다시 시도해주시기 바랍니다."
+            return
+        }
+        
+        switch error {
+        case .secessioning:
+            errorMessage = "회원탈퇴가 진행중입니다."
+            isShowingSecessionCancelView.toggle()
+        case .noUserInfo:
+            errorMessage = "회원 정보가 등록되어 있지 않습니다."
+            registerdID = authService.currentUID!
+            Configs.printDebugMessage("id는 이거 : \(registerdID)")
+            print("id는 이거 : \(registerdID)")
+            googleEmailID = authService.currentUserEmail ?? ""
+            showProfile.toggle()
+        default:
+            errorMessage = "오류가 발생했습니다.\n잠시 후 다시 시도해주시기 바랍니다."
         }
     }
     
