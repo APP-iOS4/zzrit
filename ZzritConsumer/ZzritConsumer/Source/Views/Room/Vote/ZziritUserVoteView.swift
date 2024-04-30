@@ -13,6 +13,7 @@ struct ZziritUserVoteView: View {
     
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var userService: UserService
+    @EnvironmentObject private var roomVoteViewModel: RoomVoteViewModel
     
     private let roomService = RoomService.shared
     
@@ -65,6 +66,15 @@ struct ZziritUserVoteView: View {
             LazyVGrid(columns: gridColumns, alignment: .leading, spacing: 40) {
                 ForEach(userProfiles) { profile in
                     VoteProfileView(nickname: profile.userName, image: profile.userImage, selected: selectedUsers.contains(profile.id!))
+                        .onTapGesture {
+                            if let index = selectedUsers.firstIndex(of: profile.id!) {
+                                // 이미 선택되어 있는 경우 제거
+                                selectedUsers.remove(at: index)
+                            } else {
+                                // 선택되어 있지 않은 경우 추가
+                                selectedUsers.append(profile.id!)
+                            }
+                        }
                 }
             }
             .padding(.top, Configs.paddingValue)
@@ -120,6 +130,7 @@ struct ZziritUserVoteView: View {
         Task {
             do {
                 try await userService.applyEvaluation(userUIDs: selectedUsers)
+                roomVoteViewModel.addVoteRoomID(roomID: roomID)
                 dismiss()
             } catch {
                 Configs.printDebugMessage("에러: \(error)")
@@ -131,4 +142,5 @@ struct ZziritUserVoteView: View {
 #Preview {
     ZziritUserVoteView(roomID: "1Ab05L2UJXVpbYD7qxNc")
         .environmentObject(UserService())
+        .environmentObject(RoomVoteViewModel())
 }

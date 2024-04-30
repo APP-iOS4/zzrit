@@ -25,6 +25,9 @@ struct ChatView: View {
     @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     // 채팅방 N 표시
     @EnvironmentObject private var lastChatModel: LastChatModel
+    // 투표 삭제
+    @EnvironmentObject private var roomVoteViewModel: RoomVoteViewModel
+    
     // 유저모델 변수
     @State private var userModel: UserModel?
     
@@ -431,6 +434,7 @@ struct ChatView: View {
                     Button(role: .destructive) {
                         isGoOutRoomAlert.toggle()
                         goOutRoom(roomID: room.id!)
+                        roomVoteViewModel.deleteRoomIDs(roomIDs: [room.id!])
                     } label: {
                         Text("나가기")
                     }

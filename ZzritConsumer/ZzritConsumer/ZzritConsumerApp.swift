@@ -92,6 +92,7 @@ struct ZzritConsumerApp: App {
     @StateObject private var recentRoomViewModel = RecentRoomViewModel()
     @StateObject private var restrictionViewModel = RestrictionViewModel()
     @StateObject private var loadRoomViewModel = LoadRoomViewModel()
+    @StateObject private var roomVoteViewModel = RoomVoteViewModel()
     @StateObject private var lastChatModel = LastChatModel()
     @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var purchaseViewModel = PurchaseViewModel()
@@ -145,6 +146,7 @@ struct ZzritConsumerApp: App {
                 .environmentObject(networkMonitor)
                 .environmentObject(purchaseViewModel)
                 .environmentObject(userDefaultsClient)
+                .environmentObject(roomVoteViewModel)
         }
     }
     
