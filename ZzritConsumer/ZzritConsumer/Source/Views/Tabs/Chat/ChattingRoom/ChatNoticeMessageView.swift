@@ -16,6 +16,7 @@ struct ChatNoticeMessageView: View {
     
     @State private var showMessage = ""
     @State private var deleteChatRoom: Bool = false
+    @State private var isDelete: Bool = false
     
     let message: String
     
@@ -39,6 +40,7 @@ struct ChatNoticeMessageView: View {
                     
                     if room.leaderID == messageParse[0] && "퇴장" == messageParse[1] {
                         deleteChatRoom.toggle()
+                        isDelete = true
                     }
                 }
             }
@@ -53,6 +55,9 @@ struct ChatNoticeMessageView: View {
                 }
             } message: {
                 Text("방장이 모임에서 나가게 되어 방이 삭제됩니다.")
+            }
+            .customOnChange(of: isDelete) { _ in
+                self.endTextEditing()
             }
     }
     
