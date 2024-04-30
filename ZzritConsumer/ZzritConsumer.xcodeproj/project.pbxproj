@@ -88,6 +88,9 @@
 		3BA17FDB2BD9DBF60000F964 /* LastChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA17FDA2BD9DBF60000F964 /* LastChatModel.swift */; };
 		9B5403CE2BD73C870066A7EF /* RestrictionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5403CD2BD73C870066A7EF /* RestrictionViewModel.swift */; };
 		9B5403D02BD73CBB0066A7EF /* UnderRestrictionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5403CF2BD73CBB0066A7EF /* UnderRestrictionView.swift */; };
+		9B90ABAB2BE0734A0038C70D /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B90ABAA2BE0734A0038C70D /* NotificationViewModel.swift */; };
+		9B90ABAD2BE0898C0038C70D /* PushNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B90ABAC2BE0898C0038C70D /* PushNotificationView.swift */; };
+		9B90ABAF2BE095480038C70D /* PushNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B90ABAE2BE095480038C70D /* PushNotificationModel.swift */; };
 		DF2209632BD780AE00B9A2C7 /* RoomCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2209622BD780AE00B9A2C7 /* RoomCreateView.swift */; };
 		DF2209672BD797DC00B9A2C7 /* HiddenRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2209662BD797DC00B9A2C7 /* HiddenRectangle.swift */; };
 		DF2209692BD79B9200B9A2C7 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2209682BD79B9200B9A2C7 /* InformationView.swift */; };
@@ -245,6 +248,9 @@
 		3BA17FDA2BD9DBF60000F964 /* LastChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastChatModel.swift; sourceTree = "<group>"; };
 		9B5403CD2BD73C870066A7EF /* RestrictionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestrictionViewModel.swift; sourceTree = "<group>"; };
 		9B5403CF2BD73CBB0066A7EF /* UnderRestrictionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderRestrictionView.swift; sourceTree = "<group>"; };
+		9B90ABAA2BE0734A0038C70D /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		9B90ABAC2BE0898C0038C70D /* PushNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationView.swift; sourceTree = "<group>"; };
+		9B90ABAE2BE095480038C70D /* PushNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationModel.swift; sourceTree = "<group>"; };
 		9B9FCB562BDA3D7F004D22F8 /* ZzritConsumer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZzritConsumer.entitlements; sourceTree = "<group>"; };
 		DF2209622BD780AE00B9A2C7 /* RoomCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCreateView.swift; sourceTree = "<group>"; };
 		DF2209662BD797DC00B9A2C7 /* HiddenRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenRectangle.swift; sourceTree = "<group>"; };
@@ -487,6 +493,7 @@
 			children = (
 				1F4566FA2BCDFFA8001EC0E7 /* Coordinator.swift */,
 				9B5403CD2BD73C870066A7EF /* RestrictionViewModel.swift */,
+				9B90ABAA2BE0734A0038C70D /* NotificationViewModel.swift */,
 				DF2209582BD6A83700B9A2C7 /* UserDefaults */,
 				DF2209572BD6A82500B9A2C7 /* Location */,
 				DF2209562BD6A81100B9A2C7 /* Room */,
@@ -507,6 +514,7 @@
 				DF63091C2BD2A93F0077B94F /* KakaoConvertAddressModel.swift */,
 				DF6F4B462BD5E6FD00DDBF96 /* OfflineLocationModel.swift */,
 				1F70CD372BD7A19F00869119 /* FilterModel.swift */,
+				9B90ABAE2BE095480038C70D /* PushNotificationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -515,6 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				3007E8AE2BC40E6E00B9F7B3 /* MainView.swift */,
+				9B90ABAC2BE0898C0038C70D /* PushNotificationView.swift */,
 				30F80C3D2BC7C23A00B432DA /* MainLocationView.swift */,
 				3007E8B32BC4255900B9F7B3 /* RoomCardListView.swift */,
 				30C1BAC92BC3F50A00827BD1 /* MainExistView.swift */,
@@ -987,6 +996,7 @@
 				3007E8AF2BC40E6E00B9F7B3 /* MainView.swift in Sources */,
 				DF6F4B412BD4D87100DDBF96 /* OfflineSearchHistoryView.swift in Sources */,
 				1F70CD362BD7A15B00869119 /* SearchViewModel.swift in Sources */,
+				9B90ABAD2BE0898C0038C70D /* PushNotificationView.swift in Sources */,
 				30F80C442BC7E38F00B432DA /* OfflineLocationSearchView.swift in Sources */,
 				30064DC72BC8079200FD04A2 /* ChatMessageCellView.swift in Sources */,
 				DF8AFC3B2BDBCE1700C66BA2 /* PurchaseView.swift in Sources */,
@@ -1084,6 +1094,8 @@
 				30BE7EC92BC57CCA00A5A178 /* ContactInputView.swift in Sources */,
 				309688072BC65A5B007064A3 /* ChatCategoryView.swift in Sources */,
 				DF8AFC412BDF401F00C66BA2 /* AdView.swift in Sources */,
+				9B90ABAF2BE095480038C70D /* PushNotificationModel.swift in Sources */,
+				9B90ABAB2BE0734A0038C70D /* NotificationViewModel.swift in Sources */,
 				FC2DDC112BC50B6900A51E64 /* StaticGaugeProgressView.swift in Sources */,
 				1F6454F22BC8B60B00C9D235 /* RCParticipantsSection.swift in Sources */,
 				1F0603522BC5BF56003808F4 /* FilterCategory.swift in Sources */,

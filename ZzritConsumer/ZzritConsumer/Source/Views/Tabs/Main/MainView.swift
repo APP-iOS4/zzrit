@@ -14,6 +14,7 @@ struct MainView: View {
     @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     @EnvironmentObject private var locationService: LocationService
     @EnvironmentObject private var purchaseViewModel: PurchaseViewModel
+    @EnvironmentObject var notificationViewModel: NotificationViewModel
     
     // 우측 상단 알람 버튼 눌렀는지 안눌렀는지 검사
     @State private var isTopTrailingAction: Bool = false
@@ -71,6 +72,7 @@ struct MainView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack {
                         Button {
+                            notificationViewModel.refresh()
                             isTopTrailingAction.toggle()
                         } label: {
                             Image(systemName: "bell")
@@ -78,7 +80,7 @@ struct MainView: View {
                         }
                         // 알람 뷰로 이동하는 navigationDestination
                         .navigationDestination(isPresented: $isTopTrailingAction) {
-                            Text("알람 뷰")
+                            PushNotificationView()
                         }
                     }
                 }
