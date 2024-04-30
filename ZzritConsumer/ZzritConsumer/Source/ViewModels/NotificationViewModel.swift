@@ -32,6 +32,12 @@ class NotificationViewModel: ObservableObject {
         fetchNotification()
     }
     
+    func removeAllNotification() {
+        notificationList.removeAll()
+        
+        saveNotification()
+    }
+    
     private func saveNotification() {
         do {
             let data: Data = try jsonEncoder.encode(notificationList)

@@ -11,6 +11,8 @@ import ZzritKit
 struct PushNotificationView: View {
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     
+    @State private var isShowingAlert: Bool = false
+    
     var body: some View {
         List {
             if notificationViewModel.notificationList.isEmpty {
@@ -50,6 +52,25 @@ struct PushNotificationView: View {
         .padding(.vertical, 5)
         .refreshable {
             notificationViewModel.refresh()
+        }
+        .navigationTitle("알림 목록")
+        .toolbar {
+            Button {
+                isShowingAlert.toggle()
+            } label: {
+                Text("전체 삭제")
+                    .foregroundStyle(notificationViewModel.notificationList.isEmpty ? Color.staticGray4 : Color.staticGray2)
+            }
+            .disabled(notificationViewModel.notificationList.isEmpty)
+        }
+        .alert("알림 전체 삭제", isPresented: $isShowingAlert) {
+            Button(role: .destructive) {
+                notificationViewModel.removeAllNotification()
+            } label: {
+                Text("삭제")
+            }
+        } message: {
+            Text("모든 알림을 삭제하시겠습니까?")
         }
     }
 }

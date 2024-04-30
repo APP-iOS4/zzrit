@@ -76,7 +76,7 @@ struct MainView: View {
                             isTopTrailingAction.toggle()
                         } label: {
                             Image(systemName: "bell")
-                                .foregroundStyle(.black)
+                                .foregroundStyle(.foreground)
                         }
                         // 알람 뷰로 이동하는 navigationDestination
                         .navigationDestination(isPresented: $isTopTrailingAction) {
@@ -126,6 +126,7 @@ extension MainView {
     }
 }
 
+/*
 #Preview {
     NavigationStack {
         MainView()
@@ -134,3 +135,4 @@ extension MainView {
             .environmentObject(LocationService())
     }
 }
+*/
