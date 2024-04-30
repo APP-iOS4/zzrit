@@ -149,11 +149,6 @@ final class LoadRoomViewModel: ObservableObject {
         consumerLoadRoom(isOnline: isOnline)
     }
     
-    func addNewRoomToData(newRoom: RoomModel) {
-        rooms.insert(newRoom, at: 0)
-        getFilter()
-    }
-    
     func fetchManyPeopleRoom() async {
         manyPeopleRooms = []
         
