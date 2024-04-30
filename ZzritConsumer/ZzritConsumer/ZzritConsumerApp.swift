@@ -48,14 +48,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     -> UNNotificationPresentationOptions {
         let userInfo = notification.request.content.userInfo
         
-        // Change this to your preferred presentation option
-        return [[.sound, .banner, .list]]
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse) async {
-        let userInfo = response.notification.request.content.userInfo
-        
         let notificationVM = NotificationViewModel()
         
         if let apsDict = userInfo["aps"] as? [String: Any],
@@ -69,7 +61,20 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             if let title, let body {
                 notificationVM.addNotification(title: title, content: body)
             }
-            
+        }
+        
+        return [[.sound, .banner, .list]]
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse) async {
+        let userInfo = response.notification.request.content.userInfo
+        
+        if let apsDict = userInfo["aps"] as? [String: Any],
+           let alertDict = apsDict["alert"] as? [String: String] {
+            let title = alertDict["title"]
+            // let body = alertDict["body"]
+
             NotificationCenter.default.post(name: NSNotification.Name("didReceiveRemoteNotification"), object: nil, userInfo: ["title": title ?? ""])
         }
     }

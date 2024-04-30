@@ -9,7 +9,7 @@ import SwiftUI
 import ZzritKit
 
 struct PushNotificationView: View {
-    @EnvironmentObject var notificationViewModel: NotificationViewModel
+    @EnvironmentObject private var notificationViewModel: NotificationViewModel
     
     @State private var isShowingAlert: Bool = false
     
