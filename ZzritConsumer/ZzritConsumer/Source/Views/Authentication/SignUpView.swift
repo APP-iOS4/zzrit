@@ -211,6 +211,7 @@ struct SignUpView: View {
                 registeredUID = register.user.uid
                 isLoading.toggle()
                 showProfile.toggle()
+                try authService.logout()
             } catch {
                 isLoading = false
                 Configs.printDebugMessage("에러: \(error)")
