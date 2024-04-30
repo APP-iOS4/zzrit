@@ -6,28 +6,62 @@
 //
 
 import SwiftUI
+import ZzritKit
 
 struct ServiceAgreeSheet: View {
-    @Binding var selectAgree: Bool
+    @EnvironmentObject private var userService: UserService
+    
+    @Binding var selectAgreeService: Bool
+    @Binding var selectAgreePrivacy: Bool
+    @Binding var selectAgreeLocation: Bool
+    
     @Binding var agreeSheet: Bool
+    // 0,1,2
+    @Binding var agreeCount: Int
+    var buttonText: String {
+        if agreeCount < 2 {
+            return "동의하고 다음으로 가기"
+        } else {
+            return "동의하고 닫기"
+        }
+    }
     
     var body: some View {
         Text("")
-        ScrollView {
-            Text(text)
-            .font(.caption)
+        switch agreeCount {
+        case 0:
+            TermView(type: .service)
+        case 1:
+            TermView(type: .privacy)
+        case 2:
+            TermView(type: .location)
+        default:
+            Text("잘못된 페이지 입니다.")
+                .font(.title)
+                .foregroundStyle(.red)
         }
-        .padding()
-        GeneralButton("동의") {
-            selectAgree.toggle()
-            agreeSheet.toggle()
+        GeneralButton(buttonText) {
+            switch agreeCount {
+            case 0:
+                selectAgreeService = true
+                agreeCount += 1
+            case 1:
+                selectAgreePrivacy = true
+                agreeCount += 1
+            case 2:
+                selectAgreeLocation = true
+                agreeSheet.toggle()
+            default:
+                agreeSheet.toggle()
+            }
         }
-        .padding()
+        .padding(.horizontal)
     }
 }
 
 #Preview {
-    ServiceAgreeSheet(selectAgree: .constant(true), agreeSheet: .constant(true))
+    SignUpView(isTopDismiss: .constant(false))
+        .environmentObject(UserService())
 }
 
 var text = """

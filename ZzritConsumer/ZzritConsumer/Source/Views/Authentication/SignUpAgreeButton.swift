@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SignUpAgreeButton: View {
     @Binding var selectAgree: Bool
+    @Binding var agreeText: String
+    
     var body: some View {
         HStack {
             if selectAgree{
@@ -19,7 +21,7 @@ struct SignUpAgreeButton: View {
             } else{
                 Image(systemName: "circle")
             }
-            Text("서비스 이용약관 동의")
+            Text("\(agreeText) 동의")
             Spacer()
             Text("보기")
                 .underline()
@@ -29,5 +31,5 @@ struct SignUpAgreeButton: View {
 }
 
 #Preview {
-    SignUpAgreeButton(selectAgree: .constant(true))
+    SignUpAgreeButton(selectAgree: .constant(true), agreeText: .constant("서비스 이용약관"))
 }
