@@ -56,9 +56,11 @@ struct ContentView: View {
                     }
                     .tag(3)
             }
+            /*
+             MARK: - 알림을 눌렀을 때 특정 기능을 실행시키려면 이 부분 주석 해제 후 사용
             .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("didReceiveRemoteNotification"))) { notification in
-                if let title = notification.userInfo?["title"] as? String{
-                    // 임시구현 - 현재는 해당 탭으로만 이동하도록 설정
+              
+              if let title = notification.userInfo?["title"] as? String{
                     if isLogined {
                         if title.contains("모임") {
                             tabSelection = 2
@@ -66,6 +68,7 @@ struct ContentView: View {
                     }
                 }
             }
+             */
             .fullScreenCover(isPresented: .constant(!isNetworkConnection)) {
                 if #available(iOS 16.4, *) {
                     NetworkConnectionWarnningView()
