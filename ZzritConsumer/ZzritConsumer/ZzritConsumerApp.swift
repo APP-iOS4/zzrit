@@ -48,11 +48,20 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     -> UNNotificationPresentationOptions {
         let userInfo = notification.request.content.userInfo
         
-        // With swizzling disabled you must let Messaging know about the message, for Analytics
-        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        let notificationVM = NotificationViewModel()
         
-        // Print full message.
-        print(userInfo)
+        if let apsDict = userInfo["aps"] as? [String: Any],
+           let alertDict = apsDict["alert"] as? [String: String] {
+            let title = alertDict["title"]
+            let body = alertDict["body"]
+            
+            Configs.printDebugMessage("Title: \(title ?? "N/A")")
+            Configs.printDebugMessage("Body: \(body ?? "N/A")")
+            
+            if let title, let body {
+                notificationVM.addNotification(title: title, content: body)
+            }
+        }
         
         // Change this to your preferred presentation option
         return [[.sound, .banner, .list]]
@@ -61,7 +70,18 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse) async {
         let userInfo = response.notification.request.content.userInfo
-        print(userInfo)
+        // Configs.printDebugMessage(userInfo)
+        
+        if let apsDict = userInfo["aps"] as? [String: Any],
+           let alertDict = apsDict["alert"] as? [String: String] {
+            let title = alertDict["title"]
+            let body = alertDict["body"]
+            
+            Configs.printDebugMessage("Title: \(title ?? "N/A")")
+            Configs.printDebugMessage("Body: \(body ?? "N/A")")
+            
+            NotificationCenter.default.post(name: NSNotification.Name("didReceiveRemoteNotification"), object: nil, userInfo: ["title": title ?? ""])
+        }
     }
 }
 
@@ -97,6 +117,7 @@ struct ZzritConsumerApp: App {
     @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var purchaseViewModel = PurchaseViewModel()
     @StateObject private var userDefaultsClient = UserDefaultsClient()
+    @StateObject private var notificationViewModel = NotificationViewModel()
     
     @State private var userModel: UserModel?
     @State private var isState: Bool = false
@@ -147,6 +168,7 @@ struct ZzritConsumerApp: App {
                 .environmentObject(purchaseViewModel)
                 .environmentObject(userDefaultsClient)
                 .environmentObject(roomVoteViewModel)
+                .environmentObject(notificationViewModel)
         }
     }
     

@@ -35,10 +35,10 @@ struct ContentView: View {
                 NavigationStack {
                     SearchView()
                 }
-                    .tabItem {
-                        Label("탐색", image: "search")
-                    }
-                    .tag(1)
+                .tabItem {
+                    Label("탐색", image: "search")
+                }
+                .tag(1)
                 
                 ChatListView()
                     .tabItem {
@@ -51,6 +51,14 @@ struct ContentView: View {
                         Label("더보기", image: tabSelection == 3 ? "moreInfofill" : "moreInfo")
                     }
                     .tag(3)
+            }
+            .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("didReceiveRemoteNotification"))) { notification in
+                if let title = notification.userInfo?["title"] as? String{
+                    // 임시구현 - 현재는 해당 탭으로만 이동하도록 설정
+                    if title.contains("모임") {
+                        tabSelection = 2
+                    }
+                }
             }
             .fullScreenCover(isPresented: .constant(!isNetworkConnection)) {
                 if #available(iOS 16.4, *) {
