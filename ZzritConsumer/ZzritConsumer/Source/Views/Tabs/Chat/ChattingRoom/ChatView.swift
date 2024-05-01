@@ -74,7 +74,6 @@ struct ChatView: View {
     @State private var isRealSendSheet: Bool = false
     
     @State private var selectedUIImage: UIImage?
-    @State private var image: Image?
     
     // 사진 크게 보기 View
     @State private var isImageDetail = false
@@ -286,7 +285,6 @@ struct ChatView: View {
                     ImagePicker(image: $selectedUIImage)
                         .onDisappear(){
                             if selectedUIImage != nil {
-                                showImage()
                                 isRealSendSheet.toggle()
                             }
                         }
@@ -317,9 +315,9 @@ struct ChatView: View {
                         }
                         .padding(.horizontal, 10)
                         Spacer()
-                        if let image = image {
+                        if let selectImage = selectedUIImage {
                             // 사진첩에서 사진 불러오기 성공
-                            image
+                            Image(uiImage: selectImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(maxHeight: .infinity)
@@ -330,14 +328,15 @@ struct ChatView: View {
                                 Rectangle()
                                     .foregroundStyle(.clear)
                                     .frame(maxHeight: .infinity)
-                                    .frame(maxWidth: .infinity)
+                                    .frame(maxWidth: .infinity)                        
                                 VStack(alignment: .center) {
-                                    // TODO: 사진이 icloud에서 불러오는거면 로딩이 실패할수가 있음.. 이거 어캄?
                                     Text("이미지를 불러올 수 없습니다.")
+                                        .font(.title)
+                                        .fontWeight(.bold)
                                     Text("\n다시 시도해주세요.")
+                                    ProgressView()
+                                        .frame(width: 50, height: 50, alignment: .center)
                                 }
-                                .font(.title)
-                                .fontWeight(.bold)
                                 .foregroundStyle(Color.pointColor)
                             }
                         }
@@ -502,10 +501,11 @@ struct ChatView: View {
                                         Text("이미지를 불러올 수 없습니다.")
                                             .font(.title)
                                             .fontWeight(.bold)
-                                            .foregroundStyle(Color.pointColor)
                                         Text("\n다시 시도해주세요.")
-                                            .foregroundStyle(Color.pointColor)
+                                        ProgressView()
+                                            .frame(width: 50, height: 50, alignment: .center)
                                     }
+                                    .foregroundStyle(Color.pointColor)
                                 }
                             }
                             Spacer()
@@ -661,13 +661,6 @@ struct ChatView: View {
                 ChatNoticeMessageView(message: chat.message, room: room)
             }
         }
-    }
-    
-    // 이미지 보내기전 보여주기 위해 로딩하는 함수
-    func showImage() {
-        guard let selectedImage = selectedUIImage else { return }
-        image = Image(uiImage: selectedImage)
-        
     }
     
     // 이미지를 보내는 함수
