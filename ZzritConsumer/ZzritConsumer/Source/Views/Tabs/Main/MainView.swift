@@ -68,17 +68,19 @@ struct MainView: View {
                 }
                 
                 // 오른쪽 알림 창
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack {
-                        Button {
-                            isTopTrailingAction.toggle()
-                        } label: {
-                            Image(systemName: "bell")
-                                .foregroundStyle(.black)
-                        }
-                        // 알람 뷰로 이동하는 navigationDestination
-                        .navigationDestination(isPresented: $isTopTrailingAction) {
-                            NotificationView()
+                if isLogined {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        HStack {
+                            Button {
+                                isTopTrailingAction.toggle()
+                            } label: {
+                                Image(systemName: "bell")
+                                    .foregroundStyle(.black)
+                            }
+                            // 알람 뷰로 이동하는 navigationDestination
+                            .navigationDestination(isPresented: $isTopTrailingAction) {
+                                NotificationView()
+                            }
                         }
                     }
                 }
