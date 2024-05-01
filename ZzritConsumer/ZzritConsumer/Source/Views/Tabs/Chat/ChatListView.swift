@@ -44,8 +44,10 @@ struct ChatListView: View {
                         // TODO: 가장 최근에 메시지가 온 모임이 상단에 뜨도록 정렬
                         if selection == "참여 중인 모임" {
                             ChatActiveListView(rooms: rooms)
+                                .transition(.move(edge: .leading))
                         } else {
                             ChatDeactiveListView(rooms: rooms)
+                                .transition(.move(edge: .trailing))
                         }
                     }
                     Spacer()
