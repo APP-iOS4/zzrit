@@ -23,7 +23,7 @@ struct ContactManageUserInfoView: View {
                     Spacer()
                     HStack {
                         Text("계정 상태 : ")
-                        Text("정상")
+                        Text(contactViewModel.isUnderRestriction ? "제재 중" : "정상")
                             .fontWeight(.bold)
                             .foregroundStyle(Color.pointColor)
                     }
