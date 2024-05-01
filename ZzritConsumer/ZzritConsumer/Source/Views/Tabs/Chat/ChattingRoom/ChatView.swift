@@ -74,7 +74,6 @@ struct ChatView: View {
     @State private var isRealSendSheet: Bool = false
     
     @State private var selectedUIImage: UIImage?
-    @State private var image: Image?
     
     // 사진 크게 보기 View
     @State private var isImageDetail = false
@@ -286,7 +285,6 @@ struct ChatView: View {
                     ImagePicker(image: $selectedUIImage)
                         .onDisappear(){
                             if selectedUIImage != nil {
-                                showImage()
                                 isRealSendSheet.toggle()
                             }
                         }
@@ -317,9 +315,9 @@ struct ChatView: View {
                         }
                         .padding(.horizontal, 10)
                         Spacer()
-                        if let image = image {
+                        if let selectImage = selectedUIImage {
                             // 사진첩에서 사진 불러오기 성공
-                            image
+                            Image(uiImage: selectImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(maxHeight: .infinity)
@@ -330,14 +328,15 @@ struct ChatView: View {
                                 Rectangle()
                                     .foregroundStyle(.clear)
                                     .frame(maxHeight: .infinity)
-                                    .frame(maxWidth: .infinity)
+                                    .frame(maxWidth: .infinity)                        
                                 VStack(alignment: .center) {
-                                    // TODO: 사진이 icloud에서 불러오는거면 로딩이 실패할수가 있음.. 이거 어캄?
                                     Text("이미지를 불러올 수 없습니다.")
+                                        .font(.title)
+                                        .fontWeight(.bold)
                                     Text("\n다시 시도해주세요.")
+                                    ProgressView()
+                                        .frame(width: 50, height: 50, alignment: .center)
                                 }
-                                .font(.title)
-                                .fontWeight(.bold)
                                 .foregroundStyle(Color.pointColor)
                             }
                         }
@@ -502,10 +501,11 @@ struct ChatView: View {
                                         Text("이미지를 불러올 수 없습니다.")
                                             .font(.title)
                                             .fontWeight(.bold)
-                                            .foregroundStyle(Color.pointColor)
                                         Text("\n다시 시도해주세요.")
-                                            .foregroundStyle(Color.pointColor)
+                                        ProgressView()
+                                            .frame(width: 50, height: 50, alignment: .center)
                                     }
+                                    .foregroundStyle(Color.pointColor)
                                 }
                             }
                             Spacer()
@@ -594,9 +594,8 @@ struct ChatView: View {
     }
     
     // 채팅에 날짜 보여주는 텍스트 함수
-    // FIXME: 텍스트 함수 변경해야함..
     private func toStringChatDay(chat: ChattingModel) -> String {
-        return DateService.shared.formattedString(date: chat.date, format: "yyyy년 MM월 dd일")
+        return DateService.shared.formattedString(date: chat.date, format: "yyyy년 M월 d일")
     }
     
     // chat 날짜별 정렬 함수
@@ -663,22 +662,15 @@ struct ChatView: View {
         }
     }
     
-    // 이미지 보내기전 보여주기 위해 로딩하는 함수
-    func showImage() {
-        guard let selectedImage = selectedUIImage else { return }
-        image = Image(uiImage: selectedImage)
-        
-    }
-    
     // 이미지를 보내는 함수
     func loadImage() {
         // 현재 내가 보낸 이미지가 있음을 알려줌
         isSendImage.toggle()
         
-        // 이미지 사이즈 조절 채팅방 최대 이미지 가로 길이 1024
-        guard let selectedImage = (selectedUIImage?.size.width)! < 840 ? selectedUIImage : selectedUIImage?.resizeWithWidth(width: 840) else { return }
+        // 이미지 사이즈 조절 채팅방 최대 이미지 가로 길이 840
+        guard let resizeImage = (selectedUIImage?.size.width)! < 840 ? selectedUIImage : selectedUIImage?.resizeWithWidth(width: 840) else { return }
         // 무손실 png파일로 변경
-        guard let imageData = selectedImage.jpegData(compressionQuality: 5.0) else { return }
+        guard let imageData = resizeImage.pngData() else { return }
         // 이미지 경로 설정
         let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMddHHmmss")
         let roomID = room.id ?? "NONE"
@@ -691,7 +683,7 @@ struct ChatView: View {
                 // 파베 메시지로 올림
                 try await chattingService.sendMessage(uid: uid, message: imagePath, type: .image)
                 // 캐시에 올림
-                ImageCacheManager.shared.updateImageFirst(name: imagePath, image: selectedImage)
+                ImageCacheManager.shared.updateImageFirst(name: imagePath, image: resizeImage)
                 // 이미지 전송 끝냄
                 DispatchQueue.main.async {
                     isSending.toggle()
