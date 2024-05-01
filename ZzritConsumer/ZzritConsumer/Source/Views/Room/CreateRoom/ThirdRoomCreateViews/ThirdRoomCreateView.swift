@@ -142,7 +142,7 @@ struct ThirdRoomCreateView: View {
                             
                             let createdRoomCount = await userService.createdRoomsCount(uid)
                             
-                            if createdRoomCount >= Configs.freeDailyCreateRoomCount {
+                            if createdRoomCount >= Configs.freeMonthlyCreateRoomCount {
                                 isShowingPurchaseView.toggle()
                                 return
                             }

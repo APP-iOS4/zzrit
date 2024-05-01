@@ -29,6 +29,10 @@ struct MoreInfoView: View {
             ScrollView {
                 Section {
                     if isLogined {
+                        
+                        RoomCountView()
+                            .padding([.horizontal, .bottom])
+                        
                         ProfileInfoView()
                             .padding()
                         
