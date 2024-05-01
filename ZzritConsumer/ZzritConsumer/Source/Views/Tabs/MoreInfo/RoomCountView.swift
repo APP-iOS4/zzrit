@@ -26,9 +26,12 @@ struct RoomCountView: View {
                     Spacer()
                 }
                 .padding()
-                .background(Color(red: 255.0 / 255.0, green: 236.0 / 255.0, blue: 238.0 / 255.0))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .shadow(color: .staticGray4, radius: 3)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                    .foregroundStyle(Color(red: 255.0 / 255.0, green: 236.0 / 255.0, blue: 238.0 / 255.0))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .shadow(color: .black.opacity(0.2), radius: 3)
+                )
             } else {
                 Button {
                     purchaseViewModel.togglePresent()
@@ -48,9 +51,12 @@ struct RoomCountView: View {
                     }
                     .padding()
                 }
-                .background(Color(red: 255.0 / 255.0, green: 236.0 / 255.0, blue: 238.0 / 255.0))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .shadow(color: .staticGray4, radius: 3)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                    .foregroundStyle(Color(red: 255.0 / 255.0, green: 236.0 / 255.0, blue: 238.0 / 255.0))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .shadow(color: .black.opacity(0.2), radius: 3)
+                )
             }
         }
         .onAppear {
