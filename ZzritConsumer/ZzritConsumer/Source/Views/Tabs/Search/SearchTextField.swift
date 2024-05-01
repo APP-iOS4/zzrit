@@ -103,6 +103,7 @@ struct SearchTextField: View {
             .padding(.vertical, 10.0)
             .fixedSize(horizontal: true, vertical: true)
         }
+        .scrollIndicators(.hidden)
         .customOnChange(of: filterModel.isOnline) { _ in
             searchViewModel.refreshRooms(with: filterModel, offlineLocation: offlineLocation)
         }
