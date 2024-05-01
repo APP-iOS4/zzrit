@@ -19,26 +19,32 @@ struct RCAddPictureView: View {
             // MARK: 카메라찍기도 해야하나
             // TODO: 사진 접근 허용
             PhotosPicker(selection: $selectedItem, matching: .images) {
-                VStack {
-                    if let selectedImage {
-                        Image(uiImage: selectedImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 180)
-                            .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
-                    } else {
-                        RoundedRectangle(cornerRadius: Configs.cornerRadius)
-                            .fill(Color.staticGray6)
-                            .frame(height: 180)
-                            .overlay {
-                                VStack(spacing: 10) {
-                                    Image(systemName: "plus")
-                                    Text("사진 등록")
+//                Rectangle()
+                RoundedRectangle(cornerRadius: Configs.cornerRadius)
+                    .foregroundStyle(.clear)
+                    .frame(height: 180)
+                    .background {
+                        if let selectedImage {
+                            Image(uiImage: selectedImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(height: 180)
+                        } else {
+                            RoundedRectangle(cornerRadius: Configs.cornerRadius)
+                                .fill(Color.staticGray6)
+                                .frame(height: 180)
+                                .overlay {
+                                    VStack(spacing: 10) {
+                                        Image(systemName: "plus")
+                                        Text("사진 등록")
+                                    }
+                                    .foregroundStyle(Color.staticGray1)
                                 }
-                                .foregroundStyle(Color.staticGray1)
-                            }
+                            
+                        }
                     }
-                }
+                    .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
+                
             }
             .customOnChange(of: selectedItem) { _ in
                 Task {
