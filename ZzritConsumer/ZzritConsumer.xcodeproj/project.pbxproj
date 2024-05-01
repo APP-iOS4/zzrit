@@ -118,7 +118,6 @@
 		DF8AFC412BDF401F00C66BA2 /* AdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC402BDF401F00C66BA2 /* AdView.swift */; };
 		DF8AFC442BDF5FED00C66BA2 /* SecessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC432BDF5FED00C66BA2 /* SecessionView.swift */; };
 		DF8AFC462BDF7DDD00C66BA2 /* SecessionCancelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC452BDF7DDD00C66BA2 /* SecessionCancelView.swift */; };
-		DF8AFC482BE0C73B00C66BA2 /* TestClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC472BE0C73B00C66BA2 /* TestClass.swift */; };
 		DF8AFC4B2BE0D69400C66BA2 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC4A2BE0D69400C66BA2 /* NotificationView.swift */; };
 		DF9674B92BCCF4C800322382 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B82BCCF4C800322382 /* SocialLoginType.swift */; };
 		DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */; };
@@ -282,7 +281,6 @@
 		DF8AFC402BDF401F00C66BA2 /* AdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdView.swift; sourceTree = "<group>"; };
 		DF8AFC432BDF5FED00C66BA2 /* SecessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecessionView.swift; sourceTree = "<group>"; };
 		DF8AFC452BDF7DDD00C66BA2 /* SecessionCancelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecessionCancelView.swift; sourceTree = "<group>"; };
-		DF8AFC472BE0C73B00C66BA2 /* TestClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestClass.swift; sourceTree = "<group>"; };
 		DF8AFC4A2BE0D69400C66BA2 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		DF9674B82BCCF4C800322382 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
@@ -473,7 +471,6 @@
 				DF22094E2BD6A66C00B9A2C7 /* Models */,
 				DF22094D2BD6A66600B9A2C7 /* ViewModels */,
 				DF22094C2BD6A65E00B9A2C7 /* Views */,
-				DF8AFC472BE0C73B00C66BA2 /* TestClass.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1056,7 +1053,6 @@
 				FC0A793F2BC8C9B30012F85D /* ChatRoomNoticeView.swift in Sources */,
 				DF8AFC332BDB6C4B00C66BA2 /* NetworkConnectionWarnningView.swift in Sources */,
 				3B883B8F2BD629820061D61F /* RecentRoomViewModel.swift in Sources */,
-				DF8AFC482BE0C73B00C66BA2 /* TestClass.swift in Sources */,
 				309688012BC6492E007064A3 /* ChatActiveListView.swift in Sources */,
 				1F4566EB2BCDFCEC001EC0E7 /* RCSubTitle.swift in Sources */,
 				30064DB82BC8025D00FD04A2 /* ChatView.swift in Sources */,
