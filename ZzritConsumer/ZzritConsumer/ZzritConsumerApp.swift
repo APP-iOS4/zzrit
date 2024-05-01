@@ -39,6 +39,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }
+    
+    // 푸시 터치
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
+        print("푸시 터치")
+        return .newData
+    }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -47,31 +53,24 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 willPresent notification: UNNotification) async
     -> UNNotificationPresentationOptions {
         let userInfo = notification.request.content.userInfo
-        
-        // With swizzling disabled you must let Messaging know about the message, for Analytics
-        // Messaging.messaging().appDidReceiveMessage(userInfo)
-        
-        // Print full message.
-        print(userInfo)
-        
-        // Change this to your preferred presentation option
         return [[.sound, .banner, .list]]
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse) async {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         let userInfo = response.notification.request.content.userInfo
-        print(userInfo)
-    }
-    
-
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        Configs.printDebugMessage("백그라운드에서 수신 된 메시지: \(userInfo)")
-        if let messageTitle = userInfo["title"] as? String, let messageBody = userInfo["body"] as? String {
-            let dateString = DateService.shared.formattedString(date: Date(), format: "yyyy년 M월 d일 HH:mm:ss")
-            TestClass.shared.setLatestMessage(title: messageTitle, body: messageBody, date: dateString)
+        print("푸시알림 탭댄스")
+        let aps = userInfo["aps"] as? [String: AnyObject]
+        
+        print("aps: \(aps)")
+        
+        if let data = aps?["data"] as? [String: AnyObject] {
+            print("data: \(data)")
+            if let prefix = data.keys.first, let notificationType = NotificationType(rawValue: prefix) {
+                guard let value = data.values.first as? String else { return }
+                print("처리를 시작하지")
+                NotificationViewModel.shared.setAction(type: notificationType, targetID: value)
+            }
         }
-        completionHandler(.newData)
     }
 }
 

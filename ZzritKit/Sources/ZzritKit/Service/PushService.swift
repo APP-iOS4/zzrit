@@ -30,7 +30,7 @@ public class PushService {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let dataDic = ["\(data.keys.first!)", data.values.first!]
+        let dataDic = ["\(data.keys.first!)": data.values.first!]
 
         if let tokens = await userTokens(uid: targetUID) {
             for token in tokens {

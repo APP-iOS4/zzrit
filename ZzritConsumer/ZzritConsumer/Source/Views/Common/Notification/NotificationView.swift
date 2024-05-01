@@ -18,7 +18,7 @@ struct NotificationView: View {
     @State private var isError: Bool = false
     
     var sortedMessages: [PushMessageModel] {
-        return messages.sorted { $0.readDate == nil && $0.date < $1.date }
+        return messages.sorted { $0.date > $1.date }
     }
     
     var body: some View {
@@ -28,12 +28,12 @@ struct NotificationView: View {
             .frame(height: 1)
         ScrollView {
             LazyVStack(spacing: 0) {
-                ForEach(messages) { message in
+                ForEach(sortedMessages) { message in
                     NotificationCell(message: message)
                         .onTapGesture {
                             Configs.printDebugMessage("알림 셀 탭, \(message.type), \(message.targetTypeID)")
                             notificationViewModel.push.readMessage(messageID: message.id)
-                            notificationViewModel.notificationData = [message.type: message.targetTypeID]
+                            notificationViewModel.setAction(type: message.type, targetID: message.targetTypeID)
                             dismiss()
                         }
                 }

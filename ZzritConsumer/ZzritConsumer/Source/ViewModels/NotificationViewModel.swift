@@ -14,7 +14,7 @@ class NotificationViewModel: ObservableObject {
     
     let push = PushService.shared
     
-    @Published var notificationData: PushService.NotificationData? = nil {
+    @Published private(set) var notificationData: PushService.NotificationData? = nil {
         didSet {
             objectWillChange.send()
         }
@@ -24,5 +24,9 @@ class NotificationViewModel: ObservableObject {
     
     func setAction(type: NotificationType, targetID: String) {
         notificationData = [type: targetID]
+    }
+    
+    func clearAction() {
+        notificationData = nil
     }
 }

@@ -104,7 +104,7 @@ struct ContentView: View {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     tabSelection = tabIndex
-                    notificationViewModel.notificationData = nil
+                    notificationViewModel.clearAction()
                 }
             }
             .fullScreenCover(isPresented: $showsOnboarding,
