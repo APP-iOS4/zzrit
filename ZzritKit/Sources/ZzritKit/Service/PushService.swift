@@ -117,7 +117,29 @@ public class PushService {
         }
         
         let snapshot = try await pushMessageRef.whereField("targetUID", isEqualTo: uid).getDocuments()
-        return try snapshot.documents.map { try $0.data(as: PushMessageModel.self) }
+        let tempPushModelArray = try snapshot.documents.map { try $0.data(as: PushMessageModel.self) }
+        
+        // chat 혹은 room 타입은 3일 지나면 삭제됨
+        return tempPushModelArray.filter { pushMessageModel in
+            if pushMessageModel.type == .chat || pushMessageModel.type == .room {
+                
+                // 3일 전 (5월 1일이라면, 4월 28일 00시 00분 00초)을 구하는 코드
+                guard let threeDaysBefore = Calendar.current.date(
+                    bySettingHour: 0, minute: 0, second: 0, of: Calendar.current.date(byAdding: .day, value: -3, to: Date())!
+                ) else {
+                    return true
+                }
+                
+                // 3일 전보다 더 빠르다면, 메세지를 삭제 후 필터링으로 제거
+                if pushMessageModel.date < threeDaysBefore {
+                    pushMessageRef.document(pushMessageModel.id).delete()
+                    return false
+                } else {
+                    return true
+                }
+            }
+            return true
+        }
     }
     
     public func readMessage(messageID: String) {
