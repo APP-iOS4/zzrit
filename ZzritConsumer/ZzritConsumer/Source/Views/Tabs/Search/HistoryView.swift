@@ -14,12 +14,10 @@ struct HistoryView: View {
 //    @State private var isShowingAlert: Bool = false
     // 검색어
     @Binding var searchText: String
-
-    // MARK: - init
-    
-    init(searchText: Binding<String>) {
-        self._searchText = searchText
-    }
+    // 필터 변수
+    @Binding var filterModel: FilterModel
+    // 검색 결과에 대한 뷰 모델
+    @StateObject var searchViewModel: SearchViewModel
     
     // MARK: - body
     
@@ -88,9 +86,11 @@ struct HistoryView: View {
     func historyCellButton(_ history: String) -> some View {
         Button {
             // 검색창 텍스트를 현재 누른 검색 기록으로 변경
-            searchText = history
+            filterModel.title = history
+            searchText = filterModel.title
+            searchViewModel.getFilter(with: filterModel)
             endTextEditing()
-            // FIXME: 검색 결과 뷰로 이동
+            print("검색 기록 버튼 눌림")
             
         } label: {
             HStack(spacing: 20.0) {
@@ -115,5 +115,5 @@ struct HistoryView: View {
 }
 
 #Preview {
-    HistoryView(searchText: .constant(""))
+    HistoryView(searchText: .constant(""), filterModel: .constant(FilterModel()), searchViewModel: SearchViewModel())
 }

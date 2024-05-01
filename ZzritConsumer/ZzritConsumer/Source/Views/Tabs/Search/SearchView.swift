@@ -17,16 +17,18 @@ struct SearchView: View {
         VStack {
             SearchTextField(searchViewModel: searchViewModel, filterModel: $filterModel, offlineLocation: $offlineLocation, isTextFieldFocused: $isTextFieldFocused)
                 .toolbarBackground(.white, for: .tabBar)
+                .onTapGesture {
+                    endTextEditing()
+                }
             
             if isTextFieldFocused {
-                HistoryView(searchText: $filterModel.title)
+                HistoryView(searchText: $filterModel.title, filterModel: $filterModel, searchViewModel: searchViewModel)
             } else {
                 ResultRoomListView(searchViewModel: searchViewModel, filterModel: $filterModel, offlineLocation: $offlineLocation)
+                    .onTapGesture {
+                        endTextEditing()
+                    }
             }
-        }
-        .onTapGesture {
-            self.endTextEditing()
-//            searchViewModel.refreshRooms(with: filterModel, offlineLocation: offlineLocation)
         }
     }
 }

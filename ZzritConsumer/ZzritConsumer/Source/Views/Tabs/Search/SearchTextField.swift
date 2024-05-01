@@ -42,6 +42,11 @@ struct SearchTextField: View {
                 .customOnChange(of: isFocused) { _ in
                     isTextFieldFocused = isFocused
                 }
+                .onSubmit {
+                    historyViewModel.save(filterModel.title)
+                    searchViewModel.getFilter(with: filterModel)
+                    endTextEditing()
+                }
             
             // 글자가 입력 되었을 때 취소하고 텍스트를 삭제하는 버튼
             if !filterModel.title.isEmpty {
