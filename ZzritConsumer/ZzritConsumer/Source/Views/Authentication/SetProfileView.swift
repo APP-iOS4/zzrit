@@ -35,6 +35,8 @@ struct SetProfileView: View {
     
     var emailField: String = ""
     @Binding var registeredUID: String
+
+    var previousPage: PreviousPage = .signup
     
     var body: some View {
         NavigationStack {
@@ -80,6 +82,27 @@ struct SetProfileView: View {
                 }
                 .padding()
                 
+//                
+//                LoginView -> SignUpView -> SetProFileView -> CompleteSignUpView -> 로그인 안되어 있음 -> LoginView
+//                
+//                SignUpView
+//                - 이메일, 비밀번호 등록하고, 유아이디까지 만들어줬어
+//                    - 로그아웃
+//                
+//                SetProfileView
+//                - 내용을 치다가 화면없앴어 =-> 데이터 저장 x
+//                
+//                LoginView
+//                - 로그인 시도 -> 에러 -> 로그인 실패 (로그인 안됐다.)
+//                
+//                SetProfileView
+//                - 로그인 안되어 있지? -> 내용 입력 -> CompleteSignUpView()
+//                
+//                어떤 방법으로든 CompleteSignUpView 내려
+//                
+//                그러면, 로그인이 되어있어...?
+//                
+                
                 HStack {
                     Label("출생년도", systemImage: "birthday.cake")
                         .foregroundStyle(Color.staticGray4)
@@ -97,7 +120,7 @@ struct SetProfileView: View {
                 .padding()
                 Spacer()
                 
-                GeneralButton("다음", isDisabled: !finishProfile) {
+                GeneralButton(previousPage == .login ? "완료" : "다음", isDisabled: !finishProfile) {
                     setUserInfo()
                 }
                 .navigationDestination(isPresented: $completeSignUp) {
@@ -159,11 +182,17 @@ struct SetProfileView: View {
                     
                     // 유저 프로필 서버에 올리기
                     try userService.setUserInfo(uid: registeredUID, info: userInfo)
+                    Configs.printDebugMessage("\(userService.loginedUser)")
                 }
                 
                 isLoading.toggle()
                 if !isDuplicate {
-                    completeSignUp.toggle()
+                    if previousPage == .signup {
+                        completeSignUp.toggle()
+                    } else {
+                        isTopDismiss.toggle()
+                    }
+//                    completeSignUp.toggle()
                 }
             } catch {
                 Configs.printDebugMessage("에러: \(error)")
@@ -171,6 +200,11 @@ struct SetProfileView: View {
             }
         }
         
+    }
+    
+    enum PreviousPage {
+        case login
+        case signup
     }
 }
 

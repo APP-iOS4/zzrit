@@ -87,7 +87,7 @@ struct MoreInfoView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .fullScreenCover(isPresented: $isShowingLoginView, onDismiss: fetchLogin) {
-            LogInView()
+            LogInView(loginToggleValue: $isShowingLoginView)
         }
         .onAppear {
             fetchLogin()
