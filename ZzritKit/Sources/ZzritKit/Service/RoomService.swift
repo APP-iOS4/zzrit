@@ -282,9 +282,8 @@ public final class RoomService {
     ///  - Parameter roomID(String): 가입할 모임 ID
     public func joinRoom(_ roomID: String) async throws {
         // 로그인 여부 및 회원정보 등록 여부에 따른 에러 throw
-        var userService: UserService? = UserService()
-        try await userService?.loginedCheck()
-        userService = nil
+        var userService: UserService = UserService()
+        try await userService.loginedCheck()
         
         // 이미 위에서 uid 검증을 끝냈으므로, 강제 언래핑
         let uid = AuthenticationService.shared.currentUID!
@@ -298,15 +297,20 @@ public final class RoomService {
             // 유저 데이터에 가입한 모임 ID 추가
             try await fbConstants.userCollection.document(uid).updateData(["joinedRooms": FieldValue.arrayUnion([roomID])])
             
+            
             try ChattingService(roomID: roomID).sendMessage(message: "\(uid)_입장")
             // MARK: - FCM 임시구현
             
             guard let roomInfo = try await roomInfo(roomID) else { return }
-            guard let loginedUserInfo = try await userService?.findUserInfo(uid: uid) else { return }
+            print("roomInfo: \(roomInfo)")
+            print("uid: \(uid)")
+            guard let loginedUserInfo = try await userService.findUserInfo(uid: uid) else { return }
             
             // 누군가 참여 했음을 알려주는 푸시 기능
             // 1. 참여자 정보 불러오기
             let participants = try await joinedUsers(roomID: roomID)
+            
+            print("참여자 정보 : \(participants)")
             
             // 2. 참여자 토큰 알아오기
             for participant in participants {
@@ -317,7 +321,6 @@ public final class RoomService {
                     await PushService.shared.pushMessage(targetUID: participant.userID, title: "모임 참여 알림", body: "\(loginedUserInfo.userName)님께서 \(roomInfo.title)모임에 가입하셨습니다.", data: [.room: roomID])
                 }
             }
-            userService = nil
         }
     }
     
