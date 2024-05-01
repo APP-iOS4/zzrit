@@ -41,6 +41,10 @@ struct ResultRoomListView: View {
             .padding(.horizontal, Configs.paddingValue)
             .padding(.bottom, 80)   // 윤호에게 bottom 80준 이유 물어보기
         }
+        
+        Rectangle()
+            .frame(height: 1)
+            .foregroundStyle(.clear)
         .refreshable {
             searchViewModel.refreshRooms(with: filterModel, offlineLocation: offlineLocation)
         }

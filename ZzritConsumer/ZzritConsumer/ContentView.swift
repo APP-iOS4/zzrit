@@ -33,9 +33,7 @@ struct ContentView: View {
                         Label("모임", image: tabSelection == 0 ? "homefill" : "home")
                     }
                     .tag(0)
-                NavigationStack {
-                    SearchView()
-                }
+                SearchView()
                     .tabItem {
                         Label("탐색", image: "search")
                     }

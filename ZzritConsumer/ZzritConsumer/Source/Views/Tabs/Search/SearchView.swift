@@ -14,9 +14,8 @@ struct SearchView: View {
     @State private var offlineLocation: OfflineLocationModel?
     
     var body: some View {
-        VStack {
+        NavigationStack {
             SearchTextField(searchViewModel: searchViewModel, filterModel: $filterModel, offlineLocation: $offlineLocation, isTextFieldFocused: $isTextFieldFocused)
-                .toolbarBackground(.white, for: .tabBar)
                 .onTapGesture {
                     endTextEditing()
                 }
