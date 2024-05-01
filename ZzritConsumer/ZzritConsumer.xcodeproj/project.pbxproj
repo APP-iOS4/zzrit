@@ -120,6 +120,7 @@
 		DF8AFC412BDF401F00C66BA2 /* AdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC402BDF401F00C66BA2 /* AdView.swift */; };
 		DF8AFC442BDF5FED00C66BA2 /* SecessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC432BDF5FED00C66BA2 /* SecessionView.swift */; };
 		DF8AFC462BDF7DDD00C66BA2 /* SecessionCancelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC452BDF7DDD00C66BA2 /* SecessionCancelView.swift */; };
+		DF8AFC4B2BE0D69400C66BA2 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AFC4A2BE0D69400C66BA2 /* NotificationView.swift */; };
 		DF9674B92BCCF4C800322382 /* SocialLoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674B82BCCF4C800322382 /* SocialLoginType.swift */; };
 		DF9674BB2BCCF5DB00322382 /* SocialLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */; };
 		DF9674BD2BCCFC9700322382 /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */; };
@@ -137,6 +138,8 @@
 		DFC076C92BD8F3A60053F332 /* OfflineLocationModel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC076C82BD8F3A60053F332 /* OfflineLocationModel+Extension.swift */; };
 		DFC076CB2BD903070053F332 /* OfflineLocationSearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC076CA2BD903070053F332 /* OfflineLocationSearchType.swift */; };
 		DFC75F822BC36CC50005DDD9 /* ZzritKit in Frameworks */ = {isa = PBXBuildFile; productRef = DFC75F812BC36CC50005DDD9 /* ZzritKit */; };
+		DFF8B4772BE0DF7E0057910A /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8B4762BE0DF7E0057910A /* NotificationCell.swift */; };
+		DFF8B4792BE0E9090057910A /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF8B4782BE0E9090057910A /* NotificationViewModel.swift */; };
 		FC0A793F2BC8C9B30012F85D /* ChatRoomNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0A793E2BC8C9B30012F85D /* ChatRoomNoticeView.swift */; };
 		FC2DDC0D2BC5070A00A51E64 /* MoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */; };
 		FC2DDC0F2BC508B700A51E64 /* MyStaticGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2DDC0E2BC508B700A51E64 /* MyStaticGaugeView.swift */; };
@@ -282,6 +285,7 @@
 		DF8AFC402BDF401F00C66BA2 /* AdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdView.swift; sourceTree = "<group>"; };
 		DF8AFC432BDF5FED00C66BA2 /* SecessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecessionView.swift; sourceTree = "<group>"; };
 		DF8AFC452BDF7DDD00C66BA2 /* SecessionCancelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecessionCancelView.swift; sourceTree = "<group>"; };
+		DF8AFC4A2BE0D69400C66BA2 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		DF9674B82BCCF4C800322382 /* SocialLoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginType.swift; sourceTree = "<group>"; };
 		DF9674BA2BCCF5DB00322382 /* SocialLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginButton.swift; sourceTree = "<group>"; };
 		DF9674BC2BCCFC9700322382 /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
@@ -299,6 +303,8 @@
 		DFC076C62BD8D4FC0053F332 /* OfflineLocationEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationEnvironment.swift; sourceTree = "<group>"; };
 		DFC076C82BD8F3A60053F332 /* OfflineLocationModel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OfflineLocationModel+Extension.swift"; sourceTree = "<group>"; };
 		DFC076CA2BD903070053F332 /* OfflineLocationSearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineLocationSearchType.swift; sourceTree = "<group>"; };
+		DFF8B4762BE0DF7E0057910A /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		DFF8B4782BE0E9090057910A /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		FC0A793E2BC8C9B30012F85D /* ChatRoomNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomNoticeView.swift; sourceTree = "<group>"; };
 		FC2DDC0C2BC5070A00A51E64 /* MoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoView.swift; sourceTree = "<group>"; };
 		FC2DDC0E2BC508B700A51E64 /* MyStaticGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStaticGaugeView.swift; sourceTree = "<group>"; };
@@ -500,6 +506,7 @@
 				3BA17FD92BD9DBC50000F964 /* LastChatModel */,
 				DF8AFC302BDB672D00C66BA2 /* NetworkMonitor.swift */,
 				304EAD1A2BDE56B100D1E818 /* UserDefaultsClient.swift */,
+				DFF8B4782BE0E9090057910A /* NotificationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -555,6 +562,7 @@
 		DF2209542BD6A6E400B9A2C7 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				DF8AFC492BE0D68100C66BA2 /* Notification */,
 				DF8AFC2B2BDB2FDA00C66BA2 /* AddMobViews */,
 				DF6F4B3D2BD4D6C800DDBF96 /* OfflineLocationSearch */,
 				309F8AB92BC3A8570045C6D8 /* GeneralButton.swift */,
@@ -793,6 +801,15 @@
 			path = Secession;
 			sourceTree = "<group>";
 		};
+		DF8AFC492BE0D68100C66BA2 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				DF8AFC4A2BE0D69400C66BA2 /* NotificationView.swift */,
+				DFF8B4762BE0DF7E0057910A /* NotificationCell.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		DF9674B72BCCF4B400322382 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
@@ -1012,6 +1029,7 @@
 				FC2DDC232BC5921000A51E64 /* HorizontalLabel.swift in Sources */,
 				DF6309102BD29FE70077B94F /* KakaoSearchError.swift in Sources */,
 				1F4566F12BCDFE2E001EC0E7 /* Sheet.swift in Sources */,
+				DFF8B4772BE0DF7E0057910A /* NotificationCell.swift in Sources */,
 				1F06034C2BC58EAE003808F4 /* ThirdRoomCreateView.swift in Sources */,
 				FCAF4A1C2BC40CBA00603C2D /* SignUpAgreeButton.swift in Sources */,
 				09E4BE3E2BD7385F002B6925 /* ModifyUserInfoView.swift in Sources */,
@@ -1052,6 +1070,7 @@
 				30064DBA2BC8027700FD04A2 /* MessageModel.swift in Sources */,
 				30BE7EBF2BC57C7E00A5A178 /* ContactListView.swift in Sources */,
 				DFC076CB2BD903070053F332 /* OfflineLocationSearchType.swift in Sources */,
+				DFF8B4792BE0E9090057910A /* NotificationViewModel.swift in Sources */,
 				FC43146A2BCD600B003D35FB /* ImagePicker.swift in Sources */,
 				1F70CD342BD7A13200869119 /* ResultRoomListView.swift in Sources */,
 				3007E8B42BC4255900B9F7B3 /* RoomCardListView.swift in Sources */,
@@ -1103,6 +1122,7 @@
 				1F70CD2E2BD79FE300869119 /* HistoryViewModel.swift in Sources */,
 				DFB57BCE2BCF667C0070A923 /* TermView.swift in Sources */,
 				DF2209672BD797DC00B9A2C7 /* HiddenRectangle.swift in Sources */,
+				DF8AFC4B2BE0D69400C66BA2 /* NotificationView.swift in Sources */,
 				3BA17FDB2BD9DBF60000F964 /* LastChatModel.swift in Sources */,
 				DF6F4B4B2BD5F3DD00DDBF96 /* OfflineLocationHistoryCell.swift in Sources */,
 				FC628F342BC4D115007F5E5C /* BirthYearPickerView.swift in Sources */,

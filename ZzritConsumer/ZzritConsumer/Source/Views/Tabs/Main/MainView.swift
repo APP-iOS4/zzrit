@@ -81,7 +81,7 @@ struct MainView: View {
                         }
                         // 알람 뷰로 이동하는 navigationDestination
                         .navigationDestination(isPresented: $isTopTrailingAction) {
-                            Text("알람 뷰")
+                            NotificationView()
                         }
                     }
                 }

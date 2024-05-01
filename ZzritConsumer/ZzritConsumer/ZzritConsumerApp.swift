@@ -39,6 +39,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }
+    
+    // 푸시 터치
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
+        print("푸시 터치")
+        return .newData
+    }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -46,22 +52,19 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification) async
     -> UNNotificationPresentationOptions {
-        let userInfo = notification.request.content.userInfo
-        
-        // With swizzling disabled you must let Messaging know about the message, for Analytics
-        // Messaging.messaging().appDidReceiveMessage(userInfo)
-        
-        // Print full message.
-        print(userInfo)
-        
-        // Change this to your preferred presentation option
         return [[.sound, .banner, .list]]
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse) async {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         let userInfo = response.notification.request.content.userInfo
-        print(userInfo)
+        let aps = userInfo["aps"] as? [String: AnyObject]
+        
+        if let data = aps?["data"] as? [String: AnyObject] {
+            if let prefix = data.keys.first, let notificationType = NotificationType(rawValue: prefix) {
+                guard let value = data.values.first as? String else { return }
+                NotificationViewModel.shared.setAction(type: notificationType, targetID: value)
+            }
+        }
     }
 }
 

@@ -16,6 +16,8 @@ struct ChatListView: View {
     @EnvironmentObject private var lastChatModel: LastChatModel
     @EnvironmentObject private var roomVoteViewModel: RoomVoteViewModel
     
+    @StateObject private var notificationViewModel = NotificationViewModel.shared
+    
     @State private var selection = "참여 중인 모임"
     @State private var rooms: [RoomModel] = []
     @State private var checkActivation: Bool = false
@@ -79,7 +81,7 @@ struct ChatListView: View {
                 } buttonAction: {
                     isShowingLoginView.toggle()
                 }
-
+                
             }
             
             HiddenRectangle()
@@ -167,7 +169,7 @@ struct ChatListView: View {
     func deleteDeactivateRooms() {
         // deactivateRooms 찾기
         var deactivateRoomIDs: [String]? = []
-
+        
         for room in rooms {
             if room.status == .deactivation {
                 deactivateRoomIDs?.append(room.id ?? "")

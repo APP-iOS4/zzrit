@@ -104,12 +104,7 @@ public final class ChattingService: ObservableObject {
             if participant.userID != uid {
                 print("참여자 : \(participant.userID)\n")
                 // 본인 빼고
-                if let getToken = await PushService.shared.userTokens(uid: participant.userID) {
-                    for token in getToken {
-                        // 메시지 보내기
-                        await PushService.shared.pushMessage(to: token, title: "\(roomName)모임 채팅", body: "\(userName) : \(messageContent)")
-                    }
-                }
+                await PushService.shared.pushMessage(targetUID: participant.userID, title: "\(roomName)모임 채팅", body: "\(userName) : \(messageContent)", data: [.chat: roomID])
             }
         }
     }
