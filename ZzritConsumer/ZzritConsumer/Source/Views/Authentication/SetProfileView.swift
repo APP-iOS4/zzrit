@@ -139,8 +139,7 @@ struct SetProfileView: View {
                     
                     var getPath: String = "NONE"
                     
-                    if let selectedImage, let imageData = selectedImage.pngData() {
-                        guard let selectedImage = ((selectedImage.size.width) < 300 ? selectedImage : selectedImage.resizeWithWidth(width: 300) ) else { return }
+                    if let selectedImage, let resizeImage = ((selectedImage.size.width) < 300 ? selectedImage : selectedImage.resizeWithWidth(width: 300) ), let imageData = resizeImage.pngData() {
                         
                         // 이미지 경로 설정
                         let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMdd")
@@ -153,7 +152,7 @@ struct SetProfileView: View {
                         Configs.printDebugMessage("이미지 파베에 올림")
                         
                         // 이미지 캐시 저장
-                        ImageCacheManager.shared.updateImageFirst(name: getPath, image: selectedImage)
+                        ImageCacheManager.shared.updateImageFirst(name: getPath, image: resizeImage)
                     }
                     
                     // 유저 정보 모델에 저장
