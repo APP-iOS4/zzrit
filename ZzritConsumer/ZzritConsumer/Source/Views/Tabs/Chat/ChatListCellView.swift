@@ -63,48 +63,50 @@ struct ChatListCellView: View {
         HStack(alignment: .top) {
             // 모임 채팅방 썸네일 이미지
             fetchRoomImage(image: roomImage)
-                .frame(width: 56, height: 56)
-            
-            VStack(alignment: .leading) {
-                HStack {
-                    // 모임 채팅방 제목
-                    Text(room.title)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.black)
+                .frame(width: 60, height: 60)
+            HStack(alignment: .top) {
+                VStack(alignment: .leading) {
+                    HStack {
+                        // 모임 채팅방 제목
+                        Text(room.title)
+                            .lineLimit(1)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.black)
+                        
+                        // 현재 채팅방 참여 인원 수
+                        Text("\(participantsCount)")
+                            .foregroundStyle(Color.staticGray3)
+                    }
+                    .padding(.bottom, 1)
                     
-                    // 현재 채팅방 참여 인원 수
-                    Text("\(participantsCount)")
+                    // 모임 채팅방 제일 최근 글
+                    Text(latestMessage)
+                        .lineLimit(2)
+                        .font(.footnote)
                         .foregroundStyle(Color.staticGray3)
                 }
                 
-                // 모임 채팅방 제일 최근 글
-                Text(latestMessage)
-                    .lineLimit(1)
-                    .font(.footnote)
-                    .foregroundStyle(Color.staticGray3)
-            }
-            
-            Spacer()
-            
-            VStack(alignment: .trailing) {
-                // 최근 채팅 상대시간으로 표시
-                if chattingService.messages.last != nil {
-                    Text(messageDateString)
-                        .font(.caption2)
-                        .foregroundStyle(Color.staticGray3)
-                        .padding(.bottom, 15)
-                }
+                Spacer()
                 
-                if room.status == .activation {
-                    if lastChatModel.lastChatDates[room.id!] != lastMessageDateToCompare {
+                VStack(alignment: .trailing) {
+                    // 최근 채팅 상대시간으로 표시
+                    if chattingService.messages.last != nil {
+                        Text(messageDateString)
+                            .font(.caption2)
+                            .foregroundStyle(Color.staticGray3)
+                            .padding(.bottom, 19)
+                    }
+                    
+                    if room.status == .activation {
                         Image(systemName: "n.circle.fill")
-                            .foregroundStyle(Color.pointColor)
+                            .foregroundStyle(lastChatModel.lastChatDates[room.id!] != lastMessageDateToCompare ? Color.pointColor : .clear)
+                        
                     }
                 }
+                .padding(.leading, 20)
             }
-            .padding(.leading, 20)
         }
-        .frame(minHeight: 55, maxHeight: .infinity)
+        .frame(minHeight: 60, maxHeight: .infinity)
         .onAppear {
             Task {
                 do {
