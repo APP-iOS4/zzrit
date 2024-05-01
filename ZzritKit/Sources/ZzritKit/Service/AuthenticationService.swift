@@ -43,7 +43,6 @@ public final class AuthenticationService: ObservableObject {
     public func loginUser(email: String, password: String) async throws {
         do {
             try await Auth.auth().signIn(withEmail: email, password: password)
-            print("로그인 확인합니다!(*&#*#@ㅆ^ㅛ&*#^!*&^#&*!^(#*&!^#(&*!^!*&#&*#^!&*^%!@&%#&^*")
             try await checkSecession()
         } catch {
             throw error

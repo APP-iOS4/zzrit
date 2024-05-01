@@ -82,27 +82,6 @@ struct SetProfileView: View {
                 }
                 .padding()
                 
-//                
-//                LoginView -> SignUpView -> SetProFileView -> CompleteSignUpView -> 로그인 안되어 있음 -> LoginView
-//                
-//                SignUpView
-//                - 이메일, 비밀번호 등록하고, 유아이디까지 만들어줬어
-//                    - 로그아웃
-//                
-//                SetProfileView
-//                - 내용을 치다가 화면없앴어 =-> 데이터 저장 x
-//                
-//                LoginView
-//                - 로그인 시도 -> 에러 -> 로그인 실패 (로그인 안됐다.)
-//                
-//                SetProfileView
-//                - 로그인 안되어 있지? -> 내용 입력 -> CompleteSignUpView()
-//                
-//                어떤 방법으로든 CompleteSignUpView 내려
-//                
-//                그러면, 로그인이 되어있어...?
-//                
-                
                 HStack {
                     Label("출생년도", systemImage: "birthday.cake")
                         .foregroundStyle(Color.staticGray4)
