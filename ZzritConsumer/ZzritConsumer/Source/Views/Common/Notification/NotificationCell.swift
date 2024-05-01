@@ -39,6 +39,7 @@ struct NotificationCell: View {
                 .fontWeight(.bold)
         }
         .padding(Configs.paddingValue)
+        .contentShape(Rectangle())
         .background {
             VStack {
                 Spacer()

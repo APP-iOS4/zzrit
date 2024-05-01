@@ -12,6 +12,8 @@ import ZzritKit
 struct NotificationView: View {
     private let notificationViewModel = NotificationViewModel.shared
     
+    @Environment(\.dismiss) private var dismiss
+    
     @State private var messages: [PushMessageModel] = []
     @State private var isError: Bool = false
     
@@ -29,7 +31,10 @@ struct NotificationView: View {
                 ForEach(messages) { message in
                     NotificationCell(message: message)
                         .onTapGesture {
+                            Configs.printDebugMessage("알림 셀 탭, \(message.type), \(message.targetTypeID)")
                             notificationViewModel.push.readMessage(messageID: message.id)
+                            notificationViewModel.notificationData = [message.type: message.targetTypeID]
+                            dismiss()
                         }
                 }
             }

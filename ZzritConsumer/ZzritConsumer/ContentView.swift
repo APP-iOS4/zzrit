@@ -15,6 +15,7 @@ struct ContentView: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var purchaseViewModel: PurchaseViewModel
     @EnvironmentObject private var userDefaultsClient: UserDefaultsClient
+    @StateObject private var notificationViewModel = NotificationViewModel.shared
     @State private var userModel: UserModel?
     @State private var isNetworkConnection: Bool = true
     @State private var showsOnboarding: Bool = false
@@ -76,6 +77,34 @@ struct ContentView: View {
                     isNetworkConnection = true
                 } else {
                     isNetworkConnection = false
+                }
+            }
+            .customOnChange(of: notificationViewModel.notificationData) { data in
+                Configs.printDebugMessage("notificationViewModel.notificationData 변경: \(notificationViewModel.notificationData)")
+                guard let data else { return }
+                
+                let type = data.keys.first!
+                let targetID = data.values.first!
+                
+                let tabIndex: Int
+                let notiName: Notification.Name
+                
+                switch type {
+                case .notice:
+                    tabIndex = 3
+                case .chat:
+                    tabIndex = 2
+                case .contact:
+                    tabIndex = 3
+                case .room:
+                    tabIndex = 0
+                case .banned:
+                    tabIndex = 0
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    tabSelection = tabIndex
+                    notificationViewModel.notificationData = nil
                 }
             }
             .fullScreenCover(isPresented: $showsOnboarding,
