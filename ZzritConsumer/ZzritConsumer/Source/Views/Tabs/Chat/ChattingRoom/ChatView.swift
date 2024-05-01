@@ -595,7 +595,7 @@ struct ChatView: View {
     // chat 날짜별 정렬 함수
     func sortChat(chat: [ChattingModel]) -> [Int: [ChattingModel]] {
         let classificationChat = Dictionary
-            .init(grouping: messages, by: {Int($0.date.toStringDate()) ?? 0})
+            .init(grouping: messages, by: {Int(DateService.shared.formattedString(date: $0.date, format: "MMdd")) ?? 0})
         return classificationChat
     }
     
