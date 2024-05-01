@@ -65,7 +65,7 @@ struct SecondRoomCreateView: View {
                         }
                     }
                 }
-                
+                .scrollIndicators(.hidden)
             }
             
             GeneralButton("다음", isDisabled: !isButtonEnabled) {

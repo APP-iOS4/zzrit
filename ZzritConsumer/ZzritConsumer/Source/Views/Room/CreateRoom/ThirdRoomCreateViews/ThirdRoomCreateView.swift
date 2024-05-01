@@ -130,6 +130,7 @@ struct ThirdRoomCreateView: View {
                         }
                     }
                 }
+                .scrollIndicators(.hidden)
             }
             
             // 다음으로 넘어가기 버튼

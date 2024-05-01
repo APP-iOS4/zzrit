@@ -52,6 +52,7 @@ struct GeneralButton: View {
                     .clipShape(.rect(cornerRadius: 10))
             }
         }
+        .padding(.bottom, 20)
         .disabled(isDisabled)
     }
 }
