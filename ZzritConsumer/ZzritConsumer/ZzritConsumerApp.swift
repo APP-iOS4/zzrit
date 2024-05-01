@@ -117,6 +117,8 @@ struct ZzritConsumerApp: App {
                     UINavigationBar.appearance().standardAppearance = navigationBarAppearance
                     
                     fetchRestriction()
+                    
+                    purchaseViewModel.startObservingTransactionUpdates()
                 }
                 .customOnChange(of: scenePhase) { _ in
                     if scenePhase == .active {
@@ -127,9 +129,6 @@ struct ZzritConsumerApp: App {
                     Task {
                         await ATTrackingManager.requestTrackingAuthorization()
                     }
-                }
-                .onAppear {
-                    purchaseViewModel.startObservingTransactionUpdates()
                 }
                 .task {
                     await GADMobileAds.sharedInstance().start()

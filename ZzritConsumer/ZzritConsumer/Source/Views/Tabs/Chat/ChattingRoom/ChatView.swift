@@ -27,6 +27,8 @@ struct ChatView: View {
     @EnvironmentObject private var lastChatModel: LastChatModel
     // 투표 삭제
     @EnvironmentObject private var roomVoteViewModel: RoomVoteViewModel
+    // 채팅 로딩 시 제재 이력 불러옴
+    @EnvironmentObject private var restrictionViewModel: RestrictionViewModel
     
     // 유저모델 변수
     @State private var userModel: UserModel?
@@ -549,17 +551,22 @@ struct ChatView: View {
         if !isfetchFinish {
             Task {
                 do {
-                    // 유저 정보 불러옴
+                    // 유저 정보 및 제재 이력 불러옴
                     let tempuid = try await userService.loggedInUserInfo()?.id
-                    uid = tempuid!
-                    // 채팅 불러옴
-                    try await chattingService.fetchChatting()
-                    DispatchQueue.main.async {
-                        // 처음 채팅 로드시에 필요한 정보 저장
-                        if isFirstEnter {
-                            loadingNewID = messages.first?.id
-                            loadingMiddleID = messages.first?.id
-                            isFirstEnter.toggle()
+                    if let tempuid {
+                        uid = tempuid
+                        restrictionViewModel.loadRestriction(userID: uid)
+                    }
+                    // 제재 이력이 없으면 채팅 불러옴
+                    if !restrictionViewModel.isUnderRestriction {
+                        try await chattingService.fetchChatting()
+                        DispatchQueue.main.async {
+                            // 처음 채팅 로드시에 필요한 정보 저장
+                            if isFirstEnter {
+                                loadingNewID = messages.first?.id
+                                loadingMiddleID = messages.first?.id
+                                isFirstEnter.toggle()
+                            }
                         }
                     }
                 } catch let error {
