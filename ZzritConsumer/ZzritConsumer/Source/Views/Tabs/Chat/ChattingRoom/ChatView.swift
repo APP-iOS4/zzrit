@@ -269,6 +269,7 @@ struct ChatView: View {
                 // 사진 보내기 버튼
                 Button {
                     // 이미지 피커 열기
+                    selectedUIImage = nil
                     isShowingImagePicker.toggle()
                 } label: {
                     Image(systemName: "photo.badge.plus")
