@@ -14,19 +14,19 @@ struct SearchView: View {
     @State private var offlineLocation: OfflineLocationModel?
     
     var body: some View {
-        SearchTextField(searchViewModel: searchViewModel, filterModel: $filterModel, offlineLocation: $offlineLocation, isTextFieldFocused: $isTextFieldFocused)
-            .onTapGesture {
-                self.endTextEditing()
+        VStack {
+            SearchTextField(searchViewModel: searchViewModel, filterModel: $filterModel, offlineLocation: $offlineLocation, isTextFieldFocused: $isTextFieldFocused)
+                .toolbarBackground(.white, for: .tabBar)
+            
+            if isTextFieldFocused {
+                HistoryView(searchText: $filterModel.title)
+            } else {
+                ResultRoomListView(searchViewModel: searchViewModel, filterModel: $filterModel, offlineLocation: $offlineLocation)
             }
-            .toolbarBackground(.white, for: .tabBar)
-        
-        if isTextFieldFocused {
-            HistoryView(searchText: $filterModel.title)
-        } else {
-            ResultRoomListView(searchViewModel: searchViewModel, filterModel: $filterModel, offlineLocation: $offlineLocation)
-                .onTapGesture {
-                    self.endTextEditing()
-                }
+        }
+        .onTapGesture {
+            self.endTextEditing()
+//            searchViewModel.refreshRooms(with: filterModel, offlineLocation: offlineLocation)
         }
     }
 }

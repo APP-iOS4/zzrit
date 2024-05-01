@@ -11,7 +11,7 @@ struct HistoryView: View {
     // 검색 기록 뷰모델
     @StateObject var historyViewModel: HistoryViewModel = HistoryViewModel.shared
     // 검색 기록 지울지 확인하는 Alert
-    @State private var isShowingAlert: Bool = false
+//    @State private var isShowingAlert: Bool = false
     // 검색어
     @Binding var searchText: String
 
@@ -44,9 +44,6 @@ struct HistoryView: View {
                 Text("검색 기록이 없습니다.")
                 Spacer()
             }
-            .onTapGesture {
-                self.endTextEditing()
-            }
         } else {
             // 최근 검색어를 리스트 형태로 호출
             List {
@@ -64,24 +61,25 @@ struct HistoryView: View {
     // 전체 검색어 삭제 버튼
     var removeAllHistoriesButton: some View {
         Button {
-            isShowingAlert.toggle()
-            endTextEditing()
+//            isShowingAlert.toggle()
+            historyViewModel.removeAll()
         } label: {
             Text("전체삭제")
                 .foregroundStyle(Color.staticGray2)
         }
-        // 삭제 경고창
-        .alert("검색기록 전체 삭제", isPresented: $isShowingAlert) {
-            // 검색기록 전체삭제
-            Button(role: .destructive) {
-                historyViewModel.removeAll()
-            } label: {
-                Label("전체 삭제", systemImage: "trash")
-                    .labelStyle(.titleOnly)
-            }
-        } message: {
-            Text("정말 검색 기록을 전체 삭제하시겠습니까?")
-        }
+//        // 삭제 경고창
+//        .alert("검색기록 전체 삭제", isPresented: $isShowingAlert) {
+//            // 검색기록 전체삭제
+//            Button {
+//                //historyViewModel.removeAll()
+//                print("전체삭제 버튼 눌림")
+//            } label: {
+//                Label("전체 삭제", systemImage: "trash")
+//                    .labelStyle(.titleOnly)
+//            }
+//        } message: {
+//            Text("정말 검색 기록을 전체 삭제하시겠습니까?")
+//        }
         .disabled(historyViewModel.histories.count > 0 ? false : true)
     }
     

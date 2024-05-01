@@ -86,6 +86,9 @@ struct OfflineLocationSearchView: View {
         .onAppear {
             UITextField.appearance().clearButtonMode = .whileEditing
         }
+        .onDisappear {
+            UITextField.appearance().clearButtonMode = .never
+        }
         .customOnChange(of: keywordFocus) { newValue in
             detectTabIndex(newValue: newValue)
         }
