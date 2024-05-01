@@ -77,6 +77,8 @@ struct FirstRoomCreateView: View {
     func checkButtonEnable() {
         if selection != nil {
             isButtonEnabled = true
+        } else {
+            isButtonEnabled = false
         }
     }
 }
