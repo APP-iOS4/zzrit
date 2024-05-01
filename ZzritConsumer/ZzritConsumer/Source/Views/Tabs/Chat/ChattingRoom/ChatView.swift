@@ -594,9 +594,8 @@ struct ChatView: View {
     }
     
     // 채팅에 날짜 보여주는 텍스트 함수
-    // FIXME: 텍스트 함수 변경해야함..
     private func toStringChatDay(chat: ChattingModel) -> String {
-        return DateService.shared.formattedString(date: chat.date, format: "yyyy년 MM월 dd일")
+        return DateService.shared.formattedString(date: chat.date, format: "yyyy년 M월 d일")
     }
     
     // chat 날짜별 정렬 함수
