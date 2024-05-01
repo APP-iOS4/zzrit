@@ -18,7 +18,10 @@ struct NotificationView: View {
     @State private var isError: Bool = false
     
     var sortedMessages: [PushMessageModel] {
-        return messages.sorted { $0.date > $1.date }
+        let sortedNilFiltered = messages.filter { $0.readDate == nil }.sorted { $0.date > $1.date }
+        let sortedSomeFiltered = messages.filter { $0.readDate != nil }.sorted { $0.date > $1.date }
+        
+        return sortedNilFiltered + sortedSomeFiltered
     }
     
     var body: some View {
@@ -26,29 +29,42 @@ struct NotificationView: View {
             .foregroundStyle(.primary)
             .colorInvert()
             .frame(height: 1)
-        ScrollView {
-            LazyVStack(spacing: 0) {
-                ForEach(sortedMessages) { message in
-                    NotificationCell(message: message)
-                        .onTapGesture {
-                            Configs.printDebugMessage("알림 셀 탭, \(message.type), \(message.targetTypeID)")
-                            notificationViewModel.push.readMessage(messageID: message.id)
-                            notificationViewModel.setAction(type: message.type, targetID: message.targetTypeID)
-                            dismiss()
-                        }
+            .navigationTitle("알림")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(.hidden, for: .tabBar)
+            .toolbarRole(.editor)
+            .task {
+                do {
+                    messages = try await notificationViewModel.push.allMessages()
+                } catch {
+                    print("알림뷰 에러: \(error)")
+                    isError = true
                 }
             }
-        }
-        .navigationTitle("알림")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar(.hidden, for: .tabBar)
-        .toolbarRole(.editor)
-        .task {
-            do {
-                messages = try await notificationViewModel.push.allMessages()
-            } catch {
-                print("알림뷰 에러: \(error)")
-                isError = true
+        
+        if sortedMessages.isEmpty {
+            Spacer()
+            Image("ZziritLogoImage")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 200)
+            
+            Text("알림 메세지가 없습니다.")
+            
+            Spacer()
+        } else {
+            ScrollView {
+                LazyVStack(spacing: 0) {
+                    ForEach(sortedMessages) { message in
+                        NotificationCell(message: message)
+                            .onTapGesture {
+                                Configs.printDebugMessage("알림 셀 탭, \(message.type), \(message.targetTypeID)")
+                                notificationViewModel.push.readMessage(messageID: message.id)
+                                notificationViewModel.setAction(type: message.type, targetID: message.targetTypeID)
+                                dismiss()
+                            }
+                    }
+                }
             }
         }
     }
