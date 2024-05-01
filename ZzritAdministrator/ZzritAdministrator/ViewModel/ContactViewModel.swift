@@ -17,9 +17,12 @@ class ContactViewModel: ObservableObject {
     @Published var replies: [ContactReplyModel] = []
     @Published var repliedAdmins: [AdminModel] = []
     
+    @Published var isUnderRestriction = false
+    
     var initialFetch: Bool = true
     private let contactService = ContactService()
     private let userService = UserService()
+    private let userManageService = UserManageService()
     private let roomService = RoomService.shared
     
     init() {
@@ -56,6 +59,11 @@ class ContactViewModel: ObservableObject {
             
             do {
                 userModel = try await userService.findUserInfo(uid: contact.requestedUser) ?? .init(userID: "?", userName: "", userImage: "", gender: .male, birthYear: 1900, staticGauge: 0, agreeServiceDate: Date(), agreePrivacyDate: Date(), agreeLocationDate: Date())
+                
+                if let id = userModel.id {
+                    let restrictionHistory = try await userManageService.loadRestrictions(userID: id)
+                    isUnderRestriction = restrictionHistory.isEmpty ? false : true
+                }
                 
                 if let targetRoom = contact.targetRoom {
                     if !targetRoom.isEmpty {

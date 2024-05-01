@@ -45,12 +45,7 @@ public final class UserManageService {
                 if document.exists {
                     self.fbConstant.userCollection.document(uid).collection("BannedHistory").document(bId).delete()
                     Task {
-                        if let getToken = await PushService.shared.userTokens(uid: uid) {
-                            for token in getToken {
-                                // 메시지 보내기
-                                await PushService.shared.pushMessage(targetUID: token, title: "ZZ!RIT 제재 해제 안내", body: "서비스 이용 정지가 해제되었습니다. ", data: [.banned: ""])
-                            }
-                        }
+                        await PushService.shared.pushMessage(targetUID: uid, title: "ZZ!RIT 제재 해제 안내", body: "서비스 이용 정지가 해제되었습니다. ", data: [.banned: ""])
                     }
                 } else {
                     print("삭제할 문서가 없음.")

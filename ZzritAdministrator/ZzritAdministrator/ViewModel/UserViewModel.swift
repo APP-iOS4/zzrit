@@ -14,6 +14,10 @@ class UserViewModel: ObservableObject {
     @Published var users: [UserModel] = []
     @Published var restrictionHistory: [BannedModel] = []
     
+    var isUnderRestriction: Bool {
+        !restrictionHistory.isEmpty
+    }
+    
     private let userService = UserService()
     private let userManageService = UserManageService()
     
