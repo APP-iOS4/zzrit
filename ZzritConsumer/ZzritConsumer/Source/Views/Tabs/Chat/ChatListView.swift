@@ -100,7 +100,7 @@ struct ChatListView: View {
                         onAppear()
                     }
                 } content: {
-                    LogInView()
+                    LogInView(loginToggleValue: $isShowingLoginView)
                 }
         }
         .fullScreenCover(isPresented: $isShowingVoteView, content: {

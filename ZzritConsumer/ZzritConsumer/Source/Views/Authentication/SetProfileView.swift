@@ -35,6 +35,8 @@ struct SetProfileView: View {
     
     var emailField: String = ""
     @Binding var registeredUID: String
+
+    var previousPage: PreviousPage = .signup
     
     var body: some View {
         NavigationStack {
@@ -97,7 +99,7 @@ struct SetProfileView: View {
                 .padding()
                 Spacer()
                 
-                GeneralButton("다음", isDisabled: !finishProfile) {
+                GeneralButton(previousPage == .login ? "완료" : "다음", isDisabled: !finishProfile) {
                     setUserInfo()
                 }
                 .navigationDestination(isPresented: $completeSignUp) {
@@ -159,11 +161,17 @@ struct SetProfileView: View {
                     
                     // 유저 프로필 서버에 올리기
                     try userService.setUserInfo(uid: registeredUID, info: userInfo)
+                    Configs.printDebugMessage("\(userService.loginedUser)")
                 }
                 
                 isLoading.toggle()
                 if !isDuplicate {
-                    completeSignUp.toggle()
+                    if previousPage == .signup {
+                        completeSignUp.toggle()
+                    } else {
+                        isTopDismiss.toggle()
+                    }
+//                    completeSignUp.toggle()
                 }
             } catch {
                 Configs.printDebugMessage("에러: \(error)")
@@ -171,6 +179,11 @@ struct SetProfileView: View {
             }
         }
         
+    }
+    
+    enum PreviousPage {
+        case login
+        case signup
     }
 }
 

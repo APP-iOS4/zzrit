@@ -41,6 +41,19 @@ struct SignUpView: View {
         NavigationStack {
             ScrollView {
                 VStack {
+                    HStack {
+                        Spacer()
+                        
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                                .padding()
+                                .font(.title3)
+                        }
+                        .tint(.primary)
+                    }
+                    
                     AppSlogan()
                     
                     Spacer(minLength: 50)
@@ -222,4 +235,13 @@ struct SignUpView: View {
 
 #Preview {
     SignUpView(isTopDismiss: .constant(false))
+        .environmentObject(UserService())
+        .environmentObject(ContactService())
+        .environmentObject(RecentRoomViewModel())
+        .environmentObject(RestrictionViewModel())
+        .environmentObject(LoadRoomViewModel())
+        .environmentObject(LastChatModel())
+        .environmentObject(NetworkMonitor())
+        .environmentObject(PurchaseViewModel())
+        .environmentObject(UserDefaultsClient())
 }

@@ -119,7 +119,7 @@ extension MainView {
         }
         .sheet(isPresented: $isShowingLoginView) {
         } content: {
-            LogInView()
+            LogInView(loginToggleValue: $isShowingLoginView)
         }
     }
 }

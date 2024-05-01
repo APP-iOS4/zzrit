@@ -277,7 +277,7 @@ extension RoomDetailView {
                     ParticipantNoticeView(room: room, confirmParticipation: $confirmParticipation)
                 }
                 .fullScreenCover(isPresented: $isShowingLoginView) {
-                    LogInView()
+                    LogInView(loginToggleValue: $isShowingLoginView)
                 }
             }
         }

@@ -33,6 +33,8 @@ struct LogInView: View {
     @State private var isLoading: Bool = false
     @State private var isShowingSecessionCancelView: Bool = false
     
+    @Binding var loginToggleValue: Bool
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -87,7 +89,7 @@ struct LogInView: View {
                         }
                     }
                     .navigationDestination(isPresented: $showProfile) {
-                        SetProfileView(isTopDismiss: $isShowingRegisterView, emailField: googleEmailID, registeredUID: $registerdID)
+                        SetProfileView(isTopDismiss: $loginToggleValue, emailField: googleEmailID, registeredUID: $registerdID, previousPage: .login)
                     }
                     
                     Spacer(minLength: 50)
@@ -209,6 +211,6 @@ struct LogInView: View {
 }
 
 #Preview {
-    LogInView()
+    LogInView(loginToggleValue: .constant(false))
         .environmentObject(UserService())
 }
