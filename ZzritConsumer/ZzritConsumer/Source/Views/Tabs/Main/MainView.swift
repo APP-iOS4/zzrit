@@ -16,8 +16,6 @@ struct MainView: View {
     @EnvironmentObject private var purchaseViewModel: PurchaseViewModel
     @EnvironmentObject private var restrictionViewModel: RestrictionViewModel
     
-    @StateObject private var testClass = TestClass.shared
-    
     // 우측 상단 알람 버튼 눌렀는지 안눌렀는지 검사
     @State private var isTopTrailingAction: Bool = false
     @State private var isOnline = false
