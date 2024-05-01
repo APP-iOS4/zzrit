@@ -44,7 +44,7 @@ struct RoomCardListView: View {
                 .padding(.horizontal, Configs.paddingValue)
             }
             .scrollTargetBehavior(.viewAligned)
-            .padding(.bottom, 20)
+            .padding(.bottom, 10)
             
             // 몇 번째 인덱스인지 알려주는 인디케이터
 //            HStack(spacing: 3) {

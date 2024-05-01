@@ -37,7 +37,7 @@ struct MainView: View {
                 ScrollView(.vertical) {
                     MainLocationView(isOnline: $isOnline)
                         .padding(.horizontal, 20)
-                        .padding(.bottom, 40)
+                        .padding(.vertical, 10)
 
                     LazyVStack(alignment: .leading) {
                         // 마감 임박 타이틀
@@ -130,5 +130,6 @@ extension MainView {
             .environmentObject(UserService())
             .environmentObject(LoadRoomViewModel())
             .environmentObject(LocationService())
+            .environmentObject(PurchaseViewModel())
     }
 }
