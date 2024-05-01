@@ -12,7 +12,7 @@ import ZzritKit
 struct RoomDetailView: View {
     @EnvironmentObject private var userService: UserService
     @EnvironmentObject private var recentRoomViewModel: RecentRoomViewModel
-    
+    @EnvironmentObject private var restrictionViewModel: RestrictionViewModel
     @EnvironmentObject private var locationService: LocationService
     
     @State var room: RoomModel
@@ -178,14 +178,21 @@ struct RoomDetailView: View {
             userModel = userService.loginedUser
             Task {
                 do {
-                    await updateRecentRoom()
-                    if let roomId = room.id {
-                        participants = try await roomService.joinedUsers(roomID: roomId)
+                    if let id = userModel?.id{
+                        restrictionViewModel.loadRestriction(userID: id)
+                        print(restrictionViewModel.isUnderRestriction)
                     }
-                    participantsCount = participants.count
-                    // 모임방 사진 가져오기
-                    if room.coverImage != "NONE" {
-                        roomImage = await ImageCacheManager.shared.findImageFromCache(imagePath: room.coverImage)
+                    
+                    if !restrictionViewModel.isUnderRestriction {
+                        await updateRecentRoom()
+                        if let roomId = room.id {
+                            participants = try await roomService.joinedUsers(roomID: roomId)
+                        }
+                        participantsCount = participants.count
+                        // 모임방 사진 가져오기
+                        if room.coverImage != "NONE" {
+                            roomImage = await ImageCacheManager.shared.findImageFromCache(imagePath: room.coverImage)
+                        }
                     }
                 } catch {
                     Configs.printDebugMessage("\(error)")
