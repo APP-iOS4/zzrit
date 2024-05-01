@@ -52,22 +52,16 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification) async
     -> UNNotificationPresentationOptions {
-        let userInfo = notification.request.content.userInfo
         return [[.sound, .banner, .list]]
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         let userInfo = response.notification.request.content.userInfo
-        print("푸시알림 탭댄스")
         let aps = userInfo["aps"] as? [String: AnyObject]
         
-        print("aps: \(aps)")
-        
         if let data = aps?["data"] as? [String: AnyObject] {
-            print("data: \(data)")
             if let prefix = data.keys.first, let notificationType = NotificationType(rawValue: prefix) {
                 guard let value = data.values.first as? String else { return }
-                print("처리를 시작하지")
                 NotificationViewModel.shared.setAction(type: notificationType, targetID: value)
             }
         }
