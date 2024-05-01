@@ -21,11 +21,14 @@ struct RoomCountView: View {
             if purchaseViewModel.isPurchased {
                 HStack {
                     Spacer()
-                    Text("👑 찌릿 Pro 구독 중! 👑")
+                    Text("찌릿 Pro 구독 중!")
                         .foregroundStyle(Color.pointColor)
                     Spacer()
                 }
                 .padding()
+                .background(Color(red: 255.0 / 255.0, green: 236.0 / 255.0, blue: 238.0 / 255.0))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .shadow(color: .staticGray4, radius: 3)
             } else {
                 Button {
                     purchaseViewModel.togglePresent()
