@@ -65,9 +65,6 @@ struct SearchTextField: View {
             }
         }
         .padding()
-        .onTapGesture {
-            self.endTextEditing()
-        }
         
         Divider()
         
