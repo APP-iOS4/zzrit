@@ -14,6 +14,7 @@ struct MainView: View {
     @EnvironmentObject private var loadRoomViewModel: LoadRoomViewModel
     @EnvironmentObject private var locationService: LocationService
     @EnvironmentObject private var purchaseViewModel: PurchaseViewModel
+    @EnvironmentObject private var restrictionViewModel: RestrictionViewModel
     
     // 우측 상단 알람 버튼 눌렀는지 안눌렀는지 검사
     @State private var isTopTrailingAction: Bool = false
@@ -22,6 +23,8 @@ struct MainView: View {
     @State private var isShowingCreateRoom: Bool = false
     // 로그인 FullScreenCover로 넘어가는지 결정하는 변수
     @State private var isShowingLoginView: Bool = false
+    // 제재 정보를 가져오기 위한 UserModel
+    @State private var userModel: UserModel?
     
     let userNotificationCenter = UNUserNotificationCenter.current()
     
@@ -93,13 +96,26 @@ struct MainView: View {
             Configs.printDebugMessage("뭔가 바뀌긴 했어.")
         }
     }
+    
+    private func fetchRestriction() {
+        Task {
+            userModel = try await userService.loggedInUserInfo()
+            if let id = userModel?.id{
+                restrictionViewModel.loadRestriction(userID: id)
+                print(restrictionViewModel.isUnderRestriction)
+            }
+        }
+    }
 }
 
 extension MainView {
     private var createRoomButton: some View {
         Button {
             if isLogined {
-                isShowingCreateRoom.toggle()
+                fetchRestriction()
+                if !restrictionViewModel.isUnderRestriction {
+                    isShowingCreateRoom.toggle()
+                }
             } else {
                 isShowingLoginView.toggle()
             }
