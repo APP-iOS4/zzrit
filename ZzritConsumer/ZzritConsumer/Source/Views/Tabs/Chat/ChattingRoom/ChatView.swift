@@ -675,10 +675,10 @@ struct ChatView: View {
         // 현재 내가 보낸 이미지가 있음을 알려줌
         isSendImage.toggle()
         
-        // 이미지 사이즈 조절 채팅방 최대 이미지 가로 길이 1024
-        guard let selectedImage = (selectedUIImage?.size.width)! < 840 ? selectedUIImage : selectedUIImage?.resizeWithWidth(width: 840) else { return }
+        // 이미지 사이즈 조절 채팅방 최대 이미지 가로 길이 840
+        guard let resizeImage = (selectedUIImage?.size.width)! < 840 ? selectedUIImage : selectedUIImage?.resizeWithWidth(width: 840) else { return }
         // 무손실 png파일로 변경
-        guard let imageData = selectedImage.jpegData(compressionQuality: 5.0) else { return }
+        guard let imageData = resizeImage.pngData() else { return }
         // 이미지 경로 설정
         let dayString = DateService.shared.formattedString(date: Date(), format: "yyyyMMddHHmmss")
         let roomID = room.id ?? "NONE"
@@ -691,7 +691,7 @@ struct ChatView: View {
                 // 파베 메시지로 올림
                 try await chattingService.sendMessage(uid: uid, message: imagePath, type: .image)
                 // 캐시에 올림
-                ImageCacheManager.shared.updateImageFirst(name: imagePath, image: selectedImage)
+                ImageCacheManager.shared.updateImageFirst(name: imagePath, image: resizeImage)
                 // 이미지 전송 끝냄
                 DispatchQueue.main.async {
                     isSending.toggle()

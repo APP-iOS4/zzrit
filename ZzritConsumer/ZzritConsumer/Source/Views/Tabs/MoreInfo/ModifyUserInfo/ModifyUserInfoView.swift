@@ -93,7 +93,7 @@ struct ModifyUserInfoView: View {
         let isImageChange = selectedImage != originImage
         let setImagePath = userService.loginedUser?.userImage
         
-        if isImageChange, let selectedImage, let imageData = selectedImage.pngData()  {
+        if isImageChange, let selectedImage, let resizeImage = ((selectedImage.size.width) < 300 ? selectedImage : selectedImage.resizeWithWidth(width: 300) ), let imageData = resizeImage.pngData()  {
             Task {
                 do {
                     // 닉네임 확인
@@ -121,7 +121,7 @@ struct ModifyUserInfoView: View {
                         _ = try await userService.loggedInUserInfo()
                         
                         // 이미지 캐시 저장
-                        ImageCacheManager.shared.updateImageFirst(name: imagePath, image: selectedImage)
+                        ImageCacheManager.shared.updateImageFirst(name: imagePath, image: resizeImage)
                     }
                     
                     isLoading.toggle()
