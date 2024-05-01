@@ -92,6 +92,8 @@ struct ChatView: View {
     @State private var isGoOutRoomAlert = false
     // 신고하기 시트
     @State private var isContactShow = false
+    // 나가기 불가능 알림
+    @State private var isCannotGoOutAlert = false
     
     private var confirmDate: Date {
         return Calendar.current.date(byAdding: .day, value: 1, to: room.dateTime) ?? Date()
@@ -414,7 +416,13 @@ struct ChatView: View {
                     }
                     Button  {
                         // 모임 나가기
-                        isGoOutRoomAlert.toggle()
+                        if isActive {
+                            // 활성화된 모임일때 나갈수 있음
+                            isGoOutRoomAlert.toggle()
+                        } else {
+                            // 비활성화된 모임은 나갈수 없음
+                            isCannotGoOutAlert.toggle()
+                        }
                     } label: {
                         // TODO: 시스템 이미지 바꾸기
                         Label("모임 나가기", systemImage: "door.right.hand.open")
@@ -442,6 +450,10 @@ struct ChatView: View {
                     Text("정말 이 모임을 나가시겠습니까?")
                         .fontWeight(.bold)
                 }
+                .alert(Text("모임이 마감된 방은 나갈 수 없습니다."), isPresented: $isCannotGoOutAlert) {
+                    
+                }
+                
                 .sheet(isPresented: $isRoomDetailShow) {
                     // 모임 상세보기 sheet
                     RoomDetailView(room: room)
