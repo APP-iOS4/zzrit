@@ -90,7 +90,6 @@ struct RoomDetailView: View {
     // MARK: - body
     
     var body: some View {
-        ZStack(alignment: .bottom) {
             ScrollView {
                 LazyVStack(alignment: .leading) {
                     // 상단 타이틀 Stack
@@ -135,10 +134,8 @@ struct RoomDetailView: View {
                 .padding(.horizontal, 20)
             }
             .padding(.vertical, 1)
-            .padding(.bottom, 85)
-            
+        
             participateRoomButton
-        }
         .toolbarRole(.editor)
         .toolbar {
             if isLogined {
@@ -288,7 +285,7 @@ extension RoomDetailView {
                 }
             }
         }
-        .padding(20)
+        .padding(.horizontal, Configs.paddingValue)
         .task {
             do {
                 if isLogined {
@@ -307,13 +304,16 @@ extension RoomDetailView {
 
 struct disableTextModifier: ViewModifier {
     func body(content: Content) -> some View {
-        content
-            .foregroundStyle(.black)
-            .fontWeight(.semibold)
-            .padding()
-            .frame(maxWidth: .infinity)
-            .background(Color.staticGray5)
-            .clipShape(.rect(cornerRadius: 10))
+        VStack {
+            content
+                .foregroundStyle(.black)
+                .fontWeight(.semibold)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.staticGray5)
+                .clipShape(.rect(cornerRadius: 10))
+        }
+        .padding(.bottom, 20)
     }
 }
 
