@@ -247,41 +247,30 @@ extension RoomDetailView {
                 Text("참여 하실 수 없습니다(점수 제한)")
                     .modifier(disableTextModifier())
             } else {
-                GeneralButton("참여하기", isDisabled: false) {
-                    if isLogined {
+                if isLogined {
+                    GeneralButton("참여하기", isDisabled: false) {
                         isParticipant.toggle()
-                    } else {
-                        alertToLogin.toggle()
                     }
-                }
-                .navigationDestination(isPresented: $confirmParticipation) {
-                    if let roomID = room.id {
-                        ChatView(roomID: roomID, room: room, isActive: $isActive)
+                    .navigationDestination(isPresented: $confirmParticipation) {
+                        if let roomID = room.id {
+                            ChatView(roomID: roomID, room: room, isActive: $isActive)
+                        }
                     }
-                }
-                .alert("로그인 알림", isPresented: $alertToLogin) {
-                    // 취소 버튼
-                    Button{
-                        alertToLogin = false
-                    } label: {
-                        Label("취소", systemImage: "trash")
-                            .labelStyle(.titleOnly)
+                    .fullScreenCover(isPresented: $isParticipant) {
+                        ParticipantNoticeView(room: room, confirmParticipation: $confirmParticipation)
                     }
-                    // 로그인 시트 올리는 버튼
-                    Button {
+                } else {
+                    GeneralButton("로그인", isDisabled: false) {
                         isShowingLoginView.toggle()
-                    } label: {
-                        Label("로그인", systemImage: "person.circle")
-                            .labelStyle(.titleOnly)
                     }
-                } message: {
-                    Text("모임에 참가하기 위해서는 로그인이 필요합니다.")
-                }
-                .fullScreenCover(isPresented: $isParticipant) {
-                    ParticipantNoticeView(room: room, confirmParticipation: $confirmParticipation)
-                }
-                .fullScreenCover(isPresented: $isShowingLoginView) {
-                    LogInView(loginToggleValue: $isShowingLoginView)
+                    .navigationDestination(isPresented: $confirmParticipation) {
+                        if let roomID = room.id {
+                            ChatView(roomID: roomID, room: room, isActive: $isActive)
+                        }
+                    }
+                    .fullScreenCover(isPresented: $isShowingLoginView) {
+                        LogInView(loginToggleValue: $isShowingLoginView)
+                    }
                 }
             }
         }
