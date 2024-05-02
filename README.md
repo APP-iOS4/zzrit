@@ -34,7 +34,7 @@
 - Database
     - Xcode 15.3
     - Swift 5.10
-    - Firebase 10.25.0
+    - Firebase 10.23.1
 <br>
 
 ### 프로젝트 실행 방법
@@ -143,13 +143,13 @@ git clone https://github.com/APP-iOS4/zzrit
 ### We are Avengers
 |담당|역할|담당자||한줄 소감|
 |:---:|:---:|:---:|:---:|:---|
-||PM|정재웅<br>[@jjw8959](https://github.com/jjw8959)|<img src="https://avatars.githubusercontent.com/u/76551806?v=4" width="70%">|눈코뜰새 없이 너무나도 바쁜 한달이었습니다. 여러분 어딜가시던 번창하십쇼!|
-|||강건<br>[@kangsworkspace](https://github.com/kangsworkspace)|<img src="https://avatars.githubusercontent.com/u/141600830?v=4" width="70%">|리릿이는 이제 보내줄때가 되었다...|
-|||김예지<br>[@nxtlevYeah](https://github.com/nxtlevYeah)|<img src="https://avatars.githubusercontent.com/u/53979393?v=4" width="70%">|다들 행복하슈크림 요즘 너무비싸.|
-|||박상현<br>[@iosHumhae](https://github.com/iosHumhae)|<img src="https://avatars.githubusercontent.com/u/104145414?v=4" width="70%">|새로운 기술을 접해볼 수 있어 재미있는 프로젝트였고, 향후 다른 프로젝트를 진행하더라도 이번 프로젝트를 발판삼아 어떻게든 구현할 수 있겠다는 자신감을 얻게 되었습니다.|
-|||이선준<br>[@SunJuneL](https://github.com/SunJuneL)|<img src="https://avatars.githubusercontent.com/u/115583150?v=4" width="70%">| 다들 지금까지 너무 고생 많았습니다. 개발자의 길을 포기하지 않고, 사회에서 만날 수 있었으면 좋겠습니다.|
-|||이우석<br>[@wl00ie19](https://github.com/wl00ie19)|<img src="https://avatars.githubusercontent.com/u/111495636?v=4" width="70%">|Swift 프로그래밍과 모바일 앱 개발과 관련된 경험이 거의 없었고, Git도 처음 사용하여 다소 미흡한 점들도 많았으나, 다른 팀원 분들과 같이 작업하며 협업하는 능력과 부족한 앱 개발 능력을 키울 수 있었습니다.|
-|||하윤호<br>[@Hayunho](https://github.com/Hayunho)|<img src="https://avatars.githubusercontent.com/u/101854288?v=4" width="70%">|다들 1달 동안 정말 고생이 많으셨습니다.|
+|모델|PM|정재웅<br>[@jjw8959](https://github.com/jjw8959)|<img src="https://avatars.githubusercontent.com/u/76551806?v=4" width="70%">|눈코뜰새 없이 너무나도 바쁜 한달이었습니다. 여러분 어딜가시던 번창하십쇼!|
+|관리자|팀장|강건<br>[@kangsworkspace](https://github.com/kangsworkspace)|<img src="https://avatars.githubusercontent.com/u/141600830?v=4" width="70%">|리릿이는 이제 보내줄때가 되었다...|
+|소비자||김예지<br>[@nxtlevYeah](https://github.com/nxtlevYeah)|<img src="https://avatars.githubusercontent.com/u/53979393?v=4" width="70%">|다들 행복하슈크림 요즘 너무비싸.|
+|모델||박상현<br>[@iosHumhae](https://github.com/iosHumhae)|<img src="https://avatars.githubusercontent.com/u/104145414?v=4" width="70%">|새로운 기술을 접해볼 수 있어 재미있는 프로젝트였고, 향후 다른 프로젝트를 진행하더라도 이번 프로젝트를 발판삼아 어떻게든 구현할 수 있겠다는 자신감을 얻게 되었습니다.|
+|소비자|팀장|이선준<br>[@SunJuneL](https://github.com/SunJuneL)|<img src="https://avatars.githubusercontent.com/u/115583150?v=4" width="70%">| 다들 지금까지 너무 고생 많았습니다. 개발자의 길을 포기하지 않고, 사회에서 만날 수 있었으면 좋겠습니다.|
+|관리자||이우석<br>[@wl00ie19](https://github.com/wl00ie19)|<img src="https://avatars.githubusercontent.com/u/111495636?v=4" width="70%">|Swift 프로그래밍과 모바일 앱 개발과 관련된 경험이 거의 없었고, Git도 처음 사용하여 다소 미흡한 점들도 많았으나, 다른 팀원 분들과 같이 작업하며 협업하는 능력과 부족한 앱 개발 능력을 키울 수 있었습니다.|
+|소비자||하윤호<br>[@Hayunho](https://github.com/Hayunho)|<img src="https://avatars.githubusercontent.com/u/101854288?v=4" width="70%">|다들 1달 동안 정말 고생이 많으셨습니다.|
 
 <br>
 <br>
