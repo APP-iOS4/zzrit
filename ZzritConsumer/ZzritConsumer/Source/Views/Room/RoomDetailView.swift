@@ -323,5 +323,6 @@ struct disableTextModifier: ViewModifier {
             .environmentObject(UserService())
             .environmentObject(RecentRoomViewModel())
             .environmentObject(LocationService())
+            .environmentObject(RestrictionViewModel())
     }
 }
