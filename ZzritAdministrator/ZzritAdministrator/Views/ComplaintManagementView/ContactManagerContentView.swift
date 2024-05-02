@@ -60,14 +60,17 @@ struct ContactManagerContentView: View {
                                         
                                         Spacer()
                                         
-                                        Button {
-                                            
-                                        } label: {
-                                            HStack {
-                                                Text("모임 상세정보")
-                                                Image(systemName: "chevron.right")
+                                        if let room = contactViewModel.targetRoomModel {
+                                            NavigationLink {
+                                                RoomDetailView(room: room)
+                                            } label: {
+                                                HStack {
+                                                    Text("모임 상세정보")
+                                                    Image(systemName: "chevron.right")
+                                                }
                                             }
                                         }
+                                        
                                     }
                                 }
                             }

@@ -23,7 +23,7 @@ final class RoomViewModel: ObservableObject {
     func loadRooms() {
         Task {
             do {
-                rooms += try await roomService.loadRoom(isInitial: initialFetch, status: "all", title: "")
+                rooms += try await roomService.searchLoadRoom(isInitial: initialFetch, status: "all", title: "")
                 initialFetch = false
                 // 중복제거
                 rooms = Array(Set(rooms))
@@ -37,7 +37,7 @@ final class RoomViewModel: ObservableObject {
     func searchRooms(searchText: String) {
         Task {
             do {
-                rooms += try await roomService.loadRoom(isInitial: initialFetch, status: "all", title: searchText)
+                rooms += try await roomService.searchLoadRoom(isInitial: initialFetch, status: "all", title: searchText)
                 // 중복제거
                 rooms = Array(Set(rooms))
                 initialFetch = false

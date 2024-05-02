@@ -42,53 +42,55 @@ struct ComplaintDetailView: View {
     }
     
     var body: some View {
-        VStack {
-            ContactManageUserInfoView()
-            HStack {
-                VStack {
-                    ContactManagerContentView(contact: $contact)
-                    ContactManagerAnswerView(contactAnswerText: $contactAnswerText)
-                    HStack {
-                        Button {
-                            isShowingModalView.toggle()
-                        } label: {
-                            StaticTextView(title: "돌아가기", width: 120, isActive: .constant(true))
-                        }
-                        
-                        Spacer()
-                        
-                        Button {
-                            if !contactAnswerText.isEmpty {
-                                isContactAlert.toggle()
-                                #if canImport(UIKit)
-                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                #endif
+        NavigationStack {
+            VStack {
+                ContactManageUserInfoView()
+                HStack {
+                    VStack {
+                        ContactManagerContentView(contact: $contact)
+                        ContactManagerAnswerView(contactAnswerText: $contactAnswerText)
+                        HStack {
+                            Button {
+                                isShowingModalView.toggle()
+                            } label: {
+                                StaticTextView(title: "돌아가기", width: 120, isActive: .constant(true))
                             }
-                        } label: {
-                            StaticTextView(title: "답변 등록", width: 120, isActive: .constant(true))
+                            
+                            Spacer()
+                            
+                            Button {
+                                if !contactAnswerText.isEmpty {
+                                    isContactAlert.toggle()
+                                    #if canImport(UIKit)
+                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                    #endif
+                                }
+                            } label: {
+                                StaticTextView(title: "답변 등록", width: 120, isActive: .constant(true))
+                            }
                         }
                     }
                 }
             }
-        }
-        .padding()
-        .alert("답변을 등록하시겠습니까?", isPresented: $isContactAlert) {
-            Button("취소하기", role: .cancel){
-                isContactAlert.toggle()
+            .padding()
+            .alert("답변을 등록하시겠습니까?", isPresented: $isContactAlert) {
+                Button("취소하기", role: .cancel){
+                    isContactAlert.toggle()
+                }
+                Button("등록하기"){
+                    contactViewModel.replyContact(contact: contact ?? .init(category: .app, title: "", content: "", requestedDated: Date(), requestedUser: ""),
+                                                  replyContent: contactAnswerText)
+                    
+                    contactAnswerText = ""
+                    
+                    isContactAlert.toggle()
+                }
             }
-            Button("등록하기"){
-                contactViewModel.replyContact(contact: contact ?? .init(category: .app, title: "", content: "", requestedDated: Date(), requestedUser: ""),
-                                              replyContent: contactAnswerText)
-                
-                contactAnswerText = ""
-                
-                isContactAlert.toggle()
+            .onTapGesture {
+                #if canImport(UIKit)
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                #endif
             }
-        }
-        .onTapGesture {
-            #if canImport(UIKit)
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-            #endif
         }
     }
 }
