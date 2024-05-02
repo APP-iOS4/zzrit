@@ -40,7 +40,7 @@
 ### 프로젝트 실행 방법
 ```
 프로젝트 빌드 시 GoogleService-Info.plist, Secrets.configs 파일이 필요합니다.
-위의 두 파일은 본 프로젝트 실행 시 jjw8959@naver.com으로 요청해주세요.
+위의 두 파일은 본 프로젝트 실행 시 06.mat_bluer@icloud.com으로 요청해주세요.
 
 FirestoreDatabase 및 FirebaseStorage 생성 여부를 확인하세요.
 ```
@@ -157,7 +157,7 @@ git clone https://github.com/APP-iOS4/zzrit
 ## Notice
 - 앱 내의 이미지 관련하여 아래 이메일로 문제를 제기해주시면, 확인 후 즉각 조치하도록 하겠습니다.
 ```
-jjw8959@naver.com
+06.mat_bluer@icloud.com
 ```
 <br>
 
