@@ -93,25 +93,29 @@ struct RoomDetailView: View {
             ScrollView {
                 LazyVStack(alignment: .leading) {
                     // 상단 타이틀 Stack
-                    HStack {
+                    VStack(alignment: .leading, spacing: 10) {
                         // 카테고리
                         RoomCategoryView(room.category.rawValue)
                         
                         // 타이틀
                         Text(room.title)
-                            .font(.title3)
+                            .font(.title2.bold())
                     }
                     
                     // 썸네일 이미지
                     RoundedRectangle(cornerRadius: Configs.cornerRadius)
                         .foregroundStyle(.clear)
-                        .aspectRatio(contentMode: .fill)
+                        .aspectRatio(contentMode: .fit)
                         .frame(maxHeight: 180)
                         .background {
                             fetchRoomImage(image: roomImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(maxHeight: 180)
+                                .background {
+                                    RoundedRectangle(cornerRadius: Configs.cornerRadius)
+                                        .foregroundStyle(Color.staticGray6)
+                                }
                         }
                         .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
                         .padding(.bottom, 20)
@@ -247,41 +251,30 @@ extension RoomDetailView {
                 Text("참여 하실 수 없습니다(점수 제한)")
                     .modifier(disableTextModifier())
             } else {
-                GeneralButton("참여하기", isDisabled: false) {
-                    if isLogined {
+                if isLogined {
+                    GeneralButton("참여하기", isDisabled: false) {
                         isParticipant.toggle()
-                    } else {
-                        alertToLogin.toggle()
                     }
-                }
-                .navigationDestination(isPresented: $confirmParticipation) {
-                    if let roomID = room.id {
-                        ChatView(roomID: roomID, room: room, isActive: $isActive)
+                    .navigationDestination(isPresented: $confirmParticipation) {
+                        if let roomID = room.id {
+                            ChatView(roomID: roomID, room: room, isActive: $isActive)
+                        }
                     }
-                }
-                .alert("로그인 알림", isPresented: $alertToLogin) {
-                    // 취소 버튼
-                    Button{
-                        alertToLogin = false
-                    } label: {
-                        Label("취소", systemImage: "trash")
-                            .labelStyle(.titleOnly)
+                    .fullScreenCover(isPresented: $isParticipant) {
+                        ParticipantNoticeView(room: room, confirmParticipation: $confirmParticipation)
                     }
-                    // 로그인 시트 올리는 버튼
-                    Button {
+                } else {
+                    GeneralButton("로그인", isDisabled: false) {
                         isShowingLoginView.toggle()
-                    } label: {
-                        Label("로그인", systemImage: "person.circle")
-                            .labelStyle(.titleOnly)
                     }
-                } message: {
-                    Text("모임에 참가하기 위해서는 로그인이 필요합니다.")
-                }
-                .fullScreenCover(isPresented: $isParticipant) {
-                    ParticipantNoticeView(room: room, confirmParticipation: $confirmParticipation)
-                }
-                .fullScreenCover(isPresented: $isShowingLoginView) {
-                    LogInView(loginToggleValue: $isShowingLoginView)
+                    .navigationDestination(isPresented: $confirmParticipation) {
+                        if let roomID = room.id {
+                            ChatView(roomID: roomID, room: room, isActive: $isActive)
+                        }
+                    }
+                    .fullScreenCover(isPresented: $isShowingLoginView) {
+                        LogInView(loginToggleValue: $isShowingLoginView)
+                    }
                 }
             }
         }

@@ -48,8 +48,8 @@ struct MainLocationView: View {
 
         }
         .background(RoundedRectangle(cornerRadius: 10)
-            .foregroundStyle(Color(red: 255.0 / 255.0, green: 236.0 / 255.0, blue: 238.0 / 255.0))
-            .shadow(color: .black.opacity(0.2), radius: 3))
+            .foregroundStyle(Color(red: 255.0 / 255.0, green: 236.0 / 255.0, blue: 238.0 / 255.0)))
+        
         // 오프라인 위치 검색 시트 토글
         .sheet(isPresented: $isSheetOn) {
             OfflineLocationSearchView(searchType: .currentLocation)
