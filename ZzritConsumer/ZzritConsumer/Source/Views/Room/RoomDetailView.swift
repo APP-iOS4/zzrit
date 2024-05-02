@@ -94,13 +94,13 @@ struct RoomDetailView: View {
             ScrollView {
                 LazyVStack(alignment: .leading) {
                     // 상단 타이틀 Stack
-                    HStack {
+                    VStack(alignment: .leading, spacing: 10) {
                         // 카테고리
                         RoomCategoryView(room.category.rawValue)
                         
                         // 타이틀
                         Text(room.title)
-                            .font(.title3)
+                            .font(.title2.bold())
                     }
                     
                     // 썸네일 이미지
