@@ -52,12 +52,13 @@ struct RoomInfoView: View {
                 .fontWeight(.bold)
                 .foregroundStyle(Color.pointColor)
                 .padding(.bottom, 5)
-                .padding(.top, 13)
+                .padding(.top, 18)
+            
             
             Text("\(locationString)")
                 .foregroundStyle(Color.staticGray1)
                 .padding(.bottom, 5)
-                .padding(.top, 13)
+                .padding(.top, 18)
             
             Text("시간")
                 .fontWeight(.bold)
@@ -118,4 +119,5 @@ struct RoomInfoView: View {
 
 #Preview {
     RoomInfoView(room: RoomModel(title: "같이 모여서 가볍게 치맥하실 분...", category: .hobby, dateTime: Date(), content: "", coverImage: "", isOnline: false, status: .activation, leaderID: "", limitPeople: 8, scoreLimitaion: 40, genderLimitation: .female), participantsCount: 0)
+        .environmentObject(LocationService())
 }
