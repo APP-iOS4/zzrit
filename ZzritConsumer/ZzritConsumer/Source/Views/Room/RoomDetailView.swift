@@ -105,13 +105,17 @@ struct RoomDetailView: View {
                     // 썸네일 이미지
                     RoundedRectangle(cornerRadius: Configs.cornerRadius)
                         .foregroundStyle(.clear)
-                        .aspectRatio(contentMode: .fill)
+                        .aspectRatio(contentMode: .fit)
                         .frame(maxHeight: 180)
                         .background {
                             fetchRoomImage(image: roomImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(maxHeight: 180)
+                                .background {
+                                    RoundedRectangle(cornerRadius: Configs.cornerRadius)
+                                        .foregroundStyle(Color.staticGray6)
+                                }
                         }
                         .clipShape(RoundedRectangle(cornerRadius: Configs.cornerRadius))
                         .padding(.bottom, 20)
