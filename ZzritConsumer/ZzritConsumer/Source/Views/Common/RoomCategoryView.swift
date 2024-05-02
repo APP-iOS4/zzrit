@@ -20,11 +20,13 @@ struct RoomCategoryView: View {
     
     var body: some View {
         Text(title)
-            .padding(10)
+            .padding(.horizontal, 7)
+            .padding(.vertical, 5)
             .overlay {
                 Capsule()
                     .stroke(lineWidth: 1.0)
             }
+            .font(.caption)
             .foregroundStyle(Color.pointColor)
             .background(Color.lightPointColor)
             .clipShape(Capsule())
