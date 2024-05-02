@@ -33,8 +33,8 @@ struct ProfileInfoView: View {
             if let userImage = userImage {
                 Image(uiImage: userImage)
                 .resizable()
+                .aspectRatio(contentMode: .fill)
                 .frame(width: 50, height: 50)
-                .aspectRatio(1.0, contentMode: .fill)
                 .clipShape(.circle)
                 .overlay {
                     Circle()

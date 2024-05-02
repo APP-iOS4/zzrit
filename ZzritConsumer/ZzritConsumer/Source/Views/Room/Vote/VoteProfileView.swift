@@ -19,7 +19,7 @@ struct VoteProfileView: View {
             if let userImage = userImage {
                 Image(uiImage: userImage)
                     .resizable()
-                    .aspectRatio(1.0, contentMode: .fit)
+                    .aspectRatio(contentMode: .fit)
                     .clipShape(.circle)
                     .overlay {
                         if selected {

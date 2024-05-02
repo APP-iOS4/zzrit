@@ -128,8 +128,8 @@ struct ChatMessageCellView: View {
             if let image = image {
                 Image(uiImage: image)
                     .resizable()
-                    .clipShape(Circle())
                     .aspectRatio(contentMode: .fill)
+                    .clipShape(Circle())
                     .frame(width: 50, height: 50)
             } else {
                 // 이미지가 없거나 로드에 실패했을때

@@ -65,7 +65,7 @@ struct RecentWatchRoomView: View {
                         VStack(spacing: 0) {
                             Image(.zziritLogo)
                                 .resizable()
-                                .aspectRatio(contentMode: .fit)
+                                .aspectRatio(contentMode: .fill)
                                 .frame(width: 100)
                             
                             Text("최근 본 모임이 없어요")
