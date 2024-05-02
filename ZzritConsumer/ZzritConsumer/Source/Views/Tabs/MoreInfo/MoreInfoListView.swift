@@ -86,6 +86,12 @@ struct MoreInfoListView: View {
             TermView(type: selectedTermType)
         }
         .alert("로그아웃", isPresented: $isShowingAlert) {
+            Button(role: .cancel) {
+    
+            } label: {
+                Text("취소")
+            }
+            
             Button(role: .destructive) {
                 logout()
             } label: {

@@ -122,7 +122,7 @@ struct ParticipantNoticeView: View {
                 HStack {
                     Image(systemName: "checkmark.circle")
                         .foregroundStyle(isCheck ? Color.pointColor : Color.staticGray2)
-                    Text("위 내용을 확인했으며, 동의 시 채팅방으로 입장합니다.")
+                    Text("위 내용을 확인했습니다.")
                         .font(.caption)
                         .foregroundStyle(Color.staticGray2)
                 }

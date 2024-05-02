@@ -66,6 +66,12 @@ struct OfflineSearchHistoryView: View {
             }
         }
         .alert("검색기록 전체삭제", isPresented: $isShowingAlert) {
+            Button(role: .cancel) {
+                
+            } label: {
+                Text("취소")
+            }
+            
             Button(role: .destructive) {
                 LocalStorage.shared.clearHistory()
                 histories.removeAll()

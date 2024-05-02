@@ -437,9 +437,9 @@ struct ChatView: View {
                 .alert(Text("모임 나가기"), isPresented: $isGoOutRoomAlert) {
                     // 모임나가기 alert
                     Button(role: .cancel) {
-                        isGoOutRoomAlert.toggle()
+                        
                     } label: {
-                        Text("취소하기")
+                        Text("취소")
                     }
                     Button(role: .destructive) {
                         isGoOutRoomAlert.toggle()

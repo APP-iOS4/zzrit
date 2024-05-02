@@ -136,6 +136,12 @@ struct SecessionView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .alert("회원탈퇴", isPresented: $isShowingSecessionAlert) {
+            Button(role: .cancel) {
+                
+            } label: {
+                Text("취소")
+            }
+            
             Button(role: .destructive) {
                 secession()
             } label: {

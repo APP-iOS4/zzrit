@@ -131,7 +131,7 @@ struct RoomDetailView: View {
                 roomViewModel.changeStatus(roomID: room.id!, status: .activation)
                 room.status = .activation
             }),
-            secondaryButton: .cancel(Text("취소")))
+            secondaryButton: .cancel(Text("취소하기")))
     }
 }
 

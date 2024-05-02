@@ -154,7 +154,7 @@ struct RoomDetailView: View {
         }
         .alert("신고하기", isPresented: $alertToReport) {
             Button{
-                alertToReport = false
+                
             } label: {
                 Label("취소", systemImage: "trash")
                     .labelStyle(.titleOnly)
