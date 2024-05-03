@@ -148,7 +148,7 @@ git clone https://github.com/APP-iOS4/zzrit
 |소비자||김예지<br>[@nxtlevYeah](https://github.com/nxtlevYeah)|<img src="https://avatars.githubusercontent.com/u/53979393?v=4" width="70%">|다들 행복하슈크림 요즘 너무비싸.|
 |모델||박상현<br>[@iosHumhae](https://github.com/iosHumhae)|<img src="https://avatars.githubusercontent.com/u/104145414?v=4" width="70%">|새로운 기술을 접해볼 수 있어 재미있는 프로젝트였고, 향후 다른 프로젝트를 진행하더라도 이번 프로젝트를 발판삼아 어떻게든 구현할 수 있겠다는 자신감을 얻게 되었습니다.|
 |소비자|팀장|이선준<br>[@SunJuneL](https://github.com/SunJuneL)|<img src="https://avatars.githubusercontent.com/u/115583150?v=4" width="70%">| 다들 지금까지 너무 고생 많았습니다. 개발자의 길을 포기하지 않고, 사회에서 만날 수 있었으면 좋겠습니다.|
-|관리자||이우석<br>[@wl00ie19](https://github.com/wl00ie19)|<img src="https://avatars.githubusercontent.com/u/111495636?v=4" width="70%">|Swift 프로그래밍과 모바일 앱 개발과 관련된 경험이 거의 없었고, Git도 처음 사용하여 다소 미흡한 점들도 많았으나, 다른 팀원 분들과 같이 작업하며 협업하는 능력과 부족한 앱 개발 능력을 키울 수 있었습니다.|
+|관리자||이우석<br>[@wl00ie19](https://github.com/wl00ie19)|<img src="https://avatars.githubusercontent.com/u/111495636?v=4" width="70%">|모바일 앱 개발과 관련된 경험이 거의 없어 미흡한 점들도 많았으나, 다른 팀원 분들과 같이 작업하며 협업하는 능력과 부족한 앱 개발 능력을 키울 수 있었습니다. 모두 고생 많으셨습니다~!|
 |소비자||하윤호<br>[@Hayunho](https://github.com/Hayunho)|<img src="https://avatars.githubusercontent.com/u/101854288?v=4" width="70%">|다들 1달 동안 정말 고생이 많으셨습니다.|
 
 <br>
